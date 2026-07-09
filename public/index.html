@@ -206,14 +206,14 @@
   <a href="index.html" class="nav-logo"><span class="dot"></span> <span data-i18n="nav.home">升学数据</span></a>
   <div class="nav-links">
     <a href="index.html" class="nav-link active" data-i18n="nav.home">首页</a>
-    <a href="pages/admission.html" class="nav-link" data-i18n="nav.admission">录取对照</a>
+    <a href="pages/admission.html" class="nav-link" data-i18n="nav.admission">录取对照表</a>
     <a href="pages/rankings.html" class="nav-link" data-i18n="nav.rankings">排名参考</a>
     <a href="pages/insights.html" class="nav-link" data-i18n="nav.insights">关键发现</a>
     <a href="pages/tracker.html" class="nav-link" data-i18n="nav.tracker">申请追踪</a>
     <a href="pages/community.html" class="nav-link" data-i18n="nav.community">社区</a>
     <a href="pages/recommend.html" class="nav-link" data-i18n="nav.recommend">AI 选校</a>
-    <a href="pages/files.html" class="nav-link" data-i18n="nav.files">资料文件</a>
-    <a href="pages/download.html" class="nav-link" data-i18n="nav.download">下载App</a>
+    <a href="pages/files.html" class="nav-link" data-i18n="nav.files">文件</a>
+    <a href="pages/download.html" class="nav-link" data-i18n="nav.download">下载APP</a>
     <a href="pages/notifications.html" class="nav-link" data-i18n="nav.notifications">🔔 通知</a>
     <button id="navAuthBtn" class="nav-auth-btn" onclick="AUTH.handleNavAuthClick()" data-i18n="nav.login">登录</button>
   </div>
@@ -400,51 +400,14 @@
 <script>
 // ===== 页面初始化 =====
 (async function init() {
-  // 初始化 i18n
+  // 先初始化 i18n，确保翻译加载完成
   if (typeof I18N !== 'undefined') {
     await I18N.init();
   }
-})();
-
-// Scroll animations
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold:0.1, rootMargin:'0px 0px -20px 0px' });
-document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-// Auth initialization
-async function updatePrivateContent() {
-  if (!AUTH.isLoggedIn()) return;
-  const data = await AUTH.fetchData();
-  if (!data) return;
-
-  // Populate stat cards
-  const gpaEl = document.querySelector('.data-gpa');
-  const ieltsTotalEl = document.querySelector('.data-ielts-total');
-  const ieltsDetailEl = document.querySelector('.data-ielts-detail');
-  if (gpaEl) gpaEl.textContent = data.gpa;
-  if (ieltsTotalEl) ieltsTotalEl.textContent = data.ielts.overall;
-  if (ieltsDetailEl) {
-    ieltsDetailEl.textContent = `写${data.ielts.writing} / 读${data.ielts.reading} / 听${data.ielts.listening} / 口${data.ielts.speaking}`;
-  }
-
-  // Show private sections
-  document.querySelectorAll('.private-section').forEach(el => el.style.display = '');
-  document.querySelectorAll('.visitor-only').forEach(el => el.style.display = 'none');
-}
-
-AUTH.onChange(async (logged) => {
+  // 再初始化 Auth（此时 I18N.t() 可用）
   AUTH.initPage();
-  if (logged) {
-    await updatePrivateContent();
-  } else {
-    document.querySelectorAll('.private-section').forEach(el => el.style.display = 'none');
-    document.querySelectorAll('.visitor-only').forEach(el => el.style.display = '');
-  }
-});
-
-AUTH.initPage();
-if (AUTH.isLoggedIn()) updatePrivateContent();
+  if (AUTH.isLoggedIn()) updatePrivateContent();
+})();
 
 // ======== 数据亮点（公开） ========
 const HIGHLIGHTS_POOL = [
@@ -500,6 +463,34 @@ function refreshHighlights() {
 
 // 初始化：页面加载时随机展示一组
 document.addEventListener('DOMContentLoaded', refreshHighlights);
+
+// Auth initialization
+async function updatePrivateContent() {
+  if (!AUTH.isLoggedIn()) return;
+  const data = await AUTH.fetchData();
+  if (!data) return;
+
+  const gpaEl = document.querySelector('.data-gpa');
+  const ieltsTotalEl = document.querySelector('.data-ielts-total');
+  const ieltsDetailEl = document.querySelector('.data-ielts-detail');
+  if (gpaEl) gpaEl.textContent = data.gpa;
+  if (ieltsTotalEl) ieltsTotalEl.textContent = data.ielts ? data.ielts.overall : '';
+  if (ieltsDetailEl && data.ielts) {
+    ieltsDetailEl.textContent = `写${data.ielts.writing} / 读${data.ielts.reading} / 听${data.ielts.listening} / 口${data.ielts.speaking}`;
+  }
+  document.querySelectorAll('.private-section').forEach(el => el.style.display = '');
+  document.querySelectorAll('.visitor-only').forEach(el => el.style.display = 'none');
+}
+
+AUTH.onChange(async (logged) => {
+  AUTH.initPage();
+  if (logged) {
+    await updatePrivateContent();
+  } else {
+    document.querySelectorAll('.private-section').forEach(el => el.style.display = 'none');
+    document.querySelectorAll('.visitor-only').forEach(el => el.style.display = '');
+  }
+});
 </script>
 </body>
 </html>
