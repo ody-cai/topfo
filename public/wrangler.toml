@@ -8,3 +8,12 @@ binding = "AI"
 binding = "topfo_chat"
 database_name = "topfo-chat"
 database_id = "53a67cd5-ebb9-4c99-a14c-9a844663cb17"
+
+# 开发环境默认值，生产环境请在 Cloudflare Dashboard 中设置 Secrets
+[vars]
+JWT_SECRET = "2baea092dd1542e27bdbbde82a3491cb5e3e30cfcd1fba8f4c5e5731b22859a0"
+PW_SALT = "6537689ccc9064f9b12b5379837eacf2"
+ENC_SALT = "256c9f62e326df395ec4d34de82146a3"
+ENC_IV = "664024bd3c0c7b6e01c02fd3"
+ENC_TAG = "e8f4950c1aa5a307471f506a9faa11d2"
+ENC_PASSWORD = "20262026"

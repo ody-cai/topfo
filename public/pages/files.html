@@ -14,7 +14,7 @@
 
 .report-card {
   background:var(--c-surface); border-radius:var(--radius-lg);
-  border:0.5px solid var(--c-border); overflow:hidden;
+  border:1px solid var(--c-border); overflow:hidden;
   transition:all var(--transition); display:flex; flex-direction:column;
 }
 .report-card:hover { box-shadow:var(--shadow-md); border-color:var(--c-accent); }
@@ -27,11 +27,11 @@
 .report-card .card-tags { display:flex;gap:4px;flex-wrap:wrap;margin-bottom:12px; }
 .report-tag { font-size:10px;padding:3px 8px;border-radius:10px;background:var(--c-bg);color:var(--c-text-secondary); }
 
-.report-card-footer { padding:12px 24px;border-top:0.5px solid var(--c-border);display:flex;gap:8px; }
+.report-card-footer { padding:12px 24px;border-top:1px solid var(--c-border);display:flex;gap:8px; }
 .btn-card { font-size:12px;padding:7px 16px;border-radius:var(--radius-sm);font-weight:500;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:5px;transition:all var(--transition);text-decoration:none; }
 .btn-card.primary { background:var(--c-accent);color:#fff; }
 .btn-card.primary:hover { background:var(--c-accent-hover); }
-.btn-card.secondary { background:var(--c-bg);color:var(--c-text);border:0.5px solid var(--c-border-strong); }
+.btn-card.secondary { background:var(--c-bg);color:var(--c-text);border:1px solid var(--c-border-strong); }
 .btn-card.secondary:hover { border-color:var(--c-accent);color:var(--c-accent); }
 
 .empty-state { text-align:center;padding:60px 20px;color:var(--c-text-tertiary); }
@@ -40,7 +40,7 @@
 .nav-auth-btn {
   font-size:12px;padding:5px 14px;border-radius:var(--radius-sm);
   background:var(--c-accent-light);color:var(--c-accent);
-  cursor:pointer;font-weight:500;border:0.5px solid var(--c-accent);
+  cursor:pointer;font-weight:500;border:1px solid var(--c-accent);
   transition:all var(--transition);margin-left:8px;white-space:nowrap;
 }
 .nav-auth-btn:hover { background:var(--c-accent);color:#fff; }
@@ -53,7 +53,7 @@
 .login-modal-content .login-sub { font-size:13px;color:var(--c-text-secondary);margin-bottom:20px; }
 .login-field { margin-bottom:14px; }
 .login-field label { font-size:12px;font-weight:500;color:var(--c-text-secondary);margin-bottom:4px;display:block; }
-.login-field input { width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:0.5px solid var(--c-border-strong);font-size:14px;background:var(--c-bg);color:var(--c-text);outline:none; }
+.login-field input { width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1px solid var(--c-border-strong);font-size:14px;background:var(--c-bg);color:var(--c-text);outline:none; }
 .login-field input:focus { border-color:var(--c-accent); }
 .login-error { display:none;font-size:12px;color:var(--c-danger);margin-bottom:12px;padding:6px 10px;background:var(--c-danger-bg);border-radius:var(--radius-sm); }
 .login-submit { width:100%;padding:12px;border-radius:var(--radius-md);background:var(--c-accent);color:#fff;font-size:14px;font-weight:600;cursor:pointer;border:none;transition:all var(--transition); }
@@ -70,29 +70,14 @@
     <a href="admission.html" class="nav-link">录取对照表</a>
     <a href="rankings.html" class="nav-link">排名参考</a>
     <a href="insights.html" class="nav-link">关键发现</a>
+    <a href="tracker.html" class="nav-link">申请追踪</a>
+    <a href="community.html" class="nav-link">社区</a>
     <a href="files.html" class="nav-link active">文件</a>
     <a href="download.html" class="nav-link">下载APP</a>
+    <a href="notifications.html" class="nav-link">🔔 通知</a>
     <button id="navAuthBtn" class="nav-auth-btn" onclick="AUTH.handleNavAuthClick()">登录</button>
   </div>
 </nav>
-
-<div id="loginModal" class="login-modal">
-  <div class="login-modal-content">
-    <button class="login-close" onclick="AUTH.hideLoginModal()">✕</button>
-    <h2>登录查看个人数据</h2>
-    <p class="login-sub">登录后可查看个性化录取匹配、GPA分析、升学策略等私密数据</p>
-    <div class="login-field">
-      <label>用户名</label>
-      <input id="loginUser" type="text" placeholder="请输入用户名" autocomplete="username">
-    </div>
-    <div class="login-field">
-      <label>密码</label>
-      <input id="loginPass" type="password" placeholder="请输入密码" autocomplete="current-password">
-    </div>
-    <div id="loginError" class="login-error"></div>
-    <button id="loginSubmitBtn" class="login-submit" onclick="AUTH.handleLoginSubmit()">登录</button>
-  </div>
-</div>
 
 <div class="page-container" style="padding-top:20px;">
   <a href="../index.html" class="back-link">← 返回首页</a>
@@ -145,7 +130,11 @@
   <p>文件来源均为公开权威报告 · 仅供学习参考 · 版权归原作者所有</p>
 </footer>
 
+<script src="../js/i18n.js"></script>
 <script src="../js/auth.js"></script>
-<script>AUTH.initPage();</script>
+<script>// 初始化 i18n
+(async function(){if(typeof I18N!=="undefined"){await I18N.init();}})();
+
+AUTH.initPage();</script>
 </body>
 </html>

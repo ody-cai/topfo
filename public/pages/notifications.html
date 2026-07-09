@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>通知中心 · 学生升学数据</title>
+<link rel="stylesheet" href="../css/common.css">
+<style>
+.nav-auth-btn {
+  font-size:12px;padding:5px 14px;border-radius:var(--radius-sm);
+  background:var(--c-accent-light);color:var(--c-accent);
+  cursor:pointer;font-weight:500;border:1px solid var(--c-accent);
+  transition:all var(--transition);margin-left:8px;white-space:nowrap;
+}
+.nav-auth-btn:hover { background:var(--c-accent);color:#fff; }
+.nav-auth-btn.logged { background:var(--c-success-bg);color:var(--c-success);border-color:var(--c-success); }
+
+.login-modal {
+  display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.4);z-index:9999;justify-content:center;align-items:center;
+}
+.login-modal.show { display:flex; }
+.login-modal-content { background:var(--c-surface);border-radius:var(--radius-lg);padding:32px;width:360px;max-width:90vw;box-shadow:var(--shadow-lg);position:relative; }
+.login-modal-content h2 { font-size:20px;font-weight:700;margin-bottom:4px; }
+.login-modal-content .login-sub { font-size:13px;color:var(--c-text-secondary);margin-bottom:20px; }
+.login-field { margin-bottom:14px; }
+.login-field label { font-size:12px;font-weight:500;color:var(--c-text-secondary);margin-bottom:4px;display:block; }
+.login-field input { width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1px solid var(--c-border-strong);font-size:14px;background:var(--c-bg);color:var(--c-text);outline:none; }
+.login-field input:focus { border-color:var(--c-accent); }
+.login-error { display:none;font-size:12px;color:var(--c-danger);margin-bottom:12px;padding:6px 10px;background:var(--c-danger-bg);border-radius:var(--radius-sm); }
+.login-submit { width:100%;padding:12px;border-radius:var(--radius-md);background:var(--c-accent);color:#fff;font-size:14px;font-weight:600;cursor:pointer;border:none;transition:all var(--transition); }
+.login-submit:hover { background:var(--c-accent-hover); }
+.login-close { position:absolute;top:12px;right:16px;font-size:20px;color:var(--c-text-tertiary);cursor:pointer;background:none;border:none; }
+
+/* 通知卡片列表 */
+.notif-tabs {
+  display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap;
+}
+.notif-tab-btn {
+  font-size:12px;padding:6px 16px;border-radius:12px;border:1px solid var(--c-border-strong);
+  background:var(--c-surface);color:var(--c-text-secondary);cursor:pointer;
+  transition:all var(--transition);font-weight:500;
+}
+.notif-tab-btn:hover { border-color:var(--c-accent);color:var(--c-accent); }
+.notif-tab-btn.active { background:var(--c-accent);color:#fff;border-color:var(--c-accent); }
+
+.notif-list { display:flex;flex-direction:column;gap:0; }
+.notif-card {
+  display:flex;align-items:flex-start;gap:14px;
+  padding:16px 20px;border-radius:var(--radius-md);
+  background:var(--c-surface);border:1px solid var(--c-border);
+  cursor:pointer;transition:all var(--transition);
+  margin-bottom:8px;
+}
+.notif-card:hover { box-shadow:var(--shadow-sm);border-color:var(--c-border-strong); }
+.notif-card.unread { border-left:3px solid var(--c-accent); }
+.notif-card .notif-icon {
+  font-size:22px;width:40px;height:40px;display:flex;
+  align-items:center;justify-content:center;
+  background:var(--c-bg);border-radius:10px;flex-shrink:0;
+}
+.notif-card .notif-body { flex:1;min-width:0; }
+.notif-card .notif-title {
+  font-size:14px;font-weight:600;color:var(--c-text);
+  margin-bottom:4px;display:flex;align-items:center;gap:8px;
+}
+.notif-card .notif-dot {
+  width:8px;height:8px;border-radius:50%;background:var(--c-accent);
+  flex-shrink:0;display:inline-block;
+}
+.notif-card .notif-content {
+  font-size:13px;color:var(--c-text-secondary);
+  line-height:1.6;margin-bottom:6px;
+}
+.notif-card .notif-time {
+  font-size:11px;color:var(--c-text-tertiary);
+}
+.notif-empty {
+  text-align:center;padding:60px 20px;
+  color:var(--c-text-tertiary);font-size:14px;
+}
+.notif-empty .empty-icon { font-size:48px;margin-bottom:16px; }
+
+/* 标记全部已读 */
+.notif-actions {
+  display:flex;justify-content:space-between;align-items:center;
+  margin-bottom:12px;
+}
+.notif-actions .mark-all-btn {
+  font-size:12px;padding:6px 14px;border-radius:var(--radius-sm);
+  background:var(--c-accent-light);color:var(--c-accent);
+  cursor:pointer;font-weight:500;border:1px solid var(--c-accent);
+  transition:all var(--transition);
+}
+.notif-actions .mark-all-btn:hover { background:var(--c-accent);color:#fff; }
+.notif-count {
+  font-size:12px;color:var(--c-text-secondary);
+}
+
+@media(max-width:768px) {
+  .notif-card { padding:12px 14px; }
+  .notif-card .notif-icon { width:32px;height:32px;font-size:18px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav-bar">
+  <a href="../index.html" class="nav-logo"><span class="dot"></span> 升学数据</a>
+  <div class="nav-links">
+    <a href="../index.html" class="nav-link">首页</a>
+    <a href="admission.html" class="nav-link">录取对照表</a>
+    <a href="rankings.html" class="nav-link">排名参考</a>
+    <a href="insights.html" class="nav-link">关键发现</a>
+    <a href="tracker.html" class="nav-link">申请追踪</a>
+    <a href="community.html" class="nav-link">社区</a>
+    <a href="files.html" class="nav-link">文件</a>
+    <a href="download.html" class="nav-link">下载APP</a>
+    <a href="notifications.html" class="nav-link active">🔔 通知</a>
+    <button id="navAuthBtn" class="nav-auth-btn" onclick="AUTH.handleNavAuthClick()">登录</button>
+  </div>
+</nav>
+
+<div class="page-container" style="padding-top:20px;">
+  <a href="../index.html" class="back-link">← 返回首页</a>
+
+  <div class="page-header" style="text-align:left;padding:8px 0 16px;">
+    <h1 style="font-size:22px;">🔔 通知中心</h1>
+    <p class="subtitle">查看截止日期提醒、系统通知和社区回复</p>
+  </div>
+
+  <!-- 操作栏 -->
+  <div class="notif-actions">
+    <span class="notif-count" id="notifCount">加载中...</span>
+    <button class="mark-all-btn" id="markAllBtn" onclick="markAllRead()">全部标为已读</button>
+  </div>
+
+  <!-- 筛选标签 -->
+  <div class="notif-tabs" id="notifTabs">
+    <button class="notif-tab-btn active" data-filter="all">全部</button>
+    <button class="notif-tab-btn" data-filter="unread">未读</button>
+    <button class="notif-tab-btn" data-filter="deadline">截止日期</button>
+    <button class="notif-tab-btn" data-filter="system">系统</button>
+    <button class="notif-tab-btn" data-filter="reply">回复</button>
+  </div>
+
+  <!-- 通知列表 -->
+  <div id="notifList" class="notif-list"></div>
+</div>
+
+<footer class="footer">
+  <p>🔔 通知中心 · 实时提醒 · 不错过任何截止日期</p>
+</footer>
+
+<script src="../js/i18n.js"></script>
+<script src="../js/auth.js"></script>
+<script>
+// ===== 通知模块 =====
+let allNotifications = [];
+let currentFilter = 'all';
+
+// 通知图标映射
+const NOTIF_ICONS = {
+  deadline: '⏰',
+  system: 'ℹ️',
+  reply: '💬',
+  reminder: '🔔'
+};
+
+// 相对时间
+function timeAgo(dateStr) {
+  if (!dateStr) return '';
+  const now = new Date();
+  const date = new Date(dateStr.replace(' ', 'T') + (dateStr.includes('Z') || dateStr.includes('+') ? '' : 'Z'));
+  const diff = (now - date) / 1000;
+  if (diff < 0) return '刚刚';
+  if (diff < 60) return '刚刚';
+  if (diff < 3600) return Math.floor(diff / 60) + '分钟前';
+  if (diff < 86400) return Math.floor(diff / 3600) + '小时前';
+  if (diff < 172800) return '昨天';
+  if (diff < 259200) return '前天';
+  if (diff < 604800) return Math.floor(diff / 86400) + '天前';
+  return dateStr.substring(0, 10);
+}
+
+// 获取通知列表
+async function fetchNotifications(filter) {
+  try {
+    const token = AUTH._getToken();
+    const url = filter === 'unread' ? '/api/notifications?limit=100&unread=true' : '/api/notifications?limit=100';
+    const resp = await fetch(url, {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+    if (!resp.ok) throw new Error('获取失败');
+    const data = await resp.json();
+    return { notifications: data.notifications || [], unread_count: data.unread_count || 0 };
+  } catch (e) {
+    console.error('获取通知失败:', e);
+    return { notifications: [], unread_count: 0 };
+  }
+}
+
+// 标记某条已读
+async function markAsRead(notifId) {
+  try {
+    const token = AUTH._getToken();
+    await fetch('/api/notifications?mark_read=true', {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ notification_id: notifId })
+    });
+  } catch (e) {
+    console.error('标记已读失败:', e);
+  }
+}
+
+// 全部标记已读
+async function markAllRead() {
+  const token = AUTH._getToken();
+  if (!token) return;
+  const btn = document.getElementById('markAllBtn');
+  btn.disabled = true;
+  btn.textContent = '处理中...';
+  try {
+    await fetch('/api/notifications?mark_read=true', {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+      body: '{}'
+    });
+    allNotifications.forEach(n => n.is_read = true);
+    renderNotifications(currentFilter);
+    updateCount();
+  } catch (e) {
+    console.error('标记全部已读失败:', e);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '全部标为已读';
+  }
+}
+
+// 渲染通知
+function renderNotifications(filter) {
+  const container = document.getElementById('notifList');
+  let filtered = allNotifications;
+  if (filter === 'unread') {
+    filtered = allNotifications.filter(n => !n.is_read);
+  } else if (filter && filter !== 'all') {
+    filtered = allNotifications.filter(n => n.type === filter);
+  }
+
+  if (filtered.length === 0) {
+    container.innerHTML = `<div class="notif-empty"><div class="empty-icon">🔔</div><div>暂无通知</div></div>`;
+    return;
+  }
+
+  container.innerHTML = filtered.map(n => {
+    const icon = NOTIF_ICONS[n.type] || '🔔';
+    const isUnread = !n.is_read;
+    return `<div class="notif-card ${isUnread ? 'unread' : ''}" data-id="${n.id}" onclick="handleNotifClick(this, ${n.id})">
+      <div class="notif-icon">${icon}</div>
+      <div class="notif-body">
+        <div class="notif-title">
+          ${n.title}
+          ${isUnread ? '<span class="notif-dot"></span>' : ''}
+        </div>
+        <div class="notif-content">${n.content || ''}</div>
+        <div class="notif-time">${timeAgo(n.created_at)}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function updateCount() {
+  const unread = allNotifications.filter(n => !n.is_read).length;
+  const el = document.getElementById('notifCount');
+  if (el) el.textContent = `共 ${allNotifications.length} 条通知，${unread} 条未读`;
+}
+
+function handleNotifClick(el, id) {
+  el.classList.remove('unread');
+  const dot = el.querySelector('.notif-dot');
+  if (dot) dot.remove();
+  const n = allNotifications.find(x => x.id === id);
+  if (n) n.is_read = true;
+  markAsRead(id);
+  updateCount();
+}
+
+// 标签切换
+document.getElementById('notifTabs').addEventListener('click', function(e) {
+  const btn = e.target.closest('.notif-tab-btn');
+  if (!btn) return;
+  document.querySelectorAll('.notif-tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentFilter = btn.dataset.filter;
+  renderNotifications(currentFilter);
+});
+
+// 页面初始化
+async function initNotifications() {
+  if (!AUTH.isLoggedIn()) {
+    document.getElementById('notifList').innerHTML =
+      `<div class="notif-empty"><div class="empty-icon">🔒</div><div>请先登录查看通知</div></div>`;
+    document.getElementById('notifCount').textContent = '';
+    document.getElementById('markAllBtn').style.display = 'none';
+    return;
+  }
+  const result = await fetchNotifications();
+  allNotifications = result.notifications;
+  renderNotifications('all');
+  updateCount();
+}
+
+AUTH.onChange((logged, user) => {
+  AUTH._updateNav(logged, user);
+  if (logged) initNotifications();
+  else {
+    allNotifications = [];
+    renderNotifications('all');
+    updateCount();
+  }
+});
+// 初始化 i18n
+(async function(){if(typeof I18N!=="undefined"){await I18N.init();}})();
+
+AUTH.initPage();
+initNotifications();
+</script>
+</body>
+</html>

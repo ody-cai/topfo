@@ -1,63 +1,83 @@
-// GET /api/rankings — 返回排名数据，与网站 rankings.js 完全同步
-// 通过正则从 rankings.js 提取 RANK_DATA 和 RANK_PROGS 对象
+// GET /api/rankings — 从 D1 rankings 表查询排名数据
+// 支持 ?source=QS&year=2027&type=overall 过滤
 
-export async function onRequest(context) {
+function corsHeaders() {
+  return {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization"
+  };
+}
+
+export async function onRequestOptions() {
+  return new Response(null, { status: 204, headers: corsHeaders() });
+}
+
+export async function onRequestGet(context) {
+  const { request, env } = context;
   try {
-    const url = new URL('/js/rankings.js', context.request.url);
-    const response = await fetch(url);
-    if (!response.ok) throw new Error(`rankings.js not found: ${response.status}`);
-    
-    const jsContent = await response.text();
-    
-    // 提取 RANK_DATA = {...};
-    const rankDataMatch = jsContent.match(/const\s+RANK_DATA\s*=\s*({[\s\S]*?});\s*const\s+RANK_PROGS/);
-    if (!rankDataMatch) throw new Error('RANK_DATA not found in rankings.js');
-    
-    // 提取 RANK_PROGS = [...];
-    const rankProgsMatch = jsContent.match(/const\s+RANK_PROGS\s*=\s*(\[[\s\S]*?\]);/);
-    if (!rankProgsMatch) throw new Error('RANK_PROGS not found in rankings.js');
-    
-    // 将 JS 对象字面量转为 JSON
-    const dataJson = jsToJson(rankDataMatch[1]);
-    const progsJson = jsToJson(rankProgsMatch[1]);
-    
-    return new Response(JSON.stringify({
-      programs: JSON.parse(progsJson),
-      data: JSON.parse(dataJson),
-      updated: new Date().toISOString().split('T')[0]
-    }), {
+    const url = new URL(request.url);
+    const source = url.searchParams.get('source');
+    const year = url.searchParams.get('year');
+    const type = url.searchParams.get('type');
+
+    let conditions = [];
+    let params = [];
+
+    if (source) {
+      conditions.push('r.source = ?');
+      params.push(source.toLowerCase());
+    }
+    if (year) {
+      conditions.push('r.year = ?');
+      params.push(parseInt(year, 10));
+    }
+    if (type) {
+      conditions.push('r.category = ?');
+      params.push(type.toLowerCase());
+    }
+
+    const whereSQL = conditions.length > 0 ? 'WHERE ' + conditions.join(' AND ') : '';
+
+    // 获取排名数据
+    const query = `
+      SELECT r.*
+      FROM rankings r
+      ${whereSQL}
+      ORDER BY
+        CASE r.category
+          WHEN 'overall' THEN 0 WHEN 'cs' THEN 1 WHEN 'eng' THEN 2
+          WHEN 'math' THEN 3 WHEN 'psych' THEN 4 WHEN 'biz' THEN 5
+          WHEN 'health' THEN 6 WHEN 'sci' THEN 7 WHEN 'social' THEN 8
+          ELSE 9
+        END,
+        CASE WHEN CAST(r.rank AS INTEGER) > 0 THEN CAST(r.rank AS INTEGER) ELSE 9999 END
+    `;
+
+    const result = await env.topfo_chat.prepare(query).bind(...params).all();
+
+    // 按 category 分组
+    const grouped = {};
+    for (const row of (result.results || [])) {
+      const cat = row.category;
+      if (!grouped[cat]) grouped[cat] = [];
+      grouped[cat].push({
+        id: row.id,
+        school: row.school,
+        city: row.city,
+        source: row.source,
+        rank: row.rank,
+        year: row.year
+      });
+    }
+
+    return Response.json({ data: grouped, programs: Object.keys(grouped) }, {
       headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        'Access-Control-Allow-Origin': '*',
+        ...corsHeaders(),
         'Cache-Control': 'public, max-age=3600'
       }
     });
   } catch (e) {
-    return new Response(JSON.stringify({ error: e.message }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
-    });
+    return Response.json({ error: e.message }, { status: 500, headers: corsHeaders() });
   }
-}
-
-/**
- * 将 JS 对象/数组字面量转为 JSON 字符串
- * 处理：单引号→双引号、无引号 key→双引号 key、尾逗号移除、'—'→"—"
- */
-function jsToJson(jsLiteral) {
-  let s = jsLiteral.trim();
-  
-  // 1. 处理字符串：将单引号字符串转为双引号
-  // 先保护已存在的双引号字符串，再将单引号字符串转双引号
-  s = s.replace(/'([^'\\]*(\\.[^'\\]*)*)'/g, (_, inner) => {
-    return '"' + inner.replace(/"/g, '\\"') + '"';
-  });
-  
-  // 2. 给无引号的 key 加双引号: key: → "key":
-  s = s.replace(/([{,]\s*)([a-zA-Z_]\w*)\s*:/g, '$1"$2":');
-  
-  // 3. 移除尾逗号（JSON 不允许）
-  s = s.replace(/,(\s*[}\]])/g, '$1');
-  
-  return s;
 }

@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>社区讨论 · 升学数据</title>
+<link rel="stylesheet" href="../css/common.css">
+<style>
+:root {
+  --c-primary: #4F46E5;
+  --c-bg: #f5f7fa;
+}
+body { background: var(--c-bg); }
+
+/* ===== 页面头 ===== */
+.page-header-custom {
+  padding: 24px 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.page-header-custom h1 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--c-text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.page-header-custom .subtitle {
+  font-size: 13px;
+  color: var(--c-text-secondary);
+}
+.add-btn {
+  padding: 8px 20px;
+  background: var(--c-primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.add-btn:hover { background: var(--c-accent-hover); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(79,70,229,.3); }
+.add-btn:disabled { opacity: .5; cursor: not-allowed; transform: none; box-shadow: none; }
+
+/* ===== 分类标签页 ===== */
+.category-tabs {
+  display: flex;
+  gap: 6px;
+  padding: 12px 0;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--c-border);
+  margin-bottom: 4px;
+}
+.cat-btn {
+  padding: 6px 16px;
+  border-radius: 20px;
+  border: 1px solid var(--c-border-strong);
+  background: var(--c-surface);
+  color: var(--c-text-secondary);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition);
+  white-space: nowrap;
+}
+.cat-btn:hover { border-color: var(--c-primary); color: var(--c-primary); }
+.cat-btn.active { background: var(--c-primary); color: #fff; border-color: var(--c-primary); }
+
+/* ===== 讨论列表 ===== */
+.discussion-list {
+  margin-top: 8px;
+}
+.discussion-item {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.discussion-item:hover {
+  box-shadow: var(--shadow-sm);
+  border-color: var(--c-border-strong);
+  transform: translateY(-1px);
+}
+.discussion-item .item-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.discussion-item .item-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--c-text);
+  line-height: 1.4;
+}
+.discussion-item .item-title .pin-badge {
+  font-size: 14px;
+  margin-right: 4px;
+}
+.discussion-item .item-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-size: 12px;
+  color: var(--c-text-tertiary);
+}
+.discussion-item .item-meta .author {
+  color: var(--c-text-secondary);
+  font-weight: 500;
+}
+.discussion-item .item-meta .cat-tag {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+.cat-tag.experience { background: #ede9fe; color: #7c3aed; }
+.cat-tag.question { background: var(--c-warning-bg); color: var(--c-warning); }
+.cat-tag.advice { background: var(--c-accent-light); color: var(--c-accent); }
+.cat-tag.general { background: var(--c-success-bg); color: var(--c-success); }
+
+.discussion-item .item-stats {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 12px;
+  color: var(--c-text-tertiary);
+}
+.discussion-item .item-stats span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.discussion-item .item-excerpt {
+  font-size: 13px;
+  color: var(--c-text-secondary);
+  margin-top: 8px;
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ===== 加载状态 ===== */
+.loading-state, .error-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--c-text-secondary);
+  font-size: 14px;
+}
+.error-state { color: var(--c-danger); }
+.error-state .retry-btn {
+  margin-top: 12px;
+  padding: 8px 20px;
+  background: var(--c-primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 13px;
+}
+
+/* ===== 访客提示 ===== */
+.visitor-prompt {
+  text-align: center;
+  padding: 80px 20px;
+  background: var(--c-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--c-border);
+  margin-top: 4px;
+}
+.visitor-prompt .icon { font-size: 48px; margin-bottom: 16px; }
+.visitor-prompt h3 { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+.visitor-prompt p { font-size: 14px; color: var(--c-text-secondary); margin-bottom: 20px; max-width: 400px; margin-left: auto; margin-right: auto; }
+.visitor-prompt .login-btn {
+  padding: 10px 28px;
+  background: var(--c-primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.visitor-prompt .login-btn:hover { background: var(--c-accent-hover); transform: translateY(-2px); }
+
+/* ===== 弹窗 ===== */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,.4);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+.modal-overlay.show { display: flex; }
+.modal-content {
+  background: var(--c-surface);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  width: 560px;
+  max-width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+}
+.modal-content h2 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.modal-content .modal-sub {
+  font-size: 13px;
+  color: var(--c-text-secondary);
+  margin-bottom: 20px;
+}
+.modal-close {
+  position: absolute;
+  top: 12px; right: 16px;
+  font-size: 20px;
+  color: var(--c-text-tertiary);
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 4px;
+  line-height: 1;
+  transition: color var(--transition);
+}
+.modal-close:hover { color: var(--c-text); }
+
+.form-group { margin-bottom: 16px; }
+.form-group label {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--c-text-secondary);
+  margin-bottom: 6px;
+}
+.form-group select,
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid var(--c-border-strong);
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  background: var(--c-bg);
+  color: var(--c-text);
+  outline: none;
+  transition: border-color var(--transition);
+  font-family: var(--font-sans);
+}
+.form-group select:focus,
+.form-group input:focus,
+.form-group textarea:focus { border-color: var(--c-primary); }
+.form-group textarea { resize: vertical; min-height: 120px; }
+
+.form-error {
+  display: none;
+  font-size: 12px;
+  color: var(--c-danger);
+  background: var(--c-danger-bg);
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 12px;
+}
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+.form-actions .btn-primary {
+  flex: 1;
+  padding: 10px;
+  background: var(--c-primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.form-actions .btn-primary:hover { background: var(--c-accent-hover); }
+.form-actions .btn-primary:disabled { opacity: .5; cursor: not-allowed; }
+.form-actions .btn-secondary {
+  padding: 10px 20px;
+  background: transparent;
+  color: var(--c-text-secondary);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.form-actions .btn-secondary:hover { border-color: var(--c-text-tertiary); }
+
+/* ===== 主题详情 ===== */
+.topic-detail {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-md);
+  margin-top: 12px;
+  overflow: hidden;
+  animation: fadeIn .3s ease;
+}
+.topic-detail-header {
+  padding: 20px 24px 12px;
+  border-bottom: 1px solid var(--c-border);
+}
+.topic-detail-header h2 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.topic-detail-header .topic-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 12px;
+  color: var(--c-text-tertiary);
+}
+.topic-detail-body {
+  padding: 20px 24px;
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--c-text);
+  white-space: pre-wrap;
+}
+
+/* 回复区域 */
+.comments-section {
+  border-top: 1px solid var(--c-border);
+  padding: 16px 24px;
+}
+.comments-section h3 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: var(--c-text);
+}
+.comment-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--c-border);
+}
+.comment-item:last-child { border-bottom: none; }
+.comment-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--c-accent-light);
+  color: var(--c-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+.comment-body { flex: 1; min-width: 0; }
+.comment-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.comment-header .comment-author {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--c-text);
+}
+.comment-header .comment-time {
+  font-size: 11px;
+  color: var(--c-text-tertiary);
+}
+.comment-content {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--c-text);
+  white-space: pre-wrap;
+}
+
+.reply-form-area {
+  padding: 16px 24px;
+  border-top: 1px solid var(--c-border);
+  background: var(--c-bg);
+}
+.reply-form-area textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--c-border-strong);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  background: var(--c-surface);
+  color: var(--c-text);
+  outline: none;
+  resize: vertical;
+  min-height: 80px;
+  font-family: var(--font-sans);
+  transition: border-color var(--transition);
+}
+.reply-form-area textarea:focus { border-color: var(--c-primary); }
+.reply-form-area .reply-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  justify-content: flex-end;
+}
+.reply-form-area .reply-send {
+  padding: 8px 20px;
+  background: var(--c-primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.reply-form-area .reply-send:hover { background: var(--c-accent-hover); }
+.reply-form-area .reply-send:disabled { opacity: .5; cursor: not-allowed; }
+.reply-form-area .reply-cancel {
+  padding: 8px 16px;
+  background: transparent;
+  color: var(--c-text-tertiary);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+/* 返回顶部 */
+.close-detail {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  color: var(--c-primary);
+  cursor: pointer;
+  padding: 4px 12px 4px 0;
+  transition: color var(--transition);
+  background: none;
+  border: none;
+  font-weight: 500;
+}
+.close-detail:hover { color: var(--c-accent-hover); }
+
+/* 登录引导 */
+.auth-hint {
+  padding: 16px 24px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--c-text-secondary);
+  background: var(--c-bg);
+  border-top: 1px solid var(--c-border);
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+}
+.auth-hint .link-btn {
+  color: var(--c-primary);
+  cursor: pointer;
+  font-weight: 500;
+  background: none;
+  border: none;
+  font-size: 13px;
+  padding: 0;
+}
+.auth-hint .link-btn:hover { text-decoration: underline; }
+
+/* 空列表 */
+.empty-list {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--c-text-tertiary);
+  font-size: 14px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ===== 响应式 ===== */
+@media(max-width: 600px) {
+  .page-header-custom { flex-direction: column; align-items: flex-start; }
+  .modal-content { padding: 20px; }
+  .discussion-item { padding: 12px 14px; }
+  .topic-detail-header { padding: 16px; }
+  .topic-detail-body { padding: 16px; }
+  .comments-section { padding: 12px 16px; }
+  .reply-form-area { padding: 12px 16px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav-bar">
+  <a href="../index.html" class="nav-logo"><span class="dot"></span> 升学数据</a>
+  <div class="nav-links">
+    <a href="../index.html" class="nav-link">首页</a>
+    <a href="admission.html" class="nav-link">录取对照表</a>
+    <a href="rankings.html" class="nav-link">排名参考</a>
+    <a href="insights.html" class="nav-link">关键发现</a>
+    <a href="tracker.html" class="nav-link">申请追踪</a>
+    <a href="community.html" class="nav-link active">社区</a>
+    <a href="files.html" class="nav-link">文件</a>
+    <a href="download.html" class="nav-link">下载APP</a>
+    <a href="notifications.html" class="nav-link">🔔 通知</a>
+    <button id="navAuthBtn" class="nav-auth-btn" onclick="AUTH.handleNavAuthClick()">登录</button>
+  </div>
+</nav>
+
+<div class="page-container">
+
+  <div class="page-header-custom">
+    <div>
+      <h1>💬 社区讨论</h1>
+      <p class="subtitle">与同学和学长学姐交流申请经验</p>
+    </div>
+    <button class="add-btn" id="newTopicBtn" onclick="showNewTopicModal()">＋ 发表新主题</button>
+  </div>
+
+  <!-- 访客提示 -->
+  <div class="visitor-prompt" id="visitorPrompt" style="display:none;">
+    <div class="icon">🔒</div>
+    <h3>登录参与社区讨论</h3>
+    <p>登录后可以浏览讨论、发表主题、回复交流。</p>
+    <button class="login-btn" onclick="AUTH.showLoginModal()">🔑 立即登录</button>
+  </div>
+
+  <!-- 加载状态 -->
+  <div class="loading-state" id="loadingState">
+    <p>⏳ 加载讨论列表...</p>
+  </div>
+
+  <!-- 错误状态 -->
+  <div class="error-state" id="errorState" style="display:none;">
+    <p>⚠️ <span id="errorMsg">加载失败</span></p>
+    <button class="retry-btn" onclick="loadDiscussions()">🔄 重试</button>
+  </div>
+
+  <!-- 讨论区域（登录后可见） -->
+  <div id="discussionArea" style="display:none;">
+    <!-- 分类标签页 -->
+    <div class="category-tabs">
+      <button class="cat-btn active" data-cat="" onclick="switchCategory('', this)">全部</button>
+      <button class="cat-btn" data-cat="经验分享" onclick="switchCategory('经验分享', this)">经验分享</button>
+      <button class="cat-btn" data-cat="提问求助" onclick="switchCategory('提问求助', this)">提问求助</button>
+      <button class="cat-btn" data-cat="学长学姐说" onclick="switchCategory('学长学姐说', this)">学长学姐说</button>
+      <button class="cat-btn" data-cat="一般讨论" onclick="switchCategory('一般讨论', this)">一般讨论</button>
+    </div>
+
+    <!-- 讨论列表 -->
+    <div class="discussion-list" id="discussionList"></div>
+  </div>
+
+  <!-- 主题详情 -->
+  <div id="topicDetail"></div>
+
+</div>
+
+<footer class="footer">
+  <p>社区讨论 · 与志同道合的伙伴一起</p>
+</footer>
+
+<!-- 发表新主题弹窗 -->
+<div class="modal-overlay" id="newTopicModal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('newTopicModal')">✕</button>
+    <h2>📝 发表新主题</h2>
+    <p class="modal-sub">分享你的申请经验或提出问题</p>
+
+    <div class="form-error" id="topicFormError"></div>
+
+    <form onsubmit="return false;">
+      <div class="form-group">
+        <label for="topicTitle">标题 *</label>
+        <input type="text" id="topicTitle" placeholder="请输入主题标题">
+      </div>
+      <div class="form-group">
+        <label for="topicCategory">分类</label>
+        <select id="topicCategory">
+          <option value="一般讨论">一般讨论</option>
+          <option value="经验分享">经验分享</option>
+          <option value="提问求助">提问求助</option>
+          <option value="学长学姐说">学长学姐说</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="topicContent">内容</label>
+        <textarea id="topicContent" placeholder="写下你想分享的内容..."></textarea>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn-primary" id="topicSubmitBtn" onclick="handleNewTopic()">发布</button>
+        <button type="button" class="btn-secondary" onclick="closeModal('newTopicModal')">取消</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="../js/i18n.js"></script>
+<script src="../js/auth.js"></script>
+<script>
+// ===== 状态 =====
+const CATEGORIES = ['', '经验分享', '提问求助', '学长学姐说', '一般讨论'];
+const CATEGORY_LABELS = {
+  '经验分享': '经验分享',
+  '提问求助': '提问求助',
+  '学长学姐说': '学长学姐说',
+  '一般讨论': '一般讨论'
+};
+
+let currentCategory = '';
+let discussions = [];
+let comments = {};
+let openedTopicId = null;
+
+// ===== 工具 =====
+function getToken() {
+  try {
+    const raw = localStorage.getItem('admission_token');
+    return raw ? JSON.parse(raw).token : null;
+  } catch { return null; }
+}
+
+function getAuthHeaders() {
+  const t = getToken();
+  return t ? {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + t
+  } : { 'Content-Type': 'application/json' };
+}
+
+function formatTime(dateStr) {
+  if (!dateStr) return '';
+  const d = new Date(dateStr);
+  const now = new Date();
+  const diff = now - d;
+  const mins = Math.floor(diff / 60000);
+  const hours = Math.floor(diff / 3600000);
+  const days = Math.floor(diff / 86400000);
+
+  if (mins < 60) return mins <= 1 ? '刚刚' : mins + ' 分钟前';
+  if (hours < 24) return hours + ' 小时前';
+  if (days < 7) return days + ' 天前';
+  return d.toLocaleDateString('zh-CN');
+}
+
+function getAvatarName(userId) {
+  if (!userId) return '?';
+  return userId.charAt(0).toUpperCase();
+}
+
+// ===== 加载讨论列表 =====
+async function loadDiscussions() {
+  const loadingEl = document.getElementById('loadingState');
+  const errorEl = document.getElementById('errorState');
+  const listEl = document.getElementById('discussionList');
+  const areaEl = document.getElementById('discussionArea');
+  const visitorEl = document.getElementById('visitorPrompt');
+
+  errorEl.style.display = 'none';
+  loadingEl.style.display = 'block';
+  listEl.innerHTML = '';
+
+  // 已登录直接显示讨论区域
+  areaEl.style.display = '';
+
+  try {
+    let url = '/api/discussions?limit=50';
+    if (currentCategory) url += '&category=' + encodeURIComponent(currentCategory);
+
+    const resp = await fetch(url, { headers: getAuthHeaders() });
+    if (!resp.ok) throw new Error('加载失败');
+    const data = await resp.json();
+    discussions = data.discussions || [];
+
+    loadingEl.style.display = 'none';
+    renderDiscussionList();
+  } catch (e) {
+    loadingEl.style.display = 'none';
+    errorEl.style.display = 'block';
+    document.getElementById('errorMsg').textContent = e.message || '网络错误，请重试';
+  }
+}
+
+function renderDiscussionList() {
+  const list = document.getElementById('discussionList');
+
+  if (discussions.length === 0) {
+    list.innerHTML = '<div class="empty-list">暂无讨论主题，快来发表第一篇吧 🎉</div>';
+    return;
+  }
+
+  list.innerHTML = discussions.map(d => `
+    <div class="discussion-item" onclick="openTopic(${d.id})">
+      <div class="item-header">
+        <div class="item-title">${d.title}</div>
+      </div>
+      <div class="item-meta">
+        <span class="author">${escapeHtml(d.user_id || '匿名')}</span>
+        ${d.category ? `<span class="cat-tag ${getCatClass(d.category)}">${escapeHtml(d.category)}</span>` : ''}
+        <span>💬 ${d.comment_count || 0}</span>
+        <span>${formatTime(d.created_at)}</span>
+      </div>
+      ${d.content ? `<div class="item-excerpt">${escapeHtml(d.content.substring(0, 120))}${d.content.length > 120 ? '...' : ''}</div>` : ''}
+    </div>
+  `).join('');
+}
+
+function getCatClass(cat) {
+  const map = { '经验分享': 'experience', '提问求助': 'question', '学长学姐说': 'advice', '一般讨论': 'general' };
+  return map[cat] || 'general';
+}
+
+function escapeHtml(str) {
+  if (!str) return '';
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+// ===== 分类切换 =====
+function switchCategory(cat, btn) {
+  currentCategory = cat;
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  // 关闭已打开的主题
+  closeTopicDetail();
+  loadDiscussions();
+}
+
+// ===== 主题详情 =====
+async function openTopic(topicId) {
+  openedTopicId = topicId;
+  const detail = document.getElementById('topicDetail');
+  detail.innerHTML = '<div class="loading-state"><p>⏳ 加载中...</p></div>';
+
+  // 查找讨论详情
+  const topic = discussions.find(d => d.id === topicId);
+  if (!topic) return;
+
+  // 加载评论
+  try {
+    const resp = await fetch('/api/discussions/' + topicId + '/comments', { headers: getAuthHeaders() });
+    const data = await resp.json();
+    comments[topicId] = data.comments || [];
+
+    renderTopicDetail(topic, comments[topicId]);
+  } catch (e) {
+    detail.innerHTML = '<div class="error-state"><p>⚠️ 加载评论失败</p></div>';
+  }
+
+  // 滚动到详情区域
+  setTimeout(() => {
+    detail.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 100);
+}
+
+function renderTopicDetail(topic, commentList) {
+  const detail = document.getElementById('topicDetail');
+
+  detail.innerHTML = `
+    <div class="topic-detail">
+      <div class="topic-detail-header">
+        <button class="close-detail" onclick="closeTopicDetail()">← 返回列表</button>
+        <h2>${escapeHtml(topic.title)}</h2>
+        <div class="topic-meta">
+          <span>${escapeHtml(topic.user_id || '匿名')}</span>
+          ${topic.category ? `<span class="cat-tag ${getCatClass(topic.category)}">${escapeHtml(topic.category)}</span>` : ''}
+          <span>💬 ${topic.comment_count || 0}</span>
+          <span>${formatTime(topic.created_at)}</span>
+        </div>
+      </div>
+      <div class="topic-detail-body">${escapeHtml(topic.content || '')}</div>
+
+      <div class="comments-section" id="commentsSection">
+        <h3>💬 回复（${commentList.length}）</h3>
+        ${commentList.length === 0
+          ? '<div style="text-align:center;padding:20px;color:var(--c-text-tertiary);font-size:13px;">暂无回复，来说两句吧</div>'
+          : commentList.map(c => `
+            <div class="comment-item">
+              <div class="comment-avatar">${getAvatarName(c.user_id)}</div>
+              <div class="comment-body">
+                <div class="comment-header">
+                  <span class="comment-author">${escapeHtml(c.user_id || '匿名')}</span>
+                  <span class="comment-time">${formatTime(c.created_at)}</span>
+                </div>
+                <div class="comment-content">${escapeHtml(c.content)}</div>
+              </div>
+            </div>
+          `).join('')
+        }
+      </div>
+
+      ${AUTH.isLoggedIn()
+        ? `<div class="reply-form-area" id="replyFormArea">
+            <textarea id="replyContent" placeholder="写下你的回复..." rows="3"></textarea>
+            <div class="reply-actions">
+              <button class="reply-cancel" onclick="closeTopicDetail()">关闭</button>
+              <button class="reply-send" id="replySendBtn" onclick="postReply(${topic.id})">发表回复</button>
+            </div>
+          </div>`
+        : `<div class="auth-hint">
+            <span>💡 登录后可参与回复讨论</span>
+            <button class="link-btn" onclick="AUTH.showLoginModal()">立即登录</button>
+          </div>`
+      }
+    </div>
+  `;
+}
+
+function closeTopicDetail() {
+  openedTopicId = null;
+  document.getElementById('topicDetail').innerHTML = '';
+}
+
+async function postReply(topicId) {
+  const textarea = document.getElementById('replyContent');
+  const btn = document.getElementById('replySendBtn');
+  const content = textarea.value.trim();
+
+  if (!content) return;
+
+  btn.disabled = true;
+  btn.textContent = '发送中...';
+
+  try {
+    const resp = await fetch('/api/discussions/' + topicId + '/comments', {
+      method: 'POST',
+      headers: getAuthHeaders(),
+      body: JSON.stringify({ content })
+    });
+    if (!resp.ok) {
+      const err = await resp.json();
+      throw new Error(err.error || '发送失败');
+    }
+
+    textarea.value = '';
+    // 重新加载主题详情
+    openTopic(topicId);
+    // 刷新列表
+    loadDiscussions();
+  } catch (e) {
+    alert('回复失败：' + e.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '发表回复';
+  }
+}
+
+// ===== 发表新主题 =====
+function showNewTopicModal() {
+  if (!AUTH.isLoggedIn()) { AUTH.showLoginModal(); return; }
+  document.getElementById('topicTitle').value = '';
+  document.getElementById('topicCategory').value = '一般讨论';
+  document.getElementById('topicContent').value = '';
+  document.getElementById('topicFormError').style.display = 'none';
+  document.getElementById('topicSubmitBtn').disabled = false;
+  document.getElementById('topicSubmitBtn').textContent = '发布';
+  openModal('newTopicModal');
+}
+
+async function handleNewTopic() {
+  const title = document.getElementById('topicTitle').value.trim();
+  const category = document.getElementById('topicCategory').value;
+  const content = document.getElementById('topicContent').value.trim();
+  const errorEl = document.getElementById('topicFormError');
+  const btn = document.getElementById('topicSubmitBtn');
+
+  if (!title) {
+    errorEl.style.display = 'block';
+    errorEl.textContent = '请输入标题';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = '发布中...';
+  errorEl.style.display = 'none';
+
+  try {
+    const resp = await fetch('/api/discussions', {
+      method: 'POST',
+      headers: getAuthHeaders(),
+      body: JSON.stringify({ title, category, content })
+    });
+    if (!resp.ok) {
+      const err = await resp.json();
+      throw new Error(err.error || '发布失败');
+    }
+
+    closeModal('newTopicModal');
+    loadDiscussions();
+  } catch (e) {
+    errorEl.style.display = 'block';
+    errorEl.textContent = e.message || '发布失败，请重试';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '发布';
+  }
+}
+
+// ===== 弹窗控制 =====
+function openModal(id) {
+  document.getElementById(id).classList.add('show');
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('show');
+}
+
+document.addEventListener('click', function(e) {
+  const modal = document.getElementById('newTopicModal');
+  if (modal && modal.classList.contains('show') && e.target === modal) {
+    closeModal('newTopicModal');
+  }
+});
+
+// ===== 认证变化 =====
+AUTH.onChange((logged) => {
+  // 初始化 i18n
+(async function(){if(typeof I18N!=="undefined"){await I18N.init();}})();
+
+AUTH.initPage();
+  const areaEl = document.getElementById('discussionArea');
+  const visitorEl = document.getElementById('visitorPrompt');
+  const btn = document.getElementById('newTopicBtn');
+
+  if (logged) {
+    visitorEl.style.display = 'none';
+    areaEl.style.display = '';
+    btn.disabled = false;
+    loadDiscussions();
+
+    // 如果有打开的主题且未登录时显示回复区域，重新渲染
+    if (openedTopicId) {
+      const topic = discussions.find(d => d.id === openedTopicId);
+      if (topic) renderTopicDetail(topic, comments[openedTopicId] || []);
+    }
+  } else {
+    document.getElementById('loadingState').style.display = 'none';
+    areaEl.style.display = 'none';
+    visitorEl.style.display = 'block';
+    btn.disabled = true;
+    closeTopicDetail();
+  }
+});
+
+// ===== 初始化 =====
+// 初始化 i18n
+(async function(){if(typeof I18N!=="undefined"){await I18N.init();}})();
+
+AUTH.initPage();
+
+if (AUTH.isLoggedIn()) {
+  document.getElementById('visitorPrompt').style.display = 'none';
+  document.getElementById('discussionArea').style.display = '';
+  loadDiscussions();
+} else {
+  document.getElementById('loadingState').style.display = 'none';
+  document.getElementById('visitorPrompt').style.display = 'block';
+}
+</script>
+</body>
+</html>

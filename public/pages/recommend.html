@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-i18n="recommend.title">AI 智能选校</title>
+<link rel="stylesheet" href="../css/common.css">
+<style>
+/* ===== AI 推荐页面专用样式 ===== */
+.recommend-header {
+  display:flex;flex-direction:column;align-items:center;
+  padding:32px 0 24px;
+}
+.recommend-header h1 {
+  font-size:clamp(24px,5vw,36px);font-weight:700;
+  color:var(--c-text);margin-bottom:8px;
+}
+.recommend-header .subtitle {
+  font-size:14px;color:var(--c-text-secondary);
+}
+
+/* 个人信息卡片 */
+.profile-card {
+  background:linear-gradient(135deg,var(--c-accent-light),#E1F5EE);
+  border-radius:var(--radius-lg);
+  padding:20px 28px;
+  margin-bottom:24px;
+  display:flex;gap:32px;flex-wrap:wrap;
+  align-items:center;
+  border:1px solid var(--c-border);
+}
+.profile-card .label { font-size:12px;color:var(--c-text-secondary);margin-bottom:2px; }
+.profile-card .value { font-size:22px;font-weight:700;color:var(--c-accent); }
+.profile-card .value.gpa { color:var(--c-success); }
+.profile-card .value.ielts { color:var(--c-warning); }
+.profile-card .section-title {
+  font-size:14px;font-weight:600;color:var(--c-text);
+  display:flex;align-items:center;gap:6px;
+}
+
+/* 推荐分区 */
+.tier-section { margin-bottom:32px; }
+.tier-header {
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:14px;
+}
+.tier-header h2 { font-size:18px;font-weight:700; }
+.tier-header .tier-count {
+  font-size:12px;padding:2px 10px;border-radius:10px;
+  font-weight:500;
+}
+.tier-header .tier-desc {
+  font-size:12px;color:var(--c-text-tertiary);margin-left:auto;
+}
+
+/* 各档次颜色 */
+.tier-safety .tier-header h2 { color:var(--c-success); }
+.tier-safety .tier-count { background:var(--c-success-bg);color:var(--c-success); }
+.tier-match .tier-header h2 { color:var(--c-warning); }
+.tier-match .tier-count { background:var(--c-warning-bg);color:var(--c-warning); }
+.tier-reach .tier-header h2 { color:var(--c-danger); }
+.tier-reach .tier-count { background:var(--c-danger-bg);color:var(--c-danger); }
+.tier-australia .tier-header h2 { color:#633806; }
+.tier-australia .tier-count { background:var(--c-au);color:var(--c-au-text); }
+
+/* 推荐卡片网格 */
+.recommend-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+  gap:14px;
+}
+
+.recommend-card {
+  background:var(--c-surface);
+  border-radius:var(--radius-md);
+  padding:18px 20px;
+  border:1px solid var(--c-border);
+  transition:all var(--transition);
+  position:relative;
+  overflow:hidden;
+}
+.recommend-card:hover {
+  box-shadow:var(--shadow-md);
+  transform:translateY(-3px);
+}
+.recommend-card::before {
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:3px;
+}
+.recommend-card.safety::before { background:var(--c-success); }
+.recommend-card.match::before { background:var(--c-warning); }
+.recommend-card.reach::before { background:var(--c-danger); }
+.recommend-card.australia::before { background:#BA6124; }
+
+.recommend-card .school-name {
+  font-size:15px;font-weight:600;color:var(--c-text);
+  margin-bottom:4px;
+}
+.recommend-card .program-name {
+  font-size:13px;color:var(--c-text-secondary);
+  margin-bottom:10px;
+}
+.recommend-card .meta-row {
+  display:flex;flex-wrap:wrap;gap:6px 12px;
+  margin-bottom:8px;
+}
+.recommend-card .meta-tag {
+  font-size:11px;padding:3px 8px;border-radius:6px;
+  background:var(--c-bg);color:var(--c-text-secondary);
+  display:inline-flex;align-items:center;gap:4px;
+}
+.recommend-card .meta-tag.highlight { font-weight:600; }
+.recommend-card .meta-tag.gpa-tag { background:var(--c-success-bg);color:var(--c-success); }
+.recommend-card .meta-tag.ielts-tag { background:var(--c-accent-light);color:var(--c-accent); }
+.recommend-card .meta-tag.coop-tag { background:var(--c-tier2);color:var(--c-tier2-text); }
+.recommend-card .meta-tag.dual-tag { background:var(--c-warning-bg);color:var(--c-warning); }
+.recommend-card .meta-tag.location-tag { background:#F3E8FF;color:#7C3AED; }
+
+/* 匹配度进度条 */
+.match-bar-wrap {
+  margin-top:10px;
+}
+.match-bar-label {
+  display:flex;justify-content:space-between;
+  font-size:11px;color:var(--c-text-tertiary);margin-bottom:3px;
+}
+.match-bar-label .match-pct {
+  font-weight:600;
+}
+.match-bar {
+  height:6px;border-radius:3px;
+  background:var(--c-bg);overflow:hidden;
+}
+.match-bar-fill {
+  height:100%;border-radius:3px;
+  transition:width .6s ease;
+}
+.match-bar-fill.safety-fill { background:var(--c-success); }
+.match-bar-fill.match-fill { background:var(--c-warning); }
+.match-bar-fill.reach-fill { background:var(--c-danger); }
+.match-bar-fill.australia-fill { background:#BA6124; }
+
+/* 加载和错误状态 */
+.loading-state, .error-state, .empty-state, .login-prompt {
+  text-align:center;padding:60px 20px;
+}
+.loading-state .spinner {
+  width:36px;height:36px;border:3px solid var(--c-border);
+  border-top-color:var(--c-accent);border-radius:50%;
+  animation:spin .8s linear infinite;margin:0 auto 16px;
+}
+@keyframes spin { to { transform:rotate(360deg); } }
+.loading-state p, .empty-state p, .login-prompt p {
+  font-size:14px;color:var(--c-text-secondary);
+}
+.error-state .error-icon { font-size:40px;margin-bottom:12px; }
+.error-state p { font-size:14px;color:var(--c-danger);margin-bottom:12px; }
+.error-state button, .login-prompt button {
+  padding:8px 20px;border-radius:var(--radius-sm);
+  background:var(--c-accent);color:#fff;font-size:13px;
+  border:none;cursor:pointer;font-weight:500;
+  transition:all var(--transition);
+}
+.error-state button:hover, .login-prompt button:hover {
+  background:var(--c-accent-hover);
+}
+.login-prompt h3 { font-size:18px;font-weight:600;margin-bottom:8px; }
+
+@media(max-width:768px) {
+  .recommend-grid { grid-template-columns:1fr; }
+  .profile-card { flex-direction:column;gap:12px;align-items:flex-start; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav-bar">
+  <a href="../index.html" class="nav-logo"><span class="dot"></span> <span data-i18n="nav.home">升学数据</span></a>
+  <div class="nav-links">
+    <a href="../index.html" class="nav-link" data-i18n="nav.home">首页</a>
+    <a href="admission.html" class="nav-link" data-i18n="nav.admission">录取对照</a>
+    <a href="rankings.html" class="nav-link" data-i18n="nav.rankings">排名参考</a>
+    <a href="insights.html" class="nav-link" data-i18n="nav.insights">关键发现</a>
+    <a href="recommend.html" class="nav-link active" data-i18n="nav.recommend">AI 选校</a>
+    <a href="files.html" class="nav-link" data-i18n="nav.files">资料文件</a>
+    <a href="download.html" class="nav-link" data-i18n="nav.download">下载App</a>
+    <button id="navAuthBtn" class="nav-auth-btn" onclick="AUTH.handleNavAuthClick()" data-i18n="nav.login">登录</button>
+  </div>
+</nav>
+
+<div class="page-container">
+
+  <!-- 页面标题 -->
+  <div class="recommend-header">
+    <h1 data-i18n="recommend.title">🎯 AI 智能选校</h1>
+    <p class="subtitle" data-i18n="recommend.subtitle">基于你的 GPA 和雅思成绩，智能匹配最佳院校方案</p>
+  </div>
+
+  <!-- 个人信息卡片 -->
+  <div class="profile-card" id="profileCard" style="display:none;">
+    <div>
+      <div class="section-title" data-i18n="recommend.personalInfo">📋 个人信息</div>
+    </div>
+    <div>
+      <div class="label" data-i18n="home.gpa">GPA</div>
+      <div class="value gpa" id="userGpa">—</div>
+    </div>
+    <div>
+      <div class="label" data-i18n="home.ielts">雅思</div>
+      <div class="value ielts" id="userIelts">—</div>
+    </div>
+  </div>
+
+  <!-- 加载状态 -->
+  <div class="loading-state" id="loadingState">
+    <div class="spinner"></div>
+    <p data-i18n="common.loading">加载中...</p>
+  </div>
+
+  <!-- 登录提示 -->
+  <div class="login-prompt" id="loginPrompt" style="display:none;">
+    <h3>🔒 <span data-i18n="recommend.loginRequired">请先登录</span></h3>
+    <p data-i18n="recommend.loginDesc">登录后查看基于你 GPA 和雅思的个性化选校推荐</p>
+    <button onclick="AUTH.showLoginModal()" data-i18n="auth.login.submit">登录</button>
+  </div>
+
+  <!-- 错误状态 -->
+  <div class="error-state" id="errorState" style="display:none;">
+    <div class="error-icon">⚠️</div>
+    <p id="errorMessage"></p>
+    <button onclick="loadRecommendations()" data-i18n="common.retry">重试</button>
+  </div>
+
+  <!-- 推荐结果 -->
+  <div id="recommendResults" style="display:none;">
+
+    <!-- 🟢 保底 -->
+    <div class="tier-section tier-safety" id="safetySection">
+      <div class="tier-header">
+        <span style="font-size:22px;">🟢</span>
+        <h2 data-i18n="recommend.safety">保底 (Safety)</h2>
+        <span class="tier-count" id="safetyCount">0</span>
+        <span class="tier-desc" data-i18n="recommend.safetyDesc">录取概率高，稳妥选择</span>
+      </div>
+      <div class="recommend-grid" id="safetyGrid"></div>
+    </div>
+
+    <!-- 🟡 匹配 -->
+    <div class="tier-section tier-match" id="matchSection">
+      <div class="tier-header">
+        <span style="font-size:22px;">🟡</span>
+        <h2 data-i18n="recommend.match">匹配 (Match)</h2>
+        <span class="tier-count" id="matchCount">0</span>
+        <span class="tier-desc" data-i18n="recommend.matchDesc">与你条件匹配，有竞争力</span>
+      </div>
+      <div class="recommend-grid" id="matchGrid"></div>
+    </div>
+
+    <!-- 🔴 冲刺 -->
+    <div class="tier-section tier-reach" id="reachSection">
+      <div class="tier-header">
+        <span style="font-size:22px;">🔴</span>
+        <h2 data-i18n="recommend.reach">冲刺 (Reach)</h2>
+        <span class="tier-count" id="reachCount">0</span>
+        <span class="tier-desc" data-i18n="recommend.reachDesc">需要提升条件，有挑战</span>
+      </div>
+      <div class="recommend-grid" id="reachGrid"></div>
+    </div>
+
+    <!-- 🔵 澳洲预科 -->
+    <div class="tier-section tier-australia" id="australiaSection">
+      <div class="tier-header">
+        <span style="font-size:22px;">🔵</span>
+        <h2 data-i18n="recommend.australia">澳洲预科 (Australia)</h2>
+        <span class="tier-count" id="australiaCount">0</span>
+        <span class="tier-desc" data-i18n="recommend.australiaDesc">安全备选方案</span>
+      </div>
+      <div class="recommend-grid" id="australiaGrid"></div>
+    </div>
+
+  </div>
+</div>
+
+<footer class="footer">
+  <p data-i18n="footer.dataSource">数据来源：各校官网 + 三大排行榜 · 定期手工更新</p>
+  <p data-i18n="footer.copyright" style="margin-top:4px;">© 2026 TopFO · 加拿大大学升学规划平台</p>
+</footer>
+
+<script src="../js/i18n.js"></script>
+<script src="../js/auth.js"></script>
+<script>
+// ===== AI 智能选校推荐 =====
+
+// 计算匹配度百分比
+function calcMatchRate(prog, userGpa, userIelts) {
+  const gpaRequired = parseGpaMin(prog.gpa_min);
+  const ieltsRequired = parseIeltsMin(prog.ielts_min);
+
+  let gpaScore = 0;
+  let ieltsScore = 0;
+
+  // GPA 评分
+  if (gpaRequired !== null) {
+    if (userGpa >= gpaRequired) {
+      gpaScore = 100;
+    } else if (userGpa >= gpaRequired - 5) {
+      gpaScore = 70 + ((userGpa - (gpaRequired - 5)) / 5) * 30;
+    } else {
+      gpaScore = Math.max(30, (userGpa / gpaRequired) * 60);
+    }
+  } else {
+    gpaScore = 50;
+  }
+
+  // 雅思评分
+  if (ieltsRequired !== null) {
+    if (userIelts >= ieltsRequired) {
+      ieltsScore = 100;
+    } else if (userIelts >= ieltsRequired - 1.0) {
+      ieltsScore = 60 + ((userIelts - (ieltsRequired - 1.0)) / 1.0) * 40;
+    } else {
+      ieltsScore = Math.max(20, (userIelts / ieltsRequired) * 60);
+    }
+  } else {
+    ieltsScore = 50;
+  }
+
+  // 综合评分（GPA 权重 0.6，雅思权重 0.4）
+  const overall = Math.round(gpaScore * 0.6 + ieltsScore * 0.4);
+
+  // 有双录取自动加分
+  const hasDual = prog.dual_type && prog.dual_type !== '—' && prog.dual_type !== 'no';
+  if (hasDual && gpaRequired !== null && userGpa >= gpaRequired) {
+    return Math.min(100, overall + 10);
+  }
+
+  return Math.min(100, Math.max(5, overall));
+}
+
+// 解析 GPA 最小值（匹配后端逻辑）
+function parseGpaMin(gpaStr) {
+  if (!gpaStr || gpaStr === '—' || (typeof gpaStr === 'string' && gpaStr.startsWith('预科'))) return null;
+  const rangeMatch = String(gpaStr).match(/(\d+)\s*[-–]\s*(\d+)/);
+  if (rangeMatch) return parseInt(rangeMatch[1], 10);
+  const lowMatch = String(gpaStr).match(/low\s*(\d+)/i);
+  if (lowMatch) return parseInt(lowMatch[1], 10);
+  const midMatch = String(gpaStr).match(/mid.*?(\d+)/i);
+  if (midMatch) return parseInt(midMatch[1], 10) - 5;
+  const highMatch = String(gpaStr).match(/high\s*(\d+)/i);
+  if (highMatch) return parseInt(highMatch[1], 10);
+  const singleMatch = String(gpaStr).match(/^(\d+)/);
+  if (singleMatch) return parseInt(singleMatch[1], 10);
+  return null;
+}
+
+// 解析雅思最小值（匹配后端逻辑）
+function parseIeltsMin(ieltsStr) {
+  if (!ieltsStr || ieltsStr === '—' || (typeof ieltsStr === 'string' && ieltsStr.startsWith('预科'))) return null;
+  const match = String(ieltsStr).match(/(\d+\.?\d*)/);
+  return match ? parseFloat(match[1]) : null;
+}
+
+// 获取匹配度对应的 CSS class
+function getMatchBarClass(tier) {
+  const map = { safety: 'safety-fill', match: 'match-fill', reach: 'reach-fill', australia: 'australia-fill' };
+  return map[tier] || 'match-fill';
+}
+
+// 获取颜色 class
+function getCardClass(tier) {
+  return tier;
+}
+
+// 截断数字保留一位小数
+function fmtNum(n) {
+  if (n === null || n === undefined) return '—';
+  return Number(n).toFixed(1);
+}
+
+// 渲染推荐卡片
+function renderCard(prog, tier, matchRate) {
+  const cardClass = getCardClass(tier);
+  const barClass = getMatchBarClass(tier);
+
+  const gpaMin = prog.gpa_min || '—';
+  const ieltsMin = prog.ielts_min || '—';
+  const hasCoop = prog.has_coop;
+  const hasDual = prog.dual_type && prog.dual_type !== '—' && prog.dual_type !== 'no';
+  const dualLabel = prog.dual_type || '';
+  const location = [prog.city, prog.province].filter(Boolean).join(' · ');
+
+  return `
+    <div class="recommend-card ${cardClass}">
+      <div class="school-name">${prog.school_name}</div>
+      <div class="program-name">${prog.category}${prog.major ? ' · ' + prog.major : ''}</div>
+      <div class="meta-row">
+        <span class="meta-tag gpa-tag highlight" title="GPA 要求">📚 ${I18N ? I18N.t('recommend.gpa') : 'GPA'}: ${gpaMin}</span>
+        <span class="meta-tag ielts-tag highlight" title="雅思要求">🌐 ${I18N ? I18N.t('recommend.ielts') : 'IELTS'}: ${ieltsMin}</span>
+        ${location ? `<span class="meta-tag location-tag">📍 ${location}</span>` : ''}
+        ${hasCoop ? `<span class="meta-tag coop-tag">💼 ${I18N ? I18N.t('admission.coop') : 'Co-op'}</span>` : ''}
+        ${hasDual ? `<span class="meta-tag dual-tag">📋 ${I18N ? I18N.t('admission.dualEnrollment') : '双录取'}: ${dualLabel}</span>` : ''}
+      </div>
+      <div class="match-bar-wrap">
+        <div class="match-bar-label">
+          <span>${I18N ? I18N.t('recommend.matchRate') : '匹配度'}</span>
+          <span class="match-pct">${matchRate}%</span>
+        </div>
+        <div class="match-bar">
+          <div class="match-bar-fill ${barClass}" style="width:${matchRate}%"></div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// 渲染推荐列表
+function renderRecommendations(data) {
+  const recs = data.recommendations;
+  const user = data.user;
+
+  // 更新信息卡片
+  document.getElementById('userGpa').textContent = fmtNum(user.gpa) + '%';
+  document.getElementById('userIelts').textContent = fmtNum(user.ielts);
+  document.getElementById('profileCard').style.display = '';
+
+  // 计算匹配度并渲染
+  function renderTier(tierName, gridId, countId, items) {
+    const grid = document.getElementById(gridId);
+    const count = document.getElementById(countId);
+    if (!items || items.length === 0) {
+      document.getElementById(tierName + 'Section').style.display = 'none';
+      return;
+    }
+    count.textContent = items.length;
+    grid.innerHTML = items.map(prog => {
+      const rate = calcMatchRate(prog, user.gpa, user.ielts);
+      return renderCard(prog, tierName, rate);
+    }).join('');
+  }
+
+  renderTier('safety', 'safetyGrid', 'safetyCount', recs.safety);
+  renderTier('match', 'matchGrid', 'matchCount', recs.match);
+  renderTier('reach', 'reachGrid', 'reachCount', recs.reach);
+  renderTier('australia', 'australiaGrid', 'australiaCount', recs.australia);
+
+  // 如果所有分区都是空的
+  const hasAny = (recs.safety && recs.safety.length > 0) ||
+                 (recs.match && recs.match.length > 0) ||
+                 (recs.reach && recs.reach.length > 0) ||
+                 (recs.australia && recs.australia.length > 0);
+  if (!hasAny) {
+    document.getElementById('recommendResults').innerHTML = `
+      <div class="empty-state">
+        <p data-i18n="recommend.noData">暂无推荐结果</p>
+      </div>`;
+  }
+}
+
+// 主加载函数
+async function loadRecommendations() {
+  // 检查登录
+  if (!AUTH.isLoggedIn()) {
+    document.getElementById('loadingState').style.display = 'none';
+    document.getElementById('loginPrompt').style.display = '';
+    return;
+  }
+
+  document.getElementById('loadingState').style.display = '';
+  document.getElementById('errorState').style.display = 'none';
+  document.getElementById('loginPrompt').style.display = 'none';
+  document.getElementById('recommendResults').style.display = 'none';
+  document.getElementById('profileCard').style.display = 'none';
+
+  try {
+    const token = AUTH._getToken();
+    const resp = await fetch('/api/ai/recommend', {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+
+    if (!resp.ok) {
+      if (resp.status === 401) {
+        document.getElementById('loadingState').style.display = 'none';
+        document.getElementById('loginPrompt').style.display = '';
+        return;
+      }
+      throw new Error('请求失败: ' + resp.status);
+    }
+
+    const data = await resp.json();
+    document.getElementById('loadingState').style.display = 'none';
+    document.getElementById('recommendResults').style.display = '';
+    renderRecommendations(data);
+  } catch (e) {
+    document.getElementById('loadingState').style.display = 'none';
+    document.getElementById('errorState').style.display = '';
+    document.getElementById('errorMessage').textContent = e.message || '加载失败';
+  }
+}
+
+// ===== 页面初始化 =====
+(async function init() {
+  // 初始化 i18n
+  if (typeof I18N !== 'undefined') {
+    await I18N.init();
+  }
+})();
+
+// Auth change handler
+AUTH.onChange(async (logged) => {
+  AUTH.initPage();
+  if (logged) {
+    await loadRecommendations();
+  } else {
+    document.getElementById('loadingState').style.display = 'none';
+    document.getElementById('loginPrompt').style.display = '';
+    document.getElementById('recommendResults').style.display = 'none';
+    document.getElementById('profileCard').style.display = 'none';
+    document.getElementById('errorState').style.display = 'none';
+  }
+});
+
+AUTH.initPage();
+if (AUTH.isLoggedIn()) loadRecommendations();
+</script>
+
+</body>
+</html>
