@@ -106,7 +106,12 @@ const AUTH = {
 
       this._token = result.token;
       localStorage.setItem(this._key, JSON.stringify({ token: result.token, ts: Date.now() }));
-      localStorage.setItem('admission_user', JSON.stringify(result.user || { name: username, display: username }));
+      // Normalize user object (backend returns display_name, frontend expects display)
+      const userData = result.user || {};
+      if (userData.display_name && !userData.display) {
+        userData.display = userData.display_name;
+      }
+      localStorage.setItem('admission_user', JSON.stringify(userData || { name: username, display: username }));
 
       // 立即获取个人数据
       await this._fetchPersonalData();
@@ -210,8 +215,8 @@ const AUTH = {
     const langBtn = document.createElement('button');
     langBtn.id = 'navLangBtn';
     langBtn.className = 'nav-lang-btn';
-    langBtn.title = I18N ? I18N.t('lang.switch') : '切换语言';
-    langBtn.textContent = I18N ? I18N.t('lang.' + (I18N.getCurrentLang())) : '中文';
+    langBtn.title = typeof I18N !== 'undefined' && I18N.t ? I18N.t('lang.switch') : '切换语言';
+    langBtn.textContent = typeof I18N !== 'undefined' && I18N.t ? I18N.t('lang.' + (I18N.getCurrentLang())) : '🌐';
     langBtn.onclick = (e) => {
       e.stopPropagation();
       const menu = document.getElementById('navLangMenu');
@@ -219,26 +224,23 @@ const AUTH = {
     };
     navLinks.appendChild(langBtn);
 
-    // 语言下拉菜单
+    // 语言下拉菜单（使用 data-i18n 属性让页面刷新后正确显示）
     const langMenu = document.createElement('div');
     langMenu.id = 'navLangMenu';
     langMenu.className = 'nav-lang-menu';
     langMenu.innerHTML = `
-      <div class="nav-lang-option" data-lang="zh">🇨🇳 中文</div>
-      <div class="nav-lang-option" data-lang="en">🇬🇧 EN</div>
-      <div class="nav-lang-option" data-lang="fr">🇫🇷 FR</div>
+      <div class="nav-lang-option" data-lang="zh">🇨🇳 <span data-i18n="lang.zh">中文</span></div>
+      <div class="nav-lang-option" data-lang="en">🇬🇧 <span data-i18n="lang.en">EN</span></div>
+      <div class="nav-lang-option" data-lang="fr">🇫🇷 <span data-i18n="lang.fr">FR</span></div>
     `;
     langMenu.querySelectorAll('.nav-lang-option').forEach(opt => {
       opt.addEventListener('click', async () => {
         const lang = opt.getAttribute('data-lang');
         if (typeof I18N !== 'undefined') {
           await I18N.setLang(lang);
+          // setLang 会触发 location.reload()，以下代码不会执行
         }
         langMenu.classList.remove('show');
-        document.getElementById('navLangBtn').textContent = I18N ? I18N.t('lang.' + lang) : lang;
-        // 标记当前选中
-        langMenu.querySelectorAll('.nav-lang-option').forEach(o => o.classList.remove('active'));
-        opt.classList.add('active');
       });
     });
     navLinks.appendChild(langMenu);
@@ -478,25 +480,26 @@ const AUTH = {
     if (this._loginModalInjected) return;
     this._loginModalInjected = true;
 
+    const t = (typeof I18N !== 'undefined' && I18N.t) ? I18N.t : (k) => k;
     const html = `
     <div id="loginModal" class="login-modal">
       <div class="login-modal-content" style="max-width:360px;">
-        <h3 style="margin:0 0 16px;font-size:18px;font-weight:600;color:var(--c-text);">🔐 登录</h3>
+        <h3 style="margin:0 0 16px;font-size:18px;font-weight:600;color:var(--c-text);">🔐 ${t('auth.login.title')}</h3>
         <div style="display:flex;flex-direction:column;gap:12px;">
-          <input id="loginUser" type="text" placeholder="用户名"
+          <input id="loginUser" type="text" placeholder="${t('auth.login.username')}"
             style="padding:10px 14px;border:1px solid var(--c-border);border-radius:8px;font-size:14px;background:var(--c-bg-secondary);color:var(--c-text);outline:none;"
             autocomplete="username">
-          <input id="loginPass" type="password" placeholder="密码"
+          <input id="loginPass" type="password" placeholder="${t('auth.login.password')}"
             style="padding:10px 14px;border:1px solid var(--c-border);border-radius:8px;font-size:14px;background:var(--c-bg-secondary);color:var(--c-text);outline:none;"
             autocomplete="current-password">
         </div>
         <div id="loginError" style="display:none;color:#e74c3c;font-size:12px;margin:8px 0;"></div>
         <button id="loginSubmitBtn" onclick="AUTH.handleLoginSubmit()"
-          style="width:100%;padding:12px;margin-top:12px;background:var(--c-primary);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:500;cursor:pointer;">登录</button>
+          style="width:100%;padding:12px;margin-top:12px;background:var(--c-primary);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:500;cursor:pointer;">${t('auth.login.submit')}</button>
         <div style="margin-top:12px;text-align:center;font-size:12px;color:var(--c-text-tertiary);">
-          <a href="javascript:void(0)" onclick="AUTH.hideLoginModal();AUTH.showRegisterModal();" style="color:var(--c-primary);text-decoration:none;">还没有账号？注册</a>
+          <a href="javascript:void(0)" onclick="AUTH.hideLoginModal();AUTH.showRegisterModal();" style="color:var(--c-primary);text-decoration:none;">${t('auth.login.noAccount')}</a>
           &nbsp;·&nbsp;
-          <span style="cursor:pointer;">体验: demo / topfo2026</span>
+          <span style="cursor:pointer;">${t('auth.login.demo', {demo: 'demo', pass: 'topfo2026'}) || '体验: demo / topfo2026'}</span>
         </div>
       </div>
     </div>`;
@@ -836,25 +839,26 @@ const AUTH = {
     if (this._registerModalInjected) return;
     this._registerModalInjected = true;
 
+    const t = (typeof I18N !== 'undefined' && I18N.t) ? I18N.t : (k) => k;
     const html = `
     <div id="registerModal" class="login-modal">
       <div class="login-modal-content" style="max-width:360px;">
-        <h3 style="margin:0 0 16px;font-size:18px;font-weight:600;color:var(--c-text);">📝 注册</h3>
+        <h3 style="margin:0 0 16px;font-size:18px;font-weight:600;color:var(--c-text);">📝 ${t('auth.register.title')}</h3>
         <div style="display:flex;flex-direction:column;gap:12px;">
-          <input id="regUser" type="text" placeholder="用户名"
+          <input id="regUser" type="text" placeholder="${t('auth.register.username')}"
             style="padding:10px 14px;border:1px solid var(--c-border);border-radius:8px;font-size:14px;background:var(--c-bg-secondary);color:var(--c-text);outline:none;"
             autocomplete="username">
-          <input id="regPass" type="password" placeholder="密码"
+          <input id="regPass" type="password" placeholder="${t('auth.register.password')}"
             style="padding:10px 14px;border:1px solid var(--c-border);border-radius:8px;font-size:14px;background:var(--c-bg-secondary);color:var(--c-text);outline:none;"
             autocomplete="new-password">
-          <input id="regDisplay" type="text" placeholder="显示名称（选填）"
+          <input id="regDisplay" type="text" placeholder="${t('auth.register.displayName')}"
             style="padding:10px 14px;border:1px solid var(--c-border);border-radius:8px;font-size:14px;background:var(--c-bg-secondary);color:var(--c-text);outline:none;">
         </div>
         <div id="regError" style="display:none;color:#e74c3c;font-size:12px;margin:8px 0;"></div>
         <button id="regSubmitBtn" onclick="AUTH.handleRegisterSubmit()"
-          style="width:100%;padding:12px;margin-top:12px;background:var(--c-primary);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:500;cursor:pointer;">注册</button>
+          style="width:100%;padding:12px;margin-top:12px;background:var(--c-primary);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:500;cursor:pointer;">${t('auth.register.submit')}</button>
         <div style="margin-top:12px;text-align:center;font-size:12px;color:var(--c-text-tertiary);">
-          <a href="javascript:void(0)" onclick="AUTH.hideRegisterModal();AUTH.showLoginModal();" style="color:var(--c-primary);text-decoration:none;">已有账号？登录</a>
+          <a href="javascript:void(0)" onclick="AUTH.hideRegisterModal();AUTH.showLoginModal();" style="color:var(--c-primary);text-decoration:none;">${t('common.login') || '已有账号？登录'}</a>
         </div>
       </div>
     </div>`;

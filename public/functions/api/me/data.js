@@ -1,4 +1,15 @@
-// GET /api/me/data - JWT-protected personal data from D1
+// GET /api/me/data - JWT-protected personal data from D1 (with fallback)
+
+// Fallback data for when D1 migration hasn't been run
+const FALLBACK_DATA = {
+  caiqijun: {
+    gpa: 89.6,
+    ielts: { overall: 5.0, listening: 4.5, reading: 4.5, writing: 5.5, speaking: 5.0 },
+    target_majors: ["CS", "Science"],
+    notes: "中加学籍，目标加拿大大学CS/理科综合"
+  }
+};
+
 function hexToBytes(hex) {
   const bytes = new Uint8Array(hex.length / 2);
   for (let i = 0; i < hex.length; i += 2) bytes[i / 2] = parseInt(hex.substring(i, i + 2), 16);
@@ -54,25 +65,49 @@ export async function onRequestGet(context) {
       return Response.json({ gpa: null, ielts: null }, { headers: corsHeaders() });
     }
 
-    // 从 D1 查询学生档案
-    const profile = await env.topfo_chat.prepare(
-      `SELECT gpa, ielts, target_schools, counselor_notes FROM student_profiles WHERE username = ?`
-    ).bind(username).first();
+    // 1. Try D1 first
+    try {
+      // Get user id first
+      const user = await env.topfo_chat.prepare(
+        `SELECT id FROM users WHERE username = ?`
+      ).bind(username).first();
 
-    if (!profile) {
-      return Response.json({
-        gpa: null,
-        ielts: null,
-        target_schools: null,
-        counselor_notes: null
-      }, { headers: corsHeaders() });
+      if (user) {
+        // Get profile using user_id
+        const profile = await env.topfo_chat.prepare(
+          `SELECT gpa, ielts_overall, ielts_listening, ielts_reading, ielts_writing, ielts_speaking, target_majors, notes FROM student_profiles WHERE user_id = ?`
+        ).bind(user.id).first();
+
+        if (profile) {
+          return Response.json({
+            gpa: profile.gpa,
+            ielts: {
+              overall: profile.ielts_overall,
+              listening: profile.ielts_listening,
+              reading: profile.ielts_reading,
+              writing: profile.ielts_writing,
+              speaking: profile.ielts_speaking
+            },
+            target_majors: profile.target_majors ? JSON.parse(profile.target_majors) : null,
+            notes: profile.notes
+          }, { headers: corsHeaders() });
+        }
+      }
+    } catch (d1Err) {
+      // D1 not available - fall through to fallback
+    }
+
+    // 2. Fallback to hardcoded data
+    const fallback = FALLBACK_DATA[username];
+    if (fallback) {
+      return Response.json(fallback, { headers: corsHeaders() });
     }
 
     return Response.json({
-      gpa: profile.gpa,
-      ielts: profile.ielts,
-      target_schools: profile.target_schools,
-      counselor_notes: profile.counselor_notes
+      gpa: null,
+      ielts: null,
+      target_majors: null,
+      notes: null
     }, { headers: corsHeaders() });
   } catch (e) {
     return Response.json({ error: "Failed to load profile: " + e.message }, { status: 500, headers: corsHeaders() });

@@ -52,6 +52,13 @@ export async function onRequestOptions() {
   return new Response(null, { status: 204, headers: corsHeaders() });
 }
 
+// Fallback users for when D1 migration hasn't been run yet
+// IMPORTANT: After running migrations, users are managed via D1
+const FALLBACK_USERS = {
+  caiqijun: { hash: "3a2461f7988fbce6135ec558a301fb53dd2c80bb0350c485a385fe19f74d3344", salt: "6537689ccc9064f9b12b5379837eacf2", role: "student", display_name: "奇均" },
+  demo:     { hash: "a2190df6895d6cc65f283240b8244b9538b27311e781c89184be2cce4e7c698a", salt: "6537689ccc9064f9b12b5379837eacf2", role: "demo", display_name: "体验用户" }
+};
+
 export async function onRequestPost(context) {
   try {
     const { request, env } = context;
@@ -61,23 +68,38 @@ export async function onRequestPost(context) {
 
     if (!username || !password) return Response.json({ error: "Missing username or password" }, { status: 400, headers: corsHeaders() });
 
-    // 从 D1 查询用户
-    const result = await env.topfo_chat.prepare(
-      `SELECT username, password_hash, salt, role, display_name FROM users WHERE username = ?`
-    ).bind(username).first();
+    let userRecord = null;
 
-    if (!result) return Response.json({ error: "Invalid credentials" }, { status: 401, headers: corsHeaders() });
+    // 1. Try D1 first (migration may have been run)
+    try {
+      const result = await env.topfo_chat.prepare(
+        `SELECT username, password_hash, salt, role, display_name FROM users WHERE username = ?`
+      ).bind(username).first();
+      if (result) {
+        userRecord = { username: result.username, password_hash: result.password_hash, salt: result.salt, role: result.role, display_name: result.display_name };
+      }
+    } catch (d1Err) {
+      // D1 not available - will fall through to fallback
+    }
 
-    const ok = await pbkdf2Verify(password, result.salt, result.password_hash);
+    // 2. Fallback to hardcoded users (for dev / pre-migration phase)
+    if (!userRecord && FALLBACK_USERS[username]) {
+      const fb = FALLBACK_USERS[username];
+      userRecord = { username, password_hash: fb.hash, salt: fb.salt, role: fb.role, display_name: fb.display_name };
+    }
+
+    if (!userRecord) return Response.json({ error: "Invalid credentials" }, { status: 401, headers: corsHeaders() });
+
+    const ok = await pbkdf2Verify(password, userRecord.salt, userRecord.password_hash);
     if (!ok) return Response.json({ error: "Invalid credentials" }, { status: 401, headers: corsHeaders() });
 
     const jwtSecret = env.JWT_SECRET;
     if (!jwtSecret) return Response.json({ error: "Server configuration error" }, { status: 500, headers: corsHeaders() });
 
-    const token = await issueJWT(result.username, result.role, jwtSecret);
+    const token = await issueJWT(userRecord.username, userRecord.role, jwtSecret);
     return Response.json({
       token,
-      user: { username: result.username, display_name: result.display_name, role: result.role }
+      user: { username: userRecord.username, display_name: userRecord.display_name, role: userRecord.role }
     }, { headers: corsHeaders() });
   } catch (e) {
     return Response.json({ error: "Internal error: " + e.message }, { status: 500, headers: corsHeaders() });

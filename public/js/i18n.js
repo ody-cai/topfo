@@ -39,8 +39,8 @@ const I18N = {
   async setLang(lang) {
     this._currentLang = lang;
     document.cookie = `lang=${lang};path=/;max-age=31536000`;
-    await this._loadLang(lang);
-    this._listeners.forEach(fn => fn(lang));
+    // 强制刷新页面，所有静态 data-i18n 和动态注入元素重新渲染
+    location.reload();
   },
 
   onChange(fn) { this._listeners.push(fn); },
