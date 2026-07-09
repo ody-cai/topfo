@@ -209,7 +209,6 @@
     <a href="pages/admission.html" class="nav-link" data-i18n="nav.admission">录取对照表</a>
     <a href="pages/rankings.html" class="nav-link" data-i18n="nav.rankings">排名参考</a>
     <a href="pages/insights.html" class="nav-link" data-i18n="nav.insights">关键发现</a>
-    <a href="pages/tracker.html" class="nav-link" data-i18n="nav.tracker">申请追踪</a>
     <a href="pages/community.html" class="nav-link" data-i18n="nav.community">社区</a>
     <a href="pages/recommend.html" class="nav-link" data-i18n="nav.recommend">AI 选校</a>
     <a href="pages/files.html" class="nav-link" data-i18n="nav.files">文件</a>
@@ -464,18 +463,18 @@ document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
 // ======== 数据亮点（公开） ========
 const HIGHLIGHTS_POOL = [
-  {icon:'🏫',tag:'对比发现',tagCls:'tag-blue',title:'主校 vs 分校区',desc:'多大UTM/UTSC、UBC Okanagan的录取线比主校低10-15%，是进入名校体系的绝佳跳板'},
-  {icon:'📐',tag:'专业对比',tagCls:'tag-green',title:'数学比CS好进约9分',desc:'同一大学数学专业录取线普遍比CS低9-10分，如麦马数学85% vs CS 94%'},
-  {icon:'💰',tag:'留学成本',tagCls:'tag-amber',title:'学费差距达100万',desc:'纽芬兰纪念大学仅6-9万/年，多大UTSG高达21-34万/年，4年本科差距60-100万'},
-  {icon:'🌏',tag:'路径分析',tagCls:'tag-blue',title:'双录取通道多达18所',desc:'26所院校中18所有双录/预科路径，最低雅思4.0即可申请，为语言成绩不足的学生提供保障'},
-  {icon:'🎯',tag:'就业优势',tagCls:'tag-green',title:'20+院校开设Co-op',desc:'大部分院校在工程/CS等专业提供Co-op带薪实习，积累工作经验的同时可赚取部分学费'},
-  {icon:'🦘',tag:'备选方案',tagCls:'tag-purple',title:'澳洲预科雅思5.0起',desc:'UNSW等QS TOP50大学预科雅思5.0即可入读，升学率高达91%，是安全可靠的备选'},
-  {icon:'🏆',tag:'捡漏机会',tagCls:'tag-amber',title:'分校区"降维录取"',desc:'UTM CS mid-high 80s即可，相比UTSG 93%竞争均分差距达10-15%，高性价比选择'},
-  {icon:'🧭',tag:'选专业策略',tagCls:'tag-pink',title:'同校不同专业线差15分',desc:'同一大学心理学录取线比CS低10-15分，选对专业方向可实现"降维打击"'},
-  {icon:'📊',tag:'排名洞察',tagCls:'tag-purple',title:'排名不等于录取门槛',desc:'QS世界排名前100的大学中，部分专业录取线仅75-80%，选校需同时参考排名和录取门槛'},
-  {icon:'🎓',tag:'申请时间',tagCls:'tag-blue',title:'早申优势明显',desc:'多数院校1月15日截止热门专业申请，部分滚动录取院校早申可提前锁定录取名额'},
-  {icon:'🏙️',tag:'城市选择',tagCls:'tag-green',title:'安省BC省集中75%+资源',desc:'追踪院校中75%以上集中在安大略省和BC省，多伦多/温哥华提供最多实习和就业机会'},
-  {icon:'✨',tag:'数据洞察',tagCls:'tag-pink',title:'名校"偏科"录取',desc:'多大/麦马等名校部分专业录取线仅80-85%，远低于CS/工程95%+，选对专业上名校'},
+  {icon:'🏫',tagKey:'highlights.1.tag',tagCls:'tag-blue',titleKey:'highlights.1.title',descKey:'highlights.1.desc',tag:'对比发现',title:'主校 vs 分校区',desc:'多大UTM/UTSC、UBC Okanagan的录取线比主校低10-15%，是进入名校体系的绝佳跳板'},
+  {icon:'📐',tagKey:'highlights.2.tag',tagCls:'tag-green',titleKey:'highlights.2.title',descKey:'highlights.2.desc',tag:'专业对比',title:'数学比CS好进约9分',desc:'同一大学数学专业录取线普遍比CS低9-10分，如麦马数学85% vs CS 94%'},
+  {icon:'💰',tagKey:'highlights.3.tag',tagCls:'tag-amber',titleKey:'highlights.3.title',descKey:'highlights.3.desc',tag:'留学成本',title:'学费差距达100万',desc:'纽芬兰纪念大学仅6-9万/年，多大UTSG高达21-34万/年，4年本科差距60-100万'},
+  {icon:'🌏',tagKey:'highlights.4.tag',tagCls:'tag-blue',titleKey:'highlights.4.title',descKey:'highlights.4.desc',tag:'路径分析',title:'双录取通道多达18所',desc:'26所院校中18所有双录/预科路径，最低雅思4.0即可申请，为语言成绩不足的学生提供保障'},
+  {icon:'🎯',tagKey:'highlights.5.tag',tagCls:'tag-green',titleKey:'highlights.5.title',descKey:'highlights.5.desc',tag:'就业优势',title:'20+院校开设Co-op',desc:'大部分院校在工程/CS等专业提供Co-op带薪实习，积累工作经验的同时可赚取部分学费'},
+  {icon:'🦘',tagKey:'highlights.6.tag',tagCls:'tag-purple',titleKey:'highlights.6.title',descKey:'highlights.6.desc',tag:'备选方案',title:'澳洲预科雅思5.0起',desc:'UNSW等QS TOP50大学预科雅思5.0即可入读，升学率高达91%，是安全可靠的备选'},
+  {icon:'🏆',tagKey:'highlights.7.tag',tagCls:'tag-amber',titleKey:'highlights.7.title',descKey:'highlights.7.desc',tag:'捡漏机会',title:'分校区"降维录取"',desc:'UTM CS mid-high 80s即可，相比UTSG 93%竞争均分差距达10-15%，高性价比选择'},
+  {icon:'🧭',tagKey:'highlights.8.tag',tagCls:'tag-pink',titleKey:'highlights.8.title',descKey:'highlights.8.desc',tag:'选专业策略',title:'同校不同专业线差15分',desc:'同一大学心理学录取线比CS低10-15分，选对专业方向可实现"降维打击"'},
+  {icon:'📊',tagKey:'highlights.9.tag',tagCls:'tag-purple',titleKey:'highlights.9.title',descKey:'highlights.9.desc',tag:'排名洞察',title:'排名不等于录取门槛',desc:'QS世界排名前100的大学中，部分专业录取线仅75-80%，选校需同时参考排名和录取门槛'},
+  {icon:'🎓',tagKey:'highlights.10.tag',tagCls:'tag-blue',titleKey:'highlights.10.title',descKey:'highlights.10.desc',tag:'申请时间',title:'早申优势明显',desc:'多数院校1月15日截止热门专业申请，部分滚动录取院校早申可提前锁定录取名额'},
+  {icon:'🏙️',tagKey:'highlights.11.tag',tagCls:'tag-green',titleKey:'highlights.11.title',descKey:'highlights.11.desc',tag:'城市选择',title:'安省BC省集中75%+资源',desc:'追踪院校中75%以上集中在安大略省和BC省，多伦多/温哥华提供最多实习和就业机会'},
+  {icon:'✨',tagKey:'highlights.12.tag',tagCls:'tag-pink',titleKey:'highlights.12.title',descKey:'highlights.12.desc',tag:'数据洞察',title:'名校"偏科"录取',desc:'多大/麦马等名校部分专业录取线仅80-85%，远低于CS/工程95%+，选对专业上名校'},
 ];
 
 function shuffleArray(arr) {
@@ -487,6 +486,11 @@ function shuffleArray(arr) {
   return a;
 }
 
+function translateText(key, fallback) {
+  const t = typeof I18N !== 'undefined' ? I18N.t(key) : '';
+  return t || fallback || '';
+}
+
 function renderHighlights(items) {
   const grid = document.getElementById('highlightsGrid');
   if (!grid) return;
@@ -495,9 +499,9 @@ function renderHighlights(items) {
     <div class="hl-card" style="animation-delay:${i * 0.1}s">
       <div class="hl-card-icon">${item.icon}</div>
       <div class="hl-card-content">
-        <span class="hl-card-tag ${item.tagCls}">${item.tag}</span>
-        <div class="hl-card-title">${item.title}</div>
-        <div class="hl-card-desc">${item.desc}</div>
+        <span class="hl-card-tag ${item.tagCls}">${translateText(item.tagKey, item.tag)}</span>
+        <div class="hl-card-title">${translateText(item.titleKey, item.title)}</div>
+        <div class="hl-card-desc">${translateText(item.descKey, item.desc)}</div>
       </div>
     </div>
   `).join('');

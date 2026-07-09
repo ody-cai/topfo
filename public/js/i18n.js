@@ -1,12 +1,16 @@
-// ===== 国际化 i18n 管理器 =====
+// ===== 国际化 i18n 管理器 (v2 localStorage fallback) =====
 const I18N = {
   _currentLang: 'zh',
   _translations: {},
   _listeners: [],
 
   async init() {
+    // Try cookie first, then localStorage as fallback
     const saved = document.cookie.split('; ').find(row => row.startsWith('lang='));
-    this._currentLang = saved ? saved.split('=')[1] : 'zh';
+    this._currentLang = saved ? saved.split('=')[1] : (localStorage.getItem('topfo_lang') || 'zh');
+    // Persist to both
+    document.cookie = `lang=${this._currentLang};path=/;max-age=31536000`;
+    localStorage.setItem('topfo_lang', this._currentLang);
     await this._loadLang(this._currentLang);
   },
 
@@ -39,6 +43,7 @@ const I18N = {
   async setLang(lang) {
     this._currentLang = lang;
     document.cookie = `lang=${lang};path=/;max-age=31536000`;
+    localStorage.setItem('topfo_lang', lang);
     // 强制刷新页面，所有静态 data-i18n 和动态注入元素重新渲染
     location.reload();
   },
@@ -65,3 +70,6 @@ const I18N = {
 
   getCurrentLang() { return this._currentLang; }
 };
+
+// 显式暴露到 window，确保 inline onclick 可访问
+window.I18N = I18N;

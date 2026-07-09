@@ -17,7 +17,7 @@ export async function onRequestOptions() {
 export async function onRequestGet(context) {
   const { request, env } = context;
 
-  if (!context.userId) {
+  if (!context.data.userId) {
     return Response.json({ error: '请先登录' }, { status: 401, headers: corsHeaders() });
   }
 
@@ -27,7 +27,7 @@ export async function onRequestGet(context) {
     const upcoming = url.searchParams.get('upcoming') === 'true';
 
     let conditions = ['r.user_id = ?'];
-    let params = [context.userId];
+    let params = [context.data.userId];
 
     if (status === 'done') {
       conditions.push('r.is_done = 1');
@@ -53,7 +53,7 @@ export async function onRequestGet(context) {
 export async function onRequestPost(context) {
   const { request, env } = context;
 
-  if (!context.userId) {
+  if (!context.data.userId) {
     return Response.json({ error: '请先登录' }, { status: 401, headers: corsHeaders() });
   }
 
@@ -76,7 +76,7 @@ export async function onRequestPost(context) {
     const result = await env.topfo_chat.prepare(
       `INSERT INTO reminders (user_id, title, deadline, notes, is_done, created_at)
        VALUES (?, ?, ?, ?, 0, ?)`
-    ).bind(context.userId, title.trim(), deadline || null, notes || null, now).run();
+    ).bind(context.data.userId, title.trim(), deadline || null, notes || null, now).run();
 
     return Response.json({
       id: result.meta.last_row_id,

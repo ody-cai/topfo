@@ -99,6 +99,16 @@ body { background: var(--c-bg); }
   gap: 12px;
   margin-bottom: 8px;
 }
+.discussion-item .item-header .del-btn {
+  font-size:13px;padding:2px 6px;border-radius:4px;
+  background:transparent;color:var(--c-text-tertiary);
+  border:1px solid transparent;cursor:pointer;
+  transition:all var(--transition);flex-shrink:0;line-height:1;
+}
+.discussion-item .item-header .del-btn:hover {
+  color:var(--c-danger);border-color:var(--c-danger-bg);
+  background:var(--c-danger-bg);
+}
 .discussion-item .item-title {
   font-size: 15px;
   font-weight: 600;
@@ -338,6 +348,16 @@ body { background: var(--c-bg); }
   gap: 12px;
   font-size: 12px;
   color: var(--c-text-tertiary);
+  flex-wrap: wrap;
+}
+.topic-detail-header .detail-del-btn {
+  font-size:11px;padding:2px 10px;border-radius:4px;
+  background:var(--c-danger-bg);color:var(--c-danger);
+  border:1px solid var(--c-danger);cursor:pointer;
+  transition:all var(--transition);font-weight:500;
+}
+.topic-detail-header .detail-del-btn:hover {
+  background:var(--c-danger);color:#fff;
 }
 .topic-detail-body {
   padding: 20px 24px;
@@ -521,7 +541,6 @@ body { background: var(--c-bg); }
     <a href="admission.html" class="nav-link" data-i18n="nav.admission">录取对照表</a>
     <a href="rankings.html" class="nav-link" data-i18n="nav.rankings">排名参考</a>
     <a href="insights.html" class="nav-link" data-i18n="nav.insights">关键发现</a>
-    <a href="tracker.html" class="nav-link" data-i18n="nav.tracker">申请追踪</a>
     <a href="community.html" class="nav-link active" data-i18n="nav.community">社区</a>
     <a href="recommend.html" class="nav-link" data-i18n="nav.recommend">AI 选校</a>
     <a href="files.html" class="nav-link" data-i18n="nav.files">文件</a>
@@ -655,13 +674,15 @@ function getAuthHeaders() {
 
 function formatTime(dateStr) {
   if (!dateStr) return '';
-  const d = new Date(dateStr);
+  // 服务端存储为 UTC (2026-07-09 05:12:02)，加 Z 标明 UTC
+  const d = new Date(dateStr.replace(' ', 'T') + 'Z');
   const now = new Date();
   const diff = now - d;
   const mins = Math.floor(diff / 60000);
   const hours = Math.floor(diff / 3600000);
   const days = Math.floor(diff / 86400000);
 
+  if (mins < 0) return '刚刚';
   if (mins < 60) return mins <= 1 ? '刚刚' : mins + ' 分钟前';
   if (hours < 24) return hours + ' 小时前';
   if (days < 7) return days + ' 天前';
@@ -691,6 +712,8 @@ async function loadDiscussions() {
   try {
     let url = '/api/discussions?limit=50';
     if (currentCategory) url += '&category=' + encodeURIComponent(currentCategory);
+    // 加时间戳防 Cloudflare 缓存
+    url += '&_t=' + Date.now();
 
     const resp = await fetch(url, { headers: getAuthHeaders() });
     if (!resp.ok) throw new Error('加载失败');
@@ -706,8 +729,38 @@ async function loadDiscussions() {
   }
 }
 
+// ===== 删除讨论 =====
+async function deleteDiscussion(topicId, event) {
+  if (event) event.stopPropagation();
+  if (!confirm('确定删除此讨论？其他用户将不可见，但内容已在后端备份。')) return;
+
+  const btn = event ? event.target : null;
+  if (btn) { btn.disabled = true; btn.textContent = '删除中...'; }
+
+  try {
+    const resp = await fetch('/api/discussions/' + topicId, {
+      method: 'DELETE',
+      headers: getAuthHeaders()
+    });
+    if (!resp.ok) {
+      const err = await resp.json();
+      throw new Error(err.error || '删除失败');
+    }
+    // 从列表移除
+    discussions = discussions.filter(d => d.id !== topicId);
+    renderDiscussionList();
+    // 如果是当前打开的主题，关闭详情
+    if (openedTopicId === topicId) closeTopicDetail();
+  } catch (e) {
+    alert('删除失败：' + e.message);
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = '🗑'; }
+  }
+}
+
 function renderDiscussionList() {
   const list = document.getElementById('discussionList');
+  const currentUser = AUTH.getUsername();
 
   if (discussions.length === 0) {
     list.innerHTML = '<div class="empty-list">暂无讨论主题，快来发表第一篇吧 🎉</div>';
@@ -718,6 +771,9 @@ function renderDiscussionList() {
     <div class="discussion-item" onclick="openTopic(${d.id})">
       <div class="item-header">
         <div class="item-title">${d.title}</div>
+        ${currentUser && d.user_id === currentUser
+          ? `<button class="del-btn" onclick="deleteDiscussion(${d.id}, event)" title="删除（后端保留备份）">🗑</button>`
+          : ''}
       </div>
       <div class="item-meta">
         <span class="author">${escapeHtml(d.user_id || '匿名')}</span>
@@ -792,6 +848,9 @@ function renderTopicDetail(topic, commentList) {
           ${topic.category ? `<span class="cat-tag ${getCatClass(topic.category)}">${escapeHtml(topic.category)}</span>` : ''}
           <span>💬 ${topic.comment_count || 0}</span>
           <span>${formatTime(topic.created_at)}</span>
+          ${AUTH.getUsername() && topic.user_id === AUTH.getUsername()
+            ? `<button class="detail-del-btn" onclick="deleteDiscussion(${topic.id}, event)" title="删除（后端保留备份）">🗑 删除</button>`
+            : ''}
         </div>
       </div>
       <div class="topic-detail-body">${escapeHtml(topic.content || '')}</div>
@@ -940,11 +999,7 @@ document.addEventListener('click', function(e) {
 
 // ===== 认证变化 =====
 AUTH.onChange((logged) => {
-  // 初始化 i18n
-(async function(){
-  if(typeof I18N!=="undefined"){await I18N.init();}
   AUTH.initPage();
-})();
   const areaEl = document.getElementById('discussionArea');
   const visitorEl = document.getElementById('visitorPrompt');
   const btn = document.getElementById('newTopicBtn');

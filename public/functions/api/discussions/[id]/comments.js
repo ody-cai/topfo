@@ -23,7 +23,7 @@ export async function onRequestGet(context) {
 
     const result = await env.topfo_chat.prepare(
       `SELECT c.* FROM comments c
-       WHERE c.discussion_id = ?
+       WHERE c.discussion_id = ? AND (c.is_deleted IS NULL OR c.is_deleted = 0)
        ORDER BY c.created_at ASC`
     ).bind(discussionId).all();
 
@@ -37,7 +37,7 @@ export async function onRequestGet(context) {
 export async function onRequestPost(context) {
   const { request, env, params } = context;
 
-  if (!context.userId) {
+  if (!context.data.userId) {
     return Response.json({ error: '请先登录' }, { status: 401, headers: corsHeaders() });
   }
 
@@ -47,13 +47,13 @@ export async function onRequestPost(context) {
       return Response.json({ error: 'Invalid discussion ID' }, { status: 400, headers: corsHeaders() });
     }
 
-    // 验证讨论存在
+    // 验证讨论存在且未删除
     const discussion = await env.topfo_chat.prepare(
-      'SELECT id FROM discussions WHERE id = ?'
+      'SELECT id FROM discussions WHERE id = ? AND (is_deleted IS NULL OR is_deleted = 0)'
     ).bind(discussionId).first();
 
     if (!discussion) {
-      return Response.json({ error: '讨论不存在' }, { status: 404, headers: corsHeaders() });
+      return Response.json({ error: '讨论不存在或已被删除' }, { status: 404, headers: corsHeaders() });
     }
 
     let body;
@@ -73,7 +73,7 @@ export async function onRequestPost(context) {
     const result = await env.topfo_chat.prepare(
       `INSERT INTO comments (discussion_id, user_id, content, created_at)
        VALUES (?, ?, ?, ?)`
-    ).bind(discussionId, context.userId, content, now).run();
+    ).bind(discussionId, context.data.userId, content, now).run();
 
     // 更新讨论的 updated_at
     await env.topfo_chat.prepare(

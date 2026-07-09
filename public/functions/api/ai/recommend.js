@@ -178,10 +178,10 @@ ${schoolList}
       userPrompt = `GPA ${gpa}%, 雅思 ${ielts}。请推荐加拿大大学申请方案。`;
     }
 
-    // 调用 Cloudflare Workers AI（真·AI）
+    // 调用 Cloudflare Workers AI（真·AI）— 带 15 秒超时
     let aiReply = '';
     try {
-      const aiResult = await env.AI.run(AI_MODEL, {
+      const aiPromise = env.AI.run(AI_MODEL, {
         messages: [
           { role: 'system', content: systemPrompt },
           { role: 'user', content: userPrompt }
@@ -189,6 +189,11 @@ ${schoolList}
         temperature: 0.7,
         max_tokens: 2048,
       });
+      // 15 秒超时兜底，防止 AI 调用挂起导致前端无限转圈
+      const timeoutPromise = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('AI 响应超时')), 15000)
+      );
+      const aiResult = await Promise.race([aiPromise, timeoutPromise]);
       aiReply = aiResult.response || '';
     } catch (aiErr) {
       aiReply = `（AI 服务暂不可用: ${aiErr.message}）基于规则引擎的推荐结果如下。`;

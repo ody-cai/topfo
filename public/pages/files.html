@@ -26,6 +26,7 @@
 .report-card .card-desc { font-size:12px; color:var(--c-text-secondary); line-height:1.7; margin-bottom:8px; }
 .report-card .card-tags { display:flex;gap:4px;flex-wrap:wrap;margin-bottom:12px; }
 .report-tag { font-size:10px;padding:3px 8px;border-radius:10px;background:var(--c-bg);color:var(--c-text-secondary); }
+.report-tag-lang { font-size:10px;padding:2px 8px;border-radius:10px;background:var(--c-accent-light);color:var(--c-accent);font-weight:500; }
 
 .report-card-footer { padding:12px 24px;border-top:1px solid var(--c-border);display:flex;gap:8px; }
 .btn-card { font-size:12px;padding:7px 16px;border-radius:var(--radius-sm);font-weight:500;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:5px;transition:all var(--transition);text-decoration:none; }
@@ -70,7 +71,6 @@
     <a href="admission.html" class="nav-link" data-i18n="nav.admission">录取对照表</a>
     <a href="rankings.html" class="nav-link" data-i18n="nav.rankings">排名参考</a>
     <a href="insights.html" class="nav-link" data-i18n="nav.insights">关键发现</a>
-    <a href="tracker.html" class="nav-link" data-i18n="nav.tracker">申请追踪</a>
     <a href="community.html" class="nav-link" data-i18n="nav.community">社区</a>
     <a href="recommend.html" class="nav-link" data-i18n="nav.recommend">AI 选校</a>
     <a href="files.html" class="nav-link active" data-i18n="nav.files">文件</a>
@@ -85,23 +85,24 @@
 
   <div class="files-hero">
     <h1>📁 文件中心</h1>
-    <p class="subtitle">权威报告 · 政策文件 · 升学参考资料，持续更新中</p>
+    <p class="subtitle" data-i18n="files.subtitle">权威报告 · 政策文件 · 升学参考资料，持续更新中</p>
   </div>
 
   <div class="report-grid" id="reportGrid">
     <div class="report-card">
       <div class="report-card-body">
         <span class="card-icon">📘</span>
-        <h3>教育发展"十五五"规划</h3>
+        <h3 data-i18n="files.doc1.title">教育发展"十五五"规划</h3>
         <div class="card-meta">
-          <span>📅 2026.6</span><span>📄 19页</span><span>🏛 国务院</span><span>📜 国发〔2026〕19号</span>
+          <span>📅 2026.6</span><span>📄 19页</span><span>🏛 <span data-i18n="files.doc1.source">国务院</span></span><span>📜 国发〔2026〕19号</span>
+          <span class="report-tag-lang">🇨🇳 <span data-i18n="files.origLang">原文中文</span></span>
         </div>
-        <p class="card-desc">面向2030年教育强国的顶层设计。5大战略任务+3大规划布局+6项综合改革。涵盖AI全学段教育、双一流扩招、出国留学服务体系、教育评价改革等关键议题。</p>
+        <p class="card-desc" data-i18n="files.doc1.desc">面向2030年教育强国的顶层设计。5大战略任务+3大规划布局+6项综合改革。涵盖AI全学段教育、双一流扩招、出国留学服务体系、教育评价改革等关键议题。</p>
         <div class="card-tags"><span class="report-tag">十五五</span><span class="report-tag">教育强国</span><span class="report-tag">AI教育</span><span class="report-tag">出国留学</span></div>
       </div>
       <div class="report-card-footer">
-        <a href="file-edu-15th-plan-2026.html" class="btn-card primary">📖 查看解读</a>
-        <a href="../files/GuoFa2026-19_Edu15thPlan.pdf" class="btn-card secondary" download>📥 下载PDF</a>
+        <a href="file-edu-15th-plan-2026.html" class="btn-card primary"><span data-i18n="files.view">📖 查看解读</span></a>
+        <a href="../files/GuoFa2026-19_Edu15thPlan.pdf" class="btn-card secondary" download><span data-i18n="files.downloadPdf">📥 下载PDF</span></a>
       </div>
     </div>
 
@@ -110,19 +111,20 @@
         <span class="card-icon">🎓</span>
         <h3>QS World Future Skills Index 2027</h3>
         <div class="card-meta">
-          <span>📅 2026年</span><span>📄 64页</span><span>🌍 89国</span><span>🏫 QS</span>
+          <span>📅 2026</span><span>📄 64 pages</span><span>🌍 89 countries</span><span>🏫 QS</span>
+          <span class="report-tag-lang">🇬🇧 <span data-i18n="files.origLangEn">原文英文</span></span>
         </div>
-        <p class="card-desc">评估全球89个经济体高等教育体系与劳动力市场需求的匹配度。四大维度：技能匹配、学术准备、未来工作、经济转型。加拿大综合排名第5。</p>
-        <div class="card-tags"><span class="report-tag">QS</span><span class="report-tag">技能指数</span><span class="report-tag">AI与就业</span><span class="report-tag">全球排名</span></div>
+        <p class="card-desc" data-i18n="files.doc2.desc">评估全球89个经济体高等教育体系与劳动力市场需求的匹配度。四大维度：技能匹配、学术准备、未来工作、经济转型。加拿大综合排名第5。</p>
+        <div class="card-tags"><span class="report-tag">QS</span><span class="report-tag"><span data-i18n="files.tagSkills">技能指数</span></span><span class="report-tag"><span data-i18n="files.tagAiJobs">AI与就业</span></span><span class="report-tag"><span data-i18n="files.tagGlobal">全球排名</span></span></div>
       </div>
       <div class="report-card-footer">
-        <a href="file-qs-skills-2027.html" class="btn-card primary">📖 查看解读</a>
-        <a href="../files/QS_World_Future_Skills_Index_2027.pdf" class="btn-card secondary" download>📥 下载PDF</a>
+        <a href="file-qs-skills-2027.html" class="btn-card primary"><span data-i18n="files.view">📖 查看解读</span></a>
+        <a href="../files/QS_World_Future_Skills_Index_2027.pdf" class="btn-card secondary" download><span data-i18n="files.downloadPdf">📥 下载PDF</span></a>
       </div>
     </div>
   </div>
 
-  <div style="text-align:center;padding:40px 0;color:var(--c-text-tertiary);font-size:13px;">
+  <div style="text-align:center;padding:40px 0;color:var(--c-text-tertiary);font-size:13px;" data-i18n="files.more">
     📂 更多报告将陆续添加 · 欢迎关注
   </div>
 </div>

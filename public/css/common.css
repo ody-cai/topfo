@@ -10,6 +10,8 @@
   --c-accent: #4F46E5;
   --c-accent-hover: #4338CA;
   --c-accent-light: #EEEDFE;
+  --c-primary: #4F46E5;
+  --c-bg-secondary: #F0F0EE;
   --c-success: #155E2E;
   --c-success-bg: #E1F5EE;
   --c-warning: #BA6124;
@@ -506,6 +508,17 @@ body { font-family:var(--font-sans); background:var(--c-bg); color:var(--c-text)
 }
 .nav-lang-option:hover { background:var(--c-accent-light);color:var(--c-accent); }
 .nav-lang-option.active { background:var(--c-accent);color:#fff; }
+
+/* 导航栏登录按钮（全局共享） */
+.nav-auth-btn {
+  font-size:12px;padding:5px 14px;border-radius:var(--radius-sm);
+  background:var(--c-accent-light);color:var(--c-accent);
+  cursor:pointer;font-weight:500;border:1px solid var(--c-accent);
+  transition:all var(--transition);margin-left:8px;white-space:nowrap;
+}
+.nav-auth-btn:hover { background:var(--c-accent);color:#fff; }
+.nav-auth-btn.logged,
+.nav-auth-btn.logged-in { background:var(--c-success-bg);color:var(--c-success);border-color:var(--c-success); }
 
 /* 通知图标 */
 .nav-notif-btn {

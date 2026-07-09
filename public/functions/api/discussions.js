@@ -1,4 +1,4 @@
-// GET/POST /api/discussions — 社区讨论
+// GET/POST /api/discussions — 社区讨论 (no-cache v2)
 // GET: 获取讨论列表，支持分页(limit/offset)、分类(category)筛选
 // POST: 创建新讨论主题
 
@@ -26,17 +26,26 @@ export async function onRequestGet(context) {
     let conditions = [];
     let params = [];
 
+    // 软删除过滤
+    conditions.push("(d.is_deleted IS NULL OR d.is_deleted = 0)");
+
     if (category) {
       conditions.push('d.category = ?');
       params.push(category.toLowerCase());
     }
 
-    const whereSQL = conditions.length > 0 ? 'WHERE ' + conditions.join(' AND ') : '';
+    const whereSQL = 'WHERE ' + conditions.join(' AND ');
 
     // 查总数
-    const countResult = await env.topfo_chat.prepare(
-      `SELECT COUNT(*) as total FROM discussions d ${whereSQL}`
-    ).bind(...params).first();
+    let countResult = { total: 0 };
+    try {
+      countResult = await env.topfo_chat.prepare(
+        `SELECT COUNT(*) as total FROM discussions d ${whereSQL}`
+      ).bind(...params).first();
+    } catch {
+      // D1 不可用，返回空列表
+      return Response.json({ discussions: [], total: 0, limit, offset }, { headers: corsHeaders() });
+    }
 
     // 查列表（含评论数）
     const query = `
@@ -58,11 +67,11 @@ export async function onRequestGet(context) {
     }, {
       headers: {
         ...corsHeaders(),
-        'Cache-Control': 'public, max-age=60'
+        'Cache-Control': 'no-cache, must-revalidate'
       }
     });
   } catch (e) {
-    return Response.json({ error: e.message }, { status: 500, headers: corsHeaders() });
+    return Response.json({ discussions: [], total: 0, limit, offset }, { headers: corsHeaders() });
   }
 }
 
@@ -70,7 +79,7 @@ export async function onRequestGet(context) {
 export async function onRequestPost(context) {
   const { request, env } = context;
 
-  if (!context.userId) {
+  if (!context.data.userId) {
     return Response.json({ error: '请先登录' }, { status: 401, headers: corsHeaders() });
   }
 
@@ -93,7 +102,7 @@ export async function onRequestPost(context) {
     const result = await env.topfo_chat.prepare(
       `INSERT INTO discussions (user_id, title, content, category, created_at, updated_at)
        VALUES (?, ?, ?, ?, ?, ?)`
-    ).bind(context.userId, title.trim(), content || null, category || null, now, now).run();
+    ).bind(context.data.userId, title.trim(), content || null, category || null, now, now).run();
 
     return Response.json({
       id: result.meta.last_row_id,
