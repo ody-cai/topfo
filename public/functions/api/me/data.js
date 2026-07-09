@@ -67,6 +67,10 @@ export async function onRequestGet(context) {
   }
 
   try {
+    // demo 用户不返回个人数据
+    if (claims.role === "demo") {
+      return Response.json({ gpa: null, ielts: null }, { headers: corsHeaders() });
+    }
     const data = await decryptPersonalData();
     return Response.json(data, { headers: corsHeaders() });
   } catch (e) {
