@@ -456,6 +456,12 @@
   if (AUTH.isLoggedIn()) updatePrivateContent();
 })();
 
+// ===== 滚动动画：fade-in 卡片可见性 =====
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold:0.1, rootMargin:'0px 0px -20px 0px' });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
 // ======== 数据亮点（公开） ========
 const HIGHLIGHTS_POOL = [
   {icon:'🏫',tag:'对比发现',tagCls:'tag-blue',title:'主校 vs 分校区',desc:'多大UTM/UTSC、UBC Okanagan的录取线比主校低10-15%，是进入名校体系的绝佳跳板'},
