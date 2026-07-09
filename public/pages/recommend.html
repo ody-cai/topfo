@@ -38,6 +38,22 @@
   display:flex;align-items:center;gap:6px;
 }
 
+/* AI 分析区域 */
+.ai-analysis {
+  background:linear-gradient(135deg,#eef2ff,#f0fdf4);
+  border:1px solid #c7d2fe;
+  border-radius:var(--radius-lg);
+  padding:24px;
+  margin-bottom:24px;
+}
+.ai-analysis .section-title {
+  font-size:16px;font-weight:700;color:var(--c-accent);margin-bottom:12px;
+}
+.ai-content {
+  font-size:14px;line-height:1.8;color:var(--c-text);
+  white-space:pre-wrap;
+}
+
 /* 推荐分区 */
 .tier-section { margin-bottom:32px; }
 .tier-header {
@@ -212,6 +228,12 @@
       <div class="label" data-i18n="home.ielts">雅思</div>
       <div class="value ielts" id="userIelts">—</div>
     </div>
+  </div>
+
+  <!-- AI 分析 -->
+  <div class="ai-analysis" id="aiAnalysis" style="display:none;">
+    <div class="section-title">🤖 AI 分析</div>
+    <div class="ai-content" id="aiContent"></div>
   </div>
 
   <!-- 加载状态 -->
@@ -425,6 +447,16 @@ function renderRecommendations(data) {
   document.getElementById('userGpa').textContent = fmtNum(user.gpa) + '%';
   document.getElementById('userIelts').textContent = fmtNum(user.ielts);
   document.getElementById('profileCard').style.display = '';
+
+  // 显示 AI 分析（如有）
+  const aiAnalysis = document.getElementById('aiAnalysis');
+  const aiContent = document.getElementById('aiContent');
+  if (data.ai_analysis) {
+    aiContent.textContent = data.ai_analysis;
+    aiAnalysis.style.display = '';
+  } else {
+    aiAnalysis.style.display = 'none';
+  }
 
   // 计算匹配度并渲染
   function renderTier(tierName, gridId, countId, items) {

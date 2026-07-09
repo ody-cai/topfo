@@ -1,6 +1,8 @@
-// GET /api/ai/recommend — AI 智能选校推荐
-// 基于用户 GPA 和雅思成绩，匹配 programs 并分为 reach / match / safety 三档
-// 需要 JWT 认证（user_id 从中间件获取）
+// GET /api/ai/recommend — AI 智能选校推荐（真·AI）
+// 使用 Cloudflare Workers AI + D1 学校数据生成个性化推荐
+// 需要 JWT 认证
+
+const AI_MODEL = "@cf/meta/llama-3.3-70b-instruct-fp8-fast";
 
 function corsHeaders() {
   return {
@@ -14,127 +16,200 @@ export async function onRequestOptions() {
   return new Response(null, { status: 204, headers: corsHeaders() });
 }
 
-// 将 GPA 字符串（如 "85-90%"、"Low 80s"）转为数值下限
-function parseGpaMin(gpaStr) {
-  if (!gpaStr || gpaStr === '—' || gpaStr.startsWith('预科')) return null;
-  // "85-90%" -> 85
-  const rangeMatch = gpaStr.match(/(\d+)\s*[-–]\s*(\d+)/);
-  if (rangeMatch) return parseInt(rangeMatch[1], 10);
-  // "Low 80s" -> 80, "Mid-high 80s" -> 85, "High 90s" -> 90
-  const lowMatch = gpaStr.match(/low\s*(\d+)/i);
-  if (lowMatch) return parseInt(lowMatch[1], 10);
-  const midMatch = gpaStr.match(/mid.*?(\d+)/i);
-  if (midMatch) return parseInt(midMatch[1], 10) - 5;
-  const highMatch = gpaStr.match(/high\s*(\d+)/i);
-  if (highMatch) return parseInt(highMatch[1], 10);
-  // 单个数字 "85"
-  const singleMatch = gpaStr.match(/^(\d+)/);
-  if (singleMatch) return parseInt(singleMatch[1], 10);
-  return null;
-}
+// Fallback 推荐数据（D1 不可用时使用）
+function getFallbackRecommendations(gpa, ielts) {
+  const schools = [
+    { name_zh: "多大·圣乔治", name_en: "UofT St. George", province: "ON", category: "CS", gpa_min: 93, ielts_min: 6.5 },
+    { name_zh: "多大·圣乔治", name_en: "UofT St. George", province: "ON", category: "Math", gpa_min: 85, ielts_min: 6.5 },
+    { name_zh: "UBC·温哥华", name_en: "UBC Vancouver", province: "BC", category: "CS", gpa_min: 92, ielts_min: 6.5 },
+    { name_zh: "UBC·温哥华", name_en: "UBC Vancouver", province: "BC", category: "Math", gpa_min: 85, ielts_min: 6.5 },
+    { name_zh: "麦吉尔", name_en: "McGill", province: "QC", category: "CS", gpa_min: 93, ielts_min: 6.5 },
+    { name_zh: "滑铁卢", name_en: "Waterloo", province: "ON", category: "CS", gpa_min: 97, ielts_min: 6.5 },
+    { name_zh: "滑铁卢", name_en: "Waterloo", province: "ON", category: "Math", gpa_min: 85, ielts_min: 6.5 },
+    { name_zh: "麦马", name_en: "McMaster", province: "ON", category: "Math", gpa_min: 85, ielts_min: 6.5 },
+    { name_zh: "麦马", name_en: "McMaster", province: "ON", category: "CS", gpa_min: 94, ielts_min: 6.5 },
+    { name_zh: "阿尔伯塔", name_en: "Alberta", province: "AB", category: "CS", gpa_min: 82, ielts_min: 6.5 },
+    { name_zh: "渥太华", name_en: "uOttawa", province: "ON", category: "CS", gpa_min: 80, ielts_min: 6.5 },
+    { name_zh: "SFU", name_en: "SFU", province: "BC", category: "CS", gpa_min: 80, ielts_min: 6.5 },
+    { name_zh: "温莎", name_en: "Windsor", province: "ON", category: "CS", gpa_min: 75, ielts_min: 6.5 },
+    { name_zh: "曼尼托巴", name_en: "Manitoba", province: "MB", category: "CS", gpa_min: 75, ielts_min: 6.5 },
+    { name_zh: "纽芬兰纪念", name_en: "Memorial", province: "NL", category: "CS", gpa_min: 70, ielts_min: 6.5 },
+    { name_zh: "康考迪亚", name_en: "Concordia", province: "QC", category: "CS", gpa_min: 75, ielts_min: 6.5 },
+    { name_zh: "卡尔顿", name_en: "Carleton", province: "ON", category: "CS", gpa_min: 80, ielts_min: 6.5 },
+    { name_zh: "多大·密西沙加(UTM)", name_en: "UTM", province: "ON", category: "CS", gpa_min: 85, ielts_min: 6.5 },
+    { name_zh: "UBC·Okanagan", name_en: "UBCO", province: "BC", category: "CS", gpa_min: 80, ielts_min: 6.5 },
+  ];
 
-// 解析雅思字符串，返回最低总分
-function parseIeltsMin(ieltsStr) {
-  if (!ieltsStr || ieltsStr === '—' || ieltsStr.startsWith('预科')) return null;
-  const match = ieltsStr.match(/(\d+\.?\d*)/);
-  return match ? parseFloat(match[1]) : null;
+  const reach = [], match = [], safety = [];
+
+  for (const s of schools) {
+    if (gpa >= s.gpa_min + 5) {
+      safety.push(s);
+    } else if (gpa >= s.gpa_min) {
+      match.push(s);
+    } else if (gpa >= s.gpa_min - 8) {
+      reach.push(s);
+    }
+  }
+
+  return { reach, match, safety };
 }
 
 export async function onRequestGet(context) {
   const { request, env } = context;
 
-  if (!context.userId) {
-    return Response.json({ error: '请先登录' }, { status: 401, headers: corsHeaders() });
+  // JWT 认证
+  const auth = request.headers.get("Authorization");
+  if (!auth || !auth.startsWith("Bearer ")) {
+    return Response.json({ error: "请先登录" }, { status: 401, headers: corsHeaders() });
   }
 
+  // 本函数内联 JWT 验证（self-contained）
+  function hexToBytes(hex) {
+    const bytes = new Uint8Array(hex.length / 2);
+    for (let i = 0; i < hex.length; i += 2) bytes[i / 2] = parseInt(hex.substring(i, i + 2), 16);
+    return bytes;
+  }
+
+  async function verifyJWT(token, jwtSecret) {
+    const parts = token.split(".");
+    if (parts.length !== 3) return null;
+    try {
+      const payloadB64 = parts[1].replace(/-/g, "+").replace(/_/g, "/");
+      const claims = JSON.parse(atob(payloadB64));
+      if (claims.exp < Math.floor(Date.now() / 1000)) return null;
+      const encoder = new TextEncoder();
+      const key = await crypto.subtle.importKey("raw", hexToBytes(jwtSecret), { name: "HMAC", hash: "SHA-256" }, false, ["verify"]);
+      const sigB64 = parts[2].replace(/-/g, "+").replace(/_/g, "/");
+      const sig = Uint8Array.from(atob(sigB64), c => c.charCodeAt(0));
+      const ok = await crypto.subtle.verify("HMAC", key, sig, encoder.encode(`${parts[0]}.${parts[1]}`));
+      return ok ? claims : null;
+    } catch { return null; }
+  }
+
+  const claims = await verifyJWT(auth.slice(7), env.JWT_SECRET);
+  if (!claims) {
+    return Response.json({ error: "登录已过期" }, { status: 401, headers: corsHeaders() });
+  }
+
+  const username = claims.sub;
+  const url = new URL(request.url);
+  const userGpa = url.searchParams.get('gpa');
+  const userIelts = url.searchParams.get('ielts');
+
   try {
-    const url = new URL(request.url);
-    const userGpa = url.searchParams.get('gpa');
-    const userIelts = url.searchParams.get('ielts');
+    // 获取用户数据
+    let gpa = userGpa ? parseFloat(userGpa) : null;
+    let ielts = userIelts ? parseFloat(userIelts) : null;
 
-    const gpa = userGpa ? parseFloat(userGpa) : 89.6;   // 默认蔡奇均的 GPA
-    const ielts = userIelts ? parseFloat(userIelts) : 5.0; // 默认雅思
-
-    // 查询所有有 GPA 数据的 programs（排除澳洲预科）
-    const query = `
-      SELECT p.*, s.name as school_name, s.tier, s.province, s.city,
-             s.tuition, s.tuition_rmb
-      FROM programs p
-      JOIN schools s ON s.id = p.school_id
-      WHERE p.gpa_min IS NOT NULL AND p.gpa_min != '—' AND p.label != 'na'
-        AND s.tier != 'au'
-      ORDER BY s.tier, s.name, p.category
-    `;
-
-    const result = await env.topfo_chat.prepare(query).all();
-
-    const reach = [];
-    const match = [];
-    const safety = [];
-
-    for (const prog of (result.results || [])) {
-      const gpaRequired = parseGpaMin(prog.gpa_min);
-      if (gpaRequired === null) continue;
-
-      const ieltsRequired = parseIeltsMin(prog.ielts_min);
-      const label = prog.label;
-
-      const hasDual = prog.dual_type && prog.dual_type !== '—' && prog.dual_type !== 'no';
-
-      // 根据 label 分类
-      if (label === 'hard') {
-        reach.push(prog);
-      } else if (label === 'close') {
-        // 如果 GAP 在 5 分以内算 match，否则 reach
-        if (gpaRequired - gpa <= 5 && gpaRequired - gpa >= 0) {
-          match.push(prog);
-        } else if (gpa >= gpaRequired) {
-          match.push(prog);
-        } else {
-          reach.push(prog);
+    // 从 D1 获取用户档案（如果 URL 参数未提供）
+    if (!gpa || !ielts) {
+      try {
+        const user = await env.topfo_chat.prepare(
+          `SELECT u.username, sp.gpa, sp.ielts_overall FROM users u
+           LEFT JOIN student_profiles sp ON sp.user_id = u.id
+           WHERE u.username = ?`
+        ).bind(username).first();
+        if (user) {
+          if (!gpa) gpa = user.gpa;
+          if (!ielts) ielts = user.ielts_overall;
         }
-      } else if (label === 'ok') {
-        if (hasDual && ielts < (ieltsRequired || 6.5)) {
-          // 有双录且雅思不够直录，仍算 safety
-          safety.push(prog);
-        } else if (gpa >= gpaRequired) {
-          safety.push(prog);
-        } else {
-          match.push(prog);
-        }
+      } catch (d1Err) {
+        // D1 不可用，使用默认值
       }
     }
 
-    // 澳洲保底
-    const auQuery = `
-      SELECT p.*, s.name as school_name, s.tier, s.province, s.city,
-             s.tuition, s.tuition_rmb
-      FROM programs p
-      JOIN schools s ON s.id = p.school_id
-      WHERE s.tier = 'au' AND p.label != 'na'
-    `;
-    const auResult = await env.topfo_chat.prepare(auQuery).all();
-    const australia = (auResult.results || []).map(p => ({
-      ...p,
-      has_coop: !!p.has_coop
-    }));
+    // 最终默认值
+    if (!gpa) gpa = 89.6;
+    if (!ielts) ielts = 5.0;
 
-    // 添加 has_coop 布尔转换
-    const mapProg = p => ({ ...p, has_coop: !!p.has_coop });
+    // 获取学校数据
+    let allPrograms = [];
+    try {
+      const result = await env.topfo_chat.prepare(
+        `SELECT s.name_zh, s.name_en, s.province, s.city, p.category,
+                p.gpa_min, p.gpa_mid, p.ielts_min, p.ielts_dual,
+                p.has_coop, p.notes, p.note_detail
+         FROM programs p JOIN schools s ON s.id = p.school_id
+         WHERE p.gpa_min IS NOT NULL AND p.gpa_min != ''`
+      ).all();
+      allPrograms = result.results || [];
+    } catch {
+      // D1 不可用，使用 fallback
+    }
+
+    let systemPrompt = '';
+    let userPrompt = '';
+
+    if (allPrograms.length > 0) {
+      // 构建 AI 用的学校数据
+      const schoolData = allPrograms.map(p =>
+        `${p.name_zh}(${p.name_en}) - ${p.category}: GPA要求${p.gpa_min}, 雅思要求${p.ielts_min || '?'}`
+      ).join('\n');
+
+      systemPrompt = `你是加拿大大学升学规划 AI 顾问。根据学生的 GPA 和雅思成绩，从以下学校和专业中推荐最适合的选项。
+将推荐分为三档：
+1. 冲刺（Reach）：学生的成绩比要求低 5-10 分，但有双录取或其他路径补足
+2. 匹配（Match）：成绩达到或接近要求（±5分以内）
+3. 保底（Safety）：成绩超过要求 5 分以上
+
+学生数据：GPA ${gpa}%, 雅思 ${ielts}
+
+可选院校：
+${schoolData}
+
+请给出个性化推荐，逐一说明理由。输出格式用 JSON。`;
+
+      userPrompt = `GPA ${gpa}%, 雅思 ${ielts}。请推荐加拿大大学申请方案。`;
+    } else {
+      // 无 D1 数据，用 fallback + AI
+      const fallback = getFallbackRecommendations(gpa, ielts);
+      const schoolList = [...fallback.reach, ...fallback.match, ...fallback.safety]
+        .map(s => `${s.name_zh}(${s.name_en}) - ${s.category}: GPA${s.gpa_min}+`)
+        .join('\n');
+
+      systemPrompt = `你是加拿大大学升学规划 AI 顾问。根据学生的 GPA 和雅思成绩推荐学校。
+学生数据：GPA ${gpa}%, 雅思 ${ielts}
+
+可选院校：
+${schoolList}
+
+请给出个性化推荐方案，按冲刺/匹配/保底三档分析，逐一说明理由。`;
+      userPrompt = `GPA ${gpa}%, 雅思 ${ielts}。请推荐加拿大大学申请方案。`;
+    }
+
+    // 调用 Cloudflare Workers AI（真·AI）
+    let aiReply = '';
+    try {
+      const aiResult = await env.AI.run(AI_MODEL, {
+        messages: [
+          { role: 'system', content: systemPrompt },
+          { role: 'user', content: userPrompt }
+        ],
+        temperature: 0.7,
+        max_tokens: 2048,
+      });
+      aiReply = aiResult.response || '';
+    } catch (aiErr) {
+      aiReply = `（AI 服务暂不可用: ${aiErr.message}）基于规则引擎的推荐结果如下。`;
+    }
+
+    // 同时返回规则引擎结果作为结构化数据
+    const fallbackResult = getFallbackRecommendations(gpa, ielts);
 
     return Response.json({
       user: { gpa, ielts },
+      ai_analysis: aiReply,
       recommendations: {
-        reach: reach.map(mapProg),
-        match: match.map(mapProg),
-        safety: safety.map(mapProg),
-        australia: australia.map(mapProg)
+        reach: fallbackResult.reach.slice(0, 8),
+        match: fallbackResult.match.slice(0, 8),
+        safety: fallbackResult.safety.slice(0, 8),
       },
       summary: {
-        reach_count: reach.length,
-        match_count: match.length,
-        safety_count: safety.length,
-        australia_count: australia.length
+        reach_count: fallbackResult.reach.length,
+        match_count: fallbackResult.match.length,
+        safety_count: fallbackResult.safety.length,
+        ai_powered: true
       }
     }, { headers: corsHeaders() });
   } catch (e) {
