@@ -1,0 +1,10 @@
+name = "topfo"
+pages_build_output_dir = "."
+
+[ai]
+binding = "AI"
+
+[[d1_databases]]
+binding = "topfo_chat"
+database_name = "topfo-chat"
+database_id = "53a67cd5-ebb9-4c99-a14c-9a844663cb17"

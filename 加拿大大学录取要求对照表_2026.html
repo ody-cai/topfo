@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>蔡奇均 · 加拿大大学录取追踪 2026</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Noto Sans SC",sans-serif;background:#F1EFE8;color:#2C2C2A;line-height:1.6}
+.header{background:#fff;border-bottom:0.5px solid #D3D1C7;padding:18px 24px}
+.header h1{font-size:18px;font-weight:600;color:#2C2C2A;display:flex;align-items:center;gap:8px}
+.header h1 .icon{font-size:20px}
+.header .subtitle{font-size:12px;color:#888780;margin-top:4px}
+.profile-bar{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.profile-item{padding:5px 12px;border-radius:6px;font-size:12px;font-weight:500}
+.profile-item.gpa{background:#E1F5EE;color:#085041}
+.profile-item.ielts{background:#FAECE7;color:#712B13}
+.profile-item.target{background:#EEEDFE;color:#3C3489}
+.controls{background:#fff;border-bottom:0.5px solid #D3D1C7;padding:12px 24px;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.controls .section-label{font-size:12px;color:#888780;font-weight:500;margin-right:4px}
+.controls .divider{width:1px;height:20px;background:#D3D1C7;margin:0 8px}
+.tab-btn{font-size:12px;padding:5px 10px;border-radius:6px;border:0.5px solid #B4B2A9;background:#fff;color:#2C2C2A;cursor:pointer;transition:all .15s;white-space:nowrap;display:inline-block}
+#progBtns,#filterBtns{display:inline-flex;gap:4px;align-items:center}
+.tab-btn:focus{outline:none}
+.tab-btn.active{background:#534AB7;color:#fff;border-color:#534AB7}
+.tab-btn:hover:not(.active){border-color:#534AB7;color:#534AB7}
+.search-box{display:flex;align-items:center;gap:6px;margin-left:8px}
+.search-input{font-size:12px;padding:5px 10px;border-radius:6px;border:0.5px solid #B4B2A9;background:#F1EFE8;color:#2C2C2A;width:140px;outline:none}
+.search-input:focus{border-color:#534AB7}
+.content{padding:16px 24px}
+.tier-section{margin-bottom:20px}
+.tier-title{font-size:14px;font-weight:500;color:#2C2C2A;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.tier-badge{font-size:10px;padding:2px 8px;border-radius:4px;font-weight:500}
+.tier-badge.t1{background:#FCEBEB;color:#791F1F}
+.tier-badge.t2{background:#E6F1FB;color:#0C447C}
+.tier-badge.t3{background:#EAF3DE;color:#27500A}
+.tier-badge.au{background:#FAEEDA;color:#633806}
+.table-wrap{background:#fff;border-radius:10px;border:0.5px solid #D3D1C7;overflow-x:auto;overflow-y:visible;margin-bottom:4px}
+table{width:100%;border-collapse:collapse;font-size:11px;min-width:900px}
+thead th{background:#F1EFE8;font-weight:500;font-size:10px;color:#888780;padding:7px 8px;text-align:left;border-bottom:0.5px solid #D3D1C7;white-space:nowrap;cursor:pointer;user-select:none}
+thead th:hover{color:#534AB7}
+tbody td{padding:7px 8px;border-bottom:0.5px solid #E8E7E5;vertical-align:middle}
+tbody tr:hover{background:#F1EFE8}
+.school-name{font-weight:500;color:#2C2C2A;white-space:nowrap;font-size:12px}
+.meta{font-size:10px;color:#888780;white-space:nowrap}
+.gpa{font-size:11px;white-space:nowrap}
+.gpa.ok{color:#3B6D11;font-weight:500}
+.gpa.close{color:#BA7517}
+.gpa.hard{color:#A32D2D}
+.gpa.na{color:#888780;font-size:10px}
+.ielts{font-size:11px;color:#2C2C2A;white-space:nowrap}
+.dual{font-size:10px;display:inline-block;padding:2px 6px;border-radius:4px;white-space:nowrap}
+.dual.yes{background:#EAF3DE;color:#27500A;font-weight:500}
+.dual.no{background:#F1EFE8;color:#888780}
+.dual.limit{background:#FAEEDA;color:#633806;font-weight:500}
+.coop{font-size:10px;display:inline-block;padding:2px 6px;border-radius:4px;background:#E6F1FB;color:#0C447C;white-space:nowrap;font-weight:500}
+.coop.no{background:#F1EFE8;color:#888780;font-weight:400}
+.note{font-size:10px;color:#888780;line-height:1.3;max-width:200px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tooltip-wrap{position:relative;cursor:help}
+.tooltip-wrap .tip{display:none;position:absolute;top:calc(100% + 4px);left:0;background:#fff;border:0.5px solid #B4B2A9;border-radius:6px;padding:8px 12px;font-size:11px;color:#2C2C2A;z-index:200;white-space:normal;min-width:220px;max-width:340px;box-shadow:0 2px 8px rgba(0,0,0,.08);line-height:1.5}
+.tooltip-wrap:hover .tip{display:block}
+.tooltip-wrap:hover .note{overflow:visible;white-space:normal}
+.match{font-size:10px;padding:1px 4px;border-radius:3px;font-weight:500;display:inline-block;margin-left:3px}
+.match.green{background:#EAF3DE;color:#27500A}
+.match.yellow{background:#FAEEDA;color:#633806}
+.match.red{background:#FCEBEB;color:#791F1F}
+.summary-box{background:#fff;border-radius:10px;border:0.5px solid #D3D1C7;padding:14px 18px;margin-bottom:20px}
+.summary-box h2{font-size:13px;font-weight:500;color:#2C2C2A;margin-bottom:8px}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px}
+.summary-card{background:#F1EFE8;border-radius:6px;padding:10px}
+.summary-card .label{font-size:10px;color:#888780;font-weight:500;margin-bottom:2px}
+.summary-card .value{font-size:12px;font-weight:500;color:#2C2C2A}
+.summary-card .value.green{color:#3B6D11}
+.summary-card .value.amber{color:#BA7517}
+.summary-card .value.red{color:#A32D2D}
+.update-bar{background:#fff;border-radius:6px;padding:6px 14px;font-size:11px;color:#888780;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center}
+.update-bar .fresh{background:#EAF3DE;color:#27500A;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:500}
+.detail-row{display:none;background:#FAFAF8}
+.detail-row.show{display:table-row}
+.detail-content{padding:10px;font-size:11px;color:#2C2C2A;line-height:1.5}
+.detail-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.detail-item{padding:6px 8px;background:#F1EFE8;border-radius:4px;font-size:11px}
+.detail-item .dl{font-size:10px;color:#888780;font-weight:500}
+.detail-item .dv{font-size:12px;color:#2C2C2A;font-weight:500}
+.footer{padding:16px 24px;font-size:11px;color:#888780;border-top:0.5px solid #D3D1C7}
+.expand-btn{font-size:10px;color:#534AB7;cursor:pointer;padding:2px 4px;border-radius:3px;background:transparent;border:none;font-weight:500}
+.expand-btn:hover{background:#EEEDFE}
+@media(max-width:768px){.header,.controls,.content{padding-left:12px;padding-right:12px}table{font-size:9px}thead th,tbody td{padding:4px 3px}.detail-grid{grid-template-columns:repeat(2,1fr)}}
+
+    .ranking-modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.45);z-index:999;justify-content:center;align-items:flex-start;padding:40px 20px;overflow-y:auto}
+    .ranking-modal.show{display:flex}
+    .ranking-box{background:#fff;border-radius:14px;width:100%;max-width:1100px;padding:24px 28px;position:relative;max-height:90vh;overflow-y:auto}
+    .ranking-box h2{font-size:16px;font-weight:600;color:#2C2C2A;margin-bottom:4px}
+    .ranking-box .sub{font-size:11px;color:#888780;margin-bottom:14px}
+    .ranking-close{position:absolute;top:14px;right:18px;font-size:20px;cursor:pointer;color:#888780;background:none;border:none}
+    .ranking-close:hover{color:#2C2C2A}
+    .rank-tabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+    .rank-tab-btn{font-size:11px;padding:5px 12px;border-radius:6px;border:0.5px solid #B4B2A9;background:#fff;color:#2C2C2A;cursor:pointer}
+    .rank-tab-btn.active{background:#534AB7;color:#fff;border-color:#534AB7}
+    .rank-table{width:100%;border-collapse:collapse;font-size:11px;margin-bottom:16px}
+    .rank-table th{background:#F1EFE8;font-weight:500;font-size:10px;color:#888780;padding:7px 10px;text-align:left;border-bottom:0.5px solid #D3D1C7}
+    .rank-table td{padding:6px 10px;border-bottom:0.5px solid #E8E7E5}
+    .rank-table tr:hover{background:#F1EFE8}
+    .rank-badge{font-size:9px;padding:1px 5px;border-radius:3px;font-weight:600}
+    .rank-badge.top{background:#FCEBEB;color:#791F1F}
+    .rank-badge.mid{background:#FAEEDA;color:#633806}
+    .rank-badge.low{background:#EAF3DE;color:#27500A}
+    .rank-src{font-size:9px;color:#888780;margin-top:2px}
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <h1><span class="icon">🎓</span> 蔡奇均 · 加拿大大学录取追踪</h1>
+  <div class="subtitle">9大专业 · 直录 + 双录取 + Co-op + 学费 · 26所院校(含分校区) · 每日更新</div>
+  <div class="profile-bar">
+    <div class="profile-item gpa">GPA 86</div>
+    <div class="profile-item ielts">雅思 5.0（写5.5 / 读4.5 / 听4.5 / 口5.0）</div>
+    <div class="profile-item target">目标直录 6.5(单项5.5-6.0)</div>
+  </div>
+</div>
+
+<div class="controls">
+  <span class="section-label">专业：</span>
+  <span id="progBtns">
+  <button class="tab-btn active" onclick="switchTab('all',this)">全部</button>
+  <button class="tab-btn" onclick="switchTab('eng',this)">工程</button>
+  <button class="tab-btn" onclick="switchTab('cs',this)">计算机</button>
+  <button class="tab-btn" onclick="switchTab('math',this)">数学</button>
+  <button class="tab-btn" onclick="switchTab('psych',this)">心理学</button>
+  <button class="tab-btn" onclick="switchTab('biz',this)">商科</button>
+  <button class="tab-btn" onclick="switchTab('health',this)">健康科学</button>
+  <button class="tab-btn" onclick="switchTab('sci',this)">理科</button>
+  <button class="tab-btn" onclick="switchTab('social',this)">社科</button>
+  </span>
+  <div class="divider"></div>
+  <span class="section-label">筛选：</span>
+  <span id="filterBtns">
+  <button class="tab-btn" onclick="filterMatch('all',this)">全部</button>
+  <button class="tab-btn" onclick="filterMatch('ok',this)">GPA够</button>
+  <button class="tab-btn active" onclick="filterMatch('dual-ok',this)">双录达标</button>
+  <button class="tab-btn" onclick="filterMatch('stretch',this)">需冲刺</button>
+  </span>
+  <div class="divider"></div>
+  <div class="search-box">
+    <span class="section-label">搜索：</span>
+    <input class="search-input" type="text" placeholder="输入学校名…" oninput="handleSearch(this.value)">
+  </div>
+  <button class="tab-btn" onclick="toggleRankingModal()" style="margin-left:8px;background:#FAEEDA;color:#633806;border-color:#D4A24E;font-size:11px;padding:5px 10px;border-radius:6px;cursor:pointer;white-space:nowrap">📊 三大排名参考</button>
+</div>
+
+<div class="content">
+  <div class="update-bar">
+    <span>数据：各校官网 + uniscope.ca + eic.org.cn | 雅思/GPA/双录/Co-op/学费/截止日期</span>
+    <span class="fresh" id="updateDate">最后更新：2026-07-09</span>
+  </div>
+
+  <div class="summary-box">
+    <h2>你的匹配速览（GPA 86 · 雅思 5.0）</h2>
+    <div class="summary-grid" id="summaryGrid"></div>
+  </div>
+
+  <div id="tablesContainer"></div>
+
+  <div class="summary-box">
+    <h2>关键发现</h2>
+    <div style="font-size:12px;color:#2C2C2A;line-height:1.7" id="keyFindings"></div>
+  </div>
+</div>
+
+<div class="footer">
+  数据来源：各校官网(2026) + uniscope.ca + gpacalculators.net + collegedunia.com + eic.org.cn + sohu.com + utsc.utoronto.ca + utm.utoronto.ca + ok.ubc.ca | 含分校区数据 · 每日自动更新 · 蔡奇均升学规划追踪系统
+</div>
+
+<script>
+const MY_GPA = 86;
+const MY_IELTS = {total:5.0,w:5.5,r:4.5,l:4.5,s:5.0};
+
+const PROGRAMS = {
+  eng:'工程', cs:'计算机', math:'数学', psych:'心理学',
+  biz:'商科', health:'健康科学', sci:'理科综合', social:'社会科学'
+};
+
+const TIERS = [
+  {key:'t1',label:'极难申',badge:'t1',title:'第一梯队 — CS/工程顶级，无双录或门槛高'},
+  {key:'t2',label:'现实目标',badge:'t2',title:'第二梯队 — 有双录取路径，GPA够或接近'},
+  {key:'t3',label:'保底校',badge:'t3',title:'第三梯队 — 双录门槛低，GPA绰绰有余'},
+  {key:'au',label:'澳洲保底',badge:'au',title:'预科路径'}
+];
+
+// School meta: city, province, deadline, tuition(CAD/year intl), tuitionRMB
+const SCHOOLS = {
+  t1:[
+    {name:'多大·圣乔治',city:'多伦多',prov:'安省',deadline:'1月15日(热门)/3月31日',tuition:'42,000-62,000',tuitionRMB:'21-34万',programs:{
+      eng:{gpa:'92-95%',label:'hard',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'yes',coop_note:'PEY Co-op',note:'工程无IFP双录!须直录雅思6.5',note_detail:'⚠️2026-27 IFP仅覆盖Arts&Science/建筑景观设计/音乐，不含Faculty of Applied Science&Engineering！工程必须直录雅思6.5(6.0)'},
+      cs:{gpa:'93%(comp)/97.2%(median)',label:'hard',ielts:'6.5(6.0)',dual:'yes',dual_type:'IFP(Arts&Sci/Arch/Music)',dual_thr:'5.0-6.5(写作5.5/单项≥5.0)',coop:'yes',coop_note:'PEY Co-op',note:'CS竞争均分93%但录取中位97.2%;IFP覆盖Arts&Sci含CS',note_detail:'2026-27 IFP覆盖Arts&Science(含CS/数学/心理)、建筑景观设计、音乐；新门槛单项≥5.0你听力/阅读4.5未达标'},
+      math:{gpa:'85-90%',label:'close',ielts:'6.5(6.0)',dual:'yes',dual_type:'IFP(Arts&Sci/Arch/Music)',dual_thr:'5.0-6.5(写作5.5/单项≥5.0)',coop:'yes',coop_note:'',note:'IFP含Arts&Sci数学;门槛单项≥5.0你不够',note_detail:'2026-27 IFP覆盖Arts&Science(含数学)、建筑景观设计、音乐；新门槛单项≥5.0你听力/阅读4.5未达标'},
+      psych:{gpa:'85-90%',label:'close',ielts:'6.5(6.0)',dual:'yes',dual_type:'IFP(Arts&Sci/Arch/Music)',dual_thr:'5.0-6.5(写作5.5/单项≥5.0)',coop:'no',coop_note:'',note:'IFP含Arts&Sci心理;门槛单项≥5.0你不够',note_detail:'2026-27 IFP覆盖Arts&Science(含心理)、建筑景观设计、音乐；新门槛单项≥5.0你听力/阅读4.5未达标'},
+      biz:{gpa:'92-95%',label:'hard',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'yes',coop_note:'Rotman Commerce',note:'Rotman极难;不含IFP(排除)',note_detail:'Rotman需补充申请且均分93%+；IFP Arts&Sci不含Rotman Commerce'},
+      health:{gpa:'85-90%',label:'close',ielts:'6.5(6.0)',dual:'yes',dual_type:'IFP(Arts&Sci/Arch/Music)',dual_thr:'5.0-6.5(写作5.5/单项≥5.0)',coop:'no',coop_note:'',note:'IFP含Arts&Sci;门槛单项≥5.0你不够',note_detail:'2026-27 IFP覆盖Arts&Science、建筑景观设计、音乐；新门槛单项≥5.0你听力/阅读4.5未达标'},
+      sci:{gpa:'85-90%',label:'close',ielts:'6.5(6.0)',dual:'yes',dual_type:'IFP(Arts&Sci/Arch/Music)',dual_thr:'5.0-6.5(写作5.5/单项≥5.0)',coop:'no',coop_note:'',note:'IFP含Arts&Sci理科;门槛单项≥5.0你不够',note_detail:'2026-27 IFP覆盖Arts&Science、建筑景观设计、音乐；新门槛单项≥5.0你听力/阅读4.5未达标'},
+      social:{gpa:'80-85%',label:'close',ielts:'6.5(6.0)',dual:'yes',dual_type:'IFP(Arts&Sci/Arch/Music)',dual_thr:'5.0-6.5(写作5.5/单项≥5.0)',coop:'no',coop_note:'',note:'IFP含Arts&Sci社科;门槛单项≥5.0你不够',note_detail:'2026-27 IFP覆盖Arts&Science、建筑景观设计、音乐；新门槛单项≥5.0你听力/阅读4.5未达标'}
+    }},
+    {name:'UBC·温哥华',city:'温哥华',prov:'BC省',deadline:'1月15日',tuition:'40,000-48,000',tuitionRMB:'20-25万',programs:{
+      eng:{gpa:'90-94%',label:'hard',ielts:'6.5(6.0)',dual:'yes',dual_type:'Vantage',dual_thr:'5.0(单项4.5)',coop:'yes',coop_note:'Engineering Co-op',note:'Vantage可双录',note_detail:'Vantage College提供工程/数学/物理方向双录，你雅思5.0已达标'},
+      cs:{gpa:'92-95%',label:'hard',ielts:'6.5(6.0)',dual:'yes',dual_type:'Vantage',dual_thr:'5.0(单项4.5)',coop:'yes',coop_note:'CS Co-op',note:'Vantage可双录',note_detail:''},
+      math:{gpa:'85-90%',label:'close',ielts:'6.5(6.0)',dual:'yes',dual_type:'Vantage',dual_thr:'5.0(单项4.5)',coop:'yes',coop_note:'',note:'你雅思5.0已达标Vantage',note_detail:''},
+      psych:{gpa:'85-90%',label:'close',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'no',coop_note:'',note:'须直录',note_detail:'UBC心理学无Vantage双录'},
+      biz:{gpa:'90-94%',label:'hard',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'yes',coop_note:'Sauder Co-op',note:'Sauder极难+补充申请',note_detail:'需Personal Profile+面试'},
+      health:{gpa:'85-90%',label:'close',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'no',coop_note:'',note:'须直录',note_detail:''},
+      sci:{gpa:'85-90%',label:'close',ielts:'6.5(6.0)',dual:'yes',dual_type:'Vantage',dual_thr:'5.0(单项4.5)',coop:'yes',coop_note:'',note:'你雅思5.0已达标Vantage',note_detail:''},
+      social:{gpa:'80-85%',label:'close',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'no',coop_note:'',note:'须直录',note_detail:''}
+    }},
+    {name:'麦吉尔',city:'蒙特利尔',prov:'魁省',deadline:'1月15日',tuition:'34,000-45,000',tuitionRMB:'17-23万',programs:{
+      eng:{gpa:'88-92%',label:'hard',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'yes',coop_note:'Engineering Co-op',note:'几乎无双录',note_detail:''},
+      cs:{gpa:'93-95%',label:'hard',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'yes',coop_note:'',note:'几乎无双录',note_detail:''},
+      math:{gpa:'85-90%',label:'close',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'no',coop_note:'',note:'须直录',note_detail:''},
+      psych:{gpa:'85-90%',label:'close',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'no',coop_note:'',note:'须直录',note_detail:''},
+      biz:{gpa:'90-94%',label:'hard',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'yes',coop_note:'',note:'Desautels极难',note_detail:'92%+需要补充申请'},
+      health:{gpa:'85-90%',label:'close',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'no',coop_note:'',note:'须直录',note_detail:''},
+      sci:{gpa:'85-90%',label:'close',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'no',coop_note:'',note:'须直录',note_detail:''},
+      social:{gpa:'80-85%',label:'close',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'no',coop_note:'',note:'须直录',note_detail:''}
+    }},
+    {name:'滑铁卢',city:'滑铁卢',prov:'安省',deadline:'工程CS建议1月前/3月31日',tuition:'40,000-48,000',tuitionRMB:'20-25万',programs:{
+      eng:{gpa:'90-95%',label:'hard',ielts:'6.5(写作口语6.5/其余6.0)',dual:'limit',dual_type:'BASE仅工程',dual_thr:'5.5(写作5.5)',coop:'yes',coop_note:'全球最强Co-op体系',note:'BASE仅工程方向',note_detail:'BASE不含建筑/生物医学/系统设计'},
+      cs:{gpa:'97-98%',label:'hard',ielts:'6.5(写作口语6.5/其余6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'yes',coop_note:'全球最强Co-op体系',note:'CS几乎最难进',note_detail:''},
+      math:{gpa:'85-90%',label:'close',ielts:'6.5(写作口语6.5/其余6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'yes',coop_note:'',note:'须直录+高雅思',note_detail:'写作口语6.5是高门槛'},
+      psych:{gpa:'80-85%',label:'ok',ielts:'6.5(写作口语6.5/其余6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'no',coop_note:'',note:'须直录',note_detail:''},
+      biz:{gpa:'88-92%',label:'hard',ielts:'6.5(写作口语6.5/其余6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'yes',coop_note:'AFM Co-op',note:'AFM需补充申请',note_detail:''},
+      health:{gpa:'80-85%',label:'ok',ielts:'6.5(写作口语6.5/其余6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'no',coop_note:'',note:'须直录',note_detail:''},
+      sci:{gpa:'80-85%',label:'ok',ielts:'6.5(写作口语6.5/其余6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'yes',coop_note:'',note:'须直录',note_detail:''},
+      social:{gpa:'75-80%',label:'ok',ielts:'6.5(写作口语6.5/其余6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'no',coop_note:'',note:'须直录',note_detail:''}
+    }}
+  ],
+  t2:[
+    {name:'多大·士嘉堡(UTSC)',city:'多伦多(东)',prov:'安省',deadline:'3月2日(国际)',tuition:'67,700',tuitionRMB:'34万',programs:{
+      eng:{gpa:'—',label:'na',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'no',coop_note:'',note:'无传统工程',note_detail:'UTSC无Engineering本科'},
+      cs:{gpa:'Low 90s(非Co-op)/High 90s(Co-op)',label:'close',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'yes',coop_note:'CS Co-op(3×4月)',note:'非Co-op踩线!Co-op差远',note_detail:'UTSC CS非Co-op版low 90s你89.6踩线;Co-op版要high 90s几乎不可能;不需补充申请'},
+      math:{gpa:'85-90%',label:'close',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'yes',coop_note:'统计Co-op',note:'踩线',note_detail:'UTSC Applied Statistics high 80s'},
+      psych:{gpa:'Mid-high 70s(非Co-op)/Low 80s(Co-op)',label:'ok',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'yes',coop_note:'心理Co-op',note:'GPA绰绰有余!心理有Co-op',note_detail:'UTSC心理学非Co-op mid-high 70s你89.6远超;Co-op版low 80s你也够;北美少数本科有临床心理方向'},
+      biz:{gpa:'80-85%(Management)',label:'ok',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'yes',coop_note:'MIT Co-op',note:'Management踩线',note_detail:'UTSC Management & IT有Co-op'},
+      health:{gpa:'80-85%',label:'ok',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'yes',coop_note:'健康科学Co-op',note:'GPA够',note_detail:''},
+      sci:{gpa:'80-85%',label:'ok',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'yes',coop_note:'',note:'',note_detail:''},
+      social:{gpa:'Mid 70s',label:'ok',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'no',coop_note:'',note:'GPA绰绰有余',note_detail:''}
+    }},
+    {name:'多大·密西沙加(UTM)',city:'密西沙加',prov:'安省',deadline:'3月2日(国际)',tuition:'67,700',tuitionRMB:'34万',programs:{
+      eng:{gpa:'—',label:'na',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'no',coop_note:'',note:'无工程专业',note_detail:'UTM无Engineering本科'},
+      cs:{gpa:'Mid-high 80s(85-88%)',label:'close',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'yes',coop_note:'CS Co-op',note:'你踩线!需补充申请',note_detail:'UTM CS 85-88%你刚好踩线;需要supplementary application;有Co-op选项；🆕IFP@UTM将于2027年9月上线'},
+      math:{gpa:'Mid-high 80s',label:'close',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'no',coop_note:'',note:'踩线',note_detail:'UTM Math & Computational Sciences mid-high 80s'},
+      psych:{gpa:'Mid 70s',label:'ok',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'no',coop_note:'',note:'GPA绰绰有余',note_detail:''},
+      biz:{gpa:'80-85%',label:'ok',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'yes',coop_note:'',note:'',note_detail:''},
+      health:{gpa:'75-80%',label:'ok',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'no',coop_note:'',note:'',note_detail:''},
+      sci:{gpa:'Mid-high 80s',label:'close',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'no',coop_note:'',note:'Physical/Mathematical Sciences',note_detail:''},
+      social:{gpa:'Mid 70s',label:'ok',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'no',coop_note:'',note:'GPA绰绰有余',note_detail:''}
+    }},
+    {name:'UBC·Okanagan',city:'基洛纳',prov:'BC省',deadline:'1月15日',tuition:'30,000-38,000',tuitionRMB:'15-19万',programs:{
+      eng:{gpa:'80-85%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'EFP英语预科',dual_thr:'未达标即可申',coop:'yes',coop_note:'Engineering Co-op',note:'比温哥华校区低10分!',note_detail:'UBC Okanagan工程80-85%你完全够;有English Foundation Program双录路径'},
+      cs:{gpa:'80-85%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'EFP英语预科',dual_thr:'未达标即可申',coop:'no',coop_note:'',note:'比温哥华校区低10分!',note_detail:''},
+      math:{gpa:'75-80%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'EFP英语预科',dual_thr:'未达标即可申',coop:'no',coop_note:'',note:'',note_detail:''},
+      psych:{gpa:'75-80%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'EFP英语预科',dual_thr:'未达标即可申',coop:'no',coop_note:'',note:'',note_detail:''},
+      biz:{gpa:'80-85%(Management)',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'EFP英语预科',dual_thr:'未达标即可申',coop:'yes',coop_note:'Management Co-op',note:'',note_detail:''},
+      health:{gpa:'75-80%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'EFP英语预科',dual_thr:'未达标即可申',coop:'no',coop_note:'',note:'',note_detail:''},
+      sci:{gpa:'75-80%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'EFP英语预科',dual_thr:'未达标即可申',coop:'no',coop_note:'',note:'',note_detail:''},
+      social:{gpa:'70-75%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'EFP英语预科',dual_thr:'未达标即可申',coop:'no',coop_note:'',note:'',note_detail:''}
+    }},
+    {name:'阿尔伯塔',city:'埃德蒙顿',prov:'阿省',deadline:'3月1日(可延至4月)',tuition:'28,000-35,000',tuitionRMB:'14-18万',programs:{
+      eng:{gpa:'85-88%',label:'close',ielts:'6.5(5.5)',dual:'limit',dual_type:'EAP不含工程',dual_thr:'5.0(单项4.5)',coop:'yes',coop_note:'Engineering Co-op',note:'本校EAP不含工程',note_detail:'可通过CCEL双录但竞争激烈'},
+      cs:{gpa:'82-88%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'EAP',dual_thr:'5.0(单项4.5)',coop:'yes',coop_note:'CS Co-op',note:'你雅思5.0已达标双录!',note_detail:'EAP读完免雅思，CS录取82-88%你在范围内'},
+      math:{gpa:'85-90%',label:'close',ielts:'6.5(5.5)',dual:'yes',dual_type:'EAP',dual_thr:'5.0(单项4.5)',coop:'yes',coop_note:'',note:'你雅思5.0已达标双录',note_detail:''},
+      psych:{gpa:'75-80%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'EAP',dual_thr:'5.0(单项4.5)',coop:'no',coop_note:'',note:'你雅思5.0已达标双录',note_detail:'心理GPA75%你89.6远超'},
+      biz:{gpa:'80-85%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'EAP',dual_thr:'5.0(单项4.5)',coop:'yes',coop_note:'',note:'商科比CS好进',note_detail:''},
+      health:{gpa:'80-85%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'EAP',dual_thr:'5.0(单项4.5)',coop:'no',coop_note:'',note:'',note_detail:''},
+      sci:{gpa:'75-80%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'EAP',dual_thr:'5.0(单项4.5)',coop:'yes',coop_note:'',note:'',note_detail:''},
+      social:{gpa:'70-75%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'EAP',dual_thr:'5.0(单项4.5)',coop:'no',coop_note:'',note:'',note_detail:''}
+    }},
+    {name:'渥太华',city:'渥太华',prov:'安省',deadline:'3月31日',tuition:'32,000-40,000',tuitionRMB:'16-20万',programs:{
+      eng:{gpa:'80-87%',label:'ok',ielts:'6.5(写作6.5/其余6.0)',dual:'yes',dual_type:'EIP',dual_thr:'4.0+',coop:'yes',coop_note:'Engineering Co-op',note:'你雅思5.0已达标!',note_detail:'EIP雅思4.0+即可，你5.0完全够'},
+      cs:{gpa:'80-87%',label:'ok',ielts:'6.5(写作6.5/其余6.0)',dual:'yes',dual_type:'EIP',dual_thr:'4.0+',coop:'yes',coop_note:'CS Co-op',note:'你雅思5.0已达标!',note_detail:'渥太华CS Co-op就业好'},
+      math:{gpa:'75-80%',label:'ok',ielts:'6.5(写作6.5/其余6.0)',dual:'yes',dual_type:'EIP',dual_thr:'4.0+',coop:'yes',coop_note:'',note:'你雅思5.0已达标!',note_detail:''},
+      psych:{gpa:'约70%',label:'ok',ielts:'6.5(写作6.5/其余6.0)',dual:'yes',dual_type:'EIP',dual_thr:'4.0+',coop:'no',coop_note:'',note:'最推荐!GPA绰绰有余',note_detail:'渥太华心理录取约70%，你89.6远超'},
+      biz:{gpa:'85%',label:'ok',ielts:'6.5(写作6.5/其余6.0)',dual:'yes',dual_type:'EIP',dual_thr:'4.0+',coop:'yes',coop_note:'Telfer Co-op',note:'你雅思5.0已达标!',note_detail:'Telfer商学院85%你89.6远超'},
+      health:{gpa:'89%',label:'ok',ielts:'6.5(写作6.5/其余6.0)',dual:'yes',dual_type:'EIP',dual_thr:'4.0+',coop:'no',coop_note:'',note:'GPA踩线!你雅思5.0已达标EIP',note_detail:'渥太华健康科学89%你89.6刚好踩线'},
+      sci:{gpa:'75-80%',label:'ok',ielts:'6.5(写作6.5/其余6.0)',dual:'yes',dual_type:'EIP',dual_thr:'4.0+',coop:'yes',coop_note:'',note:'你雅思5.0已达标!',note_detail:''},
+      social:{gpa:'80-85%',label:'ok',ielts:'6.5(写作6.5/其余6.0)',dual:'yes',dual_type:'EIP',dual_thr:'4.0+',coop:'no',coop_note:'',note:'你雅思5.0已达标!',note_detail:''}
+    }},
+    {name:'韦士敦',city:'伦敦',prov:'安省',deadline:'3月31日(Ivey建议1月前)',tuition:'32,000-38,000',tuitionRMB:'16-19万',programs:{
+      eng:{gpa:'91%',label:'hard',ielts:'6.5(6.0)',dual:'yes',dual_type:'Boost',dual_thr:'总分5.5(读写5.5/听说5.0)',coop:'yes',coop_note:'Engineering Co-op',note:'你听力阅读4.5不够Boost',note_detail:'Boost9周读完免雅思，但你听力4.5<门槛5.0'},
+      cs:{gpa:'84%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'Boost',dual_thr:'总分5.5(读写5.5/听说5.0)',coop:'yes',coop_note:'',note:'GPA够但Boost门槛不够',note_detail:''},
+      math:{gpa:'mid 70s',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'Boost',dual_thr:'总分5.5(读写5.5/听说5.0)',coop:'no',coop_note:'',note:'',note_detail:''},
+      psych:{gpa:'mid-high 70s',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'Boost',dual_thr:'总分5.5(读写5.5/听说5.0)',coop:'no',coop_note:'',note:'',note_detail:''},
+      biz:{gpa:'85%(MOS)/94%(Ivey)',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'Boost',dual_thr:'总分5.5(读写5.5/听说5.0)',coop:'yes',coop_note:'Ivey AEO',note:'MOS GPA够,Ivey极难',note_detail:'Ivey AEO 94%极难，MOS 85%你89.6远超'},
+      health:{gpa:'91%',label:'hard',ielts:'6.5(6.0)',dual:'yes',dual_type:'Boost',dual_thr:'总分5.5(读写5.5/听说5.0)',coop:'no',coop_note:'',note:'',note_detail:''},
+      sci:{gpa:'80-85%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'Boost',dual_thr:'总分5.5(读写5.5/听说5.0)',coop:'yes',coop_note:'',note:'',note_detail:''},
+      social:{gpa:'80-85%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'Boost',dual_thr:'总分5.5(读写5.5/听说5.0)',coop:'no',coop_note:'',note:'',note_detail:''}
+    }},
+    {name:'麦克马斯特',city:'哈密尔顿',prov:'安省',deadline:'热门1月关闭/3月31日',tuition:'34,000-42,000',tuitionRMB:'17-21万',programs:{
+      eng:{gpa:'92%',label:'hard',ielts:'6.5(6.0)',dual:'yes',dual_type:'MELD+STEP',dual_thr:'MELD:5.0/STEP:6.5(读写6.0听说5.5)',coop:'yes',coop_note:'全部工程Co-op',note:'工程GPA差2.4分;你雅思5.0已达标MELD!',note_detail:'麦马工程92%你差2.4分；MELD(1年)门槛5.0你达标!🆕2026Fall起完成MELD可获12本科学分(4门课不再白读);STEP(7周夏)门槛6.5你不够；⚠️中加学籍学生必须提交雅思成绩'},
+      cs:{gpa:'94%',label:'hard',ielts:'6.5(6.0)',dual:'yes',dual_type:'MELD+STEP',dual_thr:'MELD:5.0/STEP:6.5(读写6.0听说5.5)',coop:'yes',coop_note:'',note:'CS差5分;你雅思5.0已达标MELD!',note_detail:'🆕2026Fall起完成MELD可获12本科学分(4门课不再白读);⚠️中加学籍学生必须提交雅思成绩'},
+      math:{gpa:'85%',label:'close',ielts:'6.5(6.0)',dual:'yes',dual_type:'MELD+STEP',dual_thr:'MELD:5.0/STEP:6.5(读写6.0听说5.5)',coop:'yes',coop_note:'',note:'你踩线!MELD门槛5.0你达标',note_detail:'麦马数学85%你刚好踩线；🆕2026Fall起完成MELD可获12本科学分(4门课不再白读);⚠️中加学籍学生必须提交雅思成绩'},
+      psych:{gpa:'85%',label:'close',ielts:'6.5(6.0)',dual:'yes',dual_type:'MELD+STEP',dual_thr:'MELD:5.0/STEP:6.5(读写6.0听说5.5)',coop:'no',coop_note:'',note:'你踩线!MELD门槛5.0你达标',note_detail:'🆕2026Fall起完成MELD可获12本科学分(4门课不再白读);⚠️中加学籍学生必须提交雅思成绩'},
+      biz:{gpa:'88%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'MELD+STEP',dual_thr:'MELD:5.0/STEP:6.5(读写6.0听说5.5)',coop:'yes',coop_note:'DeGroote Co-op',note:'商科GPA够!超1.6分;MELD门槛5.0你达标',note_detail:'DeGroote 88%你89.6超1.6分；🆕2026Fall起完成MELD可获12本科学分(4门课不再白读);⚠️中加学籍学生必须提交雅思成绩'},
+      health:{gpa:'96%',label:'hard',ielts:'6.5(6.0)',dual:'yes',dual_type:'MELD+STEP',dual_thr:'MELD:5.0/STEP:6.5(读写6.0听说5.5)',coop:'no',coop_note:'',note:'BHSc极难(3%录取率)',note_detail:'🆕2026Fall起完成MELD可获12本科学分(4门课不再白读);⚠️中加学籍学生必须提交雅思成绩'},
+      sci:{gpa:'80-85%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'MELD+STEP',dual_thr:'MELD:5.0/STEP:6.5(读写6.0听说5.5)',coop:'yes',coop_note:'',note:'MELD门槛5.0你达标',note_detail:'🆕2026Fall起完成MELD可获12本科学分(4门课不再白读);⚠️中加学籍学生必须提交雅思成绩'},
+      social:{gpa:'80-85%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'MELD+STEP',dual_thr:'MELD:5.0/STEP:6.5(读写6.0听说5.5)',coop:'no',coop_note:'',note:'MELD门槛5.0你达标',note_detail:'🆕2026Fall起完成MELD可获12本科学分(4门课不再白读);⚠️中加学籍学生必须提交雅思成绩'}
+    }},
+    {name:'皇后',city:'金斯顿',prov:'安省',deadline:'2月1日(国际生)',tuition:'34,000-42,000',tuitionRMB:'17-21万',programs:{
+      eng:{gpa:'88%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'Q-Bridge',dual_thr:'5.5(EAP)/6.0(Accel)',coop:'yes',coop_note:'',note:'GPA够!超1.6分;EAP 5.5/Accel 6.0',note_detail:'2026 Q-Bridge分EAP(5.5)和Accelerated(6.0)两轨；你雅思5.0未达标'},
+      cs:{gpa:'85-90%',label:'close',ielts:'6.5(6.0)',dual:'yes',dual_type:'Q-Bridge',dual_thr:'5.5(EAP)/6.0(Accel)',coop:'no',coop_note:'',note:'EAP 5.5/Accel 6.0',note_detail:'2026 Q-Bridge分EAP(5.5)和Accelerated(6.0)两轨；你雅思5.0未达标'},
+      math:{gpa:'80-85%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'Q-Bridge',dual_thr:'5.5(EAP)/6.0(Accel)',coop:'no',coop_note:'',note:'EAP 5.5/Accel 6.0',note_detail:'2026 Q-Bridge分EAP(5.5)和Accelerated(6.0)两轨；你雅思5.0未达标'},
+      psych:{gpa:'80-85%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'Q-Bridge',dual_thr:'5.5(EAP)/6.0(Accel)',coop:'no',coop_note:'',note:'EAP 5.5/Accel 6.0',note_detail:'2026 Q-Bridge分EAP(5.5)和Accelerated(6.0)两轨；你雅思5.0未达标'},
+      biz:{gpa:'94%',label:'hard',ielts:'6.5(6.0)',dual:'yes',dual_type:'Q-Bridge',dual_thr:'5.5(EAP)/6.0(Accel)',coop:'yes',coop_note:'Smith Commerce',note:'Smith Commerce极难',note_detail:'需要补充申请；2026 Q-Bridge分EAP(5.5)和Accelerated(6.0)两轨'},
+      health:{gpa:'94%',label:'hard',ielts:'6.5(6.0)',dual:'yes',dual_type:'Q-Bridge',dual_thr:'5.5(EAP)/6.0(Accel)',coop:'no',coop_note:'',note:'极难(7%录取率)',note_detail:'2026 Q-Bridge分EAP(5.5)和Accelerated(6.0)两轨'},
+      sci:{gpa:'85-90%',label:'close',ielts:'6.5(6.0)',dual:'yes',dual_type:'Q-Bridge',dual_thr:'5.5(EAP)/6.0(Accel)',coop:'no',coop_note:'',note:'EAP 5.5/Accel 6.0',note_detail:'2026 Q-Bridge分EAP(5.5)和Accelerated(6.0)两轨；你雅思5.0未达标'},
+      social:{gpa:'80-85%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'Q-Bridge',dual_thr:'5.5(EAP)/6.0(Accel)',coop:'no',coop_note:'',note:'EAP 5.5/Accel 6.0',note_detail:'2026 Q-Bridge分EAP(5.5)和Accelerated(6.0)两轨；你雅思5.0未达标'}
+    }},
+    {name:'TMU(原Ryerson)',city:'多伦多',prov:'安省',deadline:'3月31日',tuition:'28,000-36,000',tuitionRMB:'14-18万',programs:{
+      eng:{gpa:'88%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'全部工程Co-op',note:'工程GPA够!超1.6分',note_detail:'TMU工程88%你89.6超1.6分，CS更好进'},
+      cs:{gpa:'82%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'CS Co-op',note:'你雅思5.0已达标!CS好进',note_detail:'TMU CS录取82%你完全够，地理位置极佳'},
+      math:{gpa:'75-80%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'',note_detail:''},
+      psych:{gpa:'75-80%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'',note_detail:''},
+      biz:{gpa:'88%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'商科GPA够!超1.6分',note_detail:''},
+      health:{gpa:'92%(Nursing)',label:'hard',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'Nursing极难',note_detail:''},
+      sci:{gpa:'75-80%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'',note_detail:''},
+      social:{gpa:'70-75%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:''}
+    }},
+    {name:'Guelph',city:'圭尔夫',prov:'安省',deadline:'3月31日',tuition:'26,000-34,000',tuitionRMB:'13-17万',programs:{
+      eng:{gpa:'88%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'全部工程Co-op',note:'工程GPA够!超1.6分',note_detail:'Guelph工程88%你89.6超1.6分'},
+      cs:{gpa:'89%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'CS Co-op',note:'CS GPA踩线!89.6 vs 89%',note_detail:'Guelph CS 89%你89.6踩线'},
+      math:{gpa:'75-80%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:''},
+      psych:{gpa:'80-85%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'',note_detail:''},
+      biz:{gpa:'80-85%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'Commerce Co-op',note:'',note_detail:''},
+      health:{gpa:'85-90%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'GPA在范围内',note_detail:''},
+      sci:{gpa:'75-80%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'',note_detail:'Guelph理科强(农业/环境/生物)'},
+      social:{gpa:'70-75%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:''}
+    }}
+  ],
+  t3:[
+    {name:'卡尔加里',city:'卡尔加里',prov:'阿省',deadline:'3月1日(可延至4月15日)',tuition:'26,000-32,000',tuitionRMB:'13-16万',programs:{
+      eng:{gpa:'85-90%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'GPA在范围内',note_detail:''},
+      cs:{gpa:'80-85%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'',note_detail:''},
+      math:{gpa:'75-80%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:''},
+      psych:{gpa:'75-80%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:''},
+      biz:{gpa:'80-85%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'',note_detail:''},
+      health:{gpa:'80-85%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'',note_detail:''},
+      sci:{gpa:'75-80%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:''},
+      social:{gpa:'70-75%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:''}
+    }},
+    {name:'SFU',city:'温哥华',prov:'BC省',deadline:'2月28日',tuition:'26,000-34,000',tuitionRMB:'13-17万',programs:{
+      eng:{gpa:'80-85%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'FIC桥梁',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'你雅思5.0已达标!',note_detail:'FIC桥梁课程→SFU，温哥华地理位置好'},
+      cs:{gpa:'80-85%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'FIC桥梁',dual_thr:'5.0+',coop:'yes',coop_note:'CS Co-op',note:'你雅思5.0已达标!',note_detail:''},
+      math:{gpa:'75-80%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'FIC桥梁',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'',note_detail:''},
+      psych:{gpa:'75-80%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'FIC桥梁',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:''},
+      biz:{gpa:'80-85%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'FIC桥梁',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'',note_detail:''},
+      health:{gpa:'80-85%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'FIC桥梁',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'',note_detail:''},
+      sci:{gpa:'75-80%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'FIC桥梁',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'',note_detail:''},
+      social:{gpa:'70-75%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'FIC桥梁',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:''}
+    }},
+    {name:'维多利亚',city:'维多利亚',prov:'BC省',deadline:'2月28日',tuition:'26,000-32,000',tuitionRMB:'13-16万',programs:{
+      eng:{gpa:'80-85%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.5+',coop:'yes',coop_note:'',note:'',note_detail:''},
+      cs:{gpa:'80-85%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.5+',coop:'yes',coop_note:'CS Co-op',note:'',note_detail:''},
+      math:{gpa:'75-80%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.5+',coop:'yes',coop_note:'',note:'',note_detail:''},
+      psych:{gpa:'75-80%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.5+',coop:'no',coop_note:'',note:'',note_detail:''},
+      biz:{gpa:'80-85%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.5+',coop:'yes',coop_note:'',note:'',note_detail:''},
+      health:{gpa:'75-80%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.5+',coop:'no',coop_note:'',note:'',note_detail:''},
+      sci:{gpa:'75-80%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.5+',coop:'yes',coop_note:'',note:'',note_detail:''},
+      social:{gpa:'70-75%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.5+',coop:'no',coop_note:'',note:'',note_detail:''}
+    }},
+    {name:'卡尔顿',city:'渥太华',prov:'安省',deadline:'3月31日',tuition:'26,000-34,000',tuitionRMB:'13-17万',programs:{
+      eng:{gpa:'78-84%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'与渥太华同城',note_detail:''},
+      cs:{gpa:'78-84%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'CS Co-op',note:'',note_detail:''},
+      math:{gpa:'75-80%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:''},
+      psych:{gpa:'70-75%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:''},
+      biz:{gpa:'78-84%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'Sprott Co-op',note:'Sprott商学院',note_detail:''},
+      health:{gpa:'75-80%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:''},
+      sci:{gpa:'75-80%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'',note_detail:''},
+      social:{gpa:'70-75%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:''}
+    }},
+    {name:'约克',city:'多伦多',prov:'安省',deadline:'滚动录取',tuition:'26,000-34,000',tuitionRMB:'13-17万',programs:{
+      eng:{gpa:'雅思7.5不双录!',label:'na',ielts:'7.5!',dual:'limit',dual_type:'YUELI不含工程CS',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'工程雅思7.5不双录!',note_detail:'约克工程要求雅思7.5且不接受双录取！'},
+      cs:{gpa:'雅思7.5不双录!',label:'na',ielts:'7.5!',dual:'limit',dual_type:'YUELI不含工程CS',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'CS同工程限制',note_detail:''},
+      math:{gpa:'75-80%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'YUELI',dual_thr:'5.0+',coop:'no',coop_note:'',note:'理学院可双录',note_detail:''},
+      psych:{gpa:'65-70%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'YUELI',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:''},
+      biz:{gpa:'75-80%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'YUELI',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'Schulich难进',note_detail:''},
+      health:{gpa:'70-75%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'YUELI',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:''},
+      sci:{gpa:'70-75%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'YUELI',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:''},
+      social:{gpa:'65-70%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'YUELI',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:''}
+    }},
+    {name:'Laurier',city:'滑铁卢',prov:'安省',deadline:'3月31日',tuition:'24,000-30,000',tuitionRMB:'12-15万',programs:{
+      eng:{gpa:'80-85%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'与滑铁卢同城',note_detail:'Laurier小校但性价比高'},
+      cs:{gpa:'75-80%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'',note_detail:''},
+      math:{gpa:'70-75%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:''},
+      psych:{gpa:'70-75%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:''},
+      biz:{gpa:'80-85%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'Lazaridis Co-op',note:'Lazaridis商学院',note_detail:''},
+      health:{gpa:'70-75%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:''},
+      sci:{gpa:'70-75%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'',note_detail:''},
+      social:{gpa:'65-70%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:''}
+    }},
+    {name:'Brock',city:'圣凯瑟琳',prov:'安省',deadline:'滚动录取',tuition:'24,000-28,000',tuitionRMB:'12-14万',programs:{
+      eng:{gpa:'—',label:'na',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'无工程专业',note_detail:''},
+      cs:{gpa:'75-80%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'',note_detail:''},
+      math:{gpa:'70-75%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:''},
+      psych:{gpa:'70-75%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'心理学较强',note_detail:''},
+      biz:{gpa:'75-80%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'',note_detail:''},
+      health:{gpa:'75-80%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:''},
+      sci:{gpa:'70-75%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'',note_detail:''},
+      social:{gpa:'65-70%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:''}
+    }},
+    {name:'温莎',city:'温莎',prov:'安省',deadline:'滚动录取',tuition:'22,000-28,000',tuitionRMB:'11-14万',programs:{
+      eng:{gpa:'75-80%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ELIP',dual_thr:'4.5+',coop:'yes',coop_note:'',note:'最稳保底',note_detail:''},
+      cs:{gpa:'75-80%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ELIP',dual_thr:'4.5+',coop:'yes',coop_note:'',note:'',note_detail:''},
+      math:{gpa:'70-75%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ELIP',dual_thr:'4.5+',coop:'no',coop_note:'',note:'',note_detail:''},
+      psych:{gpa:'65-70%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ELIP',dual_thr:'4.5+',coop:'no',coop_note:'',note:'',note_detail:''},
+      biz:{gpa:'75-80%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ELIP',dual_thr:'4.5+',coop:'yes',coop_note:'',note:'',note_detail:''},
+      health:{gpa:'70-75%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ELIP',dual_thr:'4.5+',coop:'no',coop_note:'',note:'',note_detail:''},
+      sci:{gpa:'70-75%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ELIP',dual_thr:'4.5+',coop:'no',coop_note:'',note:'',note_detail:''},
+      social:{gpa:'65-70%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ELIP',dual_thr:'4.5+',coop:'no',coop_note:'',note:'',note_detail:''}
+    }},
+    {name:'曼尼托巴',city:'温尼伯',prov:'曼省',deadline:'3月1日',tuition:'18,000-24,000',tuitionRMB:'9-12万',programs:{
+      eng:{gpa:'80-85%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ELSP',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'性价比极高',note_detail:'曼省学费最低+移民政策友好'},
+      cs:{gpa:'80-85%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ELSP',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'',note_detail:''},
+      math:{gpa:'70-75%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ELSP',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:''},
+      psych:{gpa:'65-70%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ELSP',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:''},
+      biz:{gpa:'75-80%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ELSP',dual_thr:'5.0+',coop:'yes',coop_note:'Asper Co-op',note:'Asper商学院',note_detail:''},
+      health:{gpa:'70-75%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ELSP',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:''},
+      sci:{gpa:'70-75%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ELSP',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'',note_detail:''},
+      social:{gpa:'65-70%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ELSP',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:''}
+    }},
+    {name:'戴尔豪斯',city:'哈利法克斯',prov:'新斯科舍省',deadline:'4月1日',tuition:'20,000-26,000',tuitionRMB:'10-13万',programs:{
+      eng:{gpa:'80-85%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.5+',coop:'yes',coop_note:'',note:'东海岸',note_detail:''},
+      cs:{gpa:'80-85%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.5+',coop:'yes',coop_note:'',note:'',note_detail:''},
+      math:{gpa:'75-80%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.5+',coop:'no',coop_note:'',note:'',note_detail:''},
+      psych:{gpa:'70-75%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.5+',coop:'no',coop_note:'',note:'',note_detail:''},
+      biz:{gpa:'75-80%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.5+',coop:'yes',coop_note:'',note:'',note_detail:''},
+      health:{gpa:'75-80%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.5+',coop:'no',coop_note:'',note:'',note_detail:''},
+      sci:{gpa:'70-75%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.5+',coop:'yes',coop_note:'',note:'',note_detail:''},
+      social:{gpa:'65-70%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.5+',coop:'no',coop_note:'',note:'',note_detail:''}
+    }},
+    {name:'萨省',city:'萨斯卡通',prov:'萨省',deadline:'3月1日',tuition:'18,000-22,000',tuitionRMB:'9-11万',programs:{
+      eng:{gpa:'70-78%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'',note_detail:''},
+      cs:{gpa:'70-78%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'',note_detail:''},
+      math:{gpa:'70-75%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:''},
+      psych:{gpa:'65-70%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:''},
+      biz:{gpa:'70-78%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'Edwards Co-op',note:'Edwards商学院',note_detail:''},
+      health:{gpa:'70-75%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:''},
+      sci:{gpa:'70-75%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'',note_detail:''},
+      social:{gpa:'65-70%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:''}
+    }},
+    {name:'纽芬兰纪念',city:'圣约翰斯',prov:'纽省',deadline:'3月1日(滚动)',tuition:'12,000-18,000',tuitionRMB:'6-9万',programs:{
+      eng:{gpa:'70-75%',label:'ok',ielts:'6.5(读写6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'学费全国最低!',note_detail:'2026起直录雅思要求读写单项≥6.0'},
+      cs:{gpa:'70-75%',label:'ok',ielts:'6.5(读写6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'',note_detail:'2026起直录雅思要求读写单项≥6.0'},
+      math:{gpa:'70-75%',label:'ok',ielts:'6.5(读写6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:'2026起直录雅思要求读写单项≥6.0'},
+      psych:{gpa:'65-70%',label:'ok',ielts:'6.5(读写6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:'2026起直录雅思要求读写单项≥6.0'},
+      biz:{gpa:'70-75%',label:'ok',ielts:'6.5(读写6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'',note_detail:'2026起直录雅思要求读写单项≥6.0'},
+      health:{gpa:'70-75%',label:'ok',ielts:'6.5(读写6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:'2026起直录雅思要求读写单项≥6.0'},
+      sci:{gpa:'70-75%',label:'ok',ielts:'6.5(读写6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'',note_detail:'2026起直录雅思要求读写单项≥6.0'},
+      social:{gpa:'65-70%',label:'ok',ielts:'6.5(读写6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:'2026起直录雅思要求读写单项≥6.0'}
+    }},
+    {name:'康考迪亚',city:'蒙特利尔',prov:'魁省',deadline:'2月1日(部分滚动)',tuition:'22,000-28,000',tuitionRMB:'11-14万',programs:{
+      eng:{gpa:'75-80%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'蒙特利尔',note_detail:''},
+      cs:{gpa:'75-80%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'CS Co-op',note:'',note_detail:''},
+      math:{gpa:'70-75%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:''},
+      psych:{gpa:'70-75%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:''},
+      biz:{gpa:'75-80%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'JMSB Co-op',note:'JMSB商学院',note_detail:''},
+      health:{gpa:'70-75%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:''},
+      sci:{gpa:'70-75%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:''},
+      social:{gpa:'65-70%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:''}
+    }}
+  ],
+  au:[
+    {name:'UNSW',city:'悉尼',prov:'澳洲',deadline:'滚动',tuition:'42,000',tuitionRMB:'约20万',isFoundation:true,programs:{
+      eng:{gpa:'预科GPA7.5/9.0',label:'ok',ielts:'Extended预科:5.0(4.5)|标准理科:5.5(写作5.5其他5.0)',dual:'yes',dual_type:'Extended预科(15月)',dual_thr:'5.0(4.5)',coop:'yes',coop_note:'',note:'你雅思5.0走Extended达标!',note_detail:'UNSW Extended预科15个月IELTS5.0(4.5)你达标;🆕2026起标准预科分轨:理科/文科IELTS5.5(写作5.5/其他≥5.0)你总分差0.5;商科IELTS6.0(写作5.5/其他≥5.5)你差1.0;升学率91%'},
+      cs:{gpa:'预科GPA7.5/9.0',label:'ok',ielts:'Extended预科:5.0(4.5)|标准理科:5.5(写作5.5其他5.0)',dual:'yes',dual_type:'Extended预科(15月)',dual_thr:'5.0(4.5)',coop:'yes',coop_note:'',note:'你雅思5.0走Extended达标!',note_detail:'🆕2026起标准预科分轨:理科IELTS5.5(写作5.5/其他≥5.0)你总分差0.5'},
+      math:{gpa:'预科GPA7.0/9.0',label:'ok',ielts:'Extended预科:5.0(4.5)|标准理科:5.5(写作5.5其他5.0)',dual:'yes',dual_type:'Extended预科(15月)',dual_thr:'5.0(4.5)',coop:'no',coop_note:'',note:'',note_detail:'🆕2026起标准预科分轨'},
+      psych:{gpa:'预科GPA6.5/9.0',label:'ok',ielts:'Extended预科:5.0(4.5)|标准理科:5.5(写作5.5其他5.0)',dual:'yes',dual_type:'Extended预科(15月)',dual_thr:'5.0(4.5)',coop:'no',coop_note:'',note:'',note_detail:'🆕2026起标准预科分轨'},
+      biz:{gpa:'预科GPA7.0/9.0',label:'ok',ielts:'Extended预科:5.0(4.5)|标准商科:6.0(写作5.5其他5.5)',dual:'yes',dual_type:'Extended预科(15月)',dual_thr:'5.0(4.5)',coop:'yes',coop_note:'',note:'标准商科IELTS6.0你差1.0;走Extended可行',note_detail:'🆕2026起标准预科商科IELTS6.0(写作5.5/其他≥5.5)你差1.0;Extended预科IELTS5.0(4.5)你达标'},
+      health:{gpa:'预科GPA7.0/9.0',label:'ok',ielts:'Extended预科:5.0(4.5)|标准理科:5.5(写作5.5其他5.0)',dual:'yes',dual_type:'Extended预科(15月)',dual_thr:'5.0(4.5)',coop:'no',coop_note:'',note:'',note_detail:'🆕2026起标准预科分轨'},
+      sci:{gpa:'预科GPA7.0/9.0',label:'ok',ielts:'Extended预科:5.0(4.5)|标准理科:5.5(写作5.5其他5.0)',dual:'yes',dual_type:'Extended预科(15月)',dual_thr:'5.0(4.5)',coop:'no',coop_note:'',note:'',note_detail:'🆕2026起标准预科分轨'},
+      social:{gpa:'预科GPA6.5/9.0',label:'ok',ielts:'Extended预科:5.0(4.5)|标准理科:5.5(写作5.5其他5.0)',dual:'yes',dual_type:'Extended预科(15月)',dual_thr:'5.0(4.5)',coop:'no',coop_note:'',note:'',note_detail:'🆕2026起标准预科分轨'}
+    }},
+    {name:'昆士兰',city:'布里斯班',prov:'澳洲',deadline:'滚动',tuition:'36,000',tuitionRMB:'约18万',isFoundation:true,programs:{
+      eng:{gpa:'预科GPA60%',label:'ok',ielts:'预科入:5.0(4.5)',dual:'yes',dual_type:'标准预科',dual_thr:'5.0(4.5)',coop:'yes',coop_note:'',note:'你雅思5.0已达标!',note_detail:''},
+      cs:{gpa:'预科GPA60%',label:'ok',ielts:'预科入:5.0(4.5)',dual:'yes',dual_type:'标准预科',dual_thr:'5.0(4.5)',coop:'no',coop_note:'',note:'',note_detail:''},
+      math:{gpa:'预科GPA60%',label:'ok',ielts:'预科入:5.0(4.5)',dual:'yes',dual_type:'标准预科',dual_thr:'5.0(4.5)',coop:'no',coop_note:'',note:'',note_detail:''},
+      psych:{gpa:'预科GPA60%',label:'ok',ielts:'预科入:5.0(4.5)',dual:'yes',dual_type:'标准预科',dual_thr:'5.0(4.5)',coop:'no',coop_note:'',note:'',note_detail:''},
+      biz:{gpa:'预科GPA60%',label:'ok',ielts:'预科入:5.0(4.5)',dual:'yes',dual_type:'标准预科',dual_thr:'5.0(4.5)',coop:'no',coop_note:'',note:'',note_detail:''},
+      health:{gpa:'预科GPA60%',label:'ok',ielts:'预科入:5.0(4.5)',dual:'yes',dual_type:'标准预科',dual_thr:'5.0(4.5)',coop:'no',coop_note:'',note:'',note_detail:''},
+      sci:{gpa:'预科GPA60%',label:'ok',ielts:'预科入:5.0(4.5)',dual:'yes',dual_type:'标准预科',dual_thr:'5.0(4.5)',coop:'no',coop_note:'',note:'',note_detail:''},
+      social:{gpa:'预科GPA60%',label:'ok',ielts:'预科入:5.0(4.5)',dual:'yes',dual_type:'标准预科',dual_thr:'5.0(4.5)',coop:'no',coop_note:'',note:'',note_detail:''}
+    }},
+    {name:'阿德莱德',city:'阿德莱德',prov:'澳洲',deadline:'滚动',tuition:'34,000',tuitionRMB:'约17万',isFoundation:true,programs:{
+      eng:{gpa:'预科GPA60%',label:'ok',ielts:'预科入:5.0(4.5)',dual:'yes',dual_type:'标准预科',dual_thr:'5.0(4.5)',coop:'yes',coop_note:'',note:'你雅思5.0已达标!',note_detail:''},
+      cs:{gpa:'预科GPA60%',label:'ok',ielts:'预科入:5.0(4.5)',dual:'yes',dual_type:'标准预科',dual_thr:'5.0(4.5)',coop:'no',coop_note:'',note:'',note_detail:''},
+      math:{gpa:'预科GPA60%',label:'ok',ielts:'预科入:5.0(4.5)',dual:'yes',dual_type:'标准预科',dual_thr:'5.0(4.5)',coop:'no',coop_note:'',note:'',note_detail:''},
+      psych:{gpa:'预科GPA60%',label:'ok',ielts:'预科入:5.0(4.5)',dual:'yes',dual_type:'标准预科',dual_thr:'5.0(4.5)',coop:'no',coop_note:'',note:'',note_detail:''},
+      biz:{gpa:'预科GPA60%',label:'ok',ielts:'预科入:5.0(4.5)',dual:'yes',dual_type:'标准预科',dual_thr:'5.0(4.5)',coop:'no',coop_note:'',note:'',note_detail:''},
+      health:{gpa:'预科GPA60%',label:'ok',ielts:'预科入:5.0(4.5)',dual:'yes',dual_type:'标准预科',dual_thr:'5.0(4.5)',coop:'no',coop_note:'',note:'',note_detail:''},
+      sci:{gpa:'预科GPA60%',label:'ok',ielts:'预科入:5.0(4.5)',dual:'yes',dual_type:'标准预科',dual_thr:'5.0(4.5)',coop:'no',coop_note:'',note:'',note_detail:''},
+      social:{gpa:'预科GPA60%',label:'ok',ielts:'预科入:5.0(4.5)',dual:'yes',dual_type:'标准预科',dual_thr:'5.0(4.5)',coop:'no',coop_note:'',note:'',note_detail:''}
+    }}
+  ]
+};
+
+let currentTab = 'all';
+let currentMatch = 'dual-ok';
+let searchTerm = '';
+
+function dualBadge(type){
+  if(type==='yes') return '<span class="dual yes">有双录</span>';
+  if(type==='no') return '<span class="dual no">无</span>';
+  if(type==='limit') return '<span class="dual limit">有限制</span>';
+  return '<span class="dual no">—</span>';
+}
+
+function coopBadge(has,note){
+  if(has==='yes') return '<span class="coop">Co-op'+(note?'('+note+')':'')+'</span>';
+  return '<span class="coop no">无</span>';
+}
+
+function matchTag(label){
+  if(label==='ok') return '<span class="match green">✓够</span>';
+  if(label==='close') return '<span class="match yellow">≈接近</span>';
+  if(label==='hard') return '<span class="match red">✗差远</span>';
+  if(label==='na') return '<span class="match red">✗不可</span>';
+  return '';
+}
+
+function gpaClass(label){
+  return 'gpa '+(label==='ok'?'ok':label==='close'?'close':label==='hard'?'hard':'na');
+}
+
+function checkDualOk(s,pk){
+  const prog = s.programs[pk];
+  if(!prog) return false;
+  if(prog.dual==='yes'){
+    const thr = prog.dual_thr;
+    if(!thr) return true;
+    if(thr.includes('4.0+')||thr.includes('4.5+')) return true;
+    if(thr.startsWith('5.0')) return true;
+    return false;
+  }
+  return false;
+}
+
+function checkGpaOk(s,pk){
+  const prog = s.programs[pk];
+  return prog && prog.label==='ok';
+}
+
+function getVisiblePrograms(){
+  return currentTab==='all' ? Object.keys(PROGRAMS) : [currentTab];
+}
+
+function handleSearch(val){
+  searchTerm = val.toLowerCase().trim();
+  renderTables();
+}
+
+function renderTables(){
+  const vp = getVisiblePrograms();
+  const container = document.getElementById('tablesContainer');
+  container.innerHTML = '';
+
+  TIERS.forEach(tierInfo=>{
+    const schools = SCHOOLS[tierInfo.key];
+    if(!schools || schools.length===0) return;
+
+    let filtered = schools;
+    if(searchTerm){
+      filtered = schools.filter(s=> s.name.toLowerCase().includes(searchTerm) || s.city.toLowerCase().includes(searchTerm) || (s.prov&&s.prov.toLowerCase().includes(searchTerm)));
+    }
+    if(currentMatch==='ok'){
+      filtered = filtered.filter(s=> vp.some(pk=> checkGpaOk(s,pk)));
+    } else if(currentMatch==='dual-ok'){
+      filtered = filtered.filter(s=> vp.some(pk=> checkDualOk(s,pk)));
+    } else if(currentMatch==='stretch'){
+      filtered = filtered.filter(s=> vp.some(pk=> {const p=s.programs[pk];return p&&(p.label==='close');}));
+    }
+
+    if(filtered.length===0) return;
+
+    let html = `<div class="tier-section">
+      <div class="tier-title"><span class="tier-badge ${tierInfo.badge}">${tierInfo.label}</span> ${tierInfo.title}</div>
+      <div class="table-wrap"><table><thead><tr>
+        <th>学校</th>`;
+
+    if(currentTab==='all'){
+      vp.forEach(pk=>{ html += `<th>${PROGRAMS[pk]}</th>`; });
+      html += `<th>雅思直录</th><th>双录取</th><th>双录门槛</th><th>Co-op</th><th>年学费</th><th>截止</th><th>备注</th>`;
+    } else {
+      html += `<th>GPA</th><th>雅思直录</th><th>双录取</th><th>双录门槛</th><th>Co-op</th><th>年学费</th><th>截止</th><th>备注</th>`;
+    }
+    html += `</tr></thead><tbody>`;
+
+    filtered.forEach(s=>{
+      html += `<tr>`;
+      html += `<td class="school-name">${s.name}<br><span class="meta">${s.city} · ${s.prov}</span></td>`;
+
+      if(currentTab==='all'){
+        vp.forEach(pk=>{
+          const p = s.programs[pk];
+          if(p){
+            html += `<td class="${gpaClass(p.label)}">${p.gpa} ${matchTag(p.label)}</td>`;
+          } else {
+            html += `<td class="gpa na">—</td>`;
+          }
+        });
+        // Show most relevant IELTS/dual (first program with dual)
+        const mainProg = vp.map(pk=>s.programs[pk]).find(p=>p&&p.dual==='yes') || s.programs[vp[0]];
+        const hasAnyCoop = vp.some(pk=>s.programs[pk]?.coop==='yes');
+        html += `<td class="ielts">${mainProg?.ielts||'—'}</td>`;
+        html += `<td>${dualBadge(mainProg?.dual||'no')}</td>`;
+        html += `<td class="ielts">${mainProg?.dual_thr||'—'}</td>`;
+        html += `<td>${hasAnyCoop?'<span class="coop">有</span>':'<span class="coop no">无</span>'}</td>`;
+        html += `<td class="meta">${s.tuitionRMB||s.tuition||'—'}</td>`;
+        html += `<td class="meta">${s.deadline||'—'}</td>`;
+        const noteProg = vp.map(pk=>s.programs[pk]).find(p=>p&&p.note) || s.programs[vp[0]];
+        html += `<td class="note tooltip-wrap">${noteProg?.note||''}${noteProg?.note_detail?'<span class="tip">'+noteProg.note_detail+'</span>':''}</td>`;
+      } else {
+        // Show specific program data - THIS IS THE KEY FIX
+        const p = s.programs[currentTab];
+        if(p){
+          html += `<td class="${gpaClass(p.label)}">${p.gpa} ${matchTag(p.label)}</td>`;
+          html += `<td class="ielts">${p.ielts}</td>`;
+          html += `<td>${dualBadge(p.dual)}</td>`;
+          html += `<td class="ielts">${p.dual_thr||'—'}</td>`;
+          html += `<td>${coopBadge(p.coop,p.coop_note)}</td>`;
+          html += `<td class="meta">${s.tuitionRMB||s.tuition||'—'}</td>`;
+          html += `<td class="meta">${s.deadline||'—'}</td>`;
+          html += `<td class="note tooltip-wrap">${p.note||''}${p.note_detail?'<span class="tip">'+p.note_detail+'</span>':''}</td>`;
+        } else {
+          html += `<td class="gpa na">—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>`;
+        }
+      }
+      html += `</tr>`;
+    });
+
+    html += `</tbody></table></div></div>`;
+    container.innerHTML += html;
+  });
+}
+
+function renderSummary(){
+  const grid = document.getElementById('summaryGrid');
+  let dualOkSchools = [];
+  let dualCloseSchools = [];
+  let stretchSchools = [];
+  let hardSchools = [];
+  let cheapestSchools = [];
+
+  Object.values(SCHOOLS).flat().forEach(s=>{
+    let hasDualOk = false, hasClose = false, hasHard = false;
+    Object.keys(PROGRAMS).forEach(pk=>{
+      if(checkDualOk(s,pk)) hasDualOk = true;
+      if(s.programs[pk]?.label==='close') hasClose = true;
+      if(s.programs[pk]?.label==='hard'||s.programs[pk]?.label==='na') hasHard = true;
+    });
+    if(hasDualOk) dualOkSchools.push(s.name);
+    if(hasClose && !hasDualOk) dualCloseSchools.push(s.name);
+    if(hasHard) hardSchools.push(s.name);
+  });
+
+  // Cheapest schools (tuitionRMB < 12万)
+  Object.values(SCHOOLS).flat().forEach(s=>{
+    if(s.tuitionRMB && s.tuitionRMB.includes('9') || s.tuitionRMB?.includes('6')) cheapestSchools.push(s.name);
+  });
+
+  grid.innerHTML = `
+    <div class="summary-card"><div class="label">雅思5.0双录已达标（最优先申请）</div><div class="value green">${dualOkSchools.join(' / ')}</div></div>
+    <div class="summary-card"><div class="label">需冲刺(GPA差2-6分)</div><div class="value amber">${dualCloseSchools.join(' / ')||'无'}</div></div>
+    <div class="summary-card"><div class="label">极难(GPA差8+分/无双录)</div><div class="value red">${hardSchools.join(' / ')}</div></div>
+    <div class="summary-card"><div class="label">学费最低(6-12万/年)</div><div class="value green">曼尼托巴 · 萨省 · 纽芬兰纪念</div></div>
+  `;
+}
+
+function renderFindings(){
+  document.getElementById('keyFindings').innerHTML = `
+    <p style="margin-bottom:6px"><strong>1.</strong> <span style="color:#534AB7;font-weight:600">★新★</span> 多大分校区比主校容易很多：UTM CS mid-high 80s你踩线(vs UTSG 93%comp/97.2%median)，UTSC心理mid-high 70s你远超</p>
+    <p style="margin-bottom:6px"><strong>2.</strong> <span style="color:#534AB7;font-weight:600">★新★</span> UBC Okanagan比温哥华低10分：工程80-85%你完全够，有EFP英语预科双录路径</p>
+    <p style="margin-bottom:6px"><strong>3.</strong> <span style="color:#534AB7;font-weight:600">★新★</span> UTSC心理学有Co-op且录取mid-high 70s — 北美少数本科有临床心理方向，你GPA89.6远超</p>
+    <p style="margin-bottom:6px"><strong>4.</strong> 数学比CS好进9分：麦马数学85% vs CS 94% — 你踩线数学，CS差8分</p>
+    <p style="margin-bottom:6px"><strong>5.</strong> 心理学比CS好进10-15分：阿尔伯塔心理75% vs CS 82% — 你89.6远超心理线</p>
+    <p style="margin-bottom:6px"><strong>6.</strong> TMU(原Ryerson)CS 82%你完全够 — 多伦多市中心+Co-op+你雅思5.0已达标双录</p>
+    <p style="margin-bottom:6px"><strong>7.</strong> 渥太华大学雅思4.0+就能申EIP双录 — 你5.0已超过门槛，工程/CS/数学/心理全可双录</p>
+    <p style="margin-bottom:6px"><strong>8.</strong> 双录取有专业限制：多大IFP覆盖Arts&Science/建筑景观设计/音乐但新门槛单项≥5.0；约克工程雅思7.5不双录；阿尔伯塔EAP不含工程</p>
+    <p style="margin-bottom:6px"><strong>9.</strong> 多大UTSC/UTM校区不提供双录取/语言班 — 雅思必须直录达标6.5(6.0)；UTSG主校有IFP但单项门槛≥5.0你听力/阅读不够</p>
+    <p><strong>10.</strong> 学费差距巨大：纽芬兰纪念6-9万/年 vs 多大UTSG 21-34万/年 — 多大UTSC/UTM学费也高达34万</p>
+  `;
+}
+
+function switchTab(tab,btn){
+  currentTab = tab;
+  document.querySelectorAll('#progBtns .tab-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderTables();
+}
+
+function filterMatch(match,btn){
+  currentMatch = match;
+  document.querySelectorAll('#filterBtns .tab-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderTables();
+}
+
+renderTables();
+renderSummary();
+renderFindings();
+
+const today = new Date().toISOString().split('T')[0];
+document.getElementById('updateDate').textContent = '最后更新：' + today;
+</script>
+
+<div class="ranking-modal" id="rankingModal">
+  <div class="ranking-box">
+    <button class="ranking-close" onclick="toggleRankingModal()">&times;</button>
+    <h2>📊 三大排行榜 · 专业排名参考</h2>
+    <div class="sub">QS 2025 · THE 2026 · US News 2025 全球专业排名 | 点专业标签切换</div>
+    <div class="rank-tabs" id="rankTabs"></div>
+    <div id="rankTableWrap"></div>
+    <div class="rank-src">数据来源：QS World University Rankings by Subject 2025 / THE World University Rankings by Subject 2026 / US News Best Global Universities by Subject 2025。— 表示暂无数据。</div>
+  </div>
+</div>
+<script>
+// Ranking data: [school, city, qs, the, usn] for each program
+const RANK_DATA = {
+  cs: [
+    {school:'多伦多大学(UTSG)',city:'安省',qs:12,the:22,usn:33},
+    {school:'麦吉尔大学',city:'魁省',qs:34,the:74,usn:145},
+    {school:'UBC(温哥华)',city:'BC省',qs:26,the:57,usn:67},
+    {school:'滑铁卢大学',city:'安省',qs:21,the:41,usn:54},
+    {school:'蒙特利尔大学',city:'魁省',qs:'151-200',the:52,usn:104},
+    {school:'阿尔伯塔大学',city:'阿省',qs:'101-150',the:77,usn:109},
+    {school:'SFU',city:'BC省',qs:'151-200',the:'—',usn:149},
+    {school:'维多利亚大学',city:'BC省',qs:'251-300',the:'—',usn:'—'},
+    {school:'卡尔顿大学',city:'安省',qs:'251-300',the:'—',usn:'—'},
+    {school:'女王大学',city:'安省',qs:'—',the:'—',usn:'—'},
+    {school:'韦士敦大学',city:'安省',qs:'—',the:'—',usn:'—'},
+    {school:'麦马',city:'安省',qs:'—',the:'—',usn:246},
+  ],
+  eng: [
+    {school:'多伦多大学(UTSG)',city:'安省',qs:38,the:25,usn:81},
+    {school:'UBC(温哥华)',city:'BC省',qs:49,the:46,usn:74},
+    {school:'滑铁卢大学',city:'安省',qs:'49-59',the:78,usn:63},
+    {school:'麦吉尔大学',city:'魁省',qs:'—',the:73,usn:167},
+    {school:'阿尔伯塔大学',city:'阿省',qs:'101-150',the:90,usn:91},
+    {school:'蒙特利尔大学',city:'魁省',qs:'—',the:'—',usn:247},
+    {school:'卡尔加里大学',city:'阿省',qs:'—',the:'—',usn:268},
+    {school:'麦马',city:'安省',qs:'—',the:'—',usn:300},
+    {school:'女王大学',city:'安省',qs:'—',the:'—',usn:'—'},
+    {school:'韦士敦大学',city:'安省',qs:'—',the:'—',usn:'—'},
+  ],
+  math: [
+    {school:'多伦多大学(UTSG)',city:'安省',qs:16,the:'—',usn:46},
+    {school:'UBC(温哥华)',city:'BC省',qs:34,the:'—',usn:85},
+    {school:'滑铁卢大学',city:'安省',qs:47,the:'—',usn:117},
+    {school:'麦吉尔大学',city:'魁省',qs:72,the:'—',usn:148},
+    {school:'蒙特利尔大学',city:'魁省',qs:74,the:'—',usn:'—'},
+    {school:'阿尔伯塔大学',city:'阿省',qs:115,the:'—',usn:88},
+    {school:'麦马',city:'安省',qs:'—',the:'—',usn:279},
+    {school:'女王大学',city:'安省',qs:'—',the:'—',usn:'—'},
+  ],
+  psych: [
+    {school:'多伦多大学(UTSG)',city:'安省',qs:13,the:13,usn:'—'},
+    {school:'UBC(温哥华)',city:'BC省',qs:19,the:20,usn:'—'},
+    {school:'麦吉尔大学',city:'魁省',qs:25,the:27,usn:'—'},
+    {school:'韦士敦大学',city:'安省',qs:'—',the:94,usn:'—'},
+    {school:'麦马',city:'安省',qs:'—',the:'101-125',usn:'—'},
+    {school:'阿尔伯塔大学',city:'阿省',qs:'—',the:'126-150',usn:'—'},
+    {school:'卡尔加里大学',city:'阿省',qs:'—',the:'126-150',usn:'—'},
+    {school:'滑铁卢大学',city:'安省',qs:'—',the:'126-150',usn:'—'},
+    {school:'蒙特利尔大学',city:'魁省',qs:'—',the:'126-150',usn:'—'},
+    {school:'约克大学',city:'安省',qs:'—',the:'126-150',usn:'—'},
+    {school:'渥太华大学',city:'安省',qs:'—',the:'201-250',usn:'—'},
+  ],
+  biz: [
+    {school:'多伦多大学(Rotman)',city:'安省',qs:'—',the:23,usn:'—'},
+    {school:'UBC(Sauder)',city:'BC省',qs:'—',the:36,usn:'—'},
+    {school:'麦吉尔(Desautels)',city:'魁省',qs:'—',the:91,usn:'—'},
+    {school:'韦士敦大学(MOS)',city:'安省',qs:'—',the:85,usn:'—'},
+    {school:'女王大学(Smith)',city:'安省',qs:'—',the:'—',usn:'—'},
+    {school:'阿尔伯塔大学',city:'阿省',qs:'—',the:'—',usn:'—'},
+    {school:'约克大学(Schulich)',city:'安省',qs:'—',the:'—',usn:'—'},
+  ],
+  health: [
+    {school:'多伦多大学',city:'安省',qs:'—',the:9,usn:'—'},
+    {school:'麦吉尔大学',city:'魁省',qs:'—',the:27,usn:'—'},
+    {school:'UBC',city:'BC省',qs:'—',the:31,usn:'—'},
+    {school:'麦马',city:'安省',qs:'—',the:42,usn:'—'},
+    {school:'阿尔伯塔大学',city:'阿省',qs:'—',the:77,usn:'—'},
+    {school:'渥太华大学',city:'安省',qs:'—',the:89,usn:'—'},
+  ],
+  sci: [
+    {school:'多伦多大学',city:'安省',qs:'—',the:24,usn:'—'},
+    {school:'UBC',city:'BC省',qs:'—',the:34,usn:'—'},
+    {school:'麦吉尔大学',city:'魁省',qs:'—',the:36,usn:'—'},
+    {school:'阿尔伯塔大学',city:'阿省',qs:'—',the:96,usn:'—'},
+    {school:'滑铁卢大学',city:'安省',qs:'—',the:'—',usn:'—'},
+  ],
+  social: [
+    {school:'多伦多大学',city:'安省',qs:'—',the:24,usn:'—'},
+    {school:'UBC',city:'BC省',qs:'—',the:29,usn:'—'},
+    {school:'麦吉尔大学',city:'魁省',qs:'—',the:40,usn:'—'},
+    {school:'滑铁卢大学',city:'安省',qs:'—',the:'—',usn:'—'},
+  ],
+  overall: [
+    {school:'多伦多大学(UTSG)',city:'安省',qs:32,the:21,usn:20},
+    {school:'麦吉尔大学',city:'魁省',qs:30,the:41,usn:68},
+    {school:'UBC(温哥华)',city:'BC省',qs:45,the:45,usn:42},
+    {school:'阿尔伯塔大学',city:'阿省',qs:96,the:'—',usn:164},
+    {school:'滑铁卢大学',city:'安省',qs:113,the:'—',usn:199},
+    {school:'韦士敦大学',city:'安省',qs:142,the:'—',usn:309},
+    {school:'蒙特利尔大学',city:'魁省',qs:162,the:'—',usn:193},
+    {school:'麦马',city:'安省',qs:174,the:'—',usn:150},
+    {school:'女王大学',city:'安省',qs:179,the:'—',usn:'—'},
+    {school:'渥太华大学',city:'安省',qs:228,the:'—',usn:264},
+    {school:'卡尔加里大学',city:'阿省',qs:'—',the:'—',usn:208},
+    {school:'维多利亚大学',city:'BC省',qs:'—',the:'—',usn:'—'},
+    {school:'拉瓦尔大学',city:'魁省',qs:'—',the:'—',usn:'—'},
+    {school:'SFU',city:'BC省',qs:'—',the:'—',usn:149},
+    {school:'曼尼托巴大学',city:'曼省',qs:'—',the:'—',usn:'—'},
+    {school:'萨省大学',city:'萨省',qs:'—',the:'—',usn:'—'},
+    {school:'约克大学',city:'安省',qs:'—',the:'—',usn:'—'},
+    {school:'康考迪亚大学',city:'魁省',qs:'—',the:'—',usn:'—'},
+    {school:'纪念大学',city:'纽省',qs:'—',the:'—',usn:'—'},
+    {school:'圭尔夫大学',city:'安省',qs:'—',the:'—',usn:'—'},
+    {school:'卡尔顿大学',city:'安省',qs:'—',the:'—',usn:'—'},
+    {school:'TMU',city:'安省',qs:'—',the:'—',usn:'—'},
+    {school:'温莎大学',city:'安省',qs:'—',the:'—',usn:'—'},
+    {school:'布鲁克大学',city:'安省',qs:'—',the:'—',usn:'—'},
+    {school:'劳里埃大学',city:'安省',qs:'—',the:'—',usn:'—'},
+  ]
+};
+
+const RANK_PROGS = [
+  {key:'overall',label:'综合排名'},
+  {key:'cs',label:'计算机'},
+  {key:'eng',label:'工程'},
+  {key:'math',label:'数学'},
+  {key:'psych',label:'心理学'},
+  {key:'biz',label:'商科'},
+  {key:'health',label:'健康科学'},
+  {key:'sci',label:'理科'},
+  {key:'social',label:'社科'}
+];
+
+function toggleRankingModal() {
+  const modal = document.getElementById('rankingModal');
+  modal.classList.toggle('show');
+  if (modal.classList.contains('show') && !document.getElementById('rankTabs').children.length) {
+    buildRankTabs();
+    renderRankTable('cs');
+  }
+}
+
+function buildRankTabs() {
+  const container = document.getElementById('rankTabs');
+  container.innerHTML = '';
+  RANK_PROGS.forEach((p, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'rank-tab-btn' + (i === 0 ? ' active' : '');
+    btn.textContent = p.label;
+    btn.onclick = () => { renderRankTable(p.key); };
+    container.appendChild(btn);
+  });
+}
+
+function renderRankTable(progKey) {
+  // Update active tab
+  document.querySelectorAll('#rankTabs .rank-tab-btn').forEach(b => b.classList.remove('active'));
+  RANK_PROGS.forEach((p, i) => {
+    if (p.key === progKey) document.querySelectorAll('#rankTabs .rank-tab-btn')[i].classList.add('active');
+  });
+
+  const data = RANK_DATA[progKey] || [];
+  let html = '<table class="rank-table"><thead><tr>' +
+    '<th>学校</th><th>省份</th><th>QS 2025</th><th>THE 2026</th><th>US News 2025</th></tr></thead><tbody>';
+
+  data.forEach((d, i) => {
+    const badge = i < 3 ? 'top' : i < 6 ? 'mid' : 'low';
+    html += '<tr>' +
+      '<td style="font-weight:500">' + d.school + '</td>' +
+      '<td>' + d.city + '</td>' +
+      '<td><span class="rank-badge ' + badge + '">' + d.qs + '</span></td>' +
+      '<td><span class="rank-badge ' + badge + '">' + d.the + '</span></td>' +
+      '<td><span class="rank-badge ' + badge + '">' + d.usn + '</span></td>' +
+      '</tr>';
+  });
+
+  html += '</tbody></table>';
+  document.getElementById('rankTableWrap').innerHTML = html;
+}
+
+// Close modal on background click
+document.addEventListener('click', function(e) {
+  const modal = document.getElementById('rankingModal');
+  if (modal && e.target === modal) modal.classList.remove('show');
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>录取要求对照表 · 学生升学数据</title>
+<link rel="stylesheet" href="../css/common.css">
+<style>
+.tier-section{margin-bottom:20px}
+.tier-title{font-size:14px;font-weight:500;color:var(--c-text);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.tier-badge{font-size:10px;padding:2px 8px;border-radius:4px;font-weight:500}
+.tier-badge.t1{background:var(--c-tier1);color:var(--c-tier1-text)}
+.tier-badge.t2{background:var(--c-tier2);color:var(--c-tier2-text)}
+.tier-badge.t3{background:var(--c-tier3);color:var(--c-tier3-text)}
+.tier-badge.au{background:var(--c-au);color:var(--c-au-text)}
+
+.controls{background:var(--c-surface);border-radius:var(--radius-md);padding:12px 16px;border:0.5px solid var(--c-border);display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-bottom:16px}
+.controls .section-label{font-size:12px;color:var(--c-text-secondary);font-weight:500;margin-right:4px}
+.controls .divider{width:1px;height:20px;background:var(--c-border);margin:0 8px}
+.tab-btn{font-size:12px;padding:5px 10px;border-radius:6px;border:0.5px solid var(--c-border-strong);background:var(--c-surface);color:var(--c-text);cursor:pointer;transition:all var(--transition);white-space:nowrap}
+.tab-btn.active{background:var(--c-accent);color:#fff;border-color:var(--c-accent)}
+.tab-btn:hover:not(.active){border-color:var(--c-accent);color:var(--c-accent)}
+#progBtns,#filterBtns{display:inline-flex;gap:4px;align-items:center}
+.search-input{font-size:12px;padding:5px 10px;border-radius:6px;border:0.5px solid var(--c-border-strong);background:var(--c-bg);color:var(--c-text);width:140px;outline:none}
+.search-input:focus{border-color:var(--c-accent)}
+
+.profile-bar{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.profile-item{padding:5px 12px;border-radius:6px;font-size:12px;font-weight:500}
+.profile-item.gpa{background:var(--c-success-bg);color:var(--c-success)}
+.profile-item.ielts{background:var(--c-danger-bg);color:var(--c-danger)}
+.profile-item.target{background:var(--c-accent-light);color:var(--c-accent)}
+
+.table-wrap{background:var(--c-surface);border-radius:var(--radius-md);border:0.5px solid var(--c-border);overflow-x:auto;overflow-y:visible;margin-bottom:4px}
+table{width:100%;border-collapse:collapse;font-size:11px;min-width:950px}
+thead th{background:var(--c-bg);font-weight:500;font-size:10px;color:var(--c-text-secondary);padding:7px 8px;text-align:left;border-bottom:0.5px solid var(--c-border);white-space:nowrap}
+tbody td{padding:7px 8px;border-bottom:0.5px solid var(--c-border);vertical-align:middle}
+tbody tr:hover{background:var(--c-bg)}
+.school-name{font-weight:500;color:var(--c-text);white-space:nowrap;font-size:12px}
+.meta{font-size:10px;color:var(--c-text-tertiary);white-space:nowrap}
+.gpa{font-size:11px;white-space:nowrap}
+.gpa.ok{color:var(--c-success);font-weight:500}
+.gpa.close{color:var(--c-warning)}
+.gpa.hard{color:var(--c-danger)}
+.gpa.na{color:var(--c-text-tertiary);font-size:10px}
+.ielts{font-size:11px;color:var(--c-text);white-space:nowrap}
+.dual{font-size:10px;display:inline-block;padding:2px 6px;border-radius:4px;white-space:nowrap}
+.dual.yes{background:var(--c-success-bg);color:var(--c-success);font-weight:500}
+.dual.no{background:var(--c-bg);color:var(--c-text-tertiary)}
+.dual.limit{background:var(--c-warning-bg);color:var(--c-warning);font-weight:500}
+.coop{font-size:10px;display:inline-block;padding:2px 6px;border-radius:4px;background:var(--c-tier2);color:var(--c-tier2-text);white-space:nowrap;font-weight:500}
+.coop.no{background:var(--c-bg);color:var(--c-text-tertiary);font-weight:400}
+.note{font-size:10px;color:var(--c-text-tertiary);line-height:1.3;max-width:200px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tooltip-wrap{position:relative;cursor:help}
+.tooltip-wrap .tip{display:none;position:absolute;top:calc(100% + 4px);left:0;background:var(--c-surface);border:0.5px solid var(--c-border-strong);border-radius:6px;padding:8px 12px;font-size:11px;color:var(--c-text);z-index:200;white-space:normal;min-width:220px;max-width:340px;box-shadow:var(--shadow-md);line-height:1.5}
+.tooltip-wrap:hover .tip{display:block}
+.tooltip-wrap:hover .note{overflow:visible;white-space:normal}
+.match{font-size:10px;padding:1px 4px;border-radius:3px;font-weight:500;display:inline-block;margin-left:3px}
+.match.green{background:var(--c-success-bg);color:var(--c-success)}
+.match.yellow{background:var(--c-warning-bg);color:var(--c-warning)}
+.match.red{background:var(--c-danger-bg);color:var(--c-danger)}
+
+.summary-box{background:var(--c-surface);border-radius:var(--radius-md);border:0.5px solid var(--c-border);padding:14px 18px;margin-bottom:20px}
+.summary-box h2{font-size:13px;font-weight:500;color:var(--c-text);margin-bottom:8px}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px}
+.summary-card{background:var(--c-bg);border-radius:6px;padding:10px}
+.summary-card .label{font-size:10px;color:var(--c-text-secondary);font-weight:500;margin-bottom:2px}
+.summary-card .value{font-size:12px;font-weight:500;color:var(--c-text)}
+.summary-card .value.green{color:var(--c-success)}
+.summary-card .value.amber{color:var(--c-warning)}
+.summary-card .value.red{color:var(--c-danger)}
+.update-bar{background:var(--c-surface);border-radius:6px;padding:6px 14px;font-size:11px;color:var(--c-text-secondary);margin-bottom:14px;display:flex;justify-content:space-between;align-items:center}
+.update-bar .fresh{background:var(--c-success-bg);color:var(--c-success);padding:2px 6px;border-radius:4px;font-size:10px;font-weight:500}
+
+/* 认证相关样式 */
+.visitor-banner-page {
+  background:var(--c-accent-light);
+  border:0.5px solid var(--c-accent);
+  border-radius:var(--radius-md);
+  padding:16px 24px;
+  margin-bottom:16px;
+  display:flex;align-items:center;gap:12px;
+}
+.visitor-banner-page .icon { font-size:24px; }
+.visitor-banner-page .text { font-size:13px;color:var(--c-text-secondary);line-height:1.6; }
+.visitor-banner-page .text strong { color:var(--c-accent); }
+.nav-auth-btn {
+  font-size:12px;padding:5px 14px;border-radius:var(--radius-sm);
+  background:var(--c-accent-light);color:var(--c-accent);
+  cursor:pointer;font-weight:500;border:0.5px solid var(--c-accent);
+  transition:all var(--transition);margin-left:8px;white-space:nowrap;
+}
+.nav-auth-btn:hover { background:var(--c-accent);color:#fff; }
+.nav-auth-btn.logged { background:var(--c-success-bg);color:var(--c-success);border-color:var(--c-success); }
+
+.login-modal {
+  display:none;position:fixed;top:0;left:0;right:0;bottom:0;
+  background:rgba(0,0,0,.4);z-index:9999;justify-content:center;align-items:center;
+}
+.login-modal.show { display:flex; }
+.login-modal-content {
+  background:var(--c-surface);border-radius:var(--radius-lg);padding:32px;
+  width:360px;max-width:90vw;box-shadow:var(--shadow-lg);position:relative;
+}
+.login-modal-content h2 { font-size:20px;font-weight:700;margin-bottom:4px; }
+.login-modal-content .login-sub { font-size:13px;color:var(--c-text-secondary);margin-bottom:20px; }
+.login-field { margin-bottom:14px; }
+.login-field label { font-size:12px;font-weight:500;color:var(--c-text-secondary);margin-bottom:4px;display:block; }
+.login-field input {
+  width:100%;padding:10px 14px;border-radius:var(--radius-sm);
+  border:0.5px solid var(--c-border-strong);font-size:14px;
+  background:var(--c-bg);color:var(--c-text);outline:none;
+}
+.login-field input:focus { border-color:var(--c-accent); }
+.login-error { display:none;font-size:12px;color:var(--c-danger);margin-bottom:12px;padding:6px 10px;background:var(--c-danger-bg);border-radius:var(--radius-sm); }
+.login-submit {
+  width:100%;padding:12px;border-radius:var(--radius-md);
+  background:var(--c-accent);color:#fff;font-size:14px;font-weight:600;
+  cursor:pointer;border:none;transition:all var(--transition);
+}
+.login-submit:hover { background:var(--c-accent-hover); }
+.login-close {
+  position:absolute;top:12px;right:16px;font-size:20px;
+  color:var(--c-text-tertiary);cursor:pointer;background:none;border:none;
+}
+
+@media(max-width:768px){.controls{padding:8px 10px}table{font-size:9px}thead th,tbody td{padding:4px 3px}}
+</style>
+</head>
+<body>
+
+<nav class="nav-bar">
+  <a href="../index.html" class="nav-logo"><span class="dot"></span> 升学数据</a>
+  <div class="nav-links">
+    <a href="../index.html" class="nav-link">首页</a>
+    <a href="admission.html" class="nav-link active">录取对照表</a>
+    <a href="rankings.html" class="nav-link">排名参考</a>
+    <a href="insights.html" class="nav-link">关键发现</a>
+    <a href="files.html" class="nav-link">文件</a>
+    <a href="download.html" class="nav-link">下载APP</a>
+    <button id="navAuthBtn" class="nav-auth-btn" onclick="AUTH.handleNavAuthClick()">登录</button>
+  </div>
+</nav>
+
+<!-- 登录弹窗 -->
+<div id="loginModal" class="login-modal">
+  <div class="login-modal-content">
+    <button class="login-close" onclick="AUTH.hideLoginModal()">✕</button>
+    <h2>登录查看个人数据</h2>
+    <p class="login-sub">登录后可解锁GPA匹配分析、雅思达标筛选等个性化功能</p>
+    <div class="login-field">
+      <label>用户名</label>
+      <input id="loginUser" type="text" placeholder="请输入用户名" autocomplete="username">
+    </div>
+    <div class="login-field">
+      <label>密码</label>
+      <input id="loginPass" type="password" placeholder="请输入密码" autocomplete="current-password">
+    </div>
+    <div id="loginError" class="login-error"></div>
+    <button id="loginSubmitBtn" class="login-submit" onclick="AUTH.handleLoginSubmit()">登录</button>
+  </div>
+</div>
+
+<div class="page-container" style="padding-top:20px;">
+  <a href="../index.html" class="back-link">← 返回首页</a>
+
+  <div class="page-header" style="text-align:left;padding:8px 0 16px;">
+    <h1 style="font-size:22px;">📋 录取要求对照表</h1>
+    <p class="subtitle">9大专业方向 × 26所院校含分校区 · 直录+双录+Co-op+学费+截止日期</p>
+  </div>
+
+  <!-- 访客提示：未登录 -->
+  <div class="visitor-banner-page visitor-only">
+    <div class="icon">🔒</div>
+    <div class="text">你正在查看<strong>公开数据版</strong>——所有录取要求、雅思标准、双录信息均可正常查看。<strong>登录后</strong>可解锁：GPA匹配标记（✓够/≈接近/✗差远）、雅思达标筛选、个人匹配速览。</div>
+  </div>
+
+  <!-- 个人档案条：登录后显示 -->
+  <div class="profile-bar private-section" style="display:none;">
+    <div class="profile-item gpa">GPA <span class="data-gpa">—</span></div>
+    <div class="profile-item ielts">雅思 <span class="data-ielts-total">—</span>（<span class="data-ielts-detail">—</span>）</div>
+    <div class="profile-item target">目标直录 6.5(单项5.5-6.0)</div>
+  </div>
+
+  <div class="controls">
+    <span class="section-label">专业：</span>
+    <span id="progBtns">
+    <button class="tab-btn active" onclick="switchTab('all',this)">全部</button>
+    <button class="tab-btn" onclick="switchTab('eng',this)">工程</button>
+    <button class="tab-btn" onclick="switchTab('cs',this)">计算机</button>
+    <button class="tab-btn" onclick="switchTab('math',this)">数学</button>
+    <button class="tab-btn" onclick="switchTab('psych',this)">心理学</button>
+    <button class="tab-btn" onclick="switchTab('biz',this)">商科</button>
+    <button class="tab-btn" onclick="switchTab('health',this)">健康科学</button>
+    <button class="tab-btn" onclick="switchTab('sci',this)">理科</button>
+    <button class="tab-btn" onclick="switchTab('social',this)">社科</button>
+    </span>
+    <div class="divider"></div>
+    <!-- 筛选按钮：登录后才显示个人匹配筛选 -->
+    <span class="section-label private-section" style="display:none;">筛选：</span>
+    <span id="filterBtns" class="private-section" style="display:none;">
+    <button class="tab-btn" onclick="filterMatch('all',this)">全部</button>
+    <button class="tab-btn" onclick="filterMatch('ok',this)">GPA够</button>
+    <button class="tab-btn active" onclick="filterMatch('dual-ok',this)">双录达标</button>
+    <button class="tab-btn" onclick="filterMatch('stretch',this)">需冲刺</button>
+    </span>
+    <div class="divider private-section" style="display:none;"></div>
+    <input class="search-input" type="text" placeholder="搜索学校…" oninput="handleSearch(this.value)">
+  </div>
+
+  <div class="update-bar">
+    <span>数据：各校官网 + uniscope.ca + eic.org.cn | 雅思/GPA/双录/Co-op/学费/截止日期</span>
+    <span class="fresh" id="updateDate">最后更新：2026-07-09</span>
+  </div>
+
+  <!-- 匹配速览：登录后显示 -->
+  <div class="summary-box private-section" style="display:none;">
+    <h2>你的匹配速览（GPA <span class="data-gpa">—</span> · 雅思 <span class="data-ielts-total">—</span>）</h2>
+    <div class="summary-grid" id="summaryGrid"></div>
+  </div>
+
+  <div id="tablesContainer"></div>
+</div>
+
+<footer class="footer">
+  <p>数据来源：各校官网(2026) + uniscope.ca + eic.org.cn · 含分校区数据 · 每日自动更新</p>
+</footer>
+
+<script src="../js/data.js"></script>
+<script src="../js/auth.js"></script>
+<script>
+let currentTab = 'all';
+let currentMatch = 'all'; // 默认访客模式为全部
+let searchTerm = '';
+let isLoggedIn = false;
+
+function dualBadge(type){
+  if(type==='yes') return '<span class="dual yes">有双录</span>';
+  if(type==='no') return '<span class="dual no">无</span>';
+  if(type==='limit') return '<span class="dual limit">有限制</span>';
+  return '<span class="dual no">—</span>';
+}
+
+function coopBadge(has,note){
+  if(has==='yes') return '<span class="coop">Co-op'+(note?'('+note+')':'')+'</span>';
+  return '<span class="coop no">无</span>';
+}
+
+function matchTag(label){
+  // 访客模式不显示匹配标签
+  if(!isLoggedIn) return '';
+  if(label==='ok') return '<span class="match green">✓够</span>';
+  if(label==='close') return '<span class="match yellow">≈接近</span>';
+  if(label==='hard') return '<span class="match red">✗差远</span>';
+  if(label==='na') return '<span class="match red">✗不可</span>';
+  return '';
+}
+
+function gpaClass(label){
+  // 访客模式不显示颜色标记
+  if(!isLoggedIn) return 'gpa';
+  return 'gpa '+(label==='ok'?'ok':label==='close'?'close':label==='hard'?'hard':'na');
+}
+
+function checkDualOk(s,pk){
+  const prog = s.programs[pk];
+  if(!prog) return false;
+  if(prog.dual==='yes'){
+    const thr = prog.dual_thr;
+    if(!thr) return true;
+    if(thr.includes('4.0+')||thr.includes('4.5+')) return true;
+    if(thr.startsWith('5.0')) return true;
+    if(thr.includes('5.0')) return true;
+    return false;
+  }
+  return false;
+}
+
+function checkGpaOk(s,pk){
+  const prog = s.programs[pk];
+  return prog && prog.label==='ok';
+}
+
+function getVisiblePrograms(){
+  return currentTab==='all' ? Object.keys(PROGRAMS) : [currentTab];
+}
+
+function handleSearch(val){
+  searchTerm = val.toLowerCase().trim();
+  renderTables();
+}
+
+function renderTables(){
+  const vp = getVisiblePrograms();
+  const container = document.getElementById('tablesContainer');
+  container.innerHTML = '';
+
+  TIERS.forEach(tierInfo=>{
+    const schools = SCHOOLS[tierInfo.key];
+    if(!schools || schools.length===0) return;
+
+    let filtered = schools;
+    if(searchTerm){
+      filtered = schools.filter(s=> s.name.toLowerCase().includes(searchTerm) || s.city.toLowerCase().includes(searchTerm) || (s.prov&&s.prov.toLowerCase().includes(searchTerm)));
+    }
+    // 仅在登录后启用个人匹配筛选
+    if(isLoggedIn && currentMatch==='ok'){
+      filtered = filtered.filter(s=> vp.some(pk=> checkGpaOk(s,pk)));
+    } else if(isLoggedIn && currentMatch==='dual-ok'){
+      filtered = filtered.filter(s=> vp.some(pk=> checkDualOk(s,pk)));
+    } else if(isLoggedIn && currentMatch==='stretch'){
+      filtered = filtered.filter(s=> vp.some(pk=> {const p=s.programs[pk];return p&&(p.label==='close');}));
+    }
+
+    if(filtered.length===0) return;
+
+    let html = `<div class="tier-section">
+      <div class="tier-title"><span class="tier-badge ${tierInfo.badge}">${tierInfo.label}</span> ${tierInfo.title}</div>
+      <div class="table-wrap"><table><thead><tr>
+        <th>学校</th>`;
+
+    if(currentTab==='all'){
+      vp.forEach(pk=>{ html += `<th>${PROGRAMS[pk]}</th>`; });
+      html += `<th>雅思直录</th><th>双录取</th><th>双录门槛</th><th>Co-op</th><th>年学费</th><th>截止</th>`;
+      // 备注列：登录后显示个人备注，访客显示通用备注
+      html += `<th>备注</th>`;
+    } else {
+      html += `<th>GPA</th><th>雅思直录</th><th>双录取</th><th>双录门槛</th><th>Co-op</th><th>年学费</th><th>截止</th><th>备注</th>`;
+    }
+    html += `</tr></thead><tbody>`;
+
+    filtered.forEach(s=>{
+      html += `<tr>`;
+      html += `<td class="school-name">${s.name}<br><span class="meta">${s.city} · ${s.prov}</span></td>`;
+
+      if(currentTab==='all'){
+        vp.forEach(pk=>{
+          const p = s.programs[pk];
+          if(p){
+            html += `<td class="${gpaClass(p.label)}">${p.gpa} ${matchTag(p.label)}</td>`;
+          } else {
+            html += `<td class="gpa na">—</td>`;
+          }
+        });
+        const mainProg = vp.map(pk=>s.programs[pk]).find(p=>p&&p.dual==='yes') || s.programs[vp[0]];
+        const hasAnyCoop = vp.some(pk=>s.programs[pk]?.coop==='yes');
+        html += `<td class="ielts">${mainProg?.ielts||'—'}</td>`;
+        html += `<td>${dualBadge(mainProg?.dual||'no')}</td>`;
+        html += `<td class="ielts">${mainProg?.dual_thr||'—'}</td>`;
+        html += `<td>${hasAnyCoop?'<span class="coop">有</span>':'<span class="coop no">无</span>'}</td>`;
+        html += `<td class="meta">${s.tuitionRMB||s.tuition||'—'}</td>`;
+        html += `<td class="meta">${s.deadline||'—'}</td>`;
+        // 备注：访客只显示通用备注（不含"你"相关个人分析），登录后显示完整备注
+        const noteProg = vp.map(pk=>s.programs[pk]).find(p=>p&&p.note) || s.programs[vp[0]];
+        if(isLoggedIn && noteProg) {
+          html += `<td class="note tooltip-wrap">${noteProg.note||''}${noteProg.note_detail?'<span class="tip">'+noteProg.note_detail+'</span>':''}</td>`;
+        } else if(noteProg) {
+          // 访客模式：过滤掉含"你"字的个人备注
+          const publicNote = filterPersonalNote(noteProg.note);
+          html += `<td class="note tooltip-wrap">${publicNote}</td>`;
+        } else {
+          html += `<td class="note">—</td>`;
+        }
+      } else {
+        const p = s.programs[currentTab];
+        if(p){
+          html += `<td class="${gpaClass(p.label)}">${p.gpa} ${matchTag(p.label)}</td>`;
+          html += `<td class="ielts">${p.ielts}</td>`;
+          html += `<td>${dualBadge(p.dual)}</td>`;
+          html += `<td class="ielts">${p.dual_thr||'—'}</td>`;
+          html += `<td>${coopBadge(p.coop,p.coop_note)}</td>`;
+          html += `<td class="meta">${s.tuitionRMB||s.tuition||'—'}</td>`;
+          html += `<td class="meta">${s.deadline||'—'}</td>`;
+          if(isLoggedIn) {
+            html += `<td class="note tooltip-wrap">${p.note||''}${p.note_detail?'<span class="tip">'+p.note_detail+'</span>':''}</td>`;
+          } else {
+            html += `<td class="note tooltip-wrap">${filterPersonalNote(p.note)}</td>`;
+          }
+        } else {
+          html += `<td class="gpa na">—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>`;
+        }
+      }
+      html += `</tr>`;
+    });
+
+    html += `</tbody></table></div></div>`;
+    container.innerHTML += html;
+  });
+}
+
+// 过滤个人备注中的"你"相关内容
+function filterPersonalNote(note) {
+  if(!note) return '';
+  // 移除含"你"字的片段（个人分析标记）
+  let filtered = note;
+  // 替换掉明显的个人参考标记
+  filtered = filtered.replace(/你雅思5\.0已达标!?/g, '');
+  filtered = filtered.replace(/你踩线!?/g, '');
+  filtered = filtered.replace(/你远超!?/g, '');
+  filtered = filtered.replace(/你完全够!?/g, '');
+  filtered = filtered.replace(/你差\d+分!?/g, '');
+  filtered = filtered.replace(/你\d+远超!?/g, '');
+  filtered = filtered.replace(/你的?\s/g, '');
+  filtered = filtered.replace(/GPA绰绰有余!?/g, '');
+  // 清理多余分隔符
+  filtered = filtered.replace(/^[,\s·]+/, '').replace(/[,\s·]+$/, '');
+  if(!filtered.trim()) return '—';
+  return filtered;
+}
+
+function renderSummary(){
+  const grid = document.getElementById('summaryGrid');
+  if(!grid) return;
+  let dualOkSchools = [];
+  let dualCloseSchools = [];
+  let hardSchools = [];
+
+  Object.values(SCHOOLS).flat().forEach(s=>{
+    let hasDualOk = false, hasClose = false, hasHard = false;
+    Object.keys(PROGRAMS).forEach(pk=>{
+      if(checkDualOk(s,pk)) hasDualOk = true;
+      if(s.programs[pk]?.label==='close') hasClose = true;
+      if(s.programs[pk]?.label==='hard'||s.programs[pk]?.label==='na') hasHard = true;
+    });
+    if(hasDualOk) dualOkSchools.push(s.name);
+    if(hasClose && !hasDualOk) dualCloseSchools.push(s.name);
+    if(hasHard) hardSchools.push(s.name);
+  });
+
+  grid.innerHTML = `
+    <div class="summary-card"><div class="label">雅思5.0双录已达标（最优先申请）</div><div class="value green">${dualOkSchools.join(' / ')}</div></div>
+    <div class="summary-card"><div class="label">需冲刺(GPA差2-6分)</div><div class="value amber">${dualCloseSchools.join(' / ')||'无'}</div></div>
+    <div class="summary-card"><div class="label">极难(GPA差8+分/无双录)</div><div class="value red">${hardSchools.join(' / ')}</div></div>
+    <div class="summary-card"><div class="label">学费最低(6-12万/年)</div><div class="value green">曼尼托巴 · 萨省 · 纽芬兰纪念</div></div>
+  `;
+}
+
+function switchTab(tab,btn){
+  currentTab = tab;
+  document.querySelectorAll('#progBtns .tab-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderTables();
+}
+
+function filterMatch(match,btn){
+  currentMatch = match;
+  document.querySelectorAll('#filterBtns .tab-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderTables();
+}
+
+// 认证状态变化时重新渲染
+async function populatePersonalData() {
+  const data = await AUTH.fetchData();
+  if (!data) return;
+  document.querySelectorAll('.data-gpa').forEach(el => el.textContent = data.gpa);
+  document.querySelectorAll('.data-ielts-total').forEach(el => el.textContent = data.ielts.overall);
+  document.querySelectorAll('.data-ielts-detail').forEach(el => {
+    el.textContent = `写${data.ielts.writing} / 读${data.ielts.reading} / 听${data.ielts.listening} / 口${data.ielts.speaking}`;
+  });
+}
+
+AUTH.onChange(async (logged) => {
+  isLoggedIn = logged;
+  AUTH.initPage();
+  if(logged) {
+    document.querySelectorAll('.private-section').forEach(el => el.style.display = '');
+    document.querySelectorAll('.visitor-only').forEach(el => el.style.display = 'none');
+    await populatePersonalData();
+    currentMatch = 'dual-ok';
+    renderSummary();
+  } else {
+    document.querySelectorAll('.private-section').forEach(el => el.style.display = 'none');
+    document.querySelectorAll('.visitor-only').forEach(el => el.style.display = '');
+    currentMatch = 'all';
+  }
+  renderTables();
+});
+
+// 初始化
+isLoggedIn = AUTH.isLoggedIn();
+AUTH.initPage();
+if(isLoggedIn) {
+  document.querySelectorAll('.private-section').forEach(el => el.style.display = '');
+  document.querySelectorAll('.visitor-only').forEach(el => el.style.display = 'none');
+  populatePersonalData().then(() => {
+    currentMatch = 'dual-ok';
+    renderSummary();
+    renderTables();
+  });
+} else {
+  document.querySelectorAll('.private-section').forEach(el => el.style.display = 'none');
+  document.querySelectorAll('.visitor-only').forEach(el => el.style.display = '');
+  currentMatch = 'all';
+  renderTables();
+}
+document.getElementById('updateDate').textContent = '最后更新：' + new Date().toISOString().split('T')[0];
+</script>
+</body>
+</html>

@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TopFO · 学生升学数据平台</title>
+<link rel="stylesheet" href="css/common.css">
+<style>
+.hero { padding:80px 0 56px; }
+.hero h1 { font-size:clamp(32px,8vw,52px); margin-bottom:16px; }
+.hero .hero-sub { font-size:17px; margin-bottom:36px; }
+.hero .cta-row { display:flex;gap:12px;justify-content:center;flex-wrap:wrap;animation:fadeInUp .6s ease .35s forwards;opacity:0; }
+.cta-btn {
+  display:inline-flex;align-items:center;gap:8px;
+  padding:12px 24px;border-radius:var(--radius-md);
+  font-size:14px;font-weight:600;text-decoration:none;
+  transition:all var(--transition);
+}
+.cta-primary { background:var(--c-accent);color:#fff; }
+.cta-primary:hover { background:var(--c-accent-hover);transform:translateY(-2px);box-shadow:0 8px 24px rgba(79,70,229,.3); }
+.cta-secondary { background:var(--c-surface);color:var(--c-accent);border:0.5px solid var(--c-accent); }
+.cta-secondary:hover { background:var(--c-accent-light); }
+
+.stats-grid { margin-top:24px; }
+.stat-card { text-align:center;padding:24px; }
+.stat-card .stat-value { font-size:32px; }
+.nav-cards { margin-top:32px; }
+.nav-card { cursor:pointer; }
+.nav-card .card-arrow { float:right;font-size:20px;color:var(--c-text-tertiary);transition:all var(--transition); }
+.nav-card:hover .card-arrow { color:var(--c-accent);transform:translateX(4px); }
+
+.phase-section { margin-bottom:48px; }
+.phase-section h2 { font-size:20px;font-weight:700;margin-bottom:16px;color:var(--c-text); }
+.phase-cards { display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px; }
+.phase-card {
+  background:var(--c-surface);border-radius:var(--radius-md);
+  padding:20px;border:0.5px solid var(--c-border);
+  transition:all var(--transition);
+}
+.phase-card:hover { box-shadow:var(--shadow-md);transform:translateY(-2px); }
+.phase-card .phase-tag {
+  display:inline-block;font-size:11px;padding:3px 10px;
+  border-radius:12px;font-weight:600;margin-bottom:12px;
+}
+.phase-card .phase-tag.now { background:var(--c-success-bg);color:var(--c-success); }
+.phase-card .phase-tag.next { background:var(--c-accent-light);color:var(--c-accent); }
+.phase-card .phase-tag.later { background:var(--c-warning-bg);color:var(--c-warning); }
+.phase-card h3 { font-size:16px;font-weight:600;margin-bottom:8px; }
+.phase-card .phase-list { font-size:13px;color:var(--c-text-secondary);line-height:1.8;list-style:none;padding:0; }
+.phase-card .phase-list li::before { content:'• ';color:var(--c-accent);font-weight:bold; }
+
+/* ========== 公开数据亮点 ========== */
+.highlights-section {
+  background:var(--c-surface);
+  border-radius:var(--radius-lg);
+  border:0.5px solid var(--c-border);
+  padding:28px 32px;
+  margin-top:32px;
+  position:relative;
+  overflow:hidden;
+}
+.highlights-section::before {
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--c-accent),#7c3aed,#ec4899);
+}
+.highlights-header {
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:20px;
+}
+.highlights-header .hl-badge {
+  font-size:10px;padding:2px 8px;border-radius:4px;
+  background:var(--c-accent-light);color:var(--c-accent);
+  font-weight:500;
+}
+.highlights-header .hl-refresh {
+  margin-left:auto;
+  font-size:12px;color:var(--c-text-tertiary);
+  cursor:pointer;transition:color var(--transition);
+  background:none;border:none;padding:4px 8px;border-radius:4px;
+}
+.highlights-header .hl-refresh:hover { color:var(--c-accent);background:var(--c-accent-light); }
+.highlights-grid {
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+}
+.hl-card {
+  background:var(--c-bg);
+  border-radius:var(--radius-md);
+  padding:16px 18px;
+  display:flex;gap:14px;
+  align-items:flex-start;
+  transition:all var(--transition);
+  border:0.5px solid transparent;
+  animation:fadeInUp .5s ease forwards;
+  opacity:0;
+}
+.hl-card:hover { border-color:var(--c-border-strong);transform:translateY(-2px);box-shadow:var(--shadow-sm); }
+.hl-card-icon {
+  font-size:28px;line-height:1;
+  flex-shrink:0;
+  width:40px;height:40px;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--c-surface);border-radius:10px;
+}
+.hl-card-content { flex:1;min-width:0; }
+.hl-card-tag {
+  display:inline-block;
+  font-size:10px;padding:1px 7px;border-radius:3px;
+  font-weight:500;margin-bottom:5px;
+}
+.hl-card-tag.tag-blue { background:var(--c-accent-light);color:var(--c-accent); }
+.hl-card-tag.tag-green { background:var(--c-success-bg);color:var(--c-success); }
+.hl-card-tag.tag-amber { background:var(--c-warning-bg);color:var(--c-warning); }
+.hl-card-tag.tag-pink { background:#fce7f3;color:#db2777; }
+.hl-card-tag.tag-purple { background:#ede9fe;color:#7c3aed; }
+.hl-card-title { font-size:14px;font-weight:600;color:var(--c-text);margin-bottom:3px; }
+.hl-card-desc { font-size:12px;color:var(--c-text-secondary);line-height:1.6; }
+
+@media(max-width:768px) {
+  .highlights-grid { grid-template-columns:1fr; }
+  .highlights-section { padding:20px 16px; }
+}
+
+/* 访客提示 */
+.visitor-banner {
+  background:var(--c-accent-light);
+  border:0.5px solid var(--c-accent);
+  border-radius:var(--radius-md);
+  padding:24px 32px;
+  margin-top:24px;
+  text-align:center;
+}
+.visitor-banner h3 { font-size:16px;font-weight:600;color:var(--c-accent);margin-bottom:8px; }
+.visitor-banner p { font-size:13px;color:var(--c-text-secondary);line-height:1.7;margin-bottom:16px; }
+.visitor-banner .login-btn {
+  display:inline-flex;align-items:center;gap:8px;
+  padding:10px 24px;border-radius:var(--radius-md);
+  background:var(--c-accent);color:#fff;font-size:14px;font-weight:600;
+  cursor:pointer;transition:all var(--transition);
+}
+.visitor-banner .login-btn:hover { background:var(--c-accent-hover);transform:translateY(-2px); }
+
+/* 登录弹窗 */
+.login-modal {
+  display:none;
+  position:fixed;top:0;left:0;right:0;bottom:0;
+  background:rgba(0,0,0,.4);
+  z-index:9999;
+  justify-content:center;align-items:center;
+}
+.login-modal.show { display:flex; }
+.login-modal-content {
+  background:var(--c-surface);
+  border-radius:var(--radius-lg);
+  padding:32px;
+  width:360px;
+  max-width:90vw;
+  box-shadow:var(--shadow-lg);
+}
+.login-modal-content h2 { font-size:20px;font-weight:700;margin-bottom:4px; }
+.login-modal-content .login-sub { font-size:13px;color:var(--c-text-secondary);margin-bottom:20px; }
+.login-field { margin-bottom:14px; }
+.login-field label { font-size:12px;font-weight:500;color:var(--c-text-secondary);margin-bottom:4px;display:block; }
+.login-field input {
+  width:100%;padding:10px 14px;border-radius:var(--radius-sm);
+  border:0.5px solid var(--c-border-strong);font-size:14px;
+  background:var(--c-bg);color:var(--c-text);outline:none;
+}
+.login-field input:focus { border-color:var(--c-accent); }
+.login-error { display:none;font-size:12px;color:var(--c-danger);margin-bottom:12px;padding:6px 10px;background:var(--c-danger-bg);border-radius:var(--radius-sm); }
+.login-submit {
+  width:100%;padding:12px;border-radius:var(--radius-md);
+  background:var(--c-accent);color:#fff;font-size:14px;font-weight:600;
+  cursor:pointer;border:none;transition:all var(--transition);
+}
+.login-submit:hover { background:var(--c-accent-hover); }
+.login-close {
+  position:absolute;top:12px;right:16px;font-size:20px;
+  color:var(--c-text-tertiary);cursor:pointer;
+  background:none;border:none;
+}
+.login-modal-content { position:relative; }
+
+/* 导航栏登录按钮 */
+.nav-auth-btn {
+  font-size:12px;padding:5px 14px;border-radius:var(--radius-sm);
+  background:var(--c-accent-light);color:var(--c-accent);
+  cursor:pointer;font-weight:500;border:0.5px solid var(--c-accent);
+  transition:all var(--transition);margin-left:8px;white-space:nowrap;
+}
+.nav-auth-btn:hover { background:var(--c-accent);color:#fff; }
+.nav-auth-btn.logged { background:var(--c-success-bg);color:var(--c-success);border-color:var(--c-success); }
+
+@media(max-width:768px) {
+  .hero { padding:48px 0 32px; }
+  .phase-cards { grid-template-columns:1fr; }
+  .login-modal-content { padding:24px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav-bar">
+  <a href="index.html" class="nav-logo"><span class="dot"></span> 升学数据</a>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link active">首页</a>
+    <a href="pages/admission.html" class="nav-link">录取对照表</a>
+    <a href="pages/rankings.html" class="nav-link">排名参考</a>
+    <a href="pages/insights.html" class="nav-link">关键发现</a>
+    <a href="pages/files.html" class="nav-link">文件</a>
+    <a href="pages/download.html" class="nav-link">下载APP</a>
+    <button id="navAuthBtn" class="nav-auth-btn" onclick="AUTH.handleNavAuthClick()">登录</button>
+  </div>
+</nav>
+
+<!-- 登录弹窗 -->
+<div id="loginModal" class="login-modal">
+  <div class="login-modal-content">
+    <button class="login-close" onclick="AUTH.hideLoginModal()">✕</button>
+    <h2>登录查看个人数据</h2>
+    <p class="login-sub">登录后可查看个性化录取匹配、GPA分析、升学策略等私密数据</p>
+    <div class="login-field">
+      <label>用户名</label>
+      <input id="loginUser" type="text" placeholder="请输入用户名" autocomplete="username">
+    </div>
+    <div class="login-field">
+      <label>密码</label>
+      <input id="loginPass" type="password" placeholder="请输入密码" autocomplete="current-password">
+    </div>
+    <div id="loginError" class="login-error"></div>
+    <button id="loginSubmitBtn" class="login-submit" onclick="AUTH.handleLoginSubmit()">登录</button>
+  </div>
+</div>
+
+<div class="page-container">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1><span class="highlight">升学数据</span><br>平台</h1>
+      <p class="hero-sub">9大专业方向 · 26所院校含分校区 · 加拿大+澳洲 · 排名+录取+Co-op全覆盖</p>
+      <div class="hero-badge">📅 每日自动更新 · 数据来源：各校官网 + QS + THE + US News</div>
+      <div class="cta-row" style="margin-top:20px;">
+        <a href="pages/admission.html" class="cta-btn cta-primary visitor-only">📋 查看录取要求 →</a>
+        <a href="pages/rankings.html" class="cta-btn cta-secondary">📊 查看排名数据 →</a>
+        <a href="pages/admission.html" class="cta-btn cta-primary private-section" style="display:none;">📋 我的录取匹配 →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 访客提示：未登录时显示 -->
+  <div class="visitor-banner visitor-only">
+    <h3>🔒 登录后可查看个人升学数据</h3>
+    <p>排行榜和基本录取数据对所有人开放。登录后可解锁：GPA匹配分析、雅思达标筛选、个人升学策略、三阶段规划等私密内容。</p>
+    <button class="login-btn" onclick="AUTH.showLoginModal()">🔑 立即登录</button>
+  </div>
+
+  <!-- 数据亮点（公开，无需登录） -->
+  <div class="highlights-section fade-in">
+    <div class="highlights-header">
+      <span style="font-size:20px;">💡</span>
+      <span style="font-size:16px;font-weight:700;color:var(--c-text);">今日数据亮点</span>
+      <span class="hl-badge">公开 · 随机展示</span>
+      <button class="hl-refresh" onclick="refreshHighlights()" title="换一批">🔄 换一批</button>
+    </div>
+    <div class="highlights-grid" id="highlightsGrid">
+      <!-- JS 动态渲染 -->
+    </div>
+  </div>
+
+  <!-- 学生档案：登录后显示 -->
+  <div class="stats-grid private-section" style="display:none;">
+    <div class="stat-card fade-in">
+      <div class="stat-icon">📚</div>
+      <div class="stat-value"><span class="data-gpa">—</span>%</div>
+      <div class="stat-label">当前GPA</div>
+      <div class="stat-detail">目标冲刺 90%</div>
+    </div>
+    <div class="stat-card fade-in delay-1">
+      <div class="stat-icon">🌐</div>
+      <div class="stat-value"><span class="data-ielts-total">—</span></div>
+      <div class="stat-label">雅思总分</div>
+      <div class="stat-detail"><span class="data-ielts-detail">—</span></div>
+    </div>
+    <div class="stat-card fade-in delay-2">
+      <div class="stat-icon">🎯</div>
+      <div class="stat-value">6.5</div>
+      <div class="stat-label">目标雅思</div>
+      <div class="stat-detail">单项不低于5.5-6.0</div>
+    </div>
+    <div class="stat-card fade-in delay-3">
+      <div class="stat-icon">🏫</div>
+      <div class="stat-value">26</div>
+      <div class="stat-label">追踪院校</div>
+      <div class="stat-detail">含分校区 + 澳洲预科</div>
+    </div>
+  </div>
+
+  <!-- 核心模块导航 -->
+  <div class="nav-cards">
+    <a href="pages/admission.html" class="nav-card card-admission fade-in delay-1">
+      <div class="card-icon">📋</div>
+      <div class="card-title card-admission-title">录取要求对照表</div>
+      <div class="card-desc visitor-only">9大专业方向 × 26所院校的完整录取数据，包括GPA要求、雅思标准、双录取路径、Co-op、学费、截止日期。</div>
+      <div class="card-desc private-section" style="display:none;">9大专业方向 × 26所院校的完整录取数据，支持按你的GPA和雅思做个性化匹配筛选。</div>
+      <div class="card-tags">
+        <span class="card-tag tag-accent">直录+双录</span>
+        <span class="card-tag tag-accent">Co-op</span>
+        <span class="card-tag tag-accent">学费对比</span>
+      </div>
+      <span class="card-arrow">→</span>
+    </a>
+    <a href="pages/rankings.html" class="nav-card card-rankings fade-in delay-2">
+      <div class="card-icon">📊</div>
+      <div class="card-title card-rankings-title">三大排名参考</div>
+      <div class="card-desc">QS 2025/2027 · THE 2026 · US News 2025-2027 综合排名 + 8个专业排名，涵盖计算机、工程、数学、心理学等方向。</div>
+      <div class="card-tags">
+        <span class="card-tag tag-warning">QS排名</span>
+        <span class="card-tag tag-warning">THE排名</span>
+        <span class="card-tag tag-warning">US News</span>
+      </div>
+      <span class="card-arrow">→</span>
+    </a>
+    <a href="pages/insights.html" class="nav-card card-insights fade-in delay-3">
+      <div class="card-icon">💡</div>
+      <div class="card-title card-insights-title">关键发现与建议</div>
+      <div class="card-desc visitor-only">登录后可查看基于个人数据的升学策略分析、现实可行选择、冲刺目标、时间规划建议。</div>
+      <div class="card-desc private-section" style="display:none;">基于你的数据的升学策略分析：现实可行选择、冲刺目标、备选路径、时间规划建议。</div>
+      <div class="card-tags visitor-only">
+        <span class="card-tag tag-accent" style="opacity:.5">🔒 需登录</span>
+      </div>
+      <div class="card-tags private-section" style="display:none;">
+        <span class="card-tag tag-success">策略分析</span>
+        <span class="card-tag tag-success">时间规划</span>
+        <span class="card-tag tag-success">备选方案</span>
+      </div>
+      <span class="card-arrow">→</span>
+    </a>
+    <a href="pages/files.html" class="nav-card card-files fade-in delay-4">
+      <div class="card-icon">📁</div>
+      <div class="card-title card-files-title">文件中心</div>
+      <div class="card-desc">权威报告与政策文件解读，包括QS未来技能指数等升学相关参考资料。含原文下载，持续更新。</div>
+      <div class="card-tags">
+        <span class="card-tag tag-accent">QS报告</span>
+        <span class="card-tag tag-accent">政策文件</span>
+        <span class="card-tag tag-accent">免费下载</span>
+      </div>
+      <span class="card-arrow">→</span>
+    </a>
+    <a href="pages/download.html" class="nav-card card-download fade-in delay-5">
+      <div class="card-icon">📲</div>
+      <div class="card-title card-download-title">下载 App</div>
+      <div class="card-desc">TopFO Android 客户端，随身携带升学数据。支持录取对照、排名查询、AI 顾问，数据与网页版实时同步。</div>
+      <div class="card-tags">
+        <span class="card-tag tag-accent">Android</span>
+        <span class="card-tag tag-accent">免费下载</span>
+        <span class="card-tag tag-accent">v1.0.2</span>
+      </div>
+      <span class="card-arrow">→</span>
+    </a>
+  </div>
+
+  <!-- 三阶段规划：登录后显示 -->
+  <div class="phase-section private-section" style="display:none;">
+    <h2>📅 升学三阶段规划</h2>
+    <div class="phase-cards">
+      <div class="phase-card fade-in">
+        <span class="phase-tag now">现在 — 2026年9月</span>
+        <h3>第一阶段：保底申请</h3>
+        <ul class="phase-list">
+          <li>渥太华大学（雅思5.0双录已达标）</li>
+          <li>温莎大学（ELIP双录门槛4.5+）</li>
+          <li>曼尼托巴大学（ELSP双录门槛5.0+）</li>
+          <li>纽芬兰纪念大学（学费最低6-9万/年）</li>
+          <li>康考迪亚大学（蒙特利尔，CS Co-op）</li>
+        </ul>
+      </div>
+      <div class="phase-card fade-in delay-1">
+        <span class="phase-tag next">2026年9月 — 2027年1月</span>
+        <h3>第二阶段：冲刺雅思</h3>
+        <ul class="phase-list">
+          <li>重点突破阅读（4.5→6.0）和听力（4.5→6.0）</li>
+          <li>麦马（数学85%你踩线，需雅思6.5）</li>
+          <li>多大UTM CS（mid-high 80s你踩线）</li>
+          <li>多大UTSC心理（mid-high 70s你远超）</li>
+          <li>UBC Okanagan工程（80-85%你完全够）</li>
+        </ul>
+      </div>
+      <div class="phase-card fade-in delay-2">
+        <span class="phase-tag later">备选方案</span>
+        <h3>第三阶段：澳洲预科</h3>
+        <ul class="phase-list">
+          <li>UNSW Extended预科（雅思5.0已达标！升学率91%）</li>
+          <li>昆士兰大学标准预科（雅思5.0已达标）</li>
+          <li>阿德莱德大学标准预科（雅思5.0已达标）</li>
+          <li>15个月预科 → 本科直通，时间成本可控</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer class="footer">
+  <p>数据来源：各校官网(2026) + QS World Rankings + THE World Rankings + US News Global · 每日自动更新</p>
+</footer>
+
+<script src="js/auth.js"></script>
+<script>
+// Scroll animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold:0.1, rootMargin:'0px 0px -20px 0px' });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// Auth initialization
+async function updatePrivateContent() {
+  if (!AUTH.isLoggedIn()) return;
+  const data = await AUTH.fetchData();
+  if (!data) return;
+
+  // Populate stat cards
+  const gpaEl = document.querySelector('.data-gpa');
+  const ieltsTotalEl = document.querySelector('.data-ielts-total');
+  const ieltsDetailEl = document.querySelector('.data-ielts-detail');
+  if (gpaEl) gpaEl.textContent = data.gpa;
+  if (ieltsTotalEl) ieltsTotalEl.textContent = data.ielts.overall;
+  if (ieltsDetailEl) {
+    ieltsDetailEl.textContent = `写${data.ielts.writing} / 读${data.ielts.reading} / 听${data.ielts.listening} / 口${data.ielts.speaking}`;
+  }
+
+  // Show private sections
+  document.querySelectorAll('.private-section').forEach(el => el.style.display = '');
+  document.querySelectorAll('.visitor-only').forEach(el => el.style.display = 'none');
+}
+
+AUTH.onChange(async (logged) => {
+  AUTH.initPage();
+  if (logged) {
+    await updatePrivateContent();
+  } else {
+    document.querySelectorAll('.private-section').forEach(el => el.style.display = 'none');
+    document.querySelectorAll('.visitor-only').forEach(el => el.style.display = '');
+  }
+});
+
+AUTH.initPage();
+if (AUTH.isLoggedIn()) updatePrivateContent();
+
+// ======== 数据亮点（公开） ========
+const HIGHLIGHTS_POOL = [
+  {icon:'🏫',tag:'对比发现',tagCls:'tag-blue',title:'主校 vs 分校区',desc:'多大UTM/UTSC、UBC Okanagan的录取线比主校低10-15%，是进入名校体系的绝佳跳板'},
+  {icon:'📐',tag:'专业对比',tagCls:'tag-green',title:'数学比CS好进约9分',desc:'同一大学数学专业录取线普遍比CS低9-10分，如麦马数学85% vs CS 94%'},
+  {icon:'💰',tag:'留学成本',tagCls:'tag-amber',title:'学费差距达100万',desc:'纽芬兰纪念大学仅6-9万/年，多大UTSG高达21-34万/年，4年本科差距60-100万'},
+  {icon:'🌏',tag:'路径分析',tagCls:'tag-blue',title:'双录取通道多达18所',desc:'26所院校中18所有双录/预科路径，最低雅思4.0即可申请，为语言成绩不足的学生提供保障'},
+  {icon:'🎯',tag:'就业优势',tagCls:'tag-green',title:'20+院校开设Co-op',desc:'大部分院校在工程/CS等专业提供Co-op带薪实习，积累工作经验的同时可赚取部分学费'},
+  {icon:'🦘',tag:'备选方案',tagCls:'tag-purple',title:'澳洲预科雅思5.0起',desc:'UNSW等QS TOP50大学预科雅思5.0即可入读，升学率高达91%，是安全可靠的备选'},
+  {icon:'🏆',tag:'捡漏机会',tagCls:'tag-amber',title:'分校区"降维录取"',desc:'UTM CS mid-high 80s即可，相比UTSG 93%竞争均分差距达10-15%，高性价比选择'},
+  {icon:'🧭',tag:'选专业策略',tagCls:'tag-pink',title:'同校不同专业线差15分',desc:'同一大学心理学录取线比CS低10-15分，选对专业方向可实现"降维打击"'},
+  {icon:'📊',tag:'排名洞察',tagCls:'tag-purple',title:'排名不等于录取门槛',desc:'QS世界排名前100的大学中，部分专业录取线仅75-80%，选校需同时参考排名和录取门槛'},
+  {icon:'🎓',tag:'申请时间',tagCls:'tag-blue',title:'早申优势明显',desc:'多数院校1月15日截止热门专业申请，部分滚动录取院校早申可提前锁定录取名额'},
+  {icon:'🏙️',tag:'城市选择',tagCls:'tag-green',title:'安省BC省集中75%+资源',desc:'追踪院校中75%以上集中在安大略省和BC省，多伦多/温哥华提供最多实习和就业机会'},
+  {icon:'✨',tag:'数据洞察',tagCls:'tag-pink',title:'名校"偏科"录取',desc:'多大/麦马等名校部分专业录取线仅80-85%，远低于CS/工程95%+，选对专业上名校'},
+];
+
+function shuffleArray(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function renderHighlights(items) {
+  const grid = document.getElementById('highlightsGrid');
+  if (!grid) return;
+  // Add staggered animation delays
+  grid.innerHTML = items.map((item, i) => `
+    <div class="hl-card" style="animation-delay:${i * 0.1}s">
+      <div class="hl-card-icon">${item.icon}</div>
+      <div class="hl-card-content">
+        <span class="hl-card-tag ${item.tagCls}">${item.tag}</span>
+        <div class="hl-card-title">${item.title}</div>
+        <div class="hl-card-desc">${item.desc}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function refreshHighlights() {
+  const shuffled = shuffleArray(HIGHLIGHTS_POOL);
+  const selected = shuffled.slice(0, 4);
+  renderHighlights(selected);
+  // Re-trigger scroll animations
+  document.querySelectorAll('.highlights-section .fade-in').forEach(el => {
+    el.classList.remove('visible');
+    setTimeout(() => el.classList.add('visible'), 10);
+  });
+}
+
+// 初始化：页面加载时随机展示一组
+document.addEventListener('DOMContentLoaded', refreshHighlights);
+</script>
+</body>
+</html>

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>教育发展十五五规划 · 文件中心</title>
+<link rel="stylesheet" href="../css/common.css">
+<style>
+.report-header { padding:8px 0 16px; }
+.report-header h1 { font-size:22px; margin-bottom:4px; }
+.report-header .report-meta { font-size:12px; color:var(--c-text-tertiary); display:flex;gap:16px;flex-wrap:wrap;margin-top:8px; }
+.report-header .report-meta span { display:inline-flex;align-items:center;gap:4px; }
+
+.report-section { margin-bottom:28px; }
+.report-section h2 { font-size:17px;font-weight:600;margin-bottom:12px;padding-bottom:8px;border-bottom:0.5px solid var(--c-border); }
+.report-section h3 { font-size:14px;font-weight:600;margin:16px 0 8px;color:var(--c-text); }
+.report-section p { font-size:13px;line-height:1.8;color:var(--c-text-secondary);margin-bottom:10px; }
+
+.pillar-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-bottom:16px; }
+.pillar-card { background:var(--c-bg);border-radius:var(--radius-md);padding:16px 18px;border:0.5px solid var(--c-border); }
+.pillar-card h4 { font-size:13px;font-weight:600;margin-bottom:6px; }
+.pillar-card p { font-size:12px;color:var(--c-text-secondary);line-height:1.7;margin:0; }
+
+.stat-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:12px 0 20px; }
+.stat-card { background:var(--c-surface);border:0.5px solid var(--c-border);border-radius:var(--radius-md);padding:16px;text-align:center; }
+.stat-card .stat-value { font-size:22px;font-weight:700;color:var(--c-accent); }
+.stat-card .stat-label { font-size:11px;color:var(--c-text-tertiary);margin-top:4px; }
+.stat-card .stat-detail { font-size:10px;color:var(--c-text-secondary);margin-top:2px; }
+
+.key-finding { background:var(--c-bg);border-radius:var(--radius-md);padding:16px 20px;margin-bottom:12px;border-left:3px solid var(--c-accent); }
+.key-finding .kf-num { font-size:11px;color:var(--c-accent);font-weight:600;margin-bottom:4px; }
+.key-finding p { font-size:13px;line-height:1.7;color:var(--c-text-secondary);margin:0; }
+
+.highlight-box { background:var(--c-accent-light);border-radius:var(--radius-md);padding:16px 20px;margin:16px 0;border:0.5px solid var(--c-accent); }
+.highlight-box p { font-size:13px;line-height:1.7;color:var(--c-text);margin:0; }
+.highlight-box strong { color:var(--c-accent); }
+
+.framework-count { display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:var(--c-accent);color:#fff;font-size:18px;font-weight:700;margin-bottom:8px; }
+
+.download-bar { background:var(--c-bg);border-radius:var(--radius-lg);padding:20px 24px;margin:24px 0;display:flex;align-items:center;gap:16px;flex-wrap:wrap; }
+.download-bar .dl-icon { font-size:32px; }
+.download-bar .dl-info { flex:1;min-width:200px; }
+.download-bar .dl-info h4 { font-size:14px;font-weight:600;margin-bottom:4px; }
+.download-bar .dl-info p { font-size:12px;color:var(--c-text-secondary);margin:0; }
+.download-bar .dl-btn { font-size:13px;padding:10px 20px;border-radius:var(--radius-md);background:var(--c-accent);color:#fff;font-weight:600;cursor:pointer;border:none;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:all var(--transition); }
+.download-bar .dl-btn:hover { background:var(--c-accent-hover); }
+
+.nav-auth-btn {
+  font-size:12px;padding:5px 14px;border-radius:var(--radius-sm);
+  background:var(--c-accent-light);color:var(--c-accent);
+  cursor:pointer;font-weight:500;border:0.5px solid var(--c-accent);
+  transition:all var(--transition);margin-left:8px;white-space:nowrap;
+}
+.nav-auth-btn:hover { background:var(--c-accent);color:#fff; }
+.nav-auth-btn.logged { background:var(--c-success-bg);color:var(--c-success);border-color:var(--c-success); }
+
+.login-modal { display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.4);z-index:9999;justify-content:center;align-items:center; }
+.login-modal.show { display:flex; }
+.login-modal-content { background:var(--c-surface);border-radius:var(--radius-lg);padding:32px;width:360px;max-width:90vw;box-shadow:var(--shadow-lg);position:relative; }
+.login-modal-content h2 { font-size:20px;font-weight:700;margin-bottom:4px; }
+.login-modal-content .login-sub { font-size:13px;color:var(--c-text-secondary);margin-bottom:20px; }
+.login-field { margin-bottom:14px; }
+.login-field label { font-size:12px;font-weight:500;color:var(--c-text-secondary);margin-bottom:4px;display:block; }
+.login-field input { width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:0.5px solid var(--c-border-strong);font-size:14px;background:var(--c-bg);color:var(--c-text);outline:none; }
+.login-field input:focus { border-color:var(--c-accent); }
+.login-error { display:none;font-size:12px;color:var(--c-danger);margin-bottom:12px;padding:6px 10px;background:var(--c-danger-bg);border-radius:var(--radius-sm); }
+.login-submit { width:100%;padding:12px;border-radius:var(--radius-md);background:var(--c-accent);color:#fff;font-size:14px;font-weight:600;cursor:pointer;border:none;transition:all var(--transition); }
+.login-submit:hover { background:var(--c-accent-hover); }
+.login-close { position:absolute;top:12px;right:16px;font-size:20px;color:var(--c-text-tertiary);cursor:pointer;background:none;border:none; }
+
+@media(max-width:768px){
+  .pillar-grid{grid-template-columns:1fr}
+  .stat-grid{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav-bar">
+  <a href="../index.html" class="nav-logo"><span class="dot"></span> 升学数据</a>
+  <div class="nav-links">
+    <a href="../index.html" class="nav-link">首页</a>
+    <a href="admission.html" class="nav-link">录取对照表</a>
+    <a href="rankings.html" class="nav-link">排名参考</a>
+    <a href="insights.html" class="nav-link">关键发现</a>
+    <a href="files.html" class="nav-link active">文件</a>
+    <button id="navAuthBtn" class="nav-auth-btn" onclick="AUTH.handleNavAuthClick()">登录</button>
+  </div>
+</nav>
+
+<div id="loginModal" class="login-modal">
+  <div class="login-modal-content">
+    <button class="login-close" onclick="AUTH.hideLoginModal()">✕</button>
+    <h2>登录查看个人数据</h2>
+    <p class="login-sub">登录后可查看个性化录取匹配、GPA分析、升学策略等私密数据</p>
+    <div class="login-field"><label>用户名</label><input id="loginUser" type="text" placeholder="请输入用户名" autocomplete="username"></div>
+    <div class="login-field"><label>密码</label><input id="loginPass" type="password" placeholder="请输入密码" autocomplete="current-password"></div>
+    <div id="loginError" class="login-error"></div>
+    <button id="loginSubmitBtn" class="login-submit" onclick="AUTH.handleLoginSubmit()">登录</button>
+  </div>
+</div>
+
+<div class="page-container" style="padding-top:20px;">
+
+  <!-- 面包屑 -->
+  <div style="font-size:12px;color:var(--c-text-tertiary);margin-bottom:12px;">
+    <a href="../index.html" style="color:var(--c-text-tertiary);">首页</a> /
+    <a href="files.html" style="color:var(--c-text-tertiary);">文件中心</a> /
+    <span style="color:var(--c-text);">教育发展十五五规划</span>
+  </div>
+
+  <!-- 报告标题 -->
+  <div class="report-header">
+    <h1>📘 教育发展"十五五"规划</h1>
+    <p style="font-size:14px;color:var(--c-text-secondary);line-height:1.6;">国务院印发，面向2030年教育强国的顶层设计 — 覆盖学前教育到高等教育、国内培育到国际开放的全学段全领域规划</p>
+    <div class="report-meta">
+      <span>🏛 发布机构：国务院</span>
+      <span>📜 文号：国发〔2026〕19号</span>
+      <span>📅 发布时间：2026年6月22日</span>
+      <span>📄 页数：19页</span>
+      <span>📋 依据：国民经济十五五规划纲要 + 教育强国建设规划纲要（2024-2035）</span>
+      <span>✂️ 公开版（有删减）</span>
+    </div>
+  </div>
+
+  <!-- 下载条 -->
+  <div class="download-bar">
+    <span class="dl-icon">📥</span>
+    <div class="dl-info">
+      <h4>下载原始文件</h4>
+      <p>PDF格式，约1.4MB，19页。国务院印发公开版，供离线阅读和深入参考。</p>
+    </div>
+    <a href="../files/GuoFa2026-19_Edu15thPlan.pdf" class="dl-btn" download>⬇ 下载 PDF</a>
+  </div>
+
+  <!-- 一、文件概览 -->
+  <div class="report-section">
+    <h2>一、文件概览</h2>
+    <p>《教育发展"十五五"规划》是国务院印发的<strong>国家级教育专项规划</strong>，依据《国民经济和社会发展第十五个五年规划纲要》和《教育强国建设规划纲要（2024-2035年）》制定。它明确了<strong>2026-2030年</strong>期间中国教育事业的发展方向、战略任务、规划布局和改革举措。</p>
+    <p>核心目标：<strong>到2030年，教育强国建设取得显著成效，高质量教育体系基本建成</strong>。具体涵盖五个维度——党对教育的全面领导更加完善、立德树人成效更加显著、人民群众教育获得感显著增强、教育对科技和人才的支撑更加有力、我国教育的国际影响力/竞争力/话语权显著提升。</p>
+    <p style="font-size:12px;color:var(--c-text-tertiary);">📌 注：此版本为公开发布版，原文标注"本文有删减"，部分内部实施细节未公开。</p>
+  </div>
+
+  <!-- 二、总体框架 -->
+  <div class="report-section">
+    <h2>二、总体框架：5+3+6 体系</h2>
+    <p>规划主体由<strong>5大战略任务、3大规划布局、6项综合改革</strong>组成，形成从蓝图到落地、从硬件到制度的完整闭环。</p>
+
+    <h3>五大战略任务</h3>
+    <div class="pillar-grid">
+      <div class="pillar-card">
+        <h4>🌱 一、塑造立德树人新格局</h4>
+        <p>思政课一体化改革、健康学校建设（每天体育活动≥2h、课间15分钟）、人工智能全学段教育、批判性思维与创新能力培养。第1-5条。</p>
+      </div>
+      <div class="pillar-card">
+        <h4>🔬 二、强化教育对科技和人才的支撑</h4>
+        <p>"双一流"扩容+10万本科名额、"双优"应用型本科、"新双高"职业教育、国家交叉学科中心、拔尖创新人才培养。第6-11条。</p>
+      </div>
+      <div class="pillar-card">
+        <h4>🏫 三、全面提升教育公共服务</h4>
+        <p>学前教育普惠、义务教育均衡（探索延长年限）、高中多样化（综合/科学高中）、随迁子女同等权利、高校毕业生就业帮扶。第12-17条。</p>
+      </div>
+      <div class="pillar-card">
+        <h4>👩‍🏫 四、培养高水平教师队伍</h4>
+        <p>教育家精神铸魂强师、师范教育协同提质、研究生层次教师培养、强化教师待遇保障、减轻非教学负担。第18-20条。</p>
+      </div>
+      <div class="pillar-card">
+        <h4>🌍 五、扩大高水平教育对外开放</h4>
+        <p>完善全链条出国留学服务体系、做强"留学中国"品牌、鼓励国外高水平理工类大学来华合作办学、参与全球教育治理。第21-23条。</p>
+      </div>
+    </div>
+
+    <h3>三大规划布局</h3>
+    <p><strong>（一）学龄人口前瞻布局：</strong>建立学龄人口预测预警机制，推动高等教育提质扩容，"双一流"本科招生增加10万人以上，新建新型研究型大学。</p>
+    <p><strong>（二）教育区域布局：</strong>支持京津冀、长三角、粤港澳大湾区打造世界区域性高等教育中心；雄安新区疏解高校创新发展；中西部高等教育振兴计划。</p>
+    <p><strong>（三）人才培养布局：</strong>人才供需适配部际协同机制，超常规布局急需学科专业，就业与招生计划联动（红黄牌提示制度），本硕博衔接培养。</p>
+
+    <h3>六大综合改革</h3>
+    <p>① 树立科学教育理念（破除唯分数、唯名校、唯学历） → ② 教育科技人才一体协同 → ③ 优化教育管理运行机制 → ④ 深化教育评价改革（中考均衡派位、高考多元录取） → <strong>⑤ 教育数智化变革（"人工智能+教育"行动）</strong> → ⑥ 战略性投入机制（财政教育经费占GDP &gt; 4%）与法治保障（教育法典编纂）</p>
+  </div>
+
+  <!-- 三、关键硬指标 -->
+  <div class="report-section">
+    <h2>三、关键硬指标</h2>
+    <p>从规划中提取的确定性量化指标和可验证承诺：</p>
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-value">+10万</div>
+        <div class="stat-label">双一流本科扩招</div>
+        <div class="stat-detail">"双一流"高校本科招生数增加10万人以上</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">&gt;4%</div>
+        <div class="stat-label">财政教育经费占GDP</div>
+        <div class="stat-detail">国家财政性教育经费支出占GDP比例高于4%</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">≥2h</div>
+        <div class="stat-label">每日体育活动</div>
+        <div class="stat-detail">中小学生每天综合体育活动时间不低于2小时</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">15min</div>
+        <div class="stat-label">课间时间</div>
+        <div class="stat-detail">推行"课间15分钟"，取代传统10分钟课间</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">AI</div>
+        <div class="stat-label">全学段AI教育</div>
+        <div class="stat-detail">推进人工智能全学段教育，建设国家AI（教育）应用中试基地</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">N所</div>
+        <div class="stat-label">新建新型研究型大学</div>
+        <div class="stat-detail">以理工农医类专业为主，有序扩大本科与研究生规模</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">博士+硕士</div>
+        <div class="stat-label">双学位新模式</div>
+        <div class="stat-detail">探索"博士+硕士"双学位等人才培养模式</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">教育法典</div>
+        <div class="stat-label">教育基本法编纂</div>
+        <div class="stat-detail">加快推动教育法典研究编纂，修订教师法等</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 四、五大核心发现 -->
+  <div class="report-section">
+    <h2>四、五大核心发现</h2>
+
+    <div class="key-finding">
+      <div class="kf-num">发现 1</div>
+      <p><strong>AI与数智化成为贯穿全篇的主线。</strong>"人工智能+教育"行动被列为独立改革板块，覆盖全学段AI教育、数智技术赋能评价、国家AI教育应用中试基地、数字中文建设、AI伦理与安全监管。这是历次五年教育规划中对人工智能着墨最多的一次，对CS/AI方向学生是长期结构性利好。</p>
+    </div>
+
+    <div class="key-finding">
+      <div class="kf-num">发现 2</div>
+      <p><strong>高校从"以学科为中心"转向"服务国家战略"。</strong>规划明确要求"引导高校从注重学科发展向服务国家战略转变"，鼓励超常规布局急需学科专业，招生指标向重大科技任务承担单位倾斜。这意味国家战略急需领域（芯片、AI、新能源、生物医药、量子等）将获得资源优先配置和人才倾斜。</p>
+    </div>
+
+    <div class="key-finding">
+      <div class="kf-num">发现 3</div>
+      <p><strong>教育对外开放提质升级，留学双向畅通。</strong>首次在五年规划中写入"完善全链条出国留学服务体系"和"留学中国"品牌并列推进。同时鼓励国外高水平理工类大学来华合作办学，意味着中外合作办学项目将持续扩容。对于计划出国的学生，政策环境稳定向好；对于考虑国内路径的，合作办学提供新的"不出国的国际化"选项。</p>
+    </div>
+
+    <div class="key-finding">
+      <div class="kf-num">发现 4</div>
+      <p><strong>分类发展、多元录取，破除"唯分数唯名校唯学历"。</strong>规划明确三条高校发展轨道：①双一流（研究型）、②应用型"双优"、③职业"新双高"；同时推进中考均衡派位/登记入学、高考多元录取、职教高考。但需注意——这一国内逻辑不直接适用于出国申请，海外院校仍看重GPA、标化、语言等硬指标。</p>
+    </div>
+
+    <div class="key-finding">
+      <div class="kf-num">发现 5</div>
+      <p><strong>投入与法治双保障，执行确定性高。</strong>财政性教育经费占GDP比重法定保持4%以上，同时首次启动教育法典编纂和教师法修订。这种"财政刚性约束+法律顶层设计"的组合，显著提升了规划落地的确定性，不是一般意义的"倡导性文件"。</p>
+    </div>
+  </div>
+
+  <!-- 五、对升学规划的启示 -->
+  <div class="report-section">
+    <h2>五、对升学规划的启示</h2>
+    <div class="highlight-box">
+      <p>这份规划虽然面向国内教育体系，但对正在规划加拿大/澳洲留学的学生同样有重要参考价值：</p>
+      <p style="margin-top:8px;"><strong>1. CS/AI方向确认，完全契合国家战略与全球趋势。</strong>规划将AI全学段教育列为国策，QS报告也显示AI时代CS相关岗位将持续增长。你的CS方向选择与双重趋势重合，可叠加交叉方向（CS+心理/CS+数据分析）增强复合竞争力。</p>
+      <p><strong>2. 留学政策环境稳定，"全链条出国留学服务体系"是利好信号。</strong>国家层面首次系统性地保障出国留学服务，意味着签证辅导、海外安全、归国认证等环节将更加规范。你的加拿大/澳洲申请路径不存在政策风险。</p>
+      <p><strong>3. 语言硬门槛不能绕过。</strong>规划强调"国家语言能力"和"人工智能素养"，但出国申请的逻辑不同——雅思听读4.5是当前最大短板，申请和未来学术的底层能力，必须优先攻克（6.5是门槛，听读各差1.5分）。</p>
+      <p><strong>4. 备选方案更丰富了。</strong>"双一流扩容+10万本科名额" + 新型研究型大学崛起 + 中外合作办学（鼓励国外理工类大学来华），构成多元升学组合。但你的主路径明确（加拿大/澳洲），这些作为Plan B参考即可。</p>
+      <p><strong>5. 批判性思维与软技能是长期竞争优势。</strong>规划反复强调批判性思维、创新能力和跨学科交叉培养，与QS报告（加拿大认知能力缺口-9.6）相互印证。留学期间有意识培养这些"AI不可替代"的能力，将是未来就业市场的差异化优势。</p>
+    </div>
+  </div>
+
+  <!-- 下载条 -->
+  <div class="download-bar">
+    <span class="dl-icon">📥</span>
+    <div class="dl-info">
+      <h4>下载原始文件</h4>
+      <p>PDF格式，约1.4MB，19页。国务院公开发布版，免费下载，无需登录。</p>
+    </div>
+    <a href="../files/GuoFa2026-19_Edu15thPlan.pdf" class="dl-btn" download>⬇ 下载 PDF（1.4MB）</a>
+  </div>
+
+</div>
+
+<footer class="footer">
+  <p>解读基于 国发〔2026〕19号《教育发展十五五规划》公开发布版 · 仅供学习参考 · 版权归国务院所有</p>
+</footer>
+
+<script src="../js/auth.js"></script>
+<script>AUTH.initPage();</script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+# Node
+node_modules/
+npm-debug.log*
+
+# Android / Kotlin / Gradle
+.gradle/
+build/
+local.properties
+*.iml
+.idea/
+.cxx/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+venv/
+.env
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+
+# WorkBuddy
+.workbuddy/memory/
+/workbuddy.db
+
+# WorkBuddy internal
+.workbuddy/memory/
+
+# Cloudflare Wrangler cache
+.wrangler/
+public/.wrangler/
+
+# EdgeOne
+.edgeone/
+
+# WorkBuddy
+.workbuddy/
+
+# Temp
+/tmp/

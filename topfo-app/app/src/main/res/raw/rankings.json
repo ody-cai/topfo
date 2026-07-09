@@ -1,0 +1,72 @@
+{
+  "qs2027_overall": [
+    {"rank":8,"univ":"多大","score":86.8,"country":"加拿大"},
+    {"rank":18,"univ":"麦吉尔","score":82.5,"country":"加拿大"},
+    {"rank":27,"univ":"UBC","score":78.6,"country":"加拿大"},
+    {"rank":56,"univ":"阿尔伯塔","score":65.2,"country":"加拿大"},
+    {"rank":81,"univ":"滑铁卢","score":55.8,"country":"加拿大"},
+    {"rank":82,"univ":"韦士敦","score":55.6,"country":"加拿大"},
+    {"rank":92,"univ":"蒙特利尔","score":53.1,"country":"加拿大"},
+    {"rank":98,"univ":"麦克马斯特","score":52.2,"country":"加拿大"},
+    {"rank":109,"univ":"渥太华","score":49.8,"country":"加拿大"},
+    {"rank":126,"univ":"皇后","score":46.5,"country":"加拿大"},
+    {"rank":152,"univ":"卡尔加里","score":42.1,"country":"加拿大"},
+    {"rank":185,"univ":"SFU","score":38.2,"country":"加拿大"},
+    {"rank":207,"univ":"维多利亚","score":35.7,"country":"加拿大"},
+    {"rank":249,"univ":"Guelph","score":32.1,"country":"加拿大"},
+    {"rank":253,"univ":"约克","score":31.8,"country":"加拿大"},
+    {"rank":283,"univ":"TMU","score":29.4,"country":"加拿大"},
+    {"rank":296,"univ":"戴尔豪斯","score":28.5,"country":"加拿大"},
+    {"rank":329,"univ":"曼尼托巴","score":26.8,"country":"加拿大"},
+    {"rank":346,"univ":"萨省","score":25.9,"country":"加拿大"},
+    {"rank":381,"univ":"Laurier","score":24.1,"country":"加拿大"},
+    {"rank":415,"univ":"纽芬兰纪念","score":22.5,"country":"加拿大"},
+    {"rank":431,"univ":"卡尔顿","score":21.8,"country":"加拿大"},
+    {"rank":456,"univ":"康考迪亚","score":20.6,"country":"加拿大"},
+    {"rank":487,"univ":"温莎","score":19.2,"country":"加拿大"},
+    {"rank":512,"univ":"Brock","score":18.1,"country":"加拿大"}
+  ],
+  "qs2025_cs": [
+    {"rank":1,"univ":"MIT","score":96.5,"country":"美国"},
+    {"rank":23,"univ":"多大","score":82.3,"country":"加拿大"},
+    {"rank":25,"univ":"滑铁卢","score":81.7,"country":"加拿大"},
+    {"rank":32,"univ":"UBC","score":78.9,"country":"加拿大"},
+    {"rank":51,"univ":"麦吉尔","score":73.4,"country":"加拿大"},
+    {"rank":91,"univ":"阿尔伯塔","score":63.8,"country":"加拿大"},
+    {"rank":118,"univ":"蒙特利尔","score":58.2,"country":"加拿大"},
+    {"rank":126,"univ":"SFU","score":56.9,"country":"加拿大"}
+  ],
+  "qs2025_eng": [
+    {"rank":1,"univ":"MIT","score":97.2,"country":"美国"},
+    {"rank":18,"univ":"多大","score":84.6,"country":"加拿大"},
+    {"rank":32,"univ":"UBC","score":78.3,"country":"加拿大"},
+    {"rank":42,"univ":"麦吉尔","score":74.1,"country":"加拿大"},
+    {"rank":43,"univ":"滑铁卢","score":73.8,"country":"加拿大"},
+    {"rank":89,"univ":"阿尔伯塔","score":62.5,"country":"加拿大"},
+    {"rank":108,"univ":"蒙特利尔","score":58.6,"country":"加拿大"}
+  ],
+  "the2026_overall": [
+    {"rank":1,"univ":"牛津","score":98.5,"country":"英国"},
+    {"rank":21,"univ":"多大","score":91.2,"country":"加拿大"},
+    {"rank":24,"univ":"UBC","score":89.4,"country":"加拿大"},
+    {"rank":39,"univ":"麦吉尔","score":84.7,"country":"加拿大"},
+    {"rank":98,"univ":"阿尔伯塔","score":68.5,"country":"加拿大"},
+    {"rank":102,"univ":"蒙特利尔","score":67.3,"country":"加拿大"},
+    {"rank":110,"univ":"麦克马斯特","score":65.8,"country":"加拿大"},
+    {"rank":126,"univ":"滑铁卢","score":62.1,"country":"加拿大"},
+    {"rank":149,"univ":"渥太华","score":58.4,"country":"加拿大"},
+    {"rank":158,"univ":"韦士敦","score":56.8,"country":"加拿大"}
+  ],
+  "usnews2025_overall": [
+    {"rank":1,"univ":"哈佛","score":100,"country":"美国"},
+    {"rank":15,"univ":"多大","score":86.7,"country":"加拿大"},
+    {"rank":33,"univ":"UBC","score":78.2,"country":"加拿大"},
+    {"rank":48,"univ":"麦吉尔","score":72.5,"country":"加拿大"},
+    {"rank":88,"univ":"阿尔伯塔","score":62.1,"country":"加拿大"},
+    {"rank":103,"univ":"麦克马斯特","score":57.8,"country":"加拿大"},
+    {"rank":125,"univ":"蒙特利尔","score":53.4,"country":"加拿大"},
+    {"rank":151,"univ":"滑铁卢","score":49.2,"country":"加拿大"},
+    {"rank":168,"univ":"渥太华","score":46.8,"country":"加拿大"},
+    {"rank":181,"univ":"韦士敦","score":44.5,"country":"加拿大"}
+  ]
+}

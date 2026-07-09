@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QS World Future Skills Index 2027 · 文件中心</title>
+<link rel="stylesheet" href="../css/common.css">
+<style>
+.report-header { padding:8px 0 16px; }
+.report-header h1 { font-size:22px; margin-bottom:4px; }
+.report-header .report-meta { font-size:12px; color:var(--c-text-tertiary); display:flex;gap:16px;flex-wrap:wrap;margin-top:8px; }
+.report-header .report-meta span { display:inline-flex;align-items:center;gap:4px; }
+
+.report-section { margin-bottom:28px; }
+.report-section h2 { font-size:17px;font-weight:600;margin-bottom:12px;padding-bottom:8px;border-bottom:0.5px solid var(--c-border); }
+.report-section h3 { font-size:14px;font-weight:600;margin:16px 0 8px;color:var(--c-text); }
+.report-section p { font-size:13px;line-height:1.8;color:var(--c-text-secondary);margin-bottom:10px; }
+
+.pillar-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-bottom:16px; }
+.pillar-card { background:var(--c-bg);border-radius:var(--radius-md);padding:16px 18px;border:0.5px solid var(--c-border); }
+.pillar-card h4 { font-size:13px;font-weight:600;margin-bottom:6px; }
+.pillar-card p { font-size:12px;color:var(--c-text-secondary);line-height:1.7;margin:0; }
+.pillar-card .weight { font-size:10px;color:var(--c-accent);font-weight:600; }
+
+.rank-table { width:100%;border-collapse:collapse;font-size:12px;margin:12px 0 20px; }
+.rank-table th { background:var(--c-bg);font-weight:500;font-size:11px;color:var(--c-text-secondary);padding:8px 10px;text-align:left;border-bottom:0.5px solid var(--c-border); }
+.rank-table td { padding:7px 10px;border-bottom:0.5px solid var(--c-border); }
+.rank-table tr:hover { background:var(--c-bg); }
+.rank-table .hl { background:var(--c-accent-light); }
+.rank-table .hl:hover { background:#e8f0ff; }
+.rank-num { font-weight:700;font-size:14px;display:inline-block;width:24px;text-align:center; }
+.rank-num.gold { color:#c9a135; }
+.rank-num.silver { color:#888; }
+.rank-num.bronze { color:#b8723d; }
+
+.score-bar-bg { height:6px;background:var(--c-border);border-radius:3px;margin-top:3px;overflow:hidden; }
+.score-bar-fill { height:100%;border-radius:3px; }
+.score-bar-fill.high { background:var(--c-success); }
+.score-bar-fill.mid { background:var(--c-warning); }
+.score-bar-fill.low { background:var(--c-danger); }
+
+.key-finding { background:var(--c-bg);border-radius:var(--radius-md);padding:16px 20px;margin-bottom:12px;border-left:3px solid var(--c-accent); }
+.key-finding .kf-num { font-size:11px;color:var(--c-accent);font-weight:600;margin-bottom:4px; }
+.key-finding p { font-size:13px;line-height:1.7;color:var(--c-text-secondary);margin:0; }
+
+.highlight-box { background:var(--c-accent-light);border-radius:var(--radius-md);padding:16px 20px;margin:16px 0;border:0.5px solid var(--c-accent); }
+.highlight-box p { font-size:13px;line-height:1.7;color:var(--c-text);margin:0; }
+.highlight-box strong { color:var(--c-accent); }
+
+.canada-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin:12px 0; }
+.canada-stat { background:var(--c-surface);border:0.5px solid var(--c-border);border-radius:var(--radius-md);padding:14px 16px;text-align:center; }
+.canada-stat .stat-value { font-size:24px;font-weight:700;color:var(--c-accent); }
+.canada-stat .stat-label { font-size:10px;color:var(--c-text-tertiary);margin-top:4px; }
+.canada-stat .stat-rank { font-size:11px;color:var(--c-text-secondary);margin-top:2px; }
+
+.gap-table { width:100%;border-collapse:collapse;font-size:12px;margin:12px 0; }
+.gap-table th { background:var(--c-bg);font-weight:500;font-size:11px;color:var(--c-text-secondary);padding:6px 10px;text-align:left;border-bottom:0.5px solid var(--c-border); }
+.gap-table td { padding:6px 10px;border-bottom:0.5px solid var(--c-border);font-size:12px; }
+.gap-positive { color:var(--c-success);font-weight:600; }
+.gap-negative { color:var(--c-danger); }
+
+.download-bar { background:var(--c-bg);border-radius:var(--radius-lg);padding:20px 24px;margin:24px 0;display:flex;align-items:center;gap:16px;flex-wrap:wrap; }
+.download-bar .dl-icon { font-size:32px; }
+.download-bar .dl-info { flex:1;min-width:200px; }
+.download-bar .dl-info h4 { font-size:14px;font-weight:600;margin-bottom:4px; }
+.download-bar .dl-info p { font-size:12px;color:var(--c-text-secondary);margin:0; }
+.download-bar .dl-btn { font-size:13px;padding:10px 20px;border-radius:var(--radius-md);background:var(--c-accent);color:#fff;font-weight:600;cursor:pointer;border:none;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:all var(--transition); }
+.download-bar .dl-btn:hover { background:var(--c-accent-hover); }
+
+.nav-auth-btn {
+  font-size:12px;padding:5px 14px;border-radius:var(--radius-sm);
+  background:var(--c-accent-light);color:var(--c-accent);
+  cursor:pointer;font-weight:500;border:0.5px solid var(--c-accent);
+  transition:all var(--transition);margin-left:8px;white-space:nowrap;
+}
+.nav-auth-btn:hover { background:var(--c-accent);color:#fff; }
+.nav-auth-btn.logged { background:var(--c-success-bg);color:var(--c-success);border-color:var(--c-success); }
+
+.login-modal { display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.4);z-index:9999;justify-content:center;align-items:center; }
+.login-modal.show { display:flex; }
+.login-modal-content { background:var(--c-surface);border-radius:var(--radius-lg);padding:32px;width:360px;max-width:90vw;box-shadow:var(--shadow-lg);position:relative; }
+.login-modal-content h2 { font-size:20px;font-weight:700;margin-bottom:4px; }
+.login-modal-content .login-sub { font-size:13px;color:var(--c-text-secondary);margin-bottom:20px; }
+.login-field { margin-bottom:14px; }
+.login-field label { font-size:12px;font-weight:500;color:var(--c-text-secondary);margin-bottom:4px;display:block; }
+.login-field input { width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:0.5px solid var(--c-border-strong);font-size:14px;background:var(--c-bg);color:var(--c-text);outline:none; }
+.login-field input:focus { border-color:var(--c-accent); }
+.login-error { display:none;font-size:12px;color:var(--c-danger);margin-bottom:12px;padding:6px 10px;background:var(--c-danger-bg);border-radius:var(--radius-sm); }
+.login-submit { width:100%;padding:12px;border-radius:var(--radius-md);background:var(--c-accent);color:#fff;font-size:14px;font-weight:600;cursor:pointer;border:none;transition:all var(--transition); }
+.login-submit:hover { background:var(--c-accent-hover); }
+.login-close { position:absolute;top:12px;right:16px;font-size:20px;color:var(--c-text-tertiary);cursor:pointer;background:none;border:none; }
+
+@media(max-width:768px){
+  .pillar-grid{grid-template-columns:1fr}
+  .canada-grid{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav-bar">
+  <a href="../index.html" class="nav-logo"><span class="dot"></span> 升学数据</a>
+  <div class="nav-links">
+    <a href="../index.html" class="nav-link">首页</a>
+    <a href="admission.html" class="nav-link">录取对照表</a>
+    <a href="rankings.html" class="nav-link">排名参考</a>
+    <a href="insights.html" class="nav-link">关键发现</a>
+    <a href="files.html" class="nav-link active">文件</a>
+    <button id="navAuthBtn" class="nav-auth-btn" onclick="AUTH.handleNavAuthClick()">登录</button>
+  </div>
+</nav>
+
+<div id="loginModal" class="login-modal">
+  <div class="login-modal-content">
+    <button class="login-close" onclick="AUTH.hideLoginModal()">✕</button>
+    <h2>登录查看个人数据</h2>
+    <p class="login-sub">登录后可查看个性化录取匹配、GPA分析、升学策略等私密数据</p>
+    <div class="login-field"><label>用户名</label><input id="loginUser" type="text" placeholder="请输入用户名" autocomplete="username"></div>
+    <div class="login-field"><label>密码</label><input id="loginPass" type="password" placeholder="请输入密码" autocomplete="current-password"></div>
+    <div id="loginError" class="login-error"></div>
+    <button id="loginSubmitBtn" class="login-submit" onclick="AUTH.handleLoginSubmit()">登录</button>
+  </div>
+</div>
+
+<div class="page-container" style="padding-top:20px;">
+
+  <!-- 面包屑 -->
+  <div style="font-size:12px;color:var(--c-text-tertiary);margin-bottom:12px;">
+    <a href="../index.html" style="color:var(--c-text-tertiary);">首页</a> /
+    <a href="files.html" style="color:var(--c-text-tertiary);">文件中心</a> /
+    <span style="color:var(--c-text);">QS World Future Skills Index 2027</span>
+  </div>
+
+  <!-- 报告标题 -->
+  <div class="report-header">
+    <h1>🎓 QS World Future Skills Index 2027</h1>
+    <p style="font-size:14px;color:var(--c-text-secondary);line-height:1.6;">绘制全球高等教育体系与劳动力市场需求的匹配图谱 — 评估89个经济体在AI时代的技能准备度与竞争力</p>
+    <div class="report-meta">
+      <span>🏫 发布机构：QS Quacquarelli Symonds</span>
+      <span>📅 发布时间：2026年</span>
+      <span>📄 页数：64页</span>
+      <span>🌍 覆盖范围：89个经济体</span>
+    </div>
+  </div>
+
+  <!-- 下载条 -->
+  <div class="download-bar">
+    <span class="dl-icon">📥</span>
+    <div class="dl-info">
+      <h4>下载原始报告</h4>
+      <p>PDF格式，5.5MB，64页完整版。供离线阅读和深入参考。</p>
+    </div>
+    <a href="../files/QS_World_Future_Skills_Index_2027.pdf" class="dl-btn" download>⬇ 下载 PDF</a>
+  </div>
+
+  <!-- 一、报告概览 -->
+  <div class="report-section">
+    <h2>一、报告概览</h2>
+    <p>QS World Future Skills Index 2027 是一份评估全球高等教育体系与劳动力市场需求匹配度的权威报告。它不单独审视高等教育或劳动力市场，而是从<strong>技能供给（Skills Supply）</strong>和<strong>技能需求（Skills Demand）</strong>两个维度出发，衡量一个国家在AI时代培养、匹配和应用人才的综合能力。</p>
+    <p>报告覆盖<strong>89个经济体</strong>，融合了QS自身的大学排名数据、雇主调查、AI劳动力转型指数，以及世界银行、国际劳工组织、联合国教科文组织等机构的公开数据。</p>
+
+    <h3>四大评估维度</h3>
+    <div class="pillar-grid">
+      <div class="pillar-card">
+        <h4>🤝 技能匹配 Skills Alignment <span class="weight">25%</span></h4>
+        <p>衡量一国毕业生的技能与雇主期望之间的匹配程度。通过QS雇主调查中的技能缺口数据和人力资本指数进行评估。</p>
+      </div>
+      <div class="pillar-card">
+        <h4>🏫 学术准备 Academic Readiness <span class="weight">25%</span></h4>
+        <p>衡量一国高等教育体系的深度、质量和未来技能导向。包括大学排名表现、AI/数字/绿色学科竞争力、学生城市质量。</p>
+      </div>
+      <div class="pillar-card">
+        <h4>🔮 未来工作 Future of Work <span class="weight">25%</span></h4>
+        <p>衡量一国就业市场对AI、数字和绿色转型的准备程度。核心指标为QS AI劳动力转型指数（岗位增强 vs 岗位自动化分析）。</p>
+      </div>
+      <div class="pillar-card">
+        <h4>📈 经济转型 Economic Transformation <span class="weight">25%</span></h4>
+        <p>衡量将技能转化为生产力、创新和增长的经济基础条件。包括GDP增长、研发支出、劳动力参与率、青年人口比例等。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 二、全球排名 -->
+  <div class="report-section">
+    <h2>二、全球综合排名 TOP 10</h2>
+    <table class="rank-table">
+      <thead>
+        <tr><th>排名</th><th>国家/地区</th><th>综合得分</th><th>技能匹配</th><th>学术准备</th><th>未来工作</th><th>经济转型</th><th>平衡指数</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="rank-num gold">1</span></td><td>🇺🇸 美国</td><td><strong>99.2</strong></td><td>100.0</td><td>99.3</td><td>100.0</td><td>97.4</td><td>1.2</td></tr>
+        <tr><td><span class="rank-num silver">2</span></td><td>🇦🇺 澳大利亚</td><td><strong>97.5</strong></td><td>96.9</td><td>98.6</td><td>98.0</td><td>96.4</td><td>1.0 ★最均衡</td></tr>
+        <tr><td><span class="rank-num bronze">3</span></td><td>🇬🇧 英国</td><td><strong>96.6</strong></td><td>99.0</td><td>100.0</td><td>97.0</td><td>90.2</td><td>4.4</td></tr>
+        <tr><td>4</td><td>🇩🇪 德国</td><td><strong>95.5</strong></td><td>93.9</td><td>98.0</td><td>99.0</td><td>91.2</td><td>3.6</td></tr>
+        <tr class="hl"><td>5</td><td>🇨🇦 加拿大</td><td><strong>93.7</strong></td><td>94.9</td><td>95.9</td><td>94.1</td><td>89.7</td><td>2.7</td></tr>
+        <tr><td>6</td><td>🇰🇷 韩国</td><td><strong>93.4</strong></td><td>95.9</td><td>93.2</td><td>86.1</td><td>98.4</td><td>5.3</td></tr>
+        <tr><td>7</td><td>🇨🇳 中国</td><td><strong>92.5</strong></td><td>98.0</td><td>91.8</td><td>80.2</td><td>100.0</td><td>8.9</td></tr>
+        <tr><td>8</td><td>🇳🇱 荷兰</td><td><strong>91.9</strong></td><td>89.8</td><td>95.2</td><td>88.1</td><td>94.3</td><td>3.4</td></tr>
+        <tr><td>9</td><td>🇪🇸 西班牙</td><td><strong>91.7</strong></td><td>90.8</td><td>93.9</td><td>89.1</td><td>92.8</td><td>2.1</td></tr>
+        <tr><td>10</td><td>🇨🇭 瑞士</td><td><strong>91.6</strong></td><td>84.8</td><td>96.6</td><td>90.1</td><td>94.8</td><td>5.3</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 三、加拿大深度分析 -->
+  <div class="report-section">
+    <h2>三、🇨🇦 加拿大深度分析</h2>
+    <div class="canada-grid">
+      <div class="canada-stat"><div class="stat-value">5</div><div class="stat-label">全球综合排名</div><div class="stat-rank">/ 89个经济体</div></div>
+      <div class="canada-stat"><div class="stat-value">93.7</div><div class="stat-label">综合得分</div><div class="stat-rank">高水平 (HI)</div></div>
+      <div class="canada-stat"><div class="stat-value">2.7</div><div class="stat-label">平衡指数</div><div class="stat-rank">前10中第2均衡</div></div>
+      <div class="canada-stat"><div class="stat-value">94.9</div><div class="stat-label">技能匹配</div><div class="stat-rank">全球第6</div></div>
+      <div class="canada-stat"><div class="stat-value">95.9</div><div class="stat-label">学术准备</div><div class="stat-rank">全球第5</div></div>
+      <div class="canada-stat"><div class="stat-value">94.1</div><div class="stat-label">未来工作</div><div class="stat-rank">全球第5</div></div>
+      <div class="canada-stat"><div class="stat-value">89.7</div><div class="stat-label">经济转型</div><div class="stat-rank">相对短板</div></div>
+      <div class="canada-stat"><div class="stat-value">257</div><div class="stat-label">QS排名大学数</div><div class="stat-rank">学术基础雄厚</div></div>
+    </div>
+
+    <h3>优势分析</h3>
+    <p><strong>1. 高度均衡的系统：</strong>加拿大的平衡指数（Balance Index）仅2.7，在前10中仅次于澳大利亚（1.0），意味着四个维度发展非常均衡，没有明显的结构性短板。这反映了加拿大高等教育政策与劳动力市场需求的良好协同。</p>
+    <p><strong>2. 学术准备扎实：</strong>拥有257所纳入QS排名的大学，全球第5的学术准备得分。在AI、数字、绿色技能相关学科具有较强竞争力，多个城市入选QS最佳学生城市。</p>
+    <p><strong>3. 未来工作适应性强：</strong>加拿大劳动力市场以知识密集型和服务导向型岗位为主，AI更倾向于增强而非替代这些岗位，使得加拿大在AI时代具有较好的人才需求基础。</p>
+
+    <h3>技能缺口分析</h3>
+    <p>根据QS雇主调查，加拿大在以下技能集群存在不同程度缺口：</p>
+    <table class="gap-table">
+      <thead><tr><th>技能集群</th><th>缺口程度</th><th>说明</th></tr></thead>
+      <tbody>
+        <tr><td>👔 领导力 Leadership</td><td class="gap-positive">+1.8（供给过剩）</td><td>加拿大毕业生的领导力技能超出雇主需求，是难得的优势领域</td></tr>
+        <tr><td>🌱 可持续与伦理</td><td class="gap-negative">-4.5（中度缺口）</td><td>可持续发展和伦理相关技能供给略低于需求</td></tr>
+        <tr><td>🧠 认知能力 Cognitive</td><td class="gap-negative">-9.6（中度缺口）</td><td>问题解决、批判性思维等认知技能存在较明显缺口</td></tr>
+        <tr><td>🚀 创业精神 Entrepreneurial</td><td class="gap-negative">-9.0（中度缺口）</td><td>创新和创业相关技能供给不足</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px;color:var(--c-text-tertiary);margin-top:8px;">📌 总体分级：<strong>中等缺口 (Moderate Gap)</strong> — 平均缺口为 -5.3。相比其他发达国家，加拿大的技能匹配情况处于较好水平，但在认知能力和创业精神方面仍有提升空间。</p>
+  </div>
+
+  <!-- 四、五大核心发现 -->
+  <div class="report-section">
+    <h2>四、五大核心发现</h2>
+
+    <div class="key-finding">
+      <div class="kf-num">发现 1</div>
+      <p><strong>人文技能比技术技能更受追捧。</strong>QS全球雇主调查显示，雇主最需要的是领导力、沟通、批判性思维等"人类技能"（human skills），而这些技能的缺口与技术技能同样大，甚至更大。高等教育体系在培养软技能方面面临严峻挑战。</p>
+    </div>
+
+    <div class="key-finding">
+      <div class="kf-num">发现 2</div>
+      <p><strong>AI不会造成统一冲击，而是放大既有差距。</strong>AI并非对所有经济体产生均质化影响。以知识密集型和服务业为主的经济体（如美国、英国、澳大利亚、德国）在AI时代更具优势，因为AI在这些经济体中更多是"增强"而非"替代"人类工作。</p>
+    </div>
+
+    <div class="key-finding">
+      <div class="kf-num">发现 3</div>
+      <p><strong>强大的高等教育体系不等于自动的经济增长。</strong>英国的学术准备全球第一（100.0），但经济转型仅90.2，是前10中学术-经济差距最大的国家。人才和研究成果能否转化为经济价值，取决于政府、产业和高等教育的协同程度。</p>
+    </div>
+
+    <div class="key-finding">
+      <div class="kf-num">发现 4</div>
+      <p><strong>AI驱动的产业变革速度远超高等教育变革速度。</strong>雇主普遍认为大学的变化跟不上工作场所转型的规模。报告引用Anthropic CEO的观点：AI正在进入一个堪比工业革命的新阶段，高等教育必须以前所未有的速度进行改革。</p>
+    </div>
+
+    <div class="key-finding">
+      <div class="kf-num">发现 5</div>
+      <p><strong>小经济体可以凭借专业化实现超常规竞争力。</strong>荷兰（第8）、瑞士（第10）、新加坡（第12）尽管高等教育规模远小于美英德，但通过将投资集中在与自身经济优势匹配的领域，实现了远超规模的实力。智慧型专业化是小型经济体的取胜之道。</p>
+    </div>
+  </div>
+
+  <!-- 五、对升学规划的启示 -->
+  <div class="report-section">
+    <h2>五、对升学规划的启示</h2>
+    <div class="highlight-box">
+      <p>这份报告对正在规划加拿大留学的学生有重要参考价值：</p>
+      <p style="margin-top:8px;"><strong>1. 选专业要看"未来工作"趋势：</strong>加拿大在AI增强型岗位（知识密集型、服务型）上具有优势。CS、数据分析、AI相关专业持续看好；同时领导力类人文社科方向在加拿大属于供给过剩但全球紧缺的技能。</p>
+      <p><strong>2. 加拿大整体环境优秀：</strong>全球第5的综合排名，前10中第2均衡的系统，说明加拿大高等教育与就业市场匹配度高，是留学性价比和安全性都很高的选择。</p>
+      <p><strong>3. 关注软技能培养：</strong>认知能力和创业精神是加拿大毕业生相对薄弱的环节。在留学期间有意识地培养批判性思维、创新能力和跨学科视野，将显著提升就业竞争力。</p>
+    </div>
+  </div>
+
+  <!-- 下载条 -->
+  <div class="download-bar">
+    <span class="dl-icon">📥</span>
+    <div class="dl-info">
+      <h4>下载原始报告</h4>
+      <p>PDF格式，5.5MB，64页完整版。免费下载，无需登录。</p>
+    </div>
+    <a href="../files/QS_World_Future_Skills_Index_2027.pdf" class="dl-btn" download>⬇ 下载 PDF（5.5MB）</a>
+  </div>
+
+</div>
+
+<footer class="footer">
+  <p>解读基于 QS World Future Skills Index 2027 原始报告 · 仅供学习参考 · 版权归 QS Quacquarelli Symonds 所有</p>
+</footer>
+
+<script src="../js/auth.js"></script>
+<script>AUTH.initPage();</script>
+</body>
+</html>

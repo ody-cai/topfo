@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>三大排名参考 · 学生升学数据</title>
+<link rel="stylesheet" href="../css/common.css">
+<style>
+.rank-tabs{display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap}
+.rank-tab-btn{font-size:12px;padding:6px 14px;border-radius:6px;border:0.5px solid var(--c-border-strong);background:var(--c-surface);color:var(--c-text);cursor:pointer;transition:all var(--transition)}
+.rank-tab-btn.active{background:var(--c-accent);color:#fff;border-color:var(--c-accent)}
+.rank-tab-btn:hover:not(.active){border-color:var(--c-accent);color:var(--c-accent)}
+.rank-table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:20px}
+.rank-table th{background:var(--c-bg);font-weight:500;font-size:11px;color:var(--c-text-secondary);padding:8px 12px;text-align:left;border-bottom:0.5px solid var(--c-border)}
+.rank-table td{padding:7px 12px;border-bottom:0.5px solid var(--c-border)}
+.rank-table tr:hover{background:var(--c-bg)}
+.rank-badge{font-size:10px;padding:2px 6px;border-radius:4px;font-weight:600;display:inline-block;min-width:50px;text-align:center}
+.rank-badge.top{background:var(--c-tier1);color:var(--c-tier1-text)}
+.rank-badge.mid{background:var(--c-warning-bg);color:var(--c-warning)}
+.rank-badge.low{background:var(--c-success-bg);color:var(--c-success)}
+.rank-src{font-size:11px;color:var(--c-text-tertiary);margin-top:8px;padding:12px;background:var(--c-bg);border-radius:var(--radius-sm);line-height:1.7}
+.source-box{background:var(--c-surface);border-radius:var(--radius-md);border:0.5px solid var(--c-border);padding:16px 20px;margin-bottom:20px}
+.source-box h3{font-size:14px;font-weight:600;margin-bottom:8px}
+.source-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.source-item{font-size:12px;color:var(--c-text-secondary);line-height:1.7}
+.source-item strong{color:var(--c-text);display:block;margin-bottom:2px}
+.nav-auth-btn {
+  font-size:12px;padding:5px 14px;border-radius:var(--radius-sm);
+  background:var(--c-accent-light);color:var(--c-accent);
+  cursor:pointer;font-weight:500;border:0.5px solid var(--c-accent);
+  transition:all var(--transition);margin-left:8px;white-space:nowrap;
+}
+.nav-auth-btn:hover { background:var(--c-accent);color:#fff; }
+.nav-auth-btn.logged { background:var(--c-success-bg);color:var(--c-success);border-color:var(--c-success); }
+
+/* 登录弹窗 */
+.login-modal { display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.4);z-index:9999;justify-content:center;align-items:center; }
+.login-modal.show { display:flex; }
+.login-modal-content { background:var(--c-surface);border-radius:var(--radius-lg);padding:32px;width:360px;max-width:90vw;box-shadow:var(--shadow-lg);position:relative; }
+.login-modal-content h2 { font-size:20px;font-weight:700;margin-bottom:4px; }
+.login-modal-content .login-sub { font-size:13px;color:var(--c-text-secondary);margin-bottom:20px; }
+.login-field { margin-bottom:14px; }
+.login-field label { font-size:12px;font-weight:500;color:var(--c-text-secondary);margin-bottom:4px;display:block; }
+.login-field input { width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:0.5px solid var(--c-border-strong);font-size:14px;background:var(--c-bg);color:var(--c-text);outline:none; }
+.login-field input:focus { border-color:var(--c-accent); }
+.login-error { display:none;font-size:12px;color:var(--c-danger);margin-bottom:12px;padding:6px 10px;background:var(--c-danger-bg);border-radius:var(--radius-sm); }
+.login-submit { width:100%;padding:12px;border-radius:var(--radius-md);background:var(--c-accent);color:#fff;font-size:14px;font-weight:600;cursor:pointer;border:none;transition:all var(--transition); }
+.login-submit:hover { background:var(--c-accent-hover); }
+.login-close { position:absolute;top:12px;right:16px;font-size:20px;color:var(--c-text-tertiary);cursor:pointer;background:none;border:none; }
+
+@media(max-width:768px){.rank-table{font-size:10px}.rank-table th,.rank-table td{padding:5px 6px}}
+</style>
+</head>
+<body>
+
+<nav class="nav-bar">
+  <a href="../index.html" class="nav-logo"><span class="dot"></span> 升学数据</a>
+  <div class="nav-links">
+    <a href="../index.html" class="nav-link">首页</a>
+    <a href="admission.html" class="nav-link">录取对照表</a>
+    <a href="rankings.html" class="nav-link active">排名参考</a>
+    <a href="insights.html" class="nav-link">关键发现</a>
+    <a href="files.html" class="nav-link">文件</a>
+    <a href="download.html" class="nav-link">下载APP</a>
+    <button id="navAuthBtn" class="nav-auth-btn" onclick="AUTH.handleNavAuthClick()">登录</button>
+  </div>
+</nav>
+
+<!-- 登录弹窗 -->
+<div id="loginModal" class="login-modal">
+  <div class="login-modal-content">
+    <button class="login-close" onclick="AUTH.hideLoginModal()">✕</button>
+    <h2>登录查看个人数据</h2>
+    <p class="login-sub">登录后可查看个性化录取匹配、GPA分析、升学策略等私密数据</p>
+    <div class="login-field">
+      <label>用户名</label>
+      <input id="loginUser" type="text" placeholder="请输入用户名" autocomplete="username">
+    </div>
+    <div class="login-field">
+      <label>密码</label>
+      <input id="loginPass" type="password" placeholder="请输入密码" autocomplete="current-password">
+    </div>
+    <div id="loginError" class="login-error"></div>
+    <button id="loginSubmitBtn" class="login-submit" onclick="AUTH.handleLoginSubmit()">登录</button>
+  </div>
+</div>
+
+<div class="page-container" style="padding-top:20px;">
+  <a href="../index.html" class="back-link">← 返回首页</a>
+
+  <div class="page-header" style="text-align:left;padding:8px 0 16px;">
+    <h1 style="font-size:22px;">📊 三大排行榜 · 专业排名参考</h1>
+    <p class="subtitle">QS 2025/2027 · THE 2026 · US News 2025-2027 综合排名 + 8个专业方向排名</p>
+  </div>
+
+  <!-- 数据来源说明 -->
+  <div class="source-box">
+    <h3>📌 数据来源说明</h3>
+    <div class="source-grid">
+      <div class="source-item"><strong>QS 世界大学排名</strong>综合排名：QS 2027（2026年6月发布）<br>专业排名：QS 2025（2025年3月发布）<br>官网：topuniversities.com</div>
+      <div class="source-item"><strong>THE 泰晤士高等教育</strong>综合排名：THE 2026（2025年10月发布）<br>专业排名：THE 2026（2026年2月发布）<br>官网：timeshighereducation.com</div>
+      <div class="source-item"><strong>US News 全球大学</strong>综合排名：US News 2026-2027（2026年6月发布）<br>专业排名：US News 2025<br>官网：usnews.com</div>
+    </div>
+  </div>
+
+  <!-- 排名标签页 -->
+  <div class="rank-tabs" id="rankTabs"></div>
+
+  <!-- 排名表格 -->
+  <div id="rankTableWrap"></div>
+
+  <div class="rank-src">💡 提示：排名数字越小表示排名越靠前。区间排名（如101-150）表示该大学位于此排名区间内。<strong>—</strong> 表示对应排名系统暂未发布该专业的全球排名数据，或该大学未进入排名榜单。</div>
+</div>
+
+<footer class="footer">
+  <p>数据来源：QS World University Rankings 2025/2027 · THE World University Rankings 2026 · US News Best Global Universities 2025/2026-2027 · 每日自动更新</p>
+</footer>
+
+<script src="../js/rankings.js"></script>
+<script src="../js/auth.js"></script>
+<script>
+function buildRankTabs() {
+  const container = document.getElementById('rankTabs');
+  container.innerHTML = '';
+  RANK_PROGS.forEach((p, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'rank-tab-btn' + (i === 0 ? ' active' : '');
+    btn.textContent = p.label;
+    btn.onclick = () => { renderRankTable(p.key); };
+    container.appendChild(btn);
+  });
+}
+
+function renderRankTable(progKey) {
+  document.querySelectorAll('#rankTabs .rank-tab-btn').forEach(b => b.classList.remove('active'));
+  RANK_PROGS.forEach((p, i) => {
+    if (p.key === progKey) document.querySelectorAll('#rankTabs .rank-tab-btn')[i].classList.add('active');
+  });
+
+  const data = RANK_DATA[progKey] || [];
+  const isOverall = progKey === 'overall';
+  const qsLabel = isOverall ? 'QS 2027' : 'QS 2025';
+  const theLabel = isOverall ? 'THE 2026' : 'THE 2026';
+  const usnLabel = isOverall ? 'US News 2026-27' : 'US News 2025';
+
+  let html = '<table class="rank-table"><thead><tr>' +
+    '<th>学校</th><th>省份</th><th>' + qsLabel + '</th><th>' + theLabel + '</th><th>' + usnLabel + '</th></tr></thead><tbody>';
+
+  data.forEach((d, i) => {
+    const badge = i < 3 ? 'top' : i < 6 ? 'mid' : 'low';
+    html += '<tr>' +
+      '<td style="font-weight:500">' + d.school + '</td>' +
+      '<td style="color:var(--c-text-secondary);font-size:11px">' + d.city + '</td>' +
+      '<td><span class="rank-badge ' + badge + '">' + d.qs + '</span></td>' +
+      '<td><span class="rank-badge ' + badge + '">' + d.the + '</span></td>' +
+      '<td><span class="rank-badge ' + badge + '">' + d.usn + '</span></td>' +
+      '</tr>';
+  });
+
+  html += '</tbody></table>';
+  document.getElementById('rankTableWrap').innerHTML = html;
+}
+
+buildRankTabs();
+renderRankTable('overall');
+
+// Auth
+AUTH.onChange((logged, user) => { AUTH._updateNav(logged, user); });
+AUTH.initPage();
+</script>
+</body>
+</html>

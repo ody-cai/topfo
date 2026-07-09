@@ -1,0 +1,3892 @@
+{
+  "timestamp": "2026-06-30T09:49:39.677120",
+  "input_dir": "/Users/odycai/WorkBuddy/2026-06-16-17-01-52/public",
+  "total_files": 2,
+  "files_analyzed": 2,
+  "issues": {
+    "critical": [],
+    "normal": [],
+    "optimize": [
+      {
+        "type": "代码可读性",
+        "line": 18,
+        "severity": "优化",
+        "description": "代码行过长（121字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 19,
+        "severity": "优化",
+        "description": "代码行过长（203字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 20,
+        "severity": "优化",
+        "description": "代码行过长（174字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 21,
+        "severity": "优化",
+        "description": "代码行过长（144字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 22,
+        "severity": "优化",
+        "description": "代码行过长（144字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 23,
+        "severity": "优化",
+        "description": "代码行过长（186字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 24,
+        "severity": "优化",
+        "description": "代码行过长（145字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 25,
+        "severity": "优化",
+        "description": "代码行过长（142字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 26,
+        "severity": "优化",
+        "description": "代码行过长（144字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 29,
+        "severity": "优化",
+        "description": "代码行过长（221字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 30,
+        "severity": "优化",
+        "description": "代码行过长（172字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 31,
+        "severity": "优化",
+        "description": "代码行过长（173字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 32,
+        "severity": "优化",
+        "description": "代码行过长（160字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 33,
+        "severity": "优化",
+        "description": "代码行过长（184字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 34,
+        "severity": "优化",
+        "description": "代码行过长（145字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 35,
+        "severity": "优化",
+        "description": "代码行过长（172字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 36,
+        "severity": "优化",
+        "description": "代码行过长（144字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 39,
+        "severity": "优化",
+        "description": "代码行过长（161字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 40,
+        "severity": "优化",
+        "description": "代码行过长（143字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 41,
+        "severity": "优化",
+        "description": "代码行过长（143字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 42,
+        "severity": "优化",
+        "description": "代码行过长（144字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 43,
+        "severity": "优化",
+        "description": "代码行过长（160字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 44,
+        "severity": "优化",
+        "description": "代码行过长（145字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 45,
+        "severity": "优化",
+        "description": "代码行过长（142字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 46,
+        "severity": "优化",
+        "description": "代码行过长（144字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 49,
+        "severity": "优化",
+        "description": "代码行过长（205字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 50,
+        "severity": "优化",
+        "description": "代码行过长（166字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 51,
+        "severity": "优化",
+        "description": "代码行过长（169字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 52,
+        "severity": "优化",
+        "description": "代码行过长（151字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 53,
+        "severity": "优化",
+        "description": "代码行过长（166字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 54,
+        "severity": "优化",
+        "description": "代码行过长（152字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 55,
+        "severity": "优化",
+        "description": "代码行过长（150字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 56,
+        "severity": "优化",
+        "description": "代码行过长（151字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 61,
+        "severity": "优化",
+        "description": "代码行过长（154字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 62,
+        "severity": "优化",
+        "description": "代码行过长（247字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 63,
+        "severity": "优化",
+        "description": "代码行过长（182字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 64,
+        "severity": "优化",
+        "description": "代码行过长（253字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 65,
+        "severity": "优化",
+        "description": "代码行过长（196字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 66,
+        "severity": "优化",
+        "description": "代码行过长（153字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 67,
+        "severity": "优化",
+        "description": "代码行过长（137字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 68,
+        "severity": "优化",
+        "description": "代码行过长（146字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 71,
+        "severity": "优化",
+        "description": "代码行过长（153字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 72,
+        "severity": "优化",
+        "description": "代码行过长（225字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 73,
+        "severity": "优化",
+        "description": "代码行过长（194字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 74,
+        "severity": "优化",
+        "description": "代码行过长（146字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 75,
+        "severity": "优化",
+        "description": "代码行过长（137字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 76,
+        "severity": "优化",
+        "description": "代码行过长（139字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 77,
+        "severity": "优化",
+        "description": "代码行过长（175字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 78,
+        "severity": "优化",
+        "description": "代码行过长（146字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 81,
+        "severity": "优化",
+        "description": "代码行过长（233字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 82,
+        "severity": "优化",
+        "description": "代码行过长（158字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 83,
+        "severity": "优化",
+        "description": "代码行过长（149字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 84,
+        "severity": "优化",
+        "description": "代码行过长（150字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 85,
+        "severity": "优化",
+        "description": "代码行过长（177字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 86,
+        "severity": "优化",
+        "description": "代码行过长（151字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 87,
+        "severity": "优化",
+        "description": "代码行过长（148字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 88,
+        "severity": "优化",
+        "description": "代码行过长（150字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 91,
+        "severity": "优化",
+        "description": "代码行过长（198字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 92,
+        "severity": "优化",
+        "description": "代码行过长（192字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 93,
+        "severity": "优化",
+        "description": "代码行过长（164字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 94,
+        "severity": "优化",
+        "description": "代码行过长（174字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 95,
+        "severity": "优化",
+        "description": "代码行过长（156字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 96,
+        "severity": "优化",
+        "description": "代码行过长（151字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 97,
+        "severity": "优化",
+        "description": "代码行过长（149字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 98,
+        "severity": "优化",
+        "description": "代码行过长（150字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 101,
+        "severity": "优化",
+        "description": "代码行过长（197字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 102,
+        "severity": "优化",
+        "description": "代码行过长（182字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 103,
+        "severity": "优化",
+        "description": "代码行过长（162字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 104,
+        "severity": "优化",
+        "description": "代码行过长（178字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 105,
+        "severity": "优化",
+        "description": "代码行过长（187字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 106,
+        "severity": "优化",
+        "description": "代码行过长（159字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 107,
+        "severity": "优化",
+        "description": "代码行过长（161字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 108,
+        "severity": "优化",
+        "description": "代码行过长（162字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 111,
+        "severity": "优化",
+        "description": "代码行过长（216字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 112,
+        "severity": "优化",
+        "description": "代码行过长（169字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 113,
+        "severity": "优化",
+        "description": "代码行过长（160字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 114,
+        "severity": "优化",
+        "description": "代码行过长（166字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 115,
+        "severity": "优化",
+        "description": "代码行过长（216字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 116,
+        "severity": "优化",
+        "description": "代码行过长（160字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 117,
+        "severity": "优化",
+        "description": "代码行过长（159字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 118,
+        "severity": "优化",
+        "description": "代码行过长（160字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 121,
+        "severity": "优化",
+        "description": "代码行过长（177字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 122,
+        "severity": "优化",
+        "description": "代码行过长（153字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 123,
+        "severity": "优化",
+        "description": "代码行过长（167字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 124,
+        "severity": "优化",
+        "description": "代码行过长（155字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 125,
+        "severity": "优化",
+        "description": "代码行过长（185字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 126,
+        "severity": "优化",
+        "description": "代码行过长（164字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 127,
+        "severity": "优化",
+        "description": "代码行过长（150字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 128,
+        "severity": "优化",
+        "description": "代码行过长（151字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 131,
+        "severity": "优化",
+        "description": "代码行过长（151字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 132,
+        "severity": "优化",
+        "description": "代码行过长（149字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 133,
+        "severity": "优化",
+        "description": "代码行过长（148字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 134,
+        "severity": "优化",
+        "description": "代码行过长（149字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 135,
+        "severity": "优化",
+        "description": "代码行过长（183字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 136,
+        "severity": "优化",
+        "description": "代码行过长（158字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 137,
+        "severity": "优化",
+        "description": "代码行过长（150字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 138,
+        "severity": "优化",
+        "description": "代码行过长（149字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 141,
+        "severity": "优化",
+        "description": "代码行过长（175字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 142,
+        "severity": "优化",
+        "description": "代码行过长（183字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 143,
+        "severity": "优化",
+        "description": "代码行过长（144字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 144,
+        "severity": "优化",
+        "description": "代码行过长（145字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 145,
+        "severity": "优化",
+        "description": "代码行过长（148字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 146,
+        "severity": "优化",
+        "description": "代码行过长（163字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 147,
+        "severity": "优化",
+        "description": "代码行过长（143字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 148,
+        "severity": "优化",
+        "description": "代码行过长（144字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 151,
+        "severity": "优化",
+        "description": "代码行过长（172字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 152,
+        "severity": "优化",
+        "description": "代码行过长（172字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 153,
+        "severity": "优化",
+        "description": "代码行过长（143字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 154,
+        "severity": "优化",
+        "description": "代码行过长（145字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 155,
+        "severity": "优化",
+        "description": "代码行过长（157字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 156,
+        "severity": "优化",
+        "description": "代码行过长（149字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 157,
+        "severity": "优化",
+        "description": "代码行过长（162字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 158,
+        "severity": "优化",
+        "description": "代码行过长（144字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 163,
+        "severity": "优化",
+        "description": "代码行过长（146字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 164,
+        "severity": "优化",
+        "description": "代码行过长（142字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 165,
+        "severity": "优化",
+        "description": "代码行过长（143字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 166,
+        "severity": "优化",
+        "description": "代码行过长（144字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 167,
+        "severity": "优化",
+        "description": "代码行过长（143字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 168,
+        "severity": "优化",
+        "description": "代码行过长（146字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 169,
+        "severity": "优化",
+        "description": "代码行过长（142字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 170,
+        "severity": "优化",
+        "description": "代码行过长（144字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 173,
+        "severity": "优化",
+        "description": "代码行过长（175字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 174,
+        "severity": "优化",
+        "description": "代码行过长（162字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 175,
+        "severity": "优化",
+        "description": "代码行过长（146字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 176,
+        "severity": "优化",
+        "description": "代码行过长（146字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 177,
+        "severity": "优化",
+        "description": "代码行过长（145字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 178,
+        "severity": "优化",
+        "description": "代码行过长（148字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 179,
+        "severity": "优化",
+        "description": "代码行过长（145字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 180,
+        "severity": "优化",
+        "description": "代码行过长（146字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 183,
+        "severity": "优化",
+        "description": "代码行过长（143字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 184,
+        "severity": "优化",
+        "description": "代码行过长（150字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 185,
+        "severity": "优化",
+        "description": "代码行过长（144字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 186,
+        "severity": "优化",
+        "description": "代码行过长（144字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 187,
+        "severity": "优化",
+        "description": "代码行过长（143字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 188,
+        "severity": "优化",
+        "description": "代码行过长（145字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 189,
+        "severity": "优化",
+        "description": "代码行过长（143字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 190,
+        "severity": "优化",
+        "description": "代码行过长（144字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 193,
+        "severity": "优化",
+        "description": "代码行过长（149字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 194,
+        "severity": "优化",
+        "description": "代码行过长（150字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 195,
+        "severity": "优化",
+        "description": "代码行过长（143字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 196,
+        "severity": "优化",
+        "description": "代码行过长（144字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 197,
+        "severity": "优化",
+        "description": "代码行过长（164字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 198,
+        "severity": "优化",
+        "description": "代码行过长（145字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 199,
+        "severity": "优化",
+        "description": "代码行过长（143字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 200,
+        "severity": "优化",
+        "description": "代码行过长（144字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 203,
+        "severity": "优化",
+        "description": "代码行过长（182字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 204,
+        "severity": "优化",
+        "description": "代码行过长（158字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 205,
+        "severity": "优化",
+        "description": "代码行过长（151字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 206,
+        "severity": "优化",
+        "description": "代码行过长（146字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 207,
+        "severity": "优化",
+        "description": "代码行过长（155字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 208,
+        "severity": "优化",
+        "description": "代码行过长（147字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 209,
+        "severity": "优化",
+        "description": "代码行过长（144字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 210,
+        "severity": "优化",
+        "description": "代码行过长（146字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 213,
+        "severity": "优化",
+        "description": "代码行过长（163字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 214,
+        "severity": "优化",
+        "description": "代码行过长（142字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 215,
+        "severity": "优化",
+        "description": "代码行过长（143字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 216,
+        "severity": "优化",
+        "description": "代码行过长（144字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 217,
+        "severity": "优化",
+        "description": "代码行过长（170字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 218,
+        "severity": "优化",
+        "description": "代码行过长（145字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 219,
+        "severity": "优化",
+        "description": "代码行过长（143字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 220,
+        "severity": "优化",
+        "description": "代码行过长（144字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 223,
+        "severity": "优化",
+        "description": "代码行过长（142字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 224,
+        "severity": "优化",
+        "description": "代码行过长（142字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 225,
+        "severity": "优化",
+        "description": "代码行过长（143字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 226,
+        "severity": "优化",
+        "description": "代码行过长（149字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 227,
+        "severity": "优化",
+        "description": "代码行过长（143字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 228,
+        "severity": "优化",
+        "description": "代码行过长（145字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 229,
+        "severity": "优化",
+        "description": "代码行过长（143字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 230,
+        "severity": "优化",
+        "description": "代码行过长（144字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 233,
+        "severity": "优化",
+        "description": "代码行过长（148字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 234,
+        "severity": "优化",
+        "description": "代码行过长（143字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 235,
+        "severity": "优化",
+        "description": "代码行过长（144字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 236,
+        "severity": "优化",
+        "description": "代码行过长（145字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 237,
+        "severity": "优化",
+        "description": "代码行过长（144字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 238,
+        "severity": "优化",
+        "description": "代码行过长（146字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 239,
+        "severity": "优化",
+        "description": "代码行过长（143字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 240,
+        "severity": "优化",
+        "description": "代码行过长（145字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 243,
+        "severity": "优化",
+        "description": "代码行过长（162字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 244,
+        "severity": "优化",
+        "description": "代码行过长（143字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 245,
+        "severity": "优化",
+        "description": "代码行过长（144字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 246,
+        "severity": "优化",
+        "description": "代码行过长（145字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 247,
+        "severity": "优化",
+        "description": "代码行过长（163字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 248,
+        "severity": "优化",
+        "description": "代码行过长（146字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 249,
+        "severity": "优化",
+        "description": "代码行过长（144字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 250,
+        "severity": "优化",
+        "description": "代码行过长（145字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 253,
+        "severity": "优化",
+        "description": "代码行过长（146字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 254,
+        "severity": "优化",
+        "description": "代码行过长（142字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 255,
+        "severity": "优化",
+        "description": "代码行过长（143字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 256,
+        "severity": "优化",
+        "description": "代码行过长（144字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 257,
+        "severity": "优化",
+        "description": "代码行过长（143字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 258,
+        "severity": "优化",
+        "description": "代码行过长（145字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 259,
+        "severity": "优化",
+        "description": "代码行过长（143字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 260,
+        "severity": "优化",
+        "description": "代码行过长（144字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 263,
+        "severity": "优化",
+        "description": "代码行过长（143字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 264,
+        "severity": "优化",
+        "description": "代码行过长（142字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 265,
+        "severity": "优化",
+        "description": "代码行过长（143字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 266,
+        "severity": "优化",
+        "description": "代码行过长（144字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 267,
+        "severity": "优化",
+        "description": "代码行过长（166字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 268,
+        "severity": "优化",
+        "description": "代码行过长（145字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 269,
+        "severity": "优化",
+        "description": "代码行过长（143字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 270,
+        "severity": "优化",
+        "description": "代码行过长（144字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 273,
+        "severity": "优化",
+        "description": "代码行过长（150字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 274,
+        "severity": "优化",
+        "description": "代码行过长（142字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 275,
+        "severity": "优化",
+        "description": "代码行过长（143字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 276,
+        "severity": "优化",
+        "description": "代码行过长（144字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 277,
+        "severity": "优化",
+        "description": "代码行过长（143字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 278,
+        "severity": "优化",
+        "description": "代码行过长（145字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 279,
+        "severity": "优化",
+        "description": "代码行过长（143字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 280,
+        "severity": "优化",
+        "description": "代码行过长（144字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 283,
+        "severity": "优化",
+        "description": "代码行过长（147字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 284,
+        "severity": "优化",
+        "description": "代码行过长（150字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 285,
+        "severity": "优化",
+        "description": "代码行过长（143字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 286,
+        "severity": "优化",
+        "description": "代码行过长（144字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 287,
+        "severity": "优化",
+        "description": "代码行过长（160字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 288,
+        "severity": "优化",
+        "description": "代码行过长（145字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 289,
+        "severity": "优化",
+        "description": "代码行过长（142字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 290,
+        "severity": "优化",
+        "description": "代码行过长（144字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 295,
+        "severity": "优化",
+        "description": "代码行过长（205字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 296,
+        "severity": "优化",
+        "description": "代码行过长（178字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 297,
+        "severity": "优化",
+        "description": "代码行过长（169字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 298,
+        "severity": "优化",
+        "description": "代码行过长（170字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 299,
+        "severity": "优化",
+        "description": "代码行过长（169字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 300,
+        "severity": "优化",
+        "description": "代码行过长（171字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 301,
+        "severity": "优化",
+        "description": "代码行过长（168字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 302,
+        "severity": "优化",
+        "description": "代码行过长（170字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 305,
+        "severity": "优化",
+        "description": "代码行过长（164字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 306,
+        "severity": "优化",
+        "description": "代码行过长（152字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 307,
+        "severity": "优化",
+        "description": "代码行过长（154字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 308,
+        "severity": "优化",
+        "description": "代码行过长（155字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 309,
+        "severity": "优化",
+        "description": "代码行过长（153字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 310,
+        "severity": "优化",
+        "description": "代码行过长（156字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 311,
+        "severity": "优化",
+        "description": "代码行过长（153字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 312,
+        "severity": "优化",
+        "description": "代码行过长（155字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 315,
+        "severity": "优化",
+        "description": "代码行过长（164字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 316,
+        "severity": "优化",
+        "description": "代码行过长（152字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 317,
+        "severity": "优化",
+        "description": "代码行过长（154字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 318,
+        "severity": "优化",
+        "description": "代码行过长（155字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 319,
+        "severity": "优化",
+        "description": "代码行过长（153字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 320,
+        "severity": "优化",
+        "description": "代码行过长（156字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 321,
+        "severity": "优化",
+        "description": "代码行过长（153字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      },
+      {
+        "type": "代码可读性",
+        "line": 322,
+        "severity": "优化",
+        "description": "代码行过长（155字符）",
+        "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+        "file": "js/data.js"
+      }
+    ]
+  },
+  "file_details": {
+    "js/rankings.js": {
+      "path": "js/rankings.js",
+      "language": "javascript",
+      "size_bytes": 6829,
+      "lines": 121,
+      "comment_lines": 0,
+      "issues": []
+    },
+    "js/data.js": {
+      "path": "js/data.js",
+      "language": "javascript",
+      "size_bytes": 45851,
+      "lines": 326,
+      "comment_lines": 0,
+      "issues": [
+        {
+          "type": "代码可读性",
+          "line": 18,
+          "severity": "优化",
+          "description": "代码行过长（121字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 19,
+          "severity": "优化",
+          "description": "代码行过长（203字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 20,
+          "severity": "优化",
+          "description": "代码行过长（174字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 21,
+          "severity": "优化",
+          "description": "代码行过长（144字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 22,
+          "severity": "优化",
+          "description": "代码行过长（144字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 23,
+          "severity": "优化",
+          "description": "代码行过长（186字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 24,
+          "severity": "优化",
+          "description": "代码行过长（145字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 25,
+          "severity": "优化",
+          "description": "代码行过长（142字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 26,
+          "severity": "优化",
+          "description": "代码行过长（144字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 29,
+          "severity": "优化",
+          "description": "代码行过长（221字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 30,
+          "severity": "优化",
+          "description": "代码行过长（172字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 31,
+          "severity": "优化",
+          "description": "代码行过长（173字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 32,
+          "severity": "优化",
+          "description": "代码行过长（160字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 33,
+          "severity": "优化",
+          "description": "代码行过长（184字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 34,
+          "severity": "优化",
+          "description": "代码行过长（145字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 35,
+          "severity": "优化",
+          "description": "代码行过长（172字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 36,
+          "severity": "优化",
+          "description": "代码行过长（144字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 39,
+          "severity": "优化",
+          "description": "代码行过长（161字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 40,
+          "severity": "优化",
+          "description": "代码行过长（143字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 41,
+          "severity": "优化",
+          "description": "代码行过长（143字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 42,
+          "severity": "优化",
+          "description": "代码行过长（144字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 43,
+          "severity": "优化",
+          "description": "代码行过长（160字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 44,
+          "severity": "优化",
+          "description": "代码行过长（145字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 45,
+          "severity": "优化",
+          "description": "代码行过长（142字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 46,
+          "severity": "优化",
+          "description": "代码行过长（144字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 49,
+          "severity": "优化",
+          "description": "代码行过长（205字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 50,
+          "severity": "优化",
+          "description": "代码行过长（166字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 51,
+          "severity": "优化",
+          "description": "代码行过长（169字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 52,
+          "severity": "优化",
+          "description": "代码行过长（151字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 53,
+          "severity": "优化",
+          "description": "代码行过长（166字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 54,
+          "severity": "优化",
+          "description": "代码行过长（152字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 55,
+          "severity": "优化",
+          "description": "代码行过长（150字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 56,
+          "severity": "优化",
+          "description": "代码行过长（151字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 61,
+          "severity": "优化",
+          "description": "代码行过长（154字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 62,
+          "severity": "优化",
+          "description": "代码行过长（247字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 63,
+          "severity": "优化",
+          "description": "代码行过长（182字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 64,
+          "severity": "优化",
+          "description": "代码行过长（253字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 65,
+          "severity": "优化",
+          "description": "代码行过长（196字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 66,
+          "severity": "优化",
+          "description": "代码行过长（153字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 67,
+          "severity": "优化",
+          "description": "代码行过长（137字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 68,
+          "severity": "优化",
+          "description": "代码行过长（146字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 71,
+          "severity": "优化",
+          "description": "代码行过长（153字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 72,
+          "severity": "优化",
+          "description": "代码行过长（225字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 73,
+          "severity": "优化",
+          "description": "代码行过长（194字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 74,
+          "severity": "优化",
+          "description": "代码行过长（146字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 75,
+          "severity": "优化",
+          "description": "代码行过长（137字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 76,
+          "severity": "优化",
+          "description": "代码行过长（139字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 77,
+          "severity": "优化",
+          "description": "代码行过长（175字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 78,
+          "severity": "优化",
+          "description": "代码行过长（146字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 81,
+          "severity": "优化",
+          "description": "代码行过长（233字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 82,
+          "severity": "优化",
+          "description": "代码行过长（158字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 83,
+          "severity": "优化",
+          "description": "代码行过长（149字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 84,
+          "severity": "优化",
+          "description": "代码行过长（150字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 85,
+          "severity": "优化",
+          "description": "代码行过长（177字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 86,
+          "severity": "优化",
+          "description": "代码行过长（151字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 87,
+          "severity": "优化",
+          "description": "代码行过长（148字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 88,
+          "severity": "优化",
+          "description": "代码行过长（150字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 91,
+          "severity": "优化",
+          "description": "代码行过长（198字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 92,
+          "severity": "优化",
+          "description": "代码行过长（192字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 93,
+          "severity": "优化",
+          "description": "代码行过长（164字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 94,
+          "severity": "优化",
+          "description": "代码行过长（174字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 95,
+          "severity": "优化",
+          "description": "代码行过长（156字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 96,
+          "severity": "优化",
+          "description": "代码行过长（151字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 97,
+          "severity": "优化",
+          "description": "代码行过长（149字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 98,
+          "severity": "优化",
+          "description": "代码行过长（150字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 101,
+          "severity": "优化",
+          "description": "代码行过长（197字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 102,
+          "severity": "优化",
+          "description": "代码行过长（182字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 103,
+          "severity": "优化",
+          "description": "代码行过长（162字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 104,
+          "severity": "优化",
+          "description": "代码行过长（178字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 105,
+          "severity": "优化",
+          "description": "代码行过长（187字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 106,
+          "severity": "优化",
+          "description": "代码行过长（159字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 107,
+          "severity": "优化",
+          "description": "代码行过长（161字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 108,
+          "severity": "优化",
+          "description": "代码行过长（162字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 111,
+          "severity": "优化",
+          "description": "代码行过长（216字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 112,
+          "severity": "优化",
+          "description": "代码行过长（169字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 113,
+          "severity": "优化",
+          "description": "代码行过长（160字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 114,
+          "severity": "优化",
+          "description": "代码行过长（166字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 115,
+          "severity": "优化",
+          "description": "代码行过长（216字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 116,
+          "severity": "优化",
+          "description": "代码行过长（160字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 117,
+          "severity": "优化",
+          "description": "代码行过长（159字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 118,
+          "severity": "优化",
+          "description": "代码行过长（160字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 121,
+          "severity": "优化",
+          "description": "代码行过长（177字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 122,
+          "severity": "优化",
+          "description": "代码行过长（153字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 123,
+          "severity": "优化",
+          "description": "代码行过长（167字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 124,
+          "severity": "优化",
+          "description": "代码行过长（155字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 125,
+          "severity": "优化",
+          "description": "代码行过长（185字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 126,
+          "severity": "优化",
+          "description": "代码行过长（164字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 127,
+          "severity": "优化",
+          "description": "代码行过长（150字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 128,
+          "severity": "优化",
+          "description": "代码行过长（151字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 131,
+          "severity": "优化",
+          "description": "代码行过长（151字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 132,
+          "severity": "优化",
+          "description": "代码行过长（149字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 133,
+          "severity": "优化",
+          "description": "代码行过长（148字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 134,
+          "severity": "优化",
+          "description": "代码行过长（149字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 135,
+          "severity": "优化",
+          "description": "代码行过长（183字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 136,
+          "severity": "优化",
+          "description": "代码行过长（158字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 137,
+          "severity": "优化",
+          "description": "代码行过长（150字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 138,
+          "severity": "优化",
+          "description": "代码行过长（149字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 141,
+          "severity": "优化",
+          "description": "代码行过长（175字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 142,
+          "severity": "优化",
+          "description": "代码行过长（183字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 143,
+          "severity": "优化",
+          "description": "代码行过长（144字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 144,
+          "severity": "优化",
+          "description": "代码行过长（145字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 145,
+          "severity": "优化",
+          "description": "代码行过长（148字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 146,
+          "severity": "优化",
+          "description": "代码行过长（163字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 147,
+          "severity": "优化",
+          "description": "代码行过长（143字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 148,
+          "severity": "优化",
+          "description": "代码行过长（144字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 151,
+          "severity": "优化",
+          "description": "代码行过长（172字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 152,
+          "severity": "优化",
+          "description": "代码行过长（172字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 153,
+          "severity": "优化",
+          "description": "代码行过长（143字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 154,
+          "severity": "优化",
+          "description": "代码行过长（145字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 155,
+          "severity": "优化",
+          "description": "代码行过长（157字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 156,
+          "severity": "优化",
+          "description": "代码行过长（149字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 157,
+          "severity": "优化",
+          "description": "代码行过长（162字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 158,
+          "severity": "优化",
+          "description": "代码行过长（144字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 163,
+          "severity": "优化",
+          "description": "代码行过长（146字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 164,
+          "severity": "优化",
+          "description": "代码行过长（142字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 165,
+          "severity": "优化",
+          "description": "代码行过长（143字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 166,
+          "severity": "优化",
+          "description": "代码行过长（144字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 167,
+          "severity": "优化",
+          "description": "代码行过长（143字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 168,
+          "severity": "优化",
+          "description": "代码行过长（146字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 169,
+          "severity": "优化",
+          "description": "代码行过长（142字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 170,
+          "severity": "优化",
+          "description": "代码行过长（144字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 173,
+          "severity": "优化",
+          "description": "代码行过长（175字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 174,
+          "severity": "优化",
+          "description": "代码行过长（162字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 175,
+          "severity": "优化",
+          "description": "代码行过长（146字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 176,
+          "severity": "优化",
+          "description": "代码行过长（146字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 177,
+          "severity": "优化",
+          "description": "代码行过长（145字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 178,
+          "severity": "优化",
+          "description": "代码行过长（148字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 179,
+          "severity": "优化",
+          "description": "代码行过长（145字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 180,
+          "severity": "优化",
+          "description": "代码行过长（146字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 183,
+          "severity": "优化",
+          "description": "代码行过长（143字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 184,
+          "severity": "优化",
+          "description": "代码行过长（150字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 185,
+          "severity": "优化",
+          "description": "代码行过长（144字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 186,
+          "severity": "优化",
+          "description": "代码行过长（144字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 187,
+          "severity": "优化",
+          "description": "代码行过长（143字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 188,
+          "severity": "优化",
+          "description": "代码行过长（145字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 189,
+          "severity": "优化",
+          "description": "代码行过长（143字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 190,
+          "severity": "优化",
+          "description": "代码行过长（144字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 193,
+          "severity": "优化",
+          "description": "代码行过长（149字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 194,
+          "severity": "优化",
+          "description": "代码行过长（150字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 195,
+          "severity": "优化",
+          "description": "代码行过长（143字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 196,
+          "severity": "优化",
+          "description": "代码行过长（144字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 197,
+          "severity": "优化",
+          "description": "代码行过长（164字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 198,
+          "severity": "优化",
+          "description": "代码行过长（145字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 199,
+          "severity": "优化",
+          "description": "代码行过长（143字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 200,
+          "severity": "优化",
+          "description": "代码行过长（144字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 203,
+          "severity": "优化",
+          "description": "代码行过长（182字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 204,
+          "severity": "优化",
+          "description": "代码行过长（158字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 205,
+          "severity": "优化",
+          "description": "代码行过长（151字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 206,
+          "severity": "优化",
+          "description": "代码行过长（146字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 207,
+          "severity": "优化",
+          "description": "代码行过长（155字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 208,
+          "severity": "优化",
+          "description": "代码行过长（147字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 209,
+          "severity": "优化",
+          "description": "代码行过长（144字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 210,
+          "severity": "优化",
+          "description": "代码行过长（146字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 213,
+          "severity": "优化",
+          "description": "代码行过长（163字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 214,
+          "severity": "优化",
+          "description": "代码行过长（142字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 215,
+          "severity": "优化",
+          "description": "代码行过长（143字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 216,
+          "severity": "优化",
+          "description": "代码行过长（144字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 217,
+          "severity": "优化",
+          "description": "代码行过长（170字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 218,
+          "severity": "优化",
+          "description": "代码行过长（145字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 219,
+          "severity": "优化",
+          "description": "代码行过长（143字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 220,
+          "severity": "优化",
+          "description": "代码行过长（144字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 223,
+          "severity": "优化",
+          "description": "代码行过长（142字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 224,
+          "severity": "优化",
+          "description": "代码行过长（142字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 225,
+          "severity": "优化",
+          "description": "代码行过长（143字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 226,
+          "severity": "优化",
+          "description": "代码行过长（149字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 227,
+          "severity": "优化",
+          "description": "代码行过长（143字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 228,
+          "severity": "优化",
+          "description": "代码行过长（145字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 229,
+          "severity": "优化",
+          "description": "代码行过长（143字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 230,
+          "severity": "优化",
+          "description": "代码行过长（144字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 233,
+          "severity": "优化",
+          "description": "代码行过长（148字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 234,
+          "severity": "优化",
+          "description": "代码行过长（143字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 235,
+          "severity": "优化",
+          "description": "代码行过长（144字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 236,
+          "severity": "优化",
+          "description": "代码行过长（145字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 237,
+          "severity": "优化",
+          "description": "代码行过长（144字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 238,
+          "severity": "优化",
+          "description": "代码行过长（146字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 239,
+          "severity": "优化",
+          "description": "代码行过长（143字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 240,
+          "severity": "优化",
+          "description": "代码行过长（145字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 243,
+          "severity": "优化",
+          "description": "代码行过长（162字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 244,
+          "severity": "优化",
+          "description": "代码行过长（143字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 245,
+          "severity": "优化",
+          "description": "代码行过长（144字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 246,
+          "severity": "优化",
+          "description": "代码行过长（145字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 247,
+          "severity": "优化",
+          "description": "代码行过长（163字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 248,
+          "severity": "优化",
+          "description": "代码行过长（146字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 249,
+          "severity": "优化",
+          "description": "代码行过长（144字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 250,
+          "severity": "优化",
+          "description": "代码行过长（145字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 253,
+          "severity": "优化",
+          "description": "代码行过长（146字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 254,
+          "severity": "优化",
+          "description": "代码行过长（142字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 255,
+          "severity": "优化",
+          "description": "代码行过长（143字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 256,
+          "severity": "优化",
+          "description": "代码行过长（144字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 257,
+          "severity": "优化",
+          "description": "代码行过长（143字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 258,
+          "severity": "优化",
+          "description": "代码行过长（145字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 259,
+          "severity": "优化",
+          "description": "代码行过长（143字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 260,
+          "severity": "优化",
+          "description": "代码行过长（144字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 263,
+          "severity": "优化",
+          "description": "代码行过长（143字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 264,
+          "severity": "优化",
+          "description": "代码行过长（142字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 265,
+          "severity": "优化",
+          "description": "代码行过长（143字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 266,
+          "severity": "优化",
+          "description": "代码行过长（144字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 267,
+          "severity": "优化",
+          "description": "代码行过长（166字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 268,
+          "severity": "优化",
+          "description": "代码行过长（145字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 269,
+          "severity": "优化",
+          "description": "代码行过长（143字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 270,
+          "severity": "优化",
+          "description": "代码行过长（144字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 273,
+          "severity": "优化",
+          "description": "代码行过长（150字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 274,
+          "severity": "优化",
+          "description": "代码行过长（142字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 275,
+          "severity": "优化",
+          "description": "代码行过长（143字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 276,
+          "severity": "优化",
+          "description": "代码行过长（144字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 277,
+          "severity": "优化",
+          "description": "代码行过长（143字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 278,
+          "severity": "优化",
+          "description": "代码行过长（145字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 279,
+          "severity": "优化",
+          "description": "代码行过长（143字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 280,
+          "severity": "优化",
+          "description": "代码行过长（144字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 283,
+          "severity": "优化",
+          "description": "代码行过长（147字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 284,
+          "severity": "优化",
+          "description": "代码行过长（150字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 285,
+          "severity": "优化",
+          "description": "代码行过长（143字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 286,
+          "severity": "优化",
+          "description": "代码行过长（144字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 287,
+          "severity": "优化",
+          "description": "代码行过长（160字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 288,
+          "severity": "优化",
+          "description": "代码行过长（145字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 289,
+          "severity": "优化",
+          "description": "代码行过长（142字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 290,
+          "severity": "优化",
+          "description": "代码行过长（144字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 295,
+          "severity": "优化",
+          "description": "代码行过长（205字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 296,
+          "severity": "优化",
+          "description": "代码行过长（178字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 297,
+          "severity": "优化",
+          "description": "代码行过长（169字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 298,
+          "severity": "优化",
+          "description": "代码行过长（170字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 299,
+          "severity": "优化",
+          "description": "代码行过长（169字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 300,
+          "severity": "优化",
+          "description": "代码行过长（171字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 301,
+          "severity": "优化",
+          "description": "代码行过长（168字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 302,
+          "severity": "优化",
+          "description": "代码行过长（170字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 305,
+          "severity": "优化",
+          "description": "代码行过长（164字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 306,
+          "severity": "优化",
+          "description": "代码行过长（152字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 307,
+          "severity": "优化",
+          "description": "代码行过长（154字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 308,
+          "severity": "优化",
+          "description": "代码行过长（155字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 309,
+          "severity": "优化",
+          "description": "代码行过长（153字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 310,
+          "severity": "优化",
+          "description": "代码行过长（156字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 311,
+          "severity": "优化",
+          "description": "代码行过长（153字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 312,
+          "severity": "优化",
+          "description": "代码行过长（155字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 315,
+          "severity": "优化",
+          "description": "代码行过长（164字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 316,
+          "severity": "优化",
+          "description": "代码行过长（152字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 317,
+          "severity": "优化",
+          "description": "代码行过长（154字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 318,
+          "severity": "优化",
+          "description": "代码行过长（155字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 319,
+          "severity": "优化",
+          "description": "代码行过长（153字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 320,
+          "severity": "优化",
+          "description": "代码行过长（156字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 321,
+          "severity": "优化",
+          "description": "代码行过长（153字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        },
+        {
+          "type": "代码可读性",
+          "line": 322,
+          "severity": "优化",
+          "description": "代码行过长（155字符）",
+          "suggestion": "建议将长行拆分为多行，推荐不超过80字符",
+          "file": "js/data.js"
+        }
+      ]
+    }
+  },
+  "statistics": {
+    "total_lines": 447,
+    "comment_lines": 0,
+    "comment_coverage": 0.0
+  }
+}

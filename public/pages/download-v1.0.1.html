@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TopFO v1.0.1 · 版本详情</title>
+<link rel="stylesheet" href="../css/common.css">
+<style>
+.detail-hero { padding:8px 0 24px; display:flex; gap:24px; align-items:flex-start; flex-wrap:wrap; }
+.detail-hero .app-icon { font-size:64px; line-height:1; }
+.detail-hero .app-info h1 { font-size:28px; font-weight:800; margin-bottom:4px; }
+.detail-hero .app-info .version-badge {
+  display:inline-block; font-size:12px; padding:2px 10px;
+  border-radius:10px; background:var(--c-accent-light); color:var(--c-accent);
+  font-weight:600; margin-bottom:8px;
+}
+.detail-hero .app-info .meta-row { font-size:12px; color:var(--c-text-tertiary); display:flex;gap:20px;flex-wrap:wrap;margin-top:6px; }
+.detail-hero .app-info .meta-row span { display:inline-flex;align-items:center;gap:4px; }
+
+.detail-hero .dl-area { margin-left:auto; text-align:center; }
+.dl-btn {
+  display:inline-flex; align-items:center; gap:10px;
+  padding:14px 36px; border-radius:var(--radius-md);
+  background:var(--c-accent); color:#fff; font-size:16px; font-weight:700;
+  text-decoration:none; transition:all var(--transition);
+  border:none; cursor:pointer;
+}
+.dl-btn:hover { background:var(--c-accent-hover); transform:translateY(-2px); box-shadow:0 8px 24px rgba(79,70,229,.35); }
+.dl-area .dl-size { font-size:11px; color:var(--c-text-tertiary); margin-top:8px; }
+
+.feature-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:14px; margin:20px 0 32px; }
+.feature-card {
+  background:var(--c-surface); border-radius:var(--radius-md);
+  padding:20px; border:0.5px solid var(--c-border);
+}
+.feature-card .f-icon { font-size:22px; margin-bottom:8px; display:block; }
+.feature-card h4 { font-size:14px; font-weight:600; margin-bottom:4px; }
+.feature-card p { font-size:12px; color:var(--c-text-secondary); line-height:1.6; }
+
+.changelog-section { margin:20px 0; }
+.changelog-section h2 { font-size:18px; font-weight:700; margin-bottom:16px; }
+.changelog-item { background:var(--c-surface); border-radius:var(--radius-md);padding:16px 20px;border:0.5px solid var(--c-border);margin-bottom:8px;display:flex;gap:14px;align-items:flex-start; }
+.changelog-item .tag { font-size:10px;font-weight:600;padding:2px 8px;border-radius:8px;white-space:nowrap; }
+.tag-new { background:var(--c-accent-light);color:var(--c-accent); }
+.tag-improve { background:var(--c-success-bg);color:var(--c-success); }
+.tag-fix { background:var(--c-warning-bg);color:var(--c-warning); }
+.changelog-text { font-size:13px;color:var(--c-text);line-height:1.6; }
+
+.spec-table { width:100%; border-collapse:collapse; margin-top:16px; }
+.spec-table td { padding:10px 16px; font-size:13px; border-bottom:0.5px solid var(--c-border); }
+.spec-table td:first-child { font-weight:500; color:var(--c-text-secondary); width:140px; }
+
+.login-modal { display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.4);z-index:9999;justify-content:center;align-items:center; }
+.login-modal.show { display:flex; }
+.login-modal-content { background:var(--c-surface);border-radius:var(--radius-lg);padding:32px;width:360px;max-width:90vw;box-shadow:var(--shadow-lg);position:relative; }
+.login-modal-content h2 { font-size:20px;font-weight:700;margin-bottom:4px; }
+.login-modal-content .login-sub { font-size:13px;color:var(--c-text-secondary);margin-bottom:20px; }
+.login-field { margin-bottom:14px; }
+.login-field label { font-size:12px;font-weight:500;color:var(--c-text-secondary);margin-bottom:4px;display:block; }
+.login-field input { width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:0.5px solid var(--c-border-strong);font-size:14px;background:var(--c-bg);color:var(--c-text);outline:none; }
+.login-field input:focus { border-color:var(--c-accent); }
+.login-error { display:none;font-size:12px;color:var(--c-danger);margin-bottom:12px;padding:6px 10px;background:var(--c-danger-bg);border-radius:var(--radius-sm); }
+.login-submit { width:100%;padding:12px;border-radius:var(--radius-md);background:var(--c-accent);color:#fff;font-size:14px;font-weight:600;cursor:pointer;border:none;transition:all var(--transition); }
+.login-submit:hover { background:var(--c-accent-hover); }
+.login-close { position:absolute;top:12px;right:16px;font-size:20px;color:var(--c-text-tertiary);cursor:pointer;background:none;border:none; }
+
+@media(max-width:480px) {
+  .detail-hero { flex-direction:column; }
+  .detail-hero .dl-area { margin-left:0; width:100%; }
+  .dl-btn { width:100%; justify-content:center; }
+  .feature-grid { grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav-bar">
+  <a href="../index.html" class="nav-logo"><span class="dot"></span> 升学数据</a>
+  <div class="nav-links">
+    <a href="../index.html" class="nav-link">首页</a>
+    <a href="admission.html" class="nav-link">录取对照表</a>
+    <a href="rankings.html" class="nav-link">排名参考</a>
+    <a href="insights.html" class="nav-link">关键发现</a>
+    <a href="files.html" class="nav-link">文件</a>
+    <a href="download.html" class="nav-link active">下载APP</a>
+    <button id="navAuthBtn" class="nav-auth-btn" onclick="AUTH.handleNavAuthClick()">登录</button>
+  </div>
+</nav>
+
+<div id="loginModal" class="login-modal">
+  <div class="login-modal-content">
+    <button class="login-close" onclick="AUTH.hideLoginModal()">✕</button>
+    <h2>登录查看个人数据</h2>
+    <p class="login-sub">登录后可查看个性化录取匹配、GPA分析、升学策略等私密数据</p>
+    <div class="login-field">
+      <label>用户名</label>
+      <input id="loginUser" type="text" placeholder="请输入用户名" autocomplete="username">
+    </div>
+    <div class="login-field">
+      <label>密码</label>
+      <input id="loginPass" type="password" placeholder="请输入密码" autocomplete="current-password">
+    </div>
+    <div id="loginError" class="login-error"></div>
+    <button id="loginSubmitBtn" class="login-submit" onclick="AUTH.handleLoginSubmit()">登录</button>
+  </div>
+  </div>
+
+<div class="page-container" style="padding-top:20px;">
+  <div class="breadcrumb" style="font-size:12px;color:var(--c-text-tertiary);margin-bottom:8px;">
+    <a href="../index.html" style="color:var(--c-text-secondary);">首页</a> /
+    <a href="download.html" style="color:var(--c-text-secondary);">下载APP</a> /
+    <span style="color:var(--c-text);">v1.0.1</span>
+  </div>
+
+  <div class="detail-hero">
+    <div class="app-info">
+      <span class="version-badge">v1.0.1</span>
+      <h1>TopFO App</h1>
+      <div class="meta-row">
+        <span>📅 2026-07-08</span>
+        <span>📦 ~18 MB</span>
+        <span>🤖 Android 8.0+</span>
+      </div>
+    </div>
+    <div class="dl-area">
+      <a href="../download/TopFO-v1.0.1.apk" class="dl-btn" download>⬇ 下载 APK</a>
+      <div class="dl-size">v1.0.1 · 动态主题 · 全新图标</div>
+    </div>
+  </div>
+
+  <div style="margin-bottom:12px;">
+    <h2 style="font-size:16px;font-weight:600;">新功能亮点</h2>
+  </div>
+  <div class="feature-grid">
+    <div class="feature-card">
+      <span class="f-icon">🎨</span>
+      <h4>深色主题切换</h4>
+      <p>导航栏新增一键切换按钮，支持浅色/深色双主题，夜间阅读不刺眼</p>
+    </div>
+    <div class="feature-card">
+      <span class="f-icon">🏢</span>
+      <h4>全新 App 图标</h4>
+      <p>极简几何建筑设计风格，深色底色 + 蓝色阶梯 + 金色星标，辨识度拉满</p>
+    </div>
+    <div class="feature-card">
+      <span class="f-icon">🎯</span>
+      <h4>导航栏主题适配</h4>
+      <p>底部导航栏和侧边栏颜色跟随主题自动变化，不再硬编码</p>
+    </div>
+    <div class="feature-card">
+      <span class="f-icon">📊</span>
+      <h4>录取对照表</h4>
+      <p>9大专业方向 × 26所院校，含Co-op、学费、截止日期、城市信息</p>
+    </div>
+    <div class="feature-card">
+      <span class="f-icon">🏆</span>
+      <h4>三大排名参考</h4>
+      <p>QS 2027 / THE 2026 / US News 2026-2027 综合与专业排名</p>
+    </div>
+    <div class="feature-card">
+      <span class="f-icon">🔑</span>
+      <h4>个人数据匹配</h4>
+      <p>登录后自动匹配GPA和雅思成绩，显示各院校录取可能性</p>
+    </div>
+    <div class="feature-card">
+      <span class="f-icon">📁</span>
+      <h4>文件中心</h4>
+      <p>权威报告、录取数据、排名汇总等资料一键下载</p>
+    </div>
+    <div class="feature-card">
+      <span class="f-icon">📱</span>
+      <h4>平板自适应</h4>
+      <p>大屏设备自动切换到左侧导航栏布局，体验更佳</p>
+    </div>
+  </div>
+
+  <div class="changelog-section">
+    <h2>更新日志</h2>
+
+    <div class="changelog-item">
+      <span class="tag tag-new">新增</span>
+      <div class="changelog-text">深色主题切换开关：导航栏底部新增太阳/月亮图标，一键切换浅色/深色主题，偏好自动保存</div>
+    </div>
+    <div class="changelog-item">
+      <span class="tag tag-new">新增</span>
+      <div class="changelog-text">全新 App 图标：极简几何建筑风格，深色底板 + 蓝色柱状建筑 + 金色五角星</div>
+    </div>
+    <div class="changelog-item">
+      <span class="tag tag-improve">优化</span>
+      <div class="changelog-text">导航栏颜色全面适配 MaterialTheme colorScheme，不再使用硬编码颜色</div>
+    </div>
+    <div class="changelog-item">
+      <span class="tag tag-improve">优化</span>
+      <div class="changelog-text">主题偏好通过 SharedPreferences 持久化存储，重启 App 保持选择</div>
+    </div>
+  </div>
+
+  <div class="changelog-section">
+    <h2>技术规格</h2>
+    <table class="spec-table">
+      <tr><td>版本号</td><td>v1.0.1 (Build 2)</td></tr>
+      <tr><td>包名</td><td>com.topfo.app</td></tr>
+      <tr><td>最低系统</td><td>Android 8.0 (API 26)</td></tr>
+      <tr><td>目标系统</td><td>Android 15 (API 35)</td></tr>
+      <tr><td>开发语言</td><td>Kotlin + Jetpack Compose</td></tr>
+      <tr><td>UI 框架</td><td>Material 3 + WindowSizeClass</td></tr>
+      <tr><td>后端地址</td><td>https://topfo.pages.dev/</td></tr>
+      <tr><td>认证方式</td><td>JWT (HS256) + 加密SharedPreferences</td></tr>
+      <tr><td>数据存储</td><td>Room Database + NetworkFirst 策略</td></tr>
+      <tr><td>网页内容</td><td>WebView 加载 Cloudflare Pages 页面</td></tr>
+      <tr><td>主题引擎</td><td>LightColorScheme / DarkColorScheme 双方案</td></tr>
+    </table>
+  </div>
+
+  <div style="text-align:center;padding:32px 0;">
+    <a href="../download/TopFO-v1.0.1.apk" class="dl-btn" download>⬇ 下载 TopFO v1.0.1 APK</a>
+    <p style="font-size:13px;color:var(--c-text-tertiary);margin-top:16px;">
+      📱 App 与网页版数据实时同步 · 登录同一帐号即可
+    </p>
+  </div>
+</div>
+
+<footer class="footer">
+  <p>TopFO App 仅供学习参考 · 数据来源为各大学官方网站及QS/THE/US News公开排名</p>
+</footer>
+
+<script src="../js/auth.js"></script>
+<script>AUTH.initPage();</script>
+</body>
+</html>

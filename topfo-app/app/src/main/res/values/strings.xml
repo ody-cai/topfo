@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TopFO</string>
+    <string name="tab_home">首页</string>
+    <string name="tab_rankings">排名</string>
+    <string name="tab_files">文件</string>
+    <string name="tab_profile">我的</string>
+    <string name="login">登录</string>
+    <string name="logout">退出登录</string>
+    <string name="edit_data">编辑数据</string>
+    <string name="ai_advisor">AI 升学顾问</string>
+    <string name="guest_banner">登录后查看个人匹配数据</string>
+    <string name="app_tagline">加拿大大学升学数据平台</string>
+</resources>

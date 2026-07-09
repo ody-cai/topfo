@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Bar 1 (left, shortest) -->
+    <path
+        android:fillColor="#60A5FA"
+        android:pathData="M19,64h14v24H19z" />
+
+    <!-- Bar 2 -->
+    <path
+        android:fillColor="#3B82F6"
+        android:pathData="M38,56h14v32H38z" />
+
+    <!-- Bar 3 (center, tallest) -->
+    <path
+        android:fillColor="#1D4ED8"
+        android:pathData="M57,48h14v40H57z" />
+
+    <!-- Bar 4 (right) -->
+    <path
+        android:fillColor="#2563EB"
+        android:pathData="M76,60h14v28H76z" />
+
+    <!-- Wide top bar -->
+    <path
+        android:fillColor="#2563EB"
+        android:pathData="M19,44h71v6H19z" />
+
+    <!-- Narrow top bar -->
+    <path
+        android:fillColor="#1E40AF"
+        android:pathData="M28,38h43v6H28z" />
+
+    <!-- Star as polygon (5-pointed, filled) -->
+    <path
+        android:fillColor="#F59E0B"
+        android:pathData="M50,26l1.4,4.1h4.3l-3.5,2.6 1.3,4.2-3.5-2.6-3.5,2.6 1.4-4.2-3.6-2.6h4.4z" />
+</vector>
