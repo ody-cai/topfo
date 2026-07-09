@@ -480,6 +480,9 @@ const AUTH = {
     if (this._loginModalInjected) return;
     this._loginModalInjected = true;
 
+    // 如果页面 HTML 已经有弹窗了，不需要 JS 注入
+    if (document.getElementById('loginModal')) return;
+
     const t = (typeof I18N !== 'undefined' && I18N.t) ? I18N.t : (k) => k;
     const html = `
     <div id="loginModal" class="login-modal">
@@ -838,6 +841,9 @@ const AUTH = {
   _injectRegisterModal() {
     if (this._registerModalInjected) return;
     this._registerModalInjected = true;
+
+    // 如果页面 HTML 已经有注册弹窗了，不需要 JS 注入
+    if (document.getElementById('registerModal')) return;
 
     const t = (typeof I18N !== 'undefined' && I18N.t) ? I18N.t : (k) => k;
     const html = `

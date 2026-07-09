@@ -213,5 +213,52 @@
 <script src="../js/i18n.js"></script>
 <script src="../js/auth.js"></script>
 <script>AUTH.initPage();</script>
+
+<!-- ===== 登录弹窗 ===== -->
+<div id="loginModal" class="login-modal">
+  <div class="login-modal-content" style="max-width:360px;">
+    <h3 style="margin:0 0 16px;font-size:18px;font-weight:600;color:var(--c-text);">🔐 登录</h3>
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <input id="loginUser" type="text" placeholder="用户名"
+        style="padding:10px 14px;border:1px solid var(--c-border);border-radius:8px;font-size:14px;background:var(--c-bg-secondary);color:var(--c-text);outline:none;"
+        autocomplete="username">
+      <input id="loginPass" type="password" placeholder="密码"
+        style="padding:10px 14px;border:1px solid var(--c-border);border-radius:8px;font-size:14px;background:var(--c-bg-secondary);color:var(--c-text);outline:none;"
+        autocomplete="current-password">
+    </div>
+    <div id="loginError" style="display:none;color:#e74c3c;font-size:12px;margin:8px 0;"></div>
+    <button id="loginSubmitBtn" onclick="AUTH.handleLoginSubmit()"
+      style="width:100%;padding:12px;margin-top:12px;background:var(--c-primary);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:500;cursor:pointer;">登录</button>
+    <div style="margin-top:12px;text-align:center;font-size:12px;color:var(--c-text-tertiary);">
+      <a href="javascript:void(0)" onclick="AUTH.hideLoginModal();AUTH.showRegisterModal();" style="color:var(--c-primary);text-decoration:none;">还没有账号？注册</a>
+      &nbsp;·&nbsp;
+      <span style="cursor:pointer;">体验: demo / topfo2026</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 注册弹窗 ===== -->
+<div id="registerModal" class="login-modal">
+  <div class="login-modal-content" style="max-width:360px;">
+    <h3 style="margin:0 0 16px;font-size:18px;font-weight:600;color:var(--c-text);">📝 注册</h3>
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <input id="regUser" type="text" placeholder="用户名"
+        style="padding:10px 14px;border:1px solid var(--c-border);border-radius:8px;font-size:14px;background:var(--c-bg-secondary);color:var(--c-text);outline:none;"
+        autocomplete="username">
+      <input id="regPass" type="password" placeholder="密码"
+        style="padding:10px 14px;border:1px solid var(--c-border);border-radius:8px;font-size:14px;background:var(--c-bg-secondary);color:var(--c-text);outline:none;"
+        autocomplete="new-password">
+      <input id="regDisplay" type="text" placeholder="显示名称（选填）"
+        style="padding:10px 14px;border:1px solid var(--c-border);border-radius:8px;font-size:14px;background:var(--c-bg-secondary);color:var(--c-text);outline:none;">
+    </div>
+    <div id="regError" style="display:none;color:#e74c3c;font-size:12px;margin:8px 0;"></div>
+    <button id="regSubmitBtn" onclick="AUTH.handleRegisterSubmit()"
+      style="width:100%;padding:12px;margin-top:12px;background:var(--c-primary);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:500;cursor:pointer;">注册</button>
+    <div style="margin-top:12px;text-align:center;font-size:12px;color:var(--c-text-tertiary);">
+      <a href="javascript:void(0)" onclick="AUTH.hideRegisterModal();AUTH.showLoginModal();" style="color:var(--c-primary);text-decoration:none;">已有账号？登录</a>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
