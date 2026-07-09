@@ -60,13 +60,20 @@ export async function onRequestGet(context) {
         s.name
     `;
 
-    const result = await env.topfo_chat.prepare(query).bind(...params).all();
-
-    const schools = (result.results || []).map(s => ({
-      ...s,
-      programs: s.programs ? JSON.parse(s.programs) : [],
-      is_foundation: !!s.is_foundation
-    }));
+    let schools = [];
+    try {
+      const result = await env.topfo_chat.prepare(query).bind(...params).all();
+      schools = (result.results || []).map(s => ({
+        ...s,
+        programs: s.programs ? JSON.parse(s.programs) : [],
+        is_foundation: !!s.is_foundation
+      }));
+    } catch {
+      // D1 不可用，返回空列表
+      return Response.json({ schools: [] }, {
+        headers: { ...corsHeaders(), 'Cache-Control': 'public, max-age=60' }
+      });
+    }
 
     return Response.json({ schools }, {
       headers: {
@@ -75,6 +82,6 @@ export async function onRequestGet(context) {
       }
     });
   } catch (e) {
-    return Response.json({ error: e.message }, { status: 500, headers: corsHeaders() });
+    return Response.json({ schools: [] }, { headers: corsHeaders() });
   }
 }

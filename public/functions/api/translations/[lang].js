@@ -1,12 +1,11 @@
 // GET /api/translations/:lang — 返回指定语言的翻译 JSON
-// 支持 lang = zh / en / fr
+// 支持 lang = zh / en
 
 const TRANSLATIONS = {
   zh: {
     "app.title": "TopFO 加拿大留学申请助手",
     "nav.schools": "院校库",
     "nav.rankings": "排名",
-    "nav.tracker": "申请追踪",
     "nav.community": "社区",
     "nav.chat": "AI顾问",
     "nav.settings": "设置",
@@ -45,7 +44,6 @@ const TRANSLATIONS = {
     "app.title": "TopFO Study in Canada",
     "nav.schools": "Schools",
     "nav.rankings": "Rankings",
-    "nav.tracker": "Tracker",
     "nav.community": "Community",
     "nav.chat": "AI Advisor",
     "nav.settings": "Settings",
@@ -79,45 +77,6 @@ const TRANSLATIONS = {
     "priority.high": "High Priority",
     "priority.medium": "Medium Priority",
     "priority.low": "Low Priority"
-  },
-  fr: {
-    "app.title": "TopFO Études au Canada",
-    "nav.schools": "Écoles",
-    "nav.rankings": "Classements",
-    "nav.tracker": "Suivi",
-    "nav.community": "Communauté",
-    "nav.chat": "Conseiller IA",
-    "nav.settings": "Paramètres",
-    "tier.t1": "Difficile",
-    "tier.t2": "Réaliste",
-    "tier.t3": "Sécurité",
-    "tier.au": "Australie",
-    "status.planning": "Planification",
-    "status.applying": "En cours",
-    "status.submitted": "Soumis",
-    "status.accepted": "Accepté",
-    "status.rejected": "Refusé",
-    "status.waitlisted": "Liste d'attente",
-    "label.hard": "Difficile",
-    "label.close": "Limite",
-    "label.ok": "Sûr",
-    "label.na": "N/D",
-    "coop.yes": "Avec Co-op",
-    "coop.no": "Sans Co-op",
-    "dual.yes": "Admission double",
-    "dual.no": "Pas d'admission double",
-    "dual.limit": "Admission double limitée",
-    "recommend.reach": "Écoles ambitieuses",
-    "recommend.match": "Écoles correspondantes",
-    "recommend.safety": "Écoles de sécurité",
-    "recommend.australia": "Plan B Australie",
-    "gpa.label": "GPA",
-    "ielts.label": "IELTS",
-    "deadline.label": "Date limite",
-    "tuition.label": "Frais de scolarité",
-    "priority.high": "Haute priorité",
-    "priority.medium": "Priorité moyenne",
-    "priority.low": "Faible priorité"
   }
 };
 
@@ -140,7 +99,7 @@ export async function onRequestGet(context) {
 
     const translations = TRANSLATIONS[lang];
     if (!translations) {
-      return Response.json({ error: `Unsupported language: ${lang}. Supported: zh, en, fr` }, {
+      return Response.json({ error: `Unsupported language: ${lang}. Supported: zh, en` }, {
         status: 400,
         headers: corsHeaders()
       });

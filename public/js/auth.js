@@ -231,7 +231,6 @@ const AUTH = {
     langMenu.innerHTML = `
       <div class="nav-lang-option" data-lang="zh">🇨🇳 <span data-i18n="lang.zh">中文</span></div>
       <div class="nav-lang-option" data-lang="en">🇬🇧 <span data-i18n="lang.en">EN</span></div>
-      <div class="nav-lang-option" data-lang="fr">🇫🇷 <span data-i18n="lang.fr">FR</span></div>
     `;
     langMenu.querySelectorAll('.nav-lang-option').forEach(opt => {
       opt.addEventListener('click', async () => {
@@ -274,7 +273,7 @@ const AUTH = {
     }
 
     if (logged) {
-      btn.className = 'nav-auth-btn logged-in';
+      btn.className = 'nav-auth-btn logged';
       btn.textContent = user ? user.display : '用户';
       btn.title = '点击退出登录';
 
@@ -967,6 +966,9 @@ const AUTH = {
   }
 };
 
+// 显式暴露到 window，确保 inline onclick 可访问
+window.AUTH = AUTH;
+
 // 全局点击事件：关闭弹出层
 document.addEventListener('click', function(e) {
   // 语言菜单：点击外部关闭
@@ -982,7 +984,11 @@ document.addEventListener('click', function(e) {
   const loginModal = document.getElementById('loginModal');
   if (loginModal && loginModal.classList.contains('show')) {
     const content = loginModal.querySelector('.login-modal-content');
-    if (content && !content.contains(e.target) && e.target.id !== 'navAuthBtn') {
+    if (content && !content.contains(e.target) &&
+        e.target.id !== 'navAuthBtn' &&
+        !e.target.closest('.login-btn') &&
+        !e.target.closest('.cta-primary') &&
+        !e.target.closest('[onclick*="showLoginModal"]')) {
       AUTH.hideLoginModal();
     }
   }

@@ -135,7 +135,6 @@ tbody tr:hover{background:var(--c-bg)}
     <a href="admission.html" class="nav-link active" data-i18n="nav.admission">录取对照表</a>
     <a href="rankings.html" class="nav-link" data-i18n="nav.rankings">排名参考</a>
     <a href="insights.html" class="nav-link" data-i18n="nav.insights">关键发现</a>
-    <a href="tracker.html" class="nav-link" data-i18n="nav.tracker">申请追踪</a>
     <a href="community.html" class="nav-link" data-i18n="nav.community">社区</a>
     <a href="recommend.html" class="nav-link" data-i18n="nav.recommend">AI 选校</a>
     <a href="files.html" class="nav-link" data-i18n="nav.files">文件</a>
@@ -168,39 +167,39 @@ tbody tr:hover{background:var(--c-bg)}
   </div>
 
   <div class="controls">
-    <span class="section-label">专业：</span>
+    <span class="section-label" data-i18n="admission.program">专业：</span>
     <span id="progBtns">
-    <button class="tab-btn active" onclick="switchTab('all',this)">全部</button>
-    <button class="tab-btn" onclick="switchTab('eng',this)">工程</button>
-    <button class="tab-btn" onclick="switchTab('cs',this)">计算机</button>
-    <button class="tab-btn" onclick="switchTab('math',this)">数学</button>
-    <button class="tab-btn" onclick="switchTab('psych',this)">心理学</button>
-    <button class="tab-btn" onclick="switchTab('biz',this)">商科</button>
-    <button class="tab-btn" onclick="switchTab('health',this)">健康科学</button>
-    <button class="tab-btn" onclick="switchTab('sci',this)">理科</button>
-    <button class="tab-btn" onclick="switchTab('social',this)">社科</button>
+    <button class="tab-btn active" onclick="switchTab('all',this)" data-i18n="admission.all">全部</button>
+    <button class="tab-btn" onclick="switchTab('eng',this)" data-i18n="admission.eng">工程</button>
+    <button class="tab-btn" onclick="switchTab('cs',this)">CS</button>
+    <button class="tab-btn" onclick="switchTab('math',this)" data-i18n="admission.math">数学</button>
+    <button class="tab-btn" onclick="switchTab('psych',this)" data-i18n="admission.psych">心理学</button>
+    <button class="tab-btn" onclick="switchTab('biz',this)" data-i18n="admission.biz">商科</button>
+    <button class="tab-btn" onclick="switchTab('health',this)" data-i18n="admission.health">健康科学</button>
+    <button class="tab-btn" onclick="switchTab('sci',this)" data-i18n="admission.sci">理科</button>
+    <button class="tab-btn" onclick="switchTab('social',this)" data-i18n="admission.social">社科</button>
     </span>
     <div class="divider"></div>
     <!-- 筛选按钮：登录后才显示个人匹配筛选 -->
-    <span class="section-label private-section" style="display:none;">筛选：</span>
+    <span class="section-label private-section" style="display:none;" data-i18n="admission.filter">筛选：</span>
     <span id="filterBtns" class="private-section" style="display:none;">
-    <button class="tab-btn" onclick="filterMatch('all',this)">全部</button>
-    <button class="tab-btn" onclick="filterMatch('ok',this)">GPA够</button>
-    <button class="tab-btn active" onclick="filterMatch('dual-ok',this)">双录达标</button>
-    <button class="tab-btn" onclick="filterMatch('stretch',this)">需冲刺</button>
+    <button class="tab-btn" onclick="filterMatch('all',this)" data-i18n="admission.all">全部</button>
+    <button class="tab-btn" onclick="filterMatch('ok',this)" data-i18n="admission.filterGpaOk">GPA够</button>
+    <button class="tab-btn active" onclick="filterMatch('dual-ok',this)" data-i18n="admission.filterDualOk">双录达标</button>
+    <button class="tab-btn" onclick="filterMatch('stretch',this)" data-i18n="admission.filterStretch">需冲刺</button>
     </span>
     <div class="divider private-section" style="display:none;"></div>
-    <input class="search-input" type="text" placeholder="搜索学校…" oninput="handleSearch(this.value)">
+    <input class="search-input" type="text" data-i18n-placeholder="admission.search" placeholder="搜索学校…" oninput="handleSearch(this.value)">
   </div>
 
   <div class="update-bar">
-    <span>数据：各校官网 + uniscope.ca + eic.org.cn | 雅思/GPA/双录/Co-op/学费/截止日期</span>
+    <span data-i18n="admission.dataSource">数据：各校官网 + uniscope.ca + eic.org.cn | 雅思/GPA/双录/Co-op/学费/截止日期</span>
     <span class="fresh" id="updateDate">最后更新：2026-07-09</span>
   </div>
 
   <!-- 匹配速览：登录后显示 -->
   <div class="summary-box private-section" style="display:none;">
-    <h2>你的匹配速览（GPA <span class="data-gpa">—</span> · 雅思 <span class="data-ielts-total">—</span>）</h2>
+    <h2 data-i18n="admission.matchSummary">你的匹配速览（GPA <span class="data-gpa">—</span> · 雅思 <span class="data-ielts-total">—</span>）</h2>
     <div class="summary-grid" id="summaryGrid"></div>
   </div>
 
@@ -208,7 +207,7 @@ tbody tr:hover{background:var(--c-bg)}
 </div>
 
 <footer class="footer">
-  <p>数据来源：各校官网 + 三大排行榜 · 含分校区数据 · 定期手工更新</p>
+  <p data-i18n="footer.dataSource">数据来源：各校官网 + 三大排行榜 · 含分校区数据 · 定期手工更新</p>
 </footer>
 
 <script src="../js/data.js"></script>
@@ -235,10 +234,11 @@ function coopBadge(has,note){
 function matchTag(label){
   // 访客模式不显示匹配标签
   if(!isLoggedIn) return '';
-  if(label==='ok') return '<span class="match green">✓够</span>';
-  if(label==='close') return '<span class="match yellow">≈接近</span>';
-  if(label==='hard') return '<span class="match red">✗差远</span>';
-  if(label==='na') return '<span class="match red">✗不可</span>';
+  const t = (k) => { const v = typeof I18N !== 'undefined' ? I18N.t(k) : ''; return v || {ok:'✓够',close:'≈接近',hard:'✗差远',na:'✗不可'}[k] || k; };
+  if(label==='ok') return '<span class="match green">' + t('admission.matchOk') + '</span>';
+  if(label==='close') return '<span class="match yellow">' + t('admission.matchClose') + '</span>';
+  if(label==='hard') return '<span class="match red">' + t('admission.matchHard') + '</span>';
+  if(label==='na') return '<span class="match red">' + t('admission.matchNa') + '</span>';
   return '';
 }
 
@@ -488,7 +488,7 @@ if(isLoggedIn) {
   currentMatch = 'all';
   renderTables();
 }
-document.getElementById('updateDate').textContent = '最后更新：' + new Date().toISOString().split('T')[0];
+document.getElementById('updateDate').textContent = (typeof I18N !== 'undefined' ? I18N.t('admission.lastUpdate', {date: new Date().toISOString().split('T')[0]}) : '最后更新：' + new Date().toISOString().split('T')[0]);
 </script>
 
 <!-- ===== 登录弹窗 ===== -->

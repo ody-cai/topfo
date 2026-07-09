@@ -1,30 +1,49 @@
 # 代码审查报告
 
-**审查时间**: 2026-06-30 09:49:39
+**审查时间**: 2026-07-09 13:35:09
 **审查目录**: `/Users/odycai/WorkBuddy/2026-06-16-17-01-52/public`
-**扫描文件**: 2 / 2
+**扫描文件**: 21 / 21
 
 
 ## 📊 审查统计
 
-- **总问题数**: 241
+- **总问题数**: 280
 - **严重问题**: 0 🔴
-- **一般问题**: 0 🟡
-- **优化建议**: 241 🔵
+- **一般问题**: 1 🟡
+- **优化建议**: 279 🔵
 
 ### 代码指标
 
-- **总代码行数**: 447
-- **注释行数**: 0
-- **注释覆盖率**: 0.0%
+- **总代码行数**: 3336
+- **注释行数**: 173
+- **注释覆盖率**: 5.19%
 
 
 ## 📁 文件级别分析
 
 | 文件 | 语言 | 行数 | 问题数 | 注释行 |
 |------|------|------|--------|--------|
-| js/rankings.js | javascript | 121 | 0 | 0 |
-| js/data.js | javascript | 326 | 241 | 0 |
+| js/rankings.js | javascript | 125 | 0 | 3 |
+| js/auth.js | javascript | 1032 | 15 | 55 |
+| js/data.js | javascript | 325 | 241 | 2 |
+| js/i18n.js | javascript | 71 | 1 | 7 |
+| functions/api/rankings.js | javascript | 84 | 0 | 4 |
+| functions/api/schools.js | javascript | 88 | 0 | 3 |
+| functions/api/reminders.js | javascript | 89 | 0 | 4 |
+| functions/api/discussions.js | javascript | 115 | 0 | 9 |
+| functions/api/login.js | javascript | 108 | 7 | 6 |
+| functions/api/programs.js | javascript | 70 | 0 | 2 |
+| functions/api/_middleware.js | javascript | 73 | 2 | 6 |
+| functions/api/chat.js | javascript | 204 | 5 | 14 |
+| functions/api/notifications.js | javascript | 105 | 0 | 5 |
+| functions/api/discussions/[id].js | javascript | 57 | 1 | 5 |
+| functions/api/discussions/[id]/comments.js | javascript | 91 | 0 | 5 |
+| functions/api/auth/register.js | javascript | 90 | 3 | 5 |
+| functions/api/ai/recommend.js | javascript | 224 | 1 | 17 |
+| functions/api/me/data.js | javascript | 116 | 2 | 8 |
+| functions/api/schools/[id].js | javascript | 66 | 1 | 4 |
+| functions/api/translations/[lang].js | javascript | 118 | 1 | 2 |
+| functions/api/cron/reminders.js | javascript | 85 | 0 | 7 |
 
 ## 📖 代码可读性评估
 
@@ -32,7 +51,7 @@
 
 ### 评估指标
 
-1. **注释覆盖率**: 0.0%
+1. **注释覆盖率**: 5.19%
    - 评价: 注释覆盖率偏低，建议增加函数和复杂逻辑的注释
 
 ### 改进建议
@@ -62,4 +81,4 @@
 
 ---
 
-*本报告由代码审查工具自动生成 - 2026-06-30 09:49:58*
+*本报告由代码审查工具自动生成 - 2026-07-09 13:35:14*

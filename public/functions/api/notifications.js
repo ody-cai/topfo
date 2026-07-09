@@ -17,7 +17,7 @@ export async function onRequestOptions() {
 export async function onRequestGet(context) {
   const { request, env } = context;
 
-  if (!context.userId) {
+  if (!context.data.userId) {
     return Response.json({ error: '请先登录' }, { status: 401, headers: corsHeaders() });
   }
 
@@ -30,11 +30,11 @@ export async function onRequestGet(context) {
     if (markRead) {
       await env.topfo_chat.prepare(
         'UPDATE notifications SET is_read = 1 WHERE user_id = ? AND is_read = 0'
-      ).bind(context.userId).run();
+      ).bind(context.data.userId).run();
     }
 
     let conditions = ['n.user_id = ?'];
-    let params = [context.userId];
+    let params = [context.data.userId];
 
     if (unreadOnly) {
       conditions.push('n.is_read = 0');
@@ -54,7 +54,7 @@ export async function onRequestGet(context) {
     // 查未读数
     const unreadResult = await env.topfo_chat.prepare(
       'SELECT COUNT(*) as count FROM notifications WHERE user_id = ? AND is_read = 0'
-    ).bind(context.userId).first();
+    ).bind(context.data.userId).first();
 
     return Response.json({
       notifications: (result.results || []).map(n => ({ ...n, is_read: !!n.is_read })),
@@ -69,7 +69,7 @@ export async function onRequestGet(context) {
 export async function onRequestPost(context) {
   const { request, env } = context;
 
-  if (!context.userId) {
+  if (!context.data.userId) {
     return Response.json({ error: '请先登录' }, { status: 401, headers: corsHeaders() });
   }
 

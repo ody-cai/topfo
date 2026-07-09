@@ -66,7 +66,7 @@ export async function onRequest(context) {
     return Response.json({ error: "Invalid or expired token" }, { status: 401, headers: corsHeaders() });
   }
 
-  // 把 claims 传递给下游 handler
-  context.data = { claims };
+  // 把 claims 和 userId 传递给下游 handler
+  context.data = { claims, userId: claims.sub };
   return next();
 }

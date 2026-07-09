@@ -133,7 +133,6 @@ INSERT OR IGNORE INTO translations (lang, key, value) VALUES
   ('zh', 'app.title', 'TopFO 加拿大留学申请助手'),
   ('zh', 'nav.schools', '院校库'),
   ('zh', 'nav.rankings', '排名'),
-  ('zh', 'nav.tracker', '申请追踪'),
   ('zh', 'nav.community', '社区'),
   ('zh', 'nav.chat', 'AI顾问'),
   ('zh', 'nav.settings', '设置'),
@@ -150,7 +149,6 @@ INSERT OR IGNORE INTO translations (lang, key, value) VALUES
   ('en', 'app.title', 'TopFO Study in Canada'),
   ('en', 'nav.schools', 'Schools'),
   ('en', 'nav.rankings', 'Rankings'),
-  ('en', 'nav.tracker', 'Tracker'),
   ('en', 'nav.community', 'Community'),
   ('en', 'nav.chat', 'AI Advisor'),
   ('en', 'nav.settings', 'Settings'),
@@ -163,18 +161,7 @@ INSERT OR IGNORE INTO translations (lang, key, value) VALUES
   ('en', 'status.submitted', 'Submitted'),
   ('en', 'status.accepted', 'Accepted'),
   ('en', 'status.rejected', 'Rejected'),
-  ('en', 'status.waitlisted', 'Waitlisted'),
-  ('fr', 'app.title', 'TopFO Études au Canada'),
-  ('fr', 'nav.schools', 'Écoles'),
-  ('fr', 'nav.rankings', 'Classements'),
-  ('fr', 'nav.tracker', 'Suivi'),
-  ('fr', 'nav.community', 'Communauté'),
-  ('fr', 'nav.chat', 'Conseiller IA'),
-  ('fr', 'nav.settings', 'Paramètres'),
-  ('fr', 'tier.t1', 'Difficile'),
-  ('fr', 'tier.t2', 'Réaliste'),
-  ('fr', 'tier.t3', 'Sécurité'),
-  ('fr', 'tier.au', 'Australie');
+  ('en', 'status.waitlisted', 'Waitlisted');
 
 -- 用户表
 CREATE TABLE IF NOT EXISTS users (
