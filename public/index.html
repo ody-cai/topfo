@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TopFO · 学生升学数据平台</title>
+<title data-i18n="home.title">TopFO · 学生升学数据平台</title>
 <link rel="stylesheet" href="css/common.css">
 <style>
 .hero { padding:80px 0 56px; }
@@ -18,7 +18,7 @@
 }
 .cta-primary { background:var(--c-accent);color:#fff; }
 .cta-primary:hover { background:var(--c-accent-hover);transform:translateY(-2px);box-shadow:0 8px 24px rgba(79,70,229,.3); }
-.cta-secondary { background:var(--c-surface);color:var(--c-accent);border:0.5px solid var(--c-accent); }
+.cta-secondary { background:var(--c-surface);color:var(--c-accent);border:1px solid var(--c-accent); }
 .cta-secondary:hover { background:var(--c-accent-light); }
 
 .stats-grid { margin-top:24px; }
@@ -34,7 +34,7 @@
 .phase-cards { display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px; }
 .phase-card {
   background:var(--c-surface);border-radius:var(--radius-md);
-  padding:20px;border:0.5px solid var(--c-border);
+  padding:20px;border:1px solid var(--c-border);
   transition:all var(--transition);
 }
 .phase-card:hover { box-shadow:var(--shadow-md);transform:translateY(-2px); }
@@ -53,7 +53,7 @@
 .highlights-section {
   background:var(--c-surface);
   border-radius:var(--radius-lg);
-  border:0.5px solid var(--c-border);
+  border:1px solid var(--c-border);
   padding:28px 32px;
   margin-top:32px;
   position:relative;
@@ -92,7 +92,7 @@
   display:flex;gap:14px;
   align-items:flex-start;
   transition:all var(--transition);
-  border:0.5px solid transparent;
+  border:1px solid transparent;
   animation:fadeInUp .5s ease forwards;
   opacity:0;
 }
@@ -126,7 +126,7 @@
 /* 访客提示 */
 .visitor-banner {
   background:var(--c-accent-light);
-  border:0.5px solid var(--c-accent);
+  border:1px solid var(--c-accent);
   border-radius:var(--radius-md);
   padding:24px 32px;
   margin-top:24px;
@@ -165,7 +165,7 @@
 .login-field label { font-size:12px;font-weight:500;color:var(--c-text-secondary);margin-bottom:4px;display:block; }
 .login-field input {
   width:100%;padding:10px 14px;border-radius:var(--radius-sm);
-  border:0.5px solid var(--c-border-strong);font-size:14px;
+  border:1px solid var(--c-border-strong);font-size:14px;
   background:var(--c-bg);color:var(--c-text);outline:none;
 }
 .login-field input:focus { border-color:var(--c-accent); }
@@ -187,7 +187,7 @@
 .nav-auth-btn {
   font-size:12px;padding:5px 14px;border-radius:var(--radius-sm);
   background:var(--c-accent-light);color:var(--c-accent);
-  cursor:pointer;font-weight:500;border:0.5px solid var(--c-accent);
+  cursor:pointer;font-weight:500;border:1px solid var(--c-accent);
   transition:all var(--transition);margin-left:8px;white-space:nowrap;
 }
 .nav-auth-btn:hover { background:var(--c-accent);color:#fff; }
@@ -203,45 +203,32 @@
 <body>
 
 <nav class="nav-bar">
-  <a href="index.html" class="nav-logo"><span class="dot"></span> 升学数据</a>
+  <a href="index.html" class="nav-logo"><span class="dot"></span> <span data-i18n="nav.home">升学数据</span></a>
   <div class="nav-links">
-    <a href="index.html" class="nav-link active">首页</a>
-    <a href="pages/admission.html" class="nav-link">录取对照表</a>
-    <a href="pages/rankings.html" class="nav-link">排名参考</a>
-    <a href="pages/insights.html" class="nav-link">关键发现</a>
-    <a href="pages/files.html" class="nav-link">文件</a>
-    <a href="pages/download.html" class="nav-link">下载APP</a>
-    <button id="navAuthBtn" class="nav-auth-btn" onclick="AUTH.handleNavAuthClick()">登录</button>
+    <a href="index.html" class="nav-link active" data-i18n="nav.home">首页</a>
+    <a href="pages/admission.html" class="nav-link" data-i18n="nav.admission">录取对照</a>
+    <a href="pages/rankings.html" class="nav-link" data-i18n="nav.rankings">排名参考</a>
+    <a href="pages/insights.html" class="nav-link" data-i18n="nav.insights">关键发现</a>
+    <a href="pages/tracker.html" class="nav-link" data-i18n="nav.tracker">申请追踪</a>
+    <a href="pages/community.html" class="nav-link" data-i18n="nav.community">社区</a>
+    <a href="pages/recommend.html" class="nav-link" data-i18n="nav.recommend">AI 选校</a>
+    <a href="pages/files.html" class="nav-link" data-i18n="nav.files">资料文件</a>
+    <a href="pages/download.html" class="nav-link" data-i18n="nav.download">下载App</a>
+    <a href="pages/notifications.html" class="nav-link" data-i18n="nav.notifications">🔔 通知</a>
+    <button id="navAuthBtn" class="nav-auth-btn" onclick="AUTH.handleNavAuthClick()" data-i18n="nav.login">登录</button>
   </div>
 </nav>
 
-<!-- 登录弹窗 -->
-<div id="loginModal" class="login-modal">
-  <div class="login-modal-content">
-    <button class="login-close" onclick="AUTH.hideLoginModal()">✕</button>
-    <h2>登录查看个人数据</h2>
-    <p class="login-sub">登录后可查看个性化录取匹配、GPA分析、升学策略等私密数据</p>
-    <div class="login-field">
-      <label>用户名</label>
-      <input id="loginUser" type="text" placeholder="请输入用户名" autocomplete="username">
-    </div>
-    <div class="login-field">
-      <label>密码</label>
-      <input id="loginPass" type="password" placeholder="请输入密码" autocomplete="current-password">
-    </div>
-    <div id="loginError" class="login-error"></div>
-    <button id="loginSubmitBtn" class="login-submit" onclick="AUTH.handleLoginSubmit()">登录</button>
-  </div>
-</div>
 
 <div class="page-container">
 
   <!-- Hero -->
   <section class="hero">
     <div class="hero-content">
-      <h1><span class="highlight">升学数据</span><br>平台</h1>
+      <h1><span class="highlight" data-i18n="home.title">升学数据</span><br><span data-i18n="home.subtitle">平台</span></h1>
+      <p class="hero-sub" data-i18n="home.subtitle" style="display:none;">一站式数据平台</p>
       <p class="hero-sub">9大专业方向 · 26所院校含分校区 · 加拿大+澳洲 · 排名+录取+Co-op全覆盖</p>
-      <div class="hero-badge">📅 每日自动更新 · 数据来源：各校官网 + QS + THE + US News</div>
+      <div class="hero-badge">📅 <span data-i18n="footer.dataSource">数据来源：各校官网 + QS + THE + US News · 手工维护</span></div>
       <div class="cta-row" style="margin-top:20px;">
         <a href="pages/admission.html" class="cta-btn cta-primary visitor-only">📋 查看录取要求 →</a>
         <a href="pages/rankings.html" class="cta-btn cta-secondary">📊 查看排名数据 →</a>
@@ -252,18 +239,18 @@
 
   <!-- 访客提示：未登录时显示 -->
   <div class="visitor-banner visitor-only">
-    <h3>🔒 登录后可查看个人升学数据</h3>
-    <p>排行榜和基本录取数据对所有人开放。登录后可解锁：GPA匹配分析、雅思达标筛选、个人升学策略、三阶段规划等私密内容。</p>
-    <button class="login-btn" onclick="AUTH.showLoginModal()">🔑 立即登录</button>
+    <h3>🔒 <span data-i18n="home.visitor.title">登录后可查看个人升学数据</span></h3>
+    <p data-i18n="home.visitor.desc">排行榜和基本录取数据对所有人开放。登录后可解锁：GPA匹配分析、雅思达标筛选、个人升学策略、三阶段规划等私密内容。</p>
+    <button class="login-btn" onclick="AUTH.showLoginModal()">🔑 <span data-i18n="home.visitor.loginBtn">立即登录</span></button>
   </div>
 
   <!-- 数据亮点（公开，无需登录） -->
   <div class="highlights-section fade-in">
     <div class="highlights-header">
       <span style="font-size:20px;">💡</span>
-      <span style="font-size:16px;font-weight:700;color:var(--c-text);">今日数据亮点</span>
-      <span class="hl-badge">公开 · 随机展示</span>
-      <button class="hl-refresh" onclick="refreshHighlights()" title="换一批">🔄 换一批</button>
+      <span style="font-size:16px;font-weight:700;color:var(--c-text);" data-i18n="home.highlights.title">今日数据亮点</span>
+      <span class="hl-badge" data-i18n="home.highlights.badge">公开 · 随机展示</span>
+      <button class="hl-refresh" onclick="refreshHighlights()" data-i18n="home.highlights.refresh">🔄 换一批</button>
     </div>
     <div class="highlights-grid" id="highlightsGrid">
       <!-- JS 动态渲染 -->
@@ -275,25 +262,25 @@
     <div class="stat-card fade-in">
       <div class="stat-icon">📚</div>
       <div class="stat-value"><span class="data-gpa">—</span>%</div>
-      <div class="stat-label">当前GPA</div>
+      <div class="stat-label" data-i18n="home.gpa">当前GPA</div>
       <div class="stat-detail">目标冲刺 90%</div>
     </div>
     <div class="stat-card fade-in delay-1">
       <div class="stat-icon">🌐</div>
       <div class="stat-value"><span class="data-ielts-total">—</span></div>
-      <div class="stat-label">雅思总分</div>
+      <div class="stat-label" data-i18n="home.ielts">雅思总分</div>
       <div class="stat-detail"><span class="data-ielts-detail">—</span></div>
     </div>
     <div class="stat-card fade-in delay-2">
       <div class="stat-icon">🎯</div>
       <div class="stat-value">6.5</div>
-      <div class="stat-label">目标雅思</div>
+      <div class="stat-label" data-i18n="common.search">目标雅思</div>
       <div class="stat-detail">单项不低于5.5-6.0</div>
     </div>
     <div class="stat-card fade-in delay-3">
       <div class="stat-icon">🏫</div>
       <div class="stat-value">26</div>
-      <div class="stat-label">追踪院校</div>
+      <div class="stat-label" data-i18n="nav.recommend">追踪院校</div>
       <div class="stat-detail">含分校区 + 澳洲预科</div>
     </div>
   </div>
@@ -302,7 +289,7 @@
   <div class="nav-cards">
     <a href="pages/admission.html" class="nav-card card-admission fade-in delay-1">
       <div class="card-icon">📋</div>
-      <div class="card-title card-admission-title">录取要求对照表</div>
+      <div class="card-title card-admission-title" data-i18n="admission.title">录取要求对照表</div>
       <div class="card-desc visitor-only">9大专业方向 × 26所院校的完整录取数据，包括GPA要求、雅思标准、双录取路径、Co-op、学费、截止日期。</div>
       <div class="card-desc private-section" style="display:none;">9大专业方向 × 26所院校的完整录取数据，支持按你的GPA和雅思做个性化匹配筛选。</div>
       <div class="card-tags">
@@ -314,7 +301,7 @@
     </a>
     <a href="pages/rankings.html" class="nav-card card-rankings fade-in delay-2">
       <div class="card-icon">📊</div>
-      <div class="card-title card-rankings-title">三大排名参考</div>
+      <div class="card-title card-rankings-title" data-i18n="rankings.title">三大排名参考</div>
       <div class="card-desc">QS 2025/2027 · THE 2026 · US News 2025-2027 综合排名 + 8个专业排名，涵盖计算机、工程、数学、心理学等方向。</div>
       <div class="card-tags">
         <span class="card-tag tag-warning">QS排名</span>
@@ -325,7 +312,7 @@
     </a>
     <a href="pages/insights.html" class="nav-card card-insights fade-in delay-3">
       <div class="card-icon">💡</div>
-      <div class="card-title card-insights-title">关键发现与建议</div>
+      <div class="card-title card-insights-title" data-i18n="nav.insights">关键发现与建议</div>
       <div class="card-desc visitor-only">登录后可查看基于个人数据的升学策略分析、现实可行选择、冲刺目标、时间规划建议。</div>
       <div class="card-desc private-section" style="display:none;">基于你的数据的升学策略分析：现实可行选择、冲刺目标、备选路径、时间规划建议。</div>
       <div class="card-tags visitor-only">
@@ -340,7 +327,7 @@
     </a>
     <a href="pages/files.html" class="nav-card card-files fade-in delay-4">
       <div class="card-icon">📁</div>
-      <div class="card-title card-files-title">文件中心</div>
+      <div class="card-title card-files-title" data-i18n="nav.files">文件中心</div>
       <div class="card-desc">权威报告与政策文件解读，包括QS未来技能指数等升学相关参考资料。含原文下载，持续更新。</div>
       <div class="card-tags">
         <span class="card-tag tag-accent">QS报告</span>
@@ -351,7 +338,7 @@
     </a>
     <a href="pages/download.html" class="nav-card card-download fade-in delay-5">
       <div class="card-icon">📲</div>
-      <div class="card-title card-download-title">下载 App</div>
+      <div class="card-title card-download-title" data-i18n="nav.download">下载 App</div>
       <div class="card-desc">TopFO Android 客户端，随身携带升学数据。支持录取对照、排名查询、AI 顾问，数据与网页版实时同步。</div>
       <div class="card-tags">
         <span class="card-tag tag-accent">Android</span>
@@ -368,7 +355,7 @@
     <div class="phase-cards">
       <div class="phase-card fade-in">
         <span class="phase-tag now">现在 — 2026年9月</span>
-        <h3>第一阶段：保底申请</h3>
+        <h3 data-i18n="home.plan.phase1">第一阶段：保底申请</h3>
         <ul class="phase-list">
           <li>渥太华大学（雅思5.0双录已达标）</li>
           <li>温莎大学（ELIP双录门槛4.5+）</li>
@@ -379,7 +366,7 @@
       </div>
       <div class="phase-card fade-in delay-1">
         <span class="phase-tag next">2026年9月 — 2027年1月</span>
-        <h3>第二阶段：冲刺雅思</h3>
+        <h3 data-i18n="home.plan.phase2">第二阶段：冲刺雅思</h3>
         <ul class="phase-list">
           <li>重点突破阅读（4.5→6.0）和听力（4.5→6.0）</li>
           <li>麦马（数学85%你踩线，需雅思6.5）</li>
@@ -390,7 +377,7 @@
       </div>
       <div class="phase-card fade-in delay-2">
         <span class="phase-tag later">备选方案</span>
-        <h3>第三阶段：澳洲预科</h3>
+        <h3 data-i18n="home.plan.phase3">第三阶段：澳洲预科</h3>
         <ul class="phase-list">
           <li>UNSW Extended预科（雅思5.0已达标！升学率91%）</li>
           <li>昆士兰大学标准预科（雅思5.0已达标）</li>
@@ -404,11 +391,21 @@
 </div>
 
 <footer class="footer">
-  <p>数据来源：各校官网(2026) + QS World Rankings + THE World Rankings + US News Global · 每日自动更新</p>
+  <p data-i18n="footer.dataSource">数据来源：各校官网 + 三大排行榜 · 定期手工更新</p>
+  <p data-i18n="footer.copyright" style="margin-top:4px;">© 2026 TopFO · 加拿大大学升学规划平台</p>
 </footer>
 
+<script src="js/i18n.js"></script>
 <script src="js/auth.js"></script>
 <script>
+// ===== 页面初始化 =====
+(async function init() {
+  // 初始化 i18n
+  if (typeof I18N !== 'undefined') {
+    await I18N.init();
+  }
+})();
+
 // Scroll animations
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });

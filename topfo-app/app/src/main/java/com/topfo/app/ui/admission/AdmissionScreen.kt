@@ -39,14 +39,47 @@ fun AdmissionScreen(viewModel: AdmissionViewModel, onBack: () -> Unit) {
 }
 
 @Composable
-private fun SchoolCard(school: SchoolEntity, programs: List<ProgramEntity>, showMatch: Boolean, userGpa: Double) { var expanded by remember { mutableStateOf(false) }; GlassCard(Modifier.fillMaxWidth(), onClick = { expanded = !expanded }, contentPadding = PaddingValues(Dimens.lg)) { Row(verticalAlignment = Alignment.CenterVertically) { Column(Modifier.weight(1f)) { Text(school.name, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.onSurface); Spacer(Modifier.height(2.dp)); Text("${school.city} · ${school.province}", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant) }; Icon(if (expanded) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown, "expand", tint = Slate400) }; Spacer(Modifier.height(Dimens.sm)); Row { GlassChip("\uD83D\uDCC5 ${school.deadline}"); Spacer(Modifier.width(Dimens.sm)); GlassChip("\uD83D\uDCB0 ${school.tuitionRMB}/年") }; AnimatedVisibility(expanded) { Column { Spacer(Modifier.height(Dimens.md)); HorizontalDivider(color = Slate200, thickness = Dimens.dividerThickness); Spacer(Modifier.height(Dimens.sm)); programs.forEach { ProgramRow(it, showMatch, userGpa); Spacer(Modifier.height(6.dp)) } } } }
+private fun SchoolCard(school: SchoolEntity, programs: List<ProgramEntity>, showMatch: Boolean, userGpa: Double) {
+    var expanded by remember { mutableStateOf(false) }
+    GlassCard(
+        modifier = Modifier.fillMaxWidth(),
+        onClick = { expanded = !expanded },
+        contentPadding = PaddingValues(Dimens.lg)
+    ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Column(Modifier.weight(1f)) {
+                Text(school.name, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.onSurface)
+                Spacer(Modifier.height(2.dp))
+                Text("${school.city} · ${school.province}", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
+            Icon(if (expanded) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown, "expand", tint = Slate400)
+        }
+        Spacer(Modifier.height(Dimens.sm))
+        Row {
+            GlassChip("\uD83D\uDCC5 ${school.deadline}")
+            Spacer(Modifier.width(Dimens.sm))
+            GlassChip("\uD83D\uDCB0 ${school.tuitionRMB}/年")
+        }
+        AnimatedVisibility(expanded) {
+            Column {
+                Spacer(Modifier.height(Dimens.md))
+                HorizontalDivider(color = Slate200, thickness = Dimens.dividerThickness)
+                Spacer(Modifier.height(Dimens.sm))
+                programs.forEach {
+                    ProgramRow(it, showMatch, userGpa)
+                    Spacer(Modifier.height(6.dp))
+                }
+            }
+        }
+    }
+}
 
 @Composable
 private fun ProgramRow(prog: ProgramEntity, showMatch: Boolean, userGpa: Double) {
     var showNote by remember { mutableStateOf(false) }
     val mc = when (prog.label) { "ok" -> Emerald500; "close" -> Amber500; "hard" -> Red500; else -> Slate400 }
     val mt = when (prog.label) { "ok" -> "✓够"; "close" -> "≈近"; "hard" -> "✗难"; else -> "—" }
-    Surface(shape = RoundedCornerShape(Dimens.glassSm), color = MaterialTheme.colorScheme.surfaceVariant, Modifier.fillMaxWidth()) {
+    Surface(modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(Dimens.glassSm), color = MaterialTheme.colorScheme.surfaceVariant) {
         Column(Modifier.padding(Dimens.md)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(prog.programName, fontSize = 14.sp, fontWeight = FontWeight.Medium)

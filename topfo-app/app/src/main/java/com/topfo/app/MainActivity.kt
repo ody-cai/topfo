@@ -15,6 +15,7 @@ import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -85,7 +86,37 @@ fun MainScreen(isExpandedScreen: Boolean = false, isDark: Boolean = false, onTog
     }
 
     if (profileState.showLogin) {
-        var u by remember { mutableStateOf("") }; var p by remember { mutableStateOf("") }
-        GlassDialog(onDismiss = profileVM::hideLogin, title = "登录", onConfirm = { profileVM.login(u, p) }, isLoading = profileState.isLoading, text = { Column { OutlinedTextField(u, { u = it }, label = { Text("用户名") }, Modifier.fillMaxWidth(), singleLine = true); Spacer(Modifier.height(8.dp)); OutlinedTextField(p, { p = it }, label = { Text("密码") }, Modifier.fillMaxWidth(), singleLine = true, visualTransformation = PasswordVisualTransformation()); if (profileState.loginError != null) { Spacer(Modifier.height(8.dp)); Text(profileState.loginError!!, color = Red500, fontSize = MaterialTheme.typography.bodySmall.fontSize) } } })
+        var u by remember { mutableStateOf("") }
+        var p by remember { mutableStateOf("") }
+        GlassDialog(
+            onDismiss = profileVM::hideLogin,
+            title = "登录",
+            onConfirm = { profileVM.login(u, p) },
+            isLoading = profileState.isLoading,
+            text = {
+                Column {
+                    OutlinedTextField(
+                        value = u,
+                        onValueChange = { v -> u = v },
+                        label = { Text("用户名") },
+                        modifier = Modifier.fillMaxWidth(),
+                        singleLine = true
+                    )
+                    Spacer(Modifier.height(8.dp))
+                    OutlinedTextField(
+                        value = p,
+                        onValueChange = { v -> p = v },
+                        label = { Text("密码") },
+                        modifier = Modifier.fillMaxWidth(),
+                        singleLine = true,
+                        visualTransformation = PasswordVisualTransformation()
+                    )
+                    if (profileState.loginError != null) {
+                        Spacer(Modifier.height(8.dp))
+                        Text(profileState.loginError!!, color = Red500, fontSize = MaterialTheme.typography.bodySmall.fontSize)
+                    }
+                }
+            }
+        )
     }
 }

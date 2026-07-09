@@ -1,11 +1,4 @@
-// POST /api/login - PBKDF2-SHA256 password verification + JWT issue
-const PW_SALT = "6537689ccc9064f9b12b5379837eacf2";
-const USERS = {
-  caiqijun: { hash: "3a2461f7988fbce6135ec558a301fb53dd2c80bb0350c485a385fe19f74d3344", role: "user", name: "奇均", display: "奇均" },
-  demo:     { hash: "a2190df6895d6cc65f283240b8244b9538b27311e781c89184be2cce4e7c698a", role: "demo", name: "访客", display: "体验用户" }
-};
-const JWT_SECRET = "2baea092dd1542e27bdbbde82a3491cb5e3e30cfcd1fba8f4c5e5731b22859a0";
-
+// POST /api/login - PBKDF2-SHA256 password verification + JWT issue (D1 multi-user)
 function hexToBytes(hex) {
   const bytes = new Uint8Array(hex.length / 2);
   for (let i = 0; i < hex.length; i += 2) bytes[i / 2] = parseInt(hex.substring(i, i + 2), 16);
@@ -37,13 +30,13 @@ async function pbkdf2Verify(password, saltHex, hashHex) {
   return bytesToHex(new Uint8Array(derived)) === hashHex;
 }
 
-async function issueJWT(username) {
+async function issueJWT(username, role, secretHex) {
   const header = { alg: "HS256", typ: "JWT" };
   const now = Math.floor(Date.now() / 1000);
-  const payload = { sub: username, role: "user", iat: now, exp: now + 86400 };
+  const payload = { sub: username, role: role, iat: now, exp: now + 604800 }; // 7 days
   const headerB64 = b64url(new TextEncoder().encode(JSON.stringify(header)));
   const payloadB64 = b64url(new TextEncoder().encode(JSON.stringify(payload)));
-  const sig = await hmacSign(`${headerB64}.${payloadB64}`, JWT_SECRET);
+  const sig = await hmacSign(`${headerB64}.${payloadB64}`, secretHex);
   return `${headerB64}.${payloadB64}.${b64url(sig)}`;
 }
 
@@ -61,21 +54,31 @@ export async function onRequestOptions() {
 
 export async function onRequestPost(context) {
   try {
-    const { request } = context;
+    const { request, env } = context;
     const body = await request.text();
     let username, password;
     try { ({ username, password } = JSON.parse(body)); } catch { return Response.json({ error: "Invalid JSON" }, { status: 400, headers: corsHeaders() }); }
 
     if (!username || !password) return Response.json({ error: "Missing username or password" }, { status: 400, headers: corsHeaders() });
 
-    const userDef = USERS[username];
-    if (!userDef) return Response.json({ error: "Invalid credentials" }, { status: 401, headers: corsHeaders() });
+    // 从 D1 查询用户
+    const result = await env.topfo_chat.prepare(
+      `SELECT username, password_hash, salt, role, display_name FROM users WHERE username = ?`
+    ).bind(username).first();
 
-    const ok = await pbkdf2Verify(password, PW_SALT, userDef.hash);
+    if (!result) return Response.json({ error: "Invalid credentials" }, { status: 401, headers: corsHeaders() });
+
+    const ok = await pbkdf2Verify(password, result.salt, result.password_hash);
     if (!ok) return Response.json({ error: "Invalid credentials" }, { status: 401, headers: corsHeaders() });
 
-    const token = await issueJWT(username);
-    return Response.json({ token, user: { name: userDef.name, display: userDef.display } }, { headers: corsHeaders() });
+    const jwtSecret = env.JWT_SECRET;
+    if (!jwtSecret) return Response.json({ error: "Server configuration error" }, { status: 500, headers: corsHeaders() });
+
+    const token = await issueJWT(result.username, result.role, jwtSecret);
+    return Response.json({
+      token,
+      user: { username: result.username, display_name: result.display_name, role: result.role }
+    }, { headers: corsHeaders() });
   } catch (e) {
     return Response.json({ error: "Internal error: " + e.message }, { status: 500, headers: corsHeaders() });
   }

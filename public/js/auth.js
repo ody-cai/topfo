@@ -9,6 +9,8 @@ const AUTH = {
   _data: null,
   _token: null,
   _modalInjected: false,
+  _loginModalInjected: false,
+  _registerModalInjected: false,
 
   // ===== 公开 API =====
 
@@ -117,6 +119,7 @@ const AUTH = {
   },
 
   logout() {
+    this._stopNotifPolling();
     localStorage.removeItem(this._key);
     localStorage.removeItem('admission_user');
     sessionStorage.removeItem(this._dataKey);
@@ -194,40 +197,162 @@ const AUTH = {
     }
   },
 
+  _navExtrasInjected: false,
+
+  _injectNavExtras() {
+    if (this._navExtrasInjected) return;
+    this._navExtrasInjected = true;
+
+    const navLinks = document.querySelector('.nav-links');
+    if (!navLinks) return;
+
+    // 语言切换器
+    const langBtn = document.createElement('button');
+    langBtn.id = 'navLangBtn';
+    langBtn.className = 'nav-lang-btn';
+    langBtn.title = I18N ? I18N.t('lang.switch') : '切换语言';
+    langBtn.textContent = I18N ? I18N.t('lang.' + (I18N.getCurrentLang())) : '中文';
+    langBtn.onclick = (e) => {
+      e.stopPropagation();
+      const menu = document.getElementById('navLangMenu');
+      if (menu) menu.classList.toggle('show');
+    };
+    navLinks.appendChild(langBtn);
+
+    // 语言下拉菜单
+    const langMenu = document.createElement('div');
+    langMenu.id = 'navLangMenu';
+    langMenu.className = 'nav-lang-menu';
+    langMenu.innerHTML = `
+      <div class="nav-lang-option" data-lang="zh">🇨🇳 中文</div>
+      <div class="nav-lang-option" data-lang="en">🇬🇧 EN</div>
+      <div class="nav-lang-option" data-lang="fr">🇫🇷 FR</div>
+    `;
+    langMenu.querySelectorAll('.nav-lang-option').forEach(opt => {
+      opt.addEventListener('click', async () => {
+        const lang = opt.getAttribute('data-lang');
+        if (typeof I18N !== 'undefined') {
+          await I18N.setLang(lang);
+        }
+        langMenu.classList.remove('show');
+        document.getElementById('navLangBtn').textContent = I18N ? I18N.t('lang.' + lang) : lang;
+        // 标记当前选中
+        langMenu.querySelectorAll('.nav-lang-option').forEach(o => o.classList.remove('active'));
+        opt.classList.add('active');
+      });
+    });
+    navLinks.appendChild(langMenu);
+
+    // 通知图标
+    const notifBtn = document.createElement('button');
+    notifBtn.id = 'navNotifBtn';
+    notifBtn.className = 'nav-notif-btn';
+    notifBtn.title = I18N ? I18N.t('nav.notifications') : '通知';
+    notifBtn.style.display = 'none'; // 登录后显示
+    notifBtn.innerHTML = '🔔 <span id="notifBadge" style="display:none;background:red;color:white;border-radius:50%;padding:1px 5px;font-size:10px;vertical-align:top;">0</span>';
+    notifBtn.onclick = () => { window.location.href = '/pages/notifications.html'; };
+    navLinks.appendChild(notifBtn);
+  },
+
   _updateNav(logged, user) {
     const btn = document.getElementById('navAuthBtn');
     if (!btn) return;
 
+    // 注入导航额外元素
+    this._injectNavExtras();
+
     // 移除旧的编辑按钮
     const oldEdit = document.getElementById('navEditBtn');
     if (oldEdit) oldEdit.remove();
+
+    // 更新语言切换按钮文本
+    const langBtn = document.getElementById('navLangBtn');
+    if (langBtn && typeof I18N !== 'undefined') {
+      langBtn.textContent = I18N.t('lang.' + I18N.getCurrentLang());
+    }
 
     if (logged) {
       btn.className = 'nav-auth-btn logged-in';
       btn.textContent = user ? user.display : '用户';
       btn.title = '点击退出登录';
 
-      // 仅个人账号(Cai Qijun)显示编辑数据按钮和聊天
-      if (this.getUsername() === 'caiqijun') {
+      // 显示通知图标并开始轮询
+      const notifBtn = document.getElementById('navNotifBtn');
+      if (notifBtn) {
+        notifBtn.style.display = '';
+        this._startNotifPolling();
+      }
+
+      // 学生/咨询师/管理员显示编辑数据按钮和聊天
+      if (this._getRole() === 'student' || this._getRole() === 'consultant' || this._getRole() === 'admin') {
         const editBtn = document.createElement('button');
         editBtn.id = 'navEditBtn';
         editBtn.className = 'nav-auth-btn';
-        editBtn.textContent = '✏️ 编辑数据';
+        editBtn.textContent = '✏️ ' + (typeof I18N !== 'undefined' ? I18N.t('nav.editData') : '编辑数据');
         editBtn.title = '修改GPA和雅思分数';
         editBtn.style.marginLeft = '8px';
         editBtn.onclick = () => AUTH.showProfileModal();
         btn.parentNode.insertBefore(editBtn, btn.nextSibling);
 
-        // 显示 AI 聊天
         this._updateChatWidget();
       } else {
         this._hideChatWidget();
       }
     } else {
       btn.className = 'nav-auth-btn';
-      btn.textContent = '登录';
+      btn.textContent = typeof I18N !== 'undefined' ? I18N.t('nav.login') : '登录';
       btn.title = '登录查看个人数据';
       this._hideChatWidget();
+
+      // 隐藏通知图标并停止轮询
+      this._stopNotifPolling();
+      const notifBtn = document.getElementById('navNotifBtn');
+      if (notifBtn) notifBtn.style.display = 'none';
+    }
+  },
+
+  // ===== 通知未读数轮询 =====
+  _notifPollTimer: null,
+
+  async fetchUnreadCount() {
+    try {
+      const token = this._getToken();
+      if (!token) {
+        const badge = document.getElementById('notifBadge');
+        if (badge) badge.style.display = 'none';
+        return;
+      }
+      const resp = await fetch('/api/notifications?unread=true', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (resp.ok) {
+        const data = await resp.json();
+        const unread = data.unread_count || 0;
+        const badge = document.getElementById('notifBadge');
+        if (badge) {
+          if (unread > 0) {
+            badge.style.display = '';
+            badge.textContent = unread > 99 ? '99+' : unread;
+          } else {
+            badge.style.display = 'none';
+          }
+        }
+      }
+    } catch (e) {
+      // 静默失败
+    }
+  },
+
+  _startNotifPolling() {
+    this._stopNotifPolling();
+    this.fetchUnreadCount();
+    this._notifPollTimer = setInterval(() => this.fetchUnreadCount(), 60000);
+  },
+
+  _stopNotifPolling() {
+    if (this._notifPollTimer) {
+      clearInterval(this._notifPollTimer);
+      this._notifPollTimer = null;
     }
   },
 
@@ -349,7 +474,46 @@ const AUTH = {
 
   // ===== 登录弹窗 =====",
 
+  _injectLoginModal() {
+    if (this._loginModalInjected) return;
+    this._loginModalInjected = true;
+
+    const html = `
+    <div id="loginModal" class="login-modal">
+      <div class="login-modal-content" style="max-width:360px;">
+        <h3 style="margin:0 0 16px;font-size:18px;font-weight:600;color:var(--c-text);">🔐 登录</h3>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <input id="loginUser" type="text" placeholder="用户名"
+            style="padding:10px 14px;border:1px solid var(--c-border);border-radius:8px;font-size:14px;background:var(--c-bg-secondary);color:var(--c-text);outline:none;"
+            autocomplete="username">
+          <input id="loginPass" type="password" placeholder="密码"
+            style="padding:10px 14px;border:1px solid var(--c-border);border-radius:8px;font-size:14px;background:var(--c-bg-secondary);color:var(--c-text);outline:none;"
+            autocomplete="current-password">
+        </div>
+        <div id="loginError" style="display:none;color:#e74c3c;font-size:12px;margin:8px 0;"></div>
+        <button id="loginSubmitBtn" onclick="AUTH.handleLoginSubmit()"
+          style="width:100%;padding:12px;margin-top:12px;background:var(--c-primary);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:500;cursor:pointer;">登录</button>
+        <div style="margin-top:12px;text-align:center;font-size:12px;color:var(--c-text-tertiary);">
+          <a href="javascript:void(0)" onclick="AUTH.hideLoginModal();AUTH.showRegisterModal();" style="color:var(--c-primary);text-decoration:none;">还没有账号？注册</a>
+          &nbsp;·&nbsp;
+          <span style="cursor:pointer;">体验: demo / topfo2026</span>
+        </div>
+      </div>
+    </div>`;
+
+    document.body.insertAdjacentHTML('beforeend', html);
+
+    // 回车提交
+    const passInput = document.getElementById('loginPass');
+    if (passInput) {
+      passInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') this.handleLoginSubmit();
+      });
+    }
+  },
+
   showLoginModal() {
+    this._injectLoginModal();
     const modal = document.getElementById('loginModal');
     if (modal) modal.classList.add('show');
   },
@@ -497,8 +661,8 @@ const AUTH = {
   _updateChatWidget() {
     const username = this.getUsername();
     const role = this._getRole();
-    // 仅 caiqijun 个人账号可用 AI 升学顾问
-    if (username === 'caiqijun' && role === 'user') {
+    // 学生/咨询师/管理员可用 AI 升学顾问
+    if (role === 'student' || role === 'consultant' || role === 'admin') {
       this._injectChatWidget();
       const w = document.getElementById('chatWidget');
       if (w) w.classList.add('visible');
@@ -664,17 +828,160 @@ const AUTH = {
     if (!id) return;
     const el = document.getElementById(id);
     if (el) el.remove();
+  },
+
+  // ===== 注册弹窗 =====
+
+  _injectRegisterModal() {
+    if (this._registerModalInjected) return;
+    this._registerModalInjected = true;
+
+    const html = `
+    <div id="registerModal" class="login-modal">
+      <div class="login-modal-content" style="max-width:360px;">
+        <h3 style="margin:0 0 16px;font-size:18px;font-weight:600;color:var(--c-text);">📝 注册</h3>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <input id="regUser" type="text" placeholder="用户名"
+            style="padding:10px 14px;border:1px solid var(--c-border);border-radius:8px;font-size:14px;background:var(--c-bg-secondary);color:var(--c-text);outline:none;"
+            autocomplete="username">
+          <input id="regPass" type="password" placeholder="密码"
+            style="padding:10px 14px;border:1px solid var(--c-border);border-radius:8px;font-size:14px;background:var(--c-bg-secondary);color:var(--c-text);outline:none;"
+            autocomplete="new-password">
+          <input id="regDisplay" type="text" placeholder="显示名称（选填）"
+            style="padding:10px 14px;border:1px solid var(--c-border);border-radius:8px;font-size:14px;background:var(--c-bg-secondary);color:var(--c-text);outline:none;">
+        </div>
+        <div id="regError" style="display:none;color:#e74c3c;font-size:12px;margin:8px 0;"></div>
+        <button id="regSubmitBtn" onclick="AUTH.handleRegisterSubmit()"
+          style="width:100%;padding:12px;margin-top:12px;background:var(--c-primary);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:500;cursor:pointer;">注册</button>
+        <div style="margin-top:12px;text-align:center;font-size:12px;color:var(--c-text-tertiary);">
+          <a href="javascript:void(0)" onclick="AUTH.hideRegisterModal();AUTH.showLoginModal();" style="color:var(--c-primary);text-decoration:none;">已有账号？登录</a>
+        </div>
+      </div>
+    </div>`;
+
+    document.body.insertAdjacentHTML('beforeend', html);
+
+    const passInput = document.getElementById('regPass');
+    if (passInput) {
+      passInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') this.handleRegisterSubmit();
+      });
+    }
+  },
+
+  showRegisterModal() {
+    this._injectRegisterModal();
+    const modal = document.getElementById('registerModal');
+    if (modal) modal.classList.add('show');
+  },
+
+  hideRegisterModal() {
+    const modal = document.getElementById('registerModal');
+    if (modal) modal.classList.remove('show');
+  },
+
+  async handleRegisterSubmit() {
+    const userInput = document.getElementById('regUser');
+    const passInput = document.getElementById('regPass');
+    const displayInput = document.getElementById('regDisplay');
+    const errorEl = document.getElementById('regError');
+    const btn = document.getElementById('regSubmitBtn');
+
+    const username = userInput.value.trim();
+    const password = passInput.value;
+    const display = displayInput.value.trim() || username;
+
+    if (!username || !password) {
+      errorEl.style.display = 'block';
+      errorEl.textContent = '请输入用户名和密码';
+      return;
+    }
+
+    if (btn) { btn.disabled = true; btn.textContent = '注册中...'; }
+    errorEl.style.display = 'none';
+
+    try {
+      const resp = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password, display })
+      });
+      const result = await resp.json();
+
+      if (btn) { btn.disabled = false; btn.textContent = '注册'; }
+
+      if (resp.ok) {
+        this.hideRegisterModal();
+        userInput.value = '';
+        passInput.value = '';
+        displayInput.value = '';
+        // 注册成功后自动填入登录表单
+        const loginUser = document.getElementById('loginUser');
+        const loginPass = document.getElementById('loginPass');
+        if (loginUser) loginUser.value = username;
+        if (loginPass) loginPass.value = password;
+        this.showLoginModal();
+      } else {
+        errorEl.style.display = 'block';
+        errorEl.textContent = result.error || '注册失败';
+      }
+    } catch (e) {
+      if (btn) { btn.disabled = false; btn.textContent = '注册'; }
+      errorEl.style.display = 'block';
+      errorEl.textContent = '网络错误，请重试';
+    }
+  },
+
+  // ===== API 数据获取 =====
+
+  async fetchSchools(category) {
+    const url = category ? `/api/schools?category=${category}` : '/api/schools';
+    try {
+      const resp = await fetch(url);
+      const data = await resp.json();
+      return data.schools || [];
+    } catch {
+      return [];
+    }
+  },
+
+  async fetchRankings(params) {
+    const qs = new URLSearchParams(params).toString();
+    try {
+      const resp = await fetch(`/api/rankings?${qs}`);
+      const data = await resp.json();
+      return data.rankings || [];
+    } catch {
+      return [];
+    }
   }
 };
 
-// 全局点击事件：点击模态框外部关闭
+// 全局点击事件：关闭弹出层
 document.addEventListener('click', function(e) {
+  // 语言菜单：点击外部关闭
+  const langMenu = document.getElementById('navLangMenu');
+  if (langMenu && langMenu.classList.contains('show')) {
+    const langBtn = document.getElementById('navLangBtn');
+    if (langBtn && !langBtn.contains(e.target) && !langMenu.contains(e.target)) {
+      langMenu.classList.remove('show');
+    }
+  }
+  // 登录弹窗
   // 登录弹窗
   const loginModal = document.getElementById('loginModal');
   if (loginModal && loginModal.classList.contains('show')) {
     const content = loginModal.querySelector('.login-modal-content');
     if (content && !content.contains(e.target) && e.target.id !== 'navAuthBtn') {
       AUTH.hideLoginModal();
+    }
+  }
+  // 注册弹窗
+  const registerModal = document.getElementById('registerModal');
+  if (registerModal && registerModal.classList.contains('show')) {
+    const content = registerModal.querySelector('.login-modal-content');
+    if (content && !content.contains(e.target)) {
+      AUTH.hideRegisterModal();
     }
   }
   // 个人数据编辑弹窗
@@ -693,6 +1000,11 @@ document.addEventListener('keydown', function(e) {
     const loginModal = document.getElementById('loginModal');
     if (loginModal && loginModal.classList.contains('show')) {
       AUTH.handleLoginSubmit();
+      return;
+    }
+    const registerModal = document.getElementById('registerModal');
+    if (registerModal && registerModal.classList.contains('show')) {
+      AUTH.handleRegisterSubmit();
       return;
     }
     const profileModal = document.getElementById('profileModal');

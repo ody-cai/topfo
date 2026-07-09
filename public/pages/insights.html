@@ -9,7 +9,7 @@
 .insight-section{margin-bottom:32px}
 .insight-section h2{font-size:18px;font-weight:700;margin-bottom:16px;color:var(--c-text);display:flex;align-items:center;gap:8px}
 .insight-list{display:grid;gap:12px}
-.insight-item{background:var(--c-surface);border-radius:var(--radius-md);padding:18px 20px;border:0.5px solid var(--c-border);transition:all var(--transition)}
+.insight-item{background:var(--c-surface);border-radius:var(--radius-md);padding:18px 20px;border:1px solid var(--c-border);transition:all var(--transition)}
 .insight-item:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
 .insight-item .num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;font-size:13px;font-weight:700;margin-right:10px;vertical-align:middle;flex-shrink:0}
 .insight-item .num.critical{background:var(--c-danger-bg);color:var(--c-danger)}
@@ -21,7 +21,7 @@
 .insight-item .insight-desc{font-size:13px;color:var(--c-text-secondary);line-height:1.8;margin-left:38px}
 
 .strategy-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-bottom:32px}
-.strategy-card{background:var(--c-surface);border-radius:var(--radius-lg);padding:24px;border:0.5px solid var(--c-border)}
+.strategy-card{background:var(--c-surface);border-radius:var(--radius-lg);padding:24px;border:1px solid var(--c-border)}
 .strategy-card .strat-icon{font-size:32px;margin-bottom:12px}
 .strategy-card h3{font-size:17px;font-weight:700;margin-bottom:8px;color:var(--c-text)}
 .strategy-card .strat-list{font-size:13px;color:var(--c-text-secondary);line-height:2;list-style:none;padding:0}
@@ -56,7 +56,7 @@
 .nav-auth-btn {
   font-size:12px;padding:5px 14px;border-radius:var(--radius-sm);
   background:var(--c-accent-light);color:var(--c-accent);
-  cursor:pointer;font-weight:500;border:0.5px solid var(--c-accent);
+  cursor:pointer;font-weight:500;border:1px solid var(--c-accent);
   transition:all var(--transition);margin-left:8px;white-space:nowrap;
 }
 .nav-auth-btn:hover { background:var(--c-accent);color:#fff; }
@@ -78,7 +78,7 @@
 .login-field label { font-size:12px;font-weight:500;color:var(--c-text-secondary);margin-bottom:4px;display:block; }
 .login-field input {
   width:100%;padding:10px 14px;border-radius:var(--radius-sm);
-  border:0.5px solid var(--c-border-strong);font-size:14px;
+  border:1px solid var(--c-border-strong);font-size:14px;
   background:var(--c-bg);color:var(--c-text);outline:none;
 }
 .login-field input:focus { border-color:var(--c-accent); }
@@ -106,30 +106,15 @@
     <a href="admission.html" class="nav-link">录取对照表</a>
     <a href="rankings.html" class="nav-link">排名参考</a>
     <a href="insights.html" class="nav-link active">关键发现</a>
+    <a href="tracker.html" class="nav-link">申请追踪</a>
+    <a href="community.html" class="nav-link">社区</a>
     <a href="files.html" class="nav-link">文件</a>
     <a href="download.html" class="nav-link">下载APP</a>
+    <a href="notifications.html" class="nav-link">🔔 通知</a>
     <button id="navAuthBtn" class="nav-auth-btn" onclick="AUTH.handleNavAuthClick()">登录</button>
   </div>
 </nav>
 
-<!-- 登录弹窗 -->
-<div id="loginModal" class="login-modal">
-  <div class="login-modal-content">
-    <button class="login-close" onclick="AUTH.hideLoginModal()">✕</button>
-    <h2>登录查看个人数据</h2>
-    <p class="login-sub">登录后可查看基于个人数据的升学策略分析</p>
-    <div class="login-field">
-      <label>用户名</label>
-      <input id="loginUser" type="text" placeholder="请输入用户名" autocomplete="username">
-    </div>
-    <div class="login-field">
-      <label>密码</label>
-      <input id="loginPass" type="password" placeholder="请输入密码" autocomplete="current-password">
-    </div>
-    <div id="loginError" class="login-error"></div>
-    <button id="loginSubmitBtn" class="login-submit" onclick="AUTH.handleLoginSubmit()">登录</button>
-  </div>
-</div>
 
 <div class="page-container" style="padding-top:20px;">
   <a href="../index.html" class="back-link">← 返回首页</a>
@@ -314,9 +299,10 @@
 </div>
 
 <footer class="footer">
-  <p>数据来源：各校官网(2026) + QS/THE/US News排名 · 每日自动更新</p>
+  <p>数据来源：各校官网 + 三大排行榜排名 · 定期手工更新</p>
 </footer>
 
+<script src="../js/i18n.js"></script>
 <script src="../js/auth.js"></script>
 <script>
 const observer = new IntersectionObserver((entries) => {
@@ -335,7 +321,10 @@ async function populatePersonalData() {
 }
 
 AUTH.onChange(async (logged) => {
-  AUTH.initPage();
+  // 初始化 i18n
+(async function(){if(typeof I18N!=="undefined"){await I18N.init();}})();
+
+AUTH.initPage();
   const content = document.querySelector('.private-content');
   if (logged) {
     await populatePersonalData();
@@ -351,6 +340,9 @@ AUTH.onChange(async (logged) => {
 
 // Initialize
 const logged = AUTH.isLoggedIn();
+// 初始化 i18n
+(async function(){if(typeof I18N!=="undefined"){await I18N.init();}})();
+
 AUTH.initPage();
 if (logged) {
   populatePersonalData();

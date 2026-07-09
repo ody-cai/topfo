@@ -34,14 +34,14 @@
 .breadcrumb a:hover { text-decoration:underline; }
 
 .section { margin-bottom:36px; }
-.section h2 { font-size:16px; font-weight:700; margin-bottom:14px; padding-bottom:8px; border-bottom:0.5px solid var(--c-border); }
+.section h2 { font-size:16px; font-weight:700; margin-bottom:14px; padding-bottom:8px; border-bottom:1px solid var(--c-border); }
 .section h3 { font-size:14px; font-weight:600; margin-bottom:8px; color:var(--c-accent); }
 
 /* 功能列表 */
 .feature-list { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:10px; }
 .feature-item {
   background:var(--c-surface); border-radius:var(--radius-md);
-  padding:16px 18px; border:0.5px solid var(--c-border);
+  padding:16px 18px; border:1px solid var(--c-border);
   display:flex; gap:14px; align-items:flex-start;
 }
 .feature-item .feat-icon { font-size:24px; flex-shrink:0; margin-top:2px; }
@@ -52,7 +52,7 @@
 .changelog { list-style:none; padding:0; }
 .changelog li {
   font-size:13px; color:var(--c-text-secondary);
-  padding:8px 0; border-bottom:0.5px solid var(--c-border);
+  padding:8px 0; border-bottom:1px solid var(--c-border);
   display:flex; gap:10px; line-height:1.7;
 }
 .changelog li:last-child { border-bottom:none; }
@@ -70,7 +70,7 @@
 .spec-table { width:100%; border-collapse:collapse; }
 .spec-table td {
   padding:10px 14px; font-size:13px;
-  border-bottom:0.5px solid var(--c-border);
+  border-bottom:1px solid var(--c-border);
 }
 .spec-table td:first-child { color:var(--c-text-tertiary); width:140px; font-weight:500; }
 .spec-table td:last-child { color:var(--c-text); }
@@ -79,7 +79,7 @@
 .nav-auth-btn {
   font-size:12px;padding:5px 14px;border-radius:var(--radius-sm);
   background:var(--c-accent-light);color:var(--c-accent);
-  cursor:pointer;font-weight:500;border:0.5px solid var(--c-accent);
+  cursor:pointer;font-weight:500;border:1px solid var(--c-accent);
   transition:all var(--transition);margin-left:8px;white-space:nowrap;
 }
 .nav-auth-btn:hover { background:var(--c-accent);color:#fff; }
@@ -92,7 +92,7 @@
 .login-modal-content .login-sub { font-size:13px;color:var(--c-text-secondary);margin-bottom:20px; }
 .login-field { margin-bottom:14px; }
 .login-field label { font-size:12px;font-weight:500;color:var(--c-text-secondary);margin-bottom:4px;display:block; }
-.login-field input { width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:0.5px solid var(--c-border-strong);font-size:14px;background:var(--c-bg);color:var(--c-text);outline:none; }
+.login-field input { width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1px solid var(--c-border-strong);font-size:14px;background:var(--c-bg);color:var(--c-text);outline:none; }
 .login-field input:focus { border-color:var(--c-accent); }
 .login-error { display:none;font-size:12px;color:var(--c-danger);margin-bottom:12px;padding:6px 10px;background:var(--c-danger-bg);border-radius:var(--radius-sm); }
 .login-submit { width:100%;padding:12px;border-radius:var(--radius-md);background:var(--c-accent);color:#fff;font-size:14px;font-weight:600;cursor:pointer;border:none;transition:all var(--transition); }
@@ -116,29 +116,14 @@
     <a href="admission.html" class="nav-link">录取对照表</a>
     <a href="rankings.html" class="nav-link">排名参考</a>
     <a href="insights.html" class="nav-link">关键发现</a>
+    <a href="tracker.html" class="nav-link">申请追踪</a>
+    <a href="community.html" class="nav-link">社区</a>
     <a href="files.html" class="nav-link">文件</a>
     <a href="download.html" class="nav-link active">下载APP</a>
+    <a href="notifications.html" class="nav-link">🔔 通知</a>
     <button id="navAuthBtn" class="nav-auth-btn" onclick="AUTH.handleNavAuthClick()">登录</button>
   </div>
 </nav>
-
-<div id="loginModal" class="login-modal">
-  <div class="login-modal-content">
-    <button class="login-close" onclick="AUTH.hideLoginModal()">✕</button>
-    <h2>登录查看个人数据</h2>
-    <p class="login-sub">登录后可查看个性化录取匹配、GPA分析、升学策略等私密数据</p>
-    <div class="login-field">
-      <label>用户名</label>
-      <input id="loginUser" type="text" placeholder="请输入用户名" autocomplete="username">
-    </div>
-    <div class="login-field">
-      <label>密码</label>
-      <input id="loginPass" type="password" placeholder="请输入密码" autocomplete="current-password">
-    </div>
-    <div id="loginError" class="login-error"></div>
-    <button id="loginSubmitBtn" class="login-submit" onclick="AUTH.handleLoginSubmit()">登录</button>
-  </div>
-</div>
 
 <div class="page-container" style="padding-top:20px;">
 
@@ -302,6 +287,7 @@
   <p>TopFO App v1.0.0 · 学生升学数据平台 · 数据持续更新中</p>
 </footer>
 
+<script src="../js/i18n.js"></script>
 <script src="../js/auth.js"></script>
 <script>AUTH.initPage();</script>
 </body>

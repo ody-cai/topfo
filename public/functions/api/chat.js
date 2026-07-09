@@ -1,6 +1,5 @@
-// POST /api/chat - AI 升学顾问（Cloudflare Workers AI + D1 云同步，仅 caiqijun 可用）
-// v3 - D1 持久化聊天记录、自动加载 3 天上下文、自动归档
-const JWT_SECRET = "2baea092dd1542e27bdbbde82a3491cb5e3e30cfcd1fba8f4c5e5731b22859a0";
+// POST /api/chat - AI 升学顾问（Cloudflare Workers AI + D1 云同步，多用户）
+// v4 - D1 持久化聊天记录、自动加载 3 天上下文、自动归档
 const AI_MODEL = "@cf/meta/llama-3.3-70b-instruct-fp8-fast";
 
 const SYSTEM_PROMPT = `你是蔡奇均的专属 AI 升学顾问，职责是帮助他规划加拿大大学申请。
@@ -37,7 +36,7 @@ function hexToBytes(hex) {
   return bytes;
 }
 
-async function verifyJWT(token) {
+async function verifyJWT(token, jwtSecret) {
   const parts = token.split(".");
   if (parts.length !== 3) return null;
   try {
@@ -45,7 +44,7 @@ async function verifyJWT(token) {
     const claims = JSON.parse(atob(payloadB64));
     if (claims.exp < Math.floor(Date.now() / 1000)) return null;
     const encoder = new TextEncoder();
-    const key = await crypto.subtle.importKey("raw", hexToBytes(JWT_SECRET), { name: "HMAC", hash: "SHA-256" }, false, ["verify"]);
+    const key = await crypto.subtle.importKey("raw", hexToBytes(jwtSecret), { name: "HMAC", hash: "SHA-256" }, false, ["verify"]);
     const sigB64 = parts[2].replace(/-/g, "+").replace(/_/g, "/");
     const sig = Uint8Array.from(atob(sigB64), c => c.charCodeAt(0));
     const ok = await crypto.subtle.verify("HMAC", key, sig, encoder.encode(`${parts[0]}.${parts[1]}`));
@@ -74,13 +73,13 @@ export async function onRequestGet(context) {
     return Response.json({ error: "请先登录" }, { status: 401, headers: corsHeaders() });
   }
 
-  const claims = await verifyJWT(auth.slice(7));
+  const claims = await verifyJWT(auth.slice(7), env.JWT_SECRET);
   if (!claims) {
     return Response.json({ error: "登录已过期" }, { status: 401, headers: corsHeaders() });
   }
 
-  if (claims.sub !== "caiqijun") {
-    return Response.json({ error: "仅限本人使用" }, { status: 403, headers: corsHeaders() });
+  if (claims.role !== "student" && claims.role !== "consultant" && claims.role !== "admin") {
+    return Response.json({ error: "无权限使用聊天功能" }, { status: 403, headers: corsHeaders() });
   }
 
   const url = new URL(request.url);
@@ -130,13 +129,13 @@ export async function onRequestPost(context) {
     return Response.json({ error: "请先登录" }, { status: 401, headers: corsHeaders() });
   }
 
-  const claims = await verifyJWT(auth.slice(7));
+  const claims = await verifyJWT(auth.slice(7), env.JWT_SECRET);
   if (!claims) {
     return Response.json({ error: "登录已过期，请重新登录" }, { status: 401, headers: corsHeaders() });
   }
 
-  if (claims.sub !== "caiqijun") {
-    return Response.json({ error: "仅限本人使用" }, { status: 403, headers: corsHeaders() });
+  if (claims.role !== "student" && claims.role !== "consultant" && claims.role !== "admin") {
+    return Response.json({ error: "无权限使用聊天功能" }, { status: 403, headers: corsHeaders() });
   }
 
   // 2. 解析消息

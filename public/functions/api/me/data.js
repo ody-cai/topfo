@@ -1,18 +1,11 @@
-// GET /api/me/data - JWT-protected personal data
-const JWT_SECRET = "2baea092dd1542e27bdbbde82a3491cb5e3e30cfcd1fba8f4c5e5731b22859a0";
-const ENC_SALT = "256c9f62e326df395ec4d34de82146a3";
-const ENC_IV = "664024bd3c0c7b6e01c02fd3";
-const ENC_TAG = "e8f4950c1aa5a307471f506a9faa11d2";
-const ENC_DATA = "ea02761e53d7b63eb35e1c4fa1c40ba2b99b85508c266994a8bb5dfe91198c6aead394e6c671c10eaa85fb55a4d039b2b557a83f8be95746645791f86764f10ce35dcd0b55eabf435e2a95bace5f93eff008acb3e69e6f39b4a29b";
-const PASSWORD = "20262026";
-
+// GET /api/me/data - JWT-protected personal data from D1
 function hexToBytes(hex) {
   const bytes = new Uint8Array(hex.length / 2);
   for (let i = 0; i < hex.length; i += 2) bytes[i / 2] = parseInt(hex.substring(i, i + 2), 16);
   return bytes;
 }
 
-async function verifyJWT(token) {
+async function verifyJWT(token, jwtSecret) {
   const parts = token.split(".");
   if (parts.length !== 3) return null;
   try {
@@ -21,25 +14,12 @@ async function verifyJWT(token) {
     if (claims.exp < Math.floor(Date.now() / 1000)) return null;
 
     const encoder = new TextEncoder();
-    const key = await crypto.subtle.importKey("raw", hexToBytes(JWT_SECRET), { name: "HMAC", hash: "SHA-256" }, false, ["verify"]);
+    const key = await crypto.subtle.importKey("raw", hexToBytes(jwtSecret), { name: "HMAC", hash: "SHA-256" }, false, ["verify"]);
     const sigB64 = parts[2].replace(/-/g, "+").replace(/_/g, "/");
     const sig = Uint8Array.from(atob(sigB64), c => c.charCodeAt(0));
     const ok = await crypto.subtle.verify("HMAC", key, sig, encoder.encode(`${parts[0]}.${parts[1]}`));
     return ok ? claims : null;
   } catch { return null; }
-}
-
-async function decryptPersonalData() {
-  const encoder = new TextEncoder();
-  const keyMaterial = await crypto.subtle.importKey("raw", encoder.encode(PASSWORD), "PBKDF2", false, ["deriveBits"]);
-  const derived = await crypto.subtle.deriveBits(
-    { name: "PBKDF2", salt: hexToBytes(ENC_SALT), iterations: 100000, hash: "SHA-256" },
-    keyMaterial, 256
-  );
-  const aesKey = await crypto.subtle.importKey("raw", derived, "AES-GCM", false, ["decrypt"]);
-  const ciphertext = new Uint8Array([...hexToBytes(ENC_DATA), ...hexToBytes(ENC_TAG)]);
-  const plaintext = await crypto.subtle.decrypt({ name: "AES-GCM", iv: hexToBytes(ENC_IV) }, aesKey, ciphertext);
-  return JSON.parse(new TextDecoder().decode(plaintext));
 }
 
 function corsHeaders() {
@@ -55,25 +35,46 @@ export async function onRequestOptions() {
 }
 
 export async function onRequestGet(context) {
-  const { request } = context;
+  const { request, env } = context;
   const auth = request.headers.get("Authorization");
   if (!auth || !auth.startsWith("Bearer ")) {
     return Response.json({ error: "Unauthorized" }, { status: 401, headers: corsHeaders() });
   }
 
-  const claims = await verifyJWT(auth.slice(7));
+  const claims = await verifyJWT(auth.slice(7), env.JWT_SECRET);
   if (!claims) {
     return Response.json({ error: "Invalid or expired token" }, { status: 401, headers: corsHeaders() });
   }
 
   try {
+    const { sub: username, role } = claims;
+
     // demo 用户不返回个人数据
-    if (claims.role === "demo") {
+    if (role === "demo") {
       return Response.json({ gpa: null, ielts: null }, { headers: corsHeaders() });
     }
-    const data = await decryptPersonalData();
-    return Response.json(data, { headers: corsHeaders() });
+
+    // 从 D1 查询学生档案
+    const profile = await env.topfo_chat.prepare(
+      `SELECT gpa, ielts, target_schools, counselor_notes FROM student_profiles WHERE username = ?`
+    ).bind(username).first();
+
+    if (!profile) {
+      return Response.json({
+        gpa: null,
+        ielts: null,
+        target_schools: null,
+        counselor_notes: null
+      }, { headers: corsHeaders() });
+    }
+
+    return Response.json({
+      gpa: profile.gpa,
+      ielts: profile.ielts,
+      target_schools: profile.target_schools,
+      counselor_notes: profile.counselor_notes
+    }, { headers: corsHeaders() });
   } catch (e) {
-    return Response.json({ error: "Decryption failed" }, { status: 500, headers: corsHeaders() });
+    return Response.json({ error: "Failed to load profile: " + e.message }, { status: 500, headers: corsHeaders() });
   }
 }

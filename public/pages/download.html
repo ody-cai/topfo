@@ -6,23 +6,11 @@
 <title>下载APP · 学生升学数据</title>
 <link rel="stylesheet" href="../css/common.css">
 <style>
-.dl-hero { text-align:left; padding:8px 0 24px; }
-.dl-hero h1 { font-size:22px; margin-bottom:4px; }
-.dl-hero .subtitle { font-size:13px; color:var(--c-text-secondary); }
-
-.dl-platform-badge {
-  display:inline-flex; align-items:center; gap:6px;
-  font-size:12px; padding:4px 12px;
-  border-radius:var(--radius-sm);
-  background:var(--c-success-bg); color:var(--c-success);
-  font-weight:500; margin-top:10px;
-}
-
 .version-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:16px; margin-top:20px; }
 
 .version-card {
   background:var(--c-surface); border-radius:var(--radius-lg);
-  border:0.5px solid var(--c-border); overflow:hidden;
+  border:1px solid var(--c-border); overflow:hidden;
   transition:all var(--transition); display:flex; flex-direction:column;
   position:relative;
 }
@@ -44,12 +32,117 @@
 .version-card .card-features li { list-style:none; }
 .version-card .card-features li::before { content:'✓ '; color:var(--c-success); font-weight:bold; }
 
-.version-card-footer { padding:14px 24px;border-top:0.5px solid var(--c-border);display:flex;gap:8px; }
+.version-card-footer { padding:14px 24px;border-top:1px solid var(--c-border);display:flex;gap:8px; }
 .btn-card { font-size:13px;padding:8px 20px;border-radius:var(--radius-sm);font-weight:600;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:6px;transition:all var(--transition);text-decoration:none; }
 .btn-card.primary { background:var(--c-accent);color:#fff; }
 .btn-card.primary:hover { background:var(--c-accent-hover); }
-.btn-card.secondary { background:var(--c-bg);color:var(--c-text);border:0.5px solid var(--c-border-strong); }
+.btn-card.secondary { background:var(--c-bg);color:var(--c-text);border:1px solid var(--c-border-strong); }
 .btn-card.secondary:hover { border-color:var(--c-accent);color:var(--c-accent); }
+
+/* 最新版大英雄区 — Liquid Glass 液态玻璃 */
+.latest-hero {
+  position:relative; border-radius:20px; padding:32px 28px;
+  margin-top:16px; overflow:hidden; color:#1f2937;
+
+  /* 磨砂玻璃面板 */
+  background:rgba(255,255,255,0.55);
+  backdrop-filter:blur(24px) saturate(180%);
+  -webkit-backdrop-filter:blur(24px) saturate(180%);
+
+  /* 玻璃边缘 */
+  border:1px solid rgba(255,255,255,0.8);
+
+  /* 层次感 */
+  box-shadow:
+    0 1px 3px rgba(0,0,0,0.04),
+    0 8px 32px rgba(79,70,229,0.10),
+    inset 0 1px 0 rgba(255,255,255,0.8);
+}
+
+/* 玻璃背后的渐变底色（透过磨砂可见） */
+.latest-hero::before {
+  content:''; position:absolute; top:0; left:0; right:0; bottom:0;
+  z-index:-1;
+  background: linear-gradient(135deg, #ede9fe 0%, #e0e7ff 30%, #fce7f3 70%, #fef3c7 100%);
+  border-radius:20px;
+}
+
+/* 玻璃表面光泽反射 */
+.latest-hero::after {
+  content:''; position:absolute; top:0; left:0; right:0; height:55%;
+  background:linear-gradient(180deg, rgba(255,255,255,0.5) 0%, transparent 100%);
+  pointer-events:none; border-radius:20px 20px 0 0;
+}
+
+.latest-hero .hero-new-badge {
+  display:inline-flex; align-items:center; gap:6px;
+  font-size:11px; font-weight:600; padding:4px 12px;
+  border-radius:12px;
+  background:rgba(79,70,229,0.10);
+  backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+  border:1px solid rgba(79,70,229,0.15);
+  color:#4f46e5; margin-bottom:12px;
+  position:relative; z-index:1;
+}
+.latest-hero h2 {
+  font-size:24px; font-weight:800; margin-bottom:6px;
+  position:relative; z-index:1;
+  background:linear-gradient(135deg,#4f46e5,#7c3aed,#a855f7);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.latest-hero .hero-sub {
+  font-size:13px; color:#6b7280; margin-bottom:16px;
+  position:relative; z-index:1;
+}
+.latest-hero .hero-tags {
+  display:flex; gap:6px; flex-wrap:wrap; margin-bottom:20px;
+  position:relative; z-index:1;
+}
+.latest-hero .hero-tags span {
+  font-size:11px; padding:3px 10px; border-radius:8px;
+  background:rgba(79,70,229,0.06);
+  backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px);
+  border:1px solid rgba(79,70,229,0.08);
+  color:#6b7280;
+}
+.latest-hero .hero-dl-row {
+  display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+  position:relative; z-index:1;
+}
+.hero-dl-btn {
+  display:inline-flex; align-items:center; gap:8px;
+  font-size:15px; font-weight:700; padding:12px 28px;
+  border-radius:var(--radius-md);
+  background:linear-gradient(135deg,#4f46e5,#7c3aed);
+  color:#fff; text-decoration:none;
+  transition:all var(--transition);
+  box-shadow:0 4px 16px rgba(79,70,229,0.25);
+}
+.hero-dl-btn:hover {
+  transform:translateY(-2px);
+  box-shadow:0 8px 24px rgba(79,70,229,0.35);
+}
+.hero-dl-btn .dl-icon { font-size:18px; }
+.hero-meta { font-size:12px; color:#9ca3af; }
+
+/* 分支概览横幅 */
+.branch-banner {
+  background:var(--c-surface); border-radius:var(--radius-lg);
+  border:1px solid var(--c-border); padding:20px 24px;
+  margin-bottom:12px; display:flex; align-items:center; gap:16px;
+  flex-wrap:wrap;
+}
+.branch-banner .bb-icon { font-size:28px; flex-shrink:0; }
+.branch-banner .bb-body { flex:1; min-width:200px; }
+.branch-banner .bb-body h4 { font-size:14px; font-weight:700; margin-bottom:4px; }
+.branch-banner .bb-body .bb-desc { font-size:12px; color:var(--c-text-secondary); line-height:1.7; }
+.branch-banner .bb-badge {
+  font-size:10px; font-weight:600; padding:3px 10px;
+  border-radius:8px; white-space:nowrap;
+}
+.branch-banner .bb-badge.main { background:var(--c-accent-light); color:var(--c-accent); }
+.branch-banner .bb-badge.legacy { background:var(--c-bg); color:var(--c-text-tertiary); }
 
 /* 安装说明 */
 .install-section { margin-top:40px; margin-bottom:40px; }
@@ -57,7 +150,7 @@
 .install-steps { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:12px; }
 .install-step {
   background:var(--c-surface); border-radius:var(--radius-md);
-  padding:20px; border:0.5px solid var(--c-border);
+  padding:20px; border:1px solid var(--c-border);
   display:flex; gap:14px; align-items:flex-start;
 }
 .install-step .step-num {
@@ -73,7 +166,7 @@
 .nav-auth-btn {
   font-size:12px;padding:5px 14px;border-radius:var(--radius-sm);
   background:var(--c-accent-light);color:var(--c-accent);
-  cursor:pointer;font-weight:500;border:0.5px solid var(--c-accent);
+  cursor:pointer;font-weight:500;border:1px solid var(--c-accent);
   transition:all var(--transition);margin-left:8px;white-space:nowrap;
 }
 .nav-auth-btn:hover { background:var(--c-accent);color:#fff; }
@@ -86,7 +179,7 @@
 .login-modal-content .login-sub { font-size:13px;color:var(--c-text-secondary);margin-bottom:20px; }
 .login-field { margin-bottom:14px; }
 .login-field label { font-size:12px;font-weight:500;color:var(--c-text-secondary);margin-bottom:4px;display:block; }
-.login-field input { width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:0.5px solid var(--c-border-strong);font-size:14px;background:var(--c-bg);color:var(--c-text);outline:none; }
+.login-field input { width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1px solid var(--c-border-strong);font-size:14px;background:var(--c-bg);color:var(--c-text);outline:none; }
 .login-field input:focus { border-color:var(--c-accent); }
 .login-error { display:none;font-size:12px;color:var(--c-danger);margin-bottom:12px;padding:6px 10px;background:var(--c-danger-bg);border-radius:var(--radius-sm); }
 .login-submit { width:100%;padding:12px;border-radius:var(--radius-md);background:var(--c-accent);color:#fff;font-size:14px;font-weight:600;cursor:pointer;border:none;transition:all var(--transition); }
@@ -108,106 +201,153 @@
     <a href="admission.html" class="nav-link">录取对照表</a>
     <a href="rankings.html" class="nav-link">排名参考</a>
     <a href="insights.html" class="nav-link">关键发现</a>
+    <a href="tracker.html" class="nav-link">申请追踪</a>
+    <a href="community.html" class="nav-link">社区</a>
     <a href="files.html" class="nav-link">文件</a>
     <a href="download.html" class="nav-link active">下载APP</a>
+    <a href="notifications.html" class="nav-link">🔔 通知</a>
     <button id="navAuthBtn" class="nav-auth-btn" onclick="AUTH.handleNavAuthClick()">登录</button>
   </div>
 </nav>
 
-<div id="loginModal" class="login-modal">
-  <div class="login-modal-content">
-    <button class="login-close" onclick="AUTH.hideLoginModal()">✕</button>
-    <h2>登录查看个人数据</h2>
-    <p class="login-sub">登录后可查看个性化录取匹配、GPA分析、升学策略等私密数据</p>
-    <div class="login-field">
-      <label>用户名</label>
-      <input id="loginUser" type="text" placeholder="请输入用户名" autocomplete="username">
-    </div>
-    <div class="login-field">
-      <label>密码</label>
-      <input id="loginPass" type="password" placeholder="请输入密码" autocomplete="current-password">
-    </div>
-    <div id="loginError" class="login-error"></div>
-    <button id="loginSubmitBtn" class="login-submit" onclick="AUTH.handleLoginSubmit()">登录</button>
-  </div>
-</div>
-
 <div class="page-container" style="padding-top:20px;">
   <a href="../index.html" class="back-link">← 返回首页</a>
 
-  <div class="dl-hero">
-    <h1>📲 下载 TopFO App</h1>
-    <p class="subtitle">学生升学数据平台 · 随身携带，随时查阅</p>
-    <span class="dl-platform-badge">🤖 Android</span>
+  <!-- 🚀 最新版大英雄区 -->
+  <div class="latest-hero">
+    <div class="hero-new-badge">✨ 最新版本</div>
+    <h2>TopFO v1.1.0 · 液态玻璃</h2>
+    <p class="hero-sub">iOS 26 / macOS 26 风格的 Liquid Glass 设计语言，全界面视觉重构</p>
+    <div class="hero-tags">
+      <span>🎨 Liquid Glass</span>
+      <span>🪟 磨砂玻璃质感</span>
+      <span>📱 9屏统一</span>
+      <span>🌙 深色主题</span>
+      <span>📅 2026-07-09</span>
+    </div>
+    <div class="hero-dl-row">
+      <a href="../download/TopFO-v1.1.0.apk" class="hero-dl-btn" download>
+        <span class="dl-icon">⬇</span> 下载 v1.1.0 APK
+      </a>
+      <span class="hero-meta">~19 MB · Android 8.0+</span>
+    </div>
   </div>
 
-  <!-- 当前版本 -->
-  <div style="margin-bottom:12px;">
-    <h2 style="font-size:16px;font-weight:600;">当前版本</h2>
-  </div>
+  <!-- v1 系列 -->
+  <div style="margin-top:20px;">
 
-  <div class="version-grid">
-    <!-- v1.0.2 -->
-    <div class="version-card latest">
-      <span class="latest-badge">最新</span>
-      <div class="version-card-body">
-        <span class="card-icon">📱</span>
-        <h3>TopFO v1.0.2</h3>
-        <div class="card-meta">
-          <span>📅 2026-07-08</span>
-          <span>📦 ~19 MB</span>
-          <span>🤖 Android 8.0+</span>
+    <!-- v1.1 分支：设计系统革命 -->
+    <div class="branch-banner">
+      <span class="bb-icon">🪟</span>
+      <div class="bb-body">
+        <h4>v1.1 分支 · Liquid Glass 液态玻璃</h4>
+        <div class="bb-desc">
+          全面引入 iOS 26 / macOS 26 风格设计系统：GlassCard、GlassTopBar、GlassNavBar/Rail 统一组件库，<br>
+          大圆角 (16-32dp) + 半透明玻璃色板 + 渐变背景，全屏零硬编码色，深色主题完美适配
         </div>
-        <ul class="card-features">
-          <li>修复后台返回后"我的"页面要求重新登录的问题</li>
-          <li>新增"版本"按钮 · 应用内检查更新</li>
-          <li>新版本自动下载 + 一键安装</li>
-          <li>录取对照表（9专业 × 26院校）</li>
-          <li>QS / THE / US News 排名</li>
-          <li>深色主题 · 平板自适应</li>
-        </ul>
       </div>
-      <div class="version-card-footer">
-        <a href="../download/TopFO-v1.0.2.apk" class="btn-card primary" download>⬇ 下载 APK</a>
-        <a href="download-v1.0.2.html" class="btn-card secondary">📋 版本详情</a>
+      <span class="bb-badge main">🆕 主要分支</span>
+    </div>
+    <div class="version-grid">
+      <!-- v1.1.0 — 最新 Liquid Glass 重构版 -->
+      <div class="version-card latest">
+        <span class="latest-badge">最新</span>
+        <div class="version-card-body">
+          <span class="card-icon">🪟</span>
+          <h3>TopFO v1.1.0</h3>
+          <div class="card-meta">
+            <span>📅 2026-07-09</span>
+            <span>📦 ~19 MB</span>
+            <span>🤖 Android 8.0+</span>
+          </div>
+          <ul class="card-features">
+            <li>iOS 26 / macOS 26 风格 Liquid Glass 液态玻璃设计语言</li>
+            <li>GlassCard · GlassTopBar · GlassNavBar/Rail 统一组件体系</li>
+            <li>大圆角 (16-32dp) · 半透明玻璃色板 · 渐变背景</li>
+            <li>全屏统一 · 零硬编码色 · 深色主题适配</li>
+            <li>录取对照表（9专业 × 26院校含分校区）</li>
+            <li>QS / THE / US News 三大排名 · 文件中心 · Chat</li>
+          </ul>
+        </div>
+        <div class="version-card-footer">
+          <a href="../download/TopFO-v1.1.0.apk" class="btn-card primary" download>⬇ 下载 APK</a>
+        </div>
       </div>
     </div>
 
-    <!-- v1.0.1 -->
-    <div class="version-card">
-      <div class="version-card-body">
-        <span class="card-icon">📱</span>
-        <h3>TopFO v1.0.1</h3>
-        <div class="card-meta">
-          <span>📅 2026-07-08</span>
-          <span>📦 ~18 MB</span>
-          <span>🤖 Android 8.0+</span>
+    <!-- v1.0 分支：核心功能奠基 -->
+    <div class="branch-banner" style="margin-top:32px;">
+      <span class="bb-icon">📱</span>
+      <div class="bb-body">
+        <h4>v1.0 分支 · Material Design 3</h4>
+        <div class="bb-desc">
+          标准 Material3 界面，覆盖录取对照表（9专业 × 26院校含分校区）、QS/THE/US News 三大排名、<br>
+          关键发现与升学策略、文件中心、帐号登录与个人 GPA/雅思匹配、深色主题、平板自适应
         </div>
-        <ul class="card-features">
-          <li>深色主题切换 · 夜间模式</li>
-          <li>全新极简几何图标</li>
-          <li>导航栏颜色主题适配</li>
-          <li>录取对照表（9专业 × 26院校）</li>
-          <li>QS / THE / US News 排名</li>
-          <li>个人GPA/雅思匹配 · 平板自适应</li>
-        </ul>
       </div>
-      <div class="version-card-footer">
-        <a href="../download/TopFO-v1.0.1.apk" class="btn-card primary" download>⬇ 下载 APK</a>
-        <a href="download-v1.0.1.html" class="btn-card secondary">📋 版本详情</a>
-      </div>
+      <span class="bb-badge legacy">📦 旧版分支</span>
     </div>
-
-    <!-- v1.0.0 -->
-    <div class="version-card">
-      <div class="version-card-body">
-        <span class="card-icon">📱</span>
-        <h3>TopFO v1.0.0</h3>
-        <div class="card-meta">
-          <span>📅 2026-07-08</span>
-          <span>📦 18 MB</span>
-          <span>🤖 Android 8.0+</span>
+    <div class="version-grid" id="v1.0">
+      <!-- v1.0.2 -->
+      <div class="version-card">
+        <div class="version-card-body">
+          <span class="card-icon">📱</span>
+          <h3>TopFO v1.0.2</h3>
+          <div class="card-meta">
+            <span>📅 2026-07-08</span>
+            <span>📦 ~19 MB</span>
+            <span>🤖 Android 8.0+</span>
+          </div>
+          <ul class="card-features">
+            <li>修复后台返回后"我的"页面要求重新登录的问题</li>
+            <li>新增"版本"按钮 · 应用内检查更新</li>
+            <li>新版本自动下载 + 一键安装</li>
+            <li>录取对照表（9专业 × 26院校）</li>
+            <li>QS / THE / US News 排名</li>
+            <li>深色主题 · 平板自适应</li>
+          </ul>
         </div>
+        <div class="version-card-footer">
+          <a href="../download/TopFO-v1.0.2.apk" class="btn-card primary" download>⬇ 下载 APK</a>
+          <a href="download-v1.0.2.html" class="btn-card secondary">📋 版本详情</a>
+        </div>
+      </div>
+
+      <!-- v1.0.1 -->
+      <div class="version-card">
+        <div class="version-card-body">
+          <span class="card-icon">📱</span>
+          <h3>TopFO v1.0.1</h3>
+          <div class="card-meta">
+            <span>📅 2026-07-08</span>
+            <span>📦 ~18 MB</span>
+            <span>🤖 Android 8.0+</span>
+          </div>
+          <ul class="card-features">
+            <li>深色主题切换 · 夜间模式</li>
+            <li>全新极简几何图标</li>
+            <li>导航栏颜色主题适配</li>
+            <li>录取对照表（9专业 × 26院校）</li>
+            <li>QS / THE / US News 排名</li>
+            <li>个人GPA/雅思匹配 · 平板自适应</li>
+          </ul>
+        </div>
+        <div class="version-card-footer">
+          <a href="../download/TopFO-v1.0.1.apk" class="btn-card primary" download>⬇ 下载 APK</a>
+          <a href="download-v1.0.1.html" class="btn-card secondary">📋 版本详情</a>
+        </div>
+      </div>
+
+      <!-- v1.0.0 -->
+      <div class="version-card">
+        <div class="version-card-body">
+          <span class="card-icon">📱</span>
+          <h3>TopFO v1.0.0</h3>
+          <div class="card-meta">
+            <span>📅 2026-07-08</span>
+            <span>📦 18 MB</span>
+            <span>🤖 Android 8.0+</span>
+          </div>
         <ul class="card-features">
           <li>录取要求对照表（9大专业 × 26所院校）</li>
           <li>三大排名参考（QS / THE / US News）</li>
@@ -223,6 +363,7 @@
       </div>
     </div>
   </div>
+</div>
 
   <!-- 安装说明 -->
   <div class="install-section">
@@ -268,7 +409,11 @@
   <p>TopFO App 仅供学习参考 · 数据来源为各大学官方网站及QS/THE/US News公开排名</p>
 </footer>
 
+<script src="../js/i18n.js"></script>
 <script src="../js/auth.js"></script>
-<script>AUTH.initPage();</script>
+<script>// 初始化 i18n
+(async function(){if(typeof I18N!=="undefined"){await I18N.init();}})();
+
+AUTH.initPage();</script>
 </body>
 </html>
