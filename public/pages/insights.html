@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>关键发现与建议 · 学生升学数据</title>
+<link rel="stylesheet" href="../css/common.css">
+<style>
+.insight-section{margin-bottom:32px}
+.insight-section h2{font-size:18px;font-weight:700;margin-bottom:16px;color:var(--c-text);display:flex;align-items:center;gap:8px}
+.insight-list{display:grid;gap:12px}
+.insight-item{background:var(--c-surface);border-radius:var(--radius-md);padding:18px 20px;border:0.5px solid var(--c-border);transition:all var(--transition)}
+.insight-item:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.insight-item .num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;font-size:13px;font-weight:700;margin-right:10px;vertical-align:middle;flex-shrink:0}
+.insight-item .num.critical{background:var(--c-danger-bg);color:var(--c-danger)}
+.insight-item .num.important{background:var(--c-warning-bg);color:var(--c-warning)}
+.insight-item .num.info{background:var(--c-accent-light);color:var(--c-accent)}
+.insight-item .num.success{background:var(--c-success-bg);color:var(--c-success)}
+.insight-item .title-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:6px}
+.insight-item .insight-title{font-size:15px;font-weight:600;color:var(--c-text);line-height:1.5}
+.insight-item .insight-desc{font-size:13px;color:var(--c-text-secondary);line-height:1.8;margin-left:38px}
+
+.strategy-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-bottom:32px}
+.strategy-card{background:var(--c-surface);border-radius:var(--radius-lg);padding:24px;border:0.5px solid var(--c-border)}
+.strategy-card .strat-icon{font-size:32px;margin-bottom:12px}
+.strategy-card h3{font-size:17px;font-weight:700;margin-bottom:8px;color:var(--c-text)}
+.strategy-card .strat-list{font-size:13px;color:var(--c-text-secondary);line-height:2;list-style:none;padding:0}
+.strategy-card .strat-list li::before{content:'✓ ';color:var(--c-success);font-weight:bold}
+
+.timeline{position:relative;padding-left:30px;margin:20px 0}
+.timeline::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:2px;background:var(--c-border)}
+.tl-item{position:relative;margin-bottom:24px}
+.tl-item::before{content:'';position:absolute;left:-26px;top:4px;width:14px;height:14px;border-radius:50%;background:var(--c-accent);border:3px solid var(--c-surface);box-shadow:0 0 0 2px var(--c-accent)}
+.tl-item .tl-date{font-size:11px;color:var(--c-accent);font-weight:600;margin-bottom:4px}
+.tl-item .tl-title{font-size:14px;font-weight:600;color:var(--c-text);margin-bottom:4px}
+.tl-item .tl-desc{font-size:12px;color:var(--c-text-secondary);line-height:1.7}
+
+/* 访客锁定遮罩 */
+.gate-overlay {
+  display:flex;justify-content:center;align-items:center;
+  min-height:400px;
+  text-align:center;
+  padding:60px 40px;
+}
+.gate-overlay .gate-icon { font-size:64px;margin-bottom:24px; }
+.gate-overlay .gate-title { font-size:24px;font-weight:700;color:var(--c-text);margin-bottom:12px; }
+.gate-overlay .gate-desc { font-size:14px;color:var(--c-text-secondary);line-height:1.8;max-width:400px;margin:0 auto 24px; }
+.gate-overlay .gate-btn {
+  display:inline-flex;align-items:center;gap:8px;
+  padding:12px 28px;border-radius:var(--radius-md);
+  background:var(--c-accent);color:#fff;font-size:14px;font-weight:600;
+  cursor:pointer;transition:all var(--transition);
+}
+.gate-overlay .gate-btn:hover { background:var(--c-accent-hover);transform:translateY(-2px); }
+
+.nav-auth-btn {
+  font-size:12px;padding:5px 14px;border-radius:var(--radius-sm);
+  background:var(--c-accent-light);color:var(--c-accent);
+  cursor:pointer;font-weight:500;border:0.5px solid var(--c-accent);
+  transition:all var(--transition);margin-left:8px;white-space:nowrap;
+}
+.nav-auth-btn:hover { background:var(--c-accent);color:#fff; }
+.nav-auth-btn.logged { background:var(--c-success-bg);color:var(--c-success);border-color:var(--c-success); }
+
+.login-modal {
+  display:none;position:fixed;top:0;left:0;right:0;bottom:0;
+  background:rgba(0,0,0,.4);z-index:9999;justify-content:center;align-items:center;
+}
+.login-modal.show { display:flex; }
+}
+.login-modal-content {
+  background:var(--c-surface);border-radius:var(--radius-lg);padding:32px;
+  width:360px;max-width:90vw;box-shadow:var(--shadow-lg);position:relative;
+}
+.login-modal-content h2 { font-size:20px;font-weight:700;margin-bottom:4px; }
+.login-modal-content .login-sub { font-size:13px;color:var(--c-text-secondary);margin-bottom:20px; }
+.login-field { margin-bottom:14px; }
+.login-field label { font-size:12px;font-weight:500;color:var(--c-text-secondary);margin-bottom:4px;display:block; }
+.login-field input {
+  width:100%;padding:10px 14px;border-radius:var(--radius-sm);
+  border:0.5px solid var(--c-border-strong);font-size:14px;
+  background:var(--c-bg);color:var(--c-text);outline:none;
+}
+.login-field input:focus { border-color:var(--c-accent); }
+.login-error { display:none;font-size:12px;color:var(--c-danger);margin-bottom:12px;padding:6px 10px;background:var(--c-danger-bg);border-radius:var(--radius-sm); }
+.login-submit {
+  width:100%;padding:12px;border-radius:var(--radius-md);
+  background:var(--c-accent);color:#fff;font-size:14px;font-weight:600;
+  cursor:pointer;border:none;transition:all var(--transition);
+}
+.login-submit:hover { background:var(--c-accent-hover); }
+.login-close {
+  position:absolute;top:12px;right:16px;font-size:20px;
+  color:var(--c-text-tertiary);cursor:pointer;background:none;border:none;
+}
+
+@media(max-width:768px){.strategy-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<nav class="nav-bar">
+  <a href="../index.html" class="nav-logo"><span class="dot"></span> 升学数据</a>
+  <div class="nav-links">
+    <a href="../index.html" class="nav-link">首页</a>
+    <a href="admission.html" class="nav-link">录取对照表</a>
+    <a href="rankings.html" class="nav-link">排名参考</a>
+    <a href="insights.html" class="nav-link active">关键发现</a>
+    <a href="files.html" class="nav-link">文件</a>
+    <a href="download.html" class="nav-link">下载APP</a>
+    <button id="navAuthBtn" class="nav-auth-btn" onclick="AUTH.handleNavAuthClick()">登录</button>
+  </div>
+</nav>
+
+<!-- 登录弹窗 -->
+<div id="loginModal" class="login-modal">
+  <div class="login-modal-content">
+    <button class="login-close" onclick="AUTH.hideLoginModal()">✕</button>
+    <h2>登录查看个人数据</h2>
+    <p class="login-sub">登录后可查看基于个人数据的升学策略分析</p>
+    <div class="login-field">
+      <label>用户名</label>
+      <input id="loginUser" type="text" placeholder="请输入用户名" autocomplete="username">
+    </div>
+    <div class="login-field">
+      <label>密码</label>
+      <input id="loginPass" type="password" placeholder="请输入密码" autocomplete="current-password">
+    </div>
+    <div id="loginError" class="login-error"></div>
+    <button id="loginSubmitBtn" class="login-submit" onclick="AUTH.handleLoginSubmit()">登录</button>
+  </div>
+</div>
+
+<div class="page-container" style="padding-top:20px;">
+  <a href="../index.html" class="back-link">← 返回首页</a>
+
+  <div class="page-header" style="text-align:left;padding:8px 0 16px;">
+    <h1 style="font-size:22px;">💡 关键发现与升学建议</h1>
+    <p class="subtitle visitor-only">登录后可查看基于个人数据的全面升学策略分析</p>
+    <p class="subtitle private-section" style="display:none;">基于 GPA <span class="data-gpa">—</span>、雅思 <span class="data-ielts-total">—</span> 的全面数据分析</p>
+  </div>
+
+  <!-- 访客锁定遮罩 -->
+  <div class="gate-overlay visitor-only">
+    <div>
+      <div class="gate-icon">🔒</div>
+      <div class="gate-title">此页面内容需要登录</div>
+      <div class="gate-desc">关键发现与升学建议包含个人GPA匹配分析、雅思达标路径、三维策略方案、时间规划等私密内容。请登录后查看。</div>
+      <button class="gate-btn" onclick="AUTH.showLoginModal()">🔑 立即登录</button>
+    </div>
+  </div>
+
+  <!-- 私密内容：登录后才显示 -->
+  <div class="auth-gate">
+    <div class="gate-overlay" style="display:none;">
+      <div>
+        <div class="gate-icon">🔒</div>
+        <div class="gate-title">此页面内容需要登录</div>
+        <div class="gate-desc">关键发现与升学建议包含个人数据分析。请登录后查看。</div>
+        <button class="gate-btn" onclick="AUTH.showLoginModal()">🔑 立即登录</button>
+      </div>
+    </div>
+
+    <!-- 实际内容：登录后可见 -->
+    <div class="private-content" style="display:none;">
+
+      <!-- 关键发现 -->
+      <div class="insight-section">
+        <h2>🔍 10大关键发现</h2>
+        <div class="insight-list">
+          <div class="insight-item fade-in">
+            <div class="title-row">
+              <span class="num critical">1</span>
+              <span class="insight-title">多大分校区比主校容易很多</span>
+            </div>
+            <div class="insight-desc">UTM CS要求mid-high 80s，你GPA 89.6已超线（相比UTSG 93%竞争均分/97.2%录取中位差3.4分）；UTSC心理仅需mid-high 70s，你89.6远超，且有Co-op项目。这是最大的"捡漏"机会。</div>
+          </div>
+          <div class="insight-item fade-in delay-1">
+            <div class="title-row">
+              <span class="num critical">2</span>
+              <span class="insight-title">UBC Okanagan比温哥华低10分，且有双录</span>
+            </div>
+            <div class="insight-desc">UBC Okanagan工程80-85%你完全够，有EFP英语预科双录路径。对比UBC温哥华工程92%+的录取线，Okanagan是进入UBC体系的绝佳跳板。</div>
+          </div>
+          <div class="insight-item fade-in delay-1">
+            <div class="title-row">
+              <span class="num important">3</span>
+              <span class="insight-title">数学比CS好进约9分</span>
+            </div>
+            <div class="insight-desc">麦马数学85% vs CS 94%，你正好踩线数学。如果对数学有兴趣，可以以数学为跳板，之后辅修或转CS。</div>
+          </div>
+          <div class="insight-item fade-in delay-1">
+            <div class="title-row">
+              <span class="num important">4</span>
+              <span class="insight-title">心理学比CS好进10-15分</span>
+            </div>
+            <div class="insight-desc">阿尔伯塔心理75% vs CS 82%，你89.6远超心理线。考虑青少年心理学方向，这条路在多大UTSC有Co-op且录取友好。</div>
+          </div>
+          <div class="insight-item fade-in delay-2">
+            <div class="title-row">
+              <span class="num success">5</span>
+              <span class="insight-title">TMU(原Ryerson) CS 82%你完全够</span>
+            </div>
+            <div class="insight-desc">多伦多市中心+Co-op项目+雅思5.0双录已达标，是城市大学中最现实的选择之一。</div>
+          </div>
+          <div class="insight-item fade-in delay-2">
+            <div class="title-row">
+              <span class="num success">6</span>
+              <span class="insight-title">渥太华大学雅思4.0+即可双录</span>
+            </div>
+            <div class="insight-desc">你雅思5.0已超过EIP双录门槛（4.0+），工程/CS/数学/心理全可双录。渥太华位于首都，Co-op项目强，综合排名也不错（QS 2027 #228）。</div>
+          </div>
+          <div class="insight-item fade-in delay-2">
+            <div class="title-row">
+              <span class="num critical">7</span>
+              <span class="insight-title">多大UTSC/UTM不提供双录取，主校IFP有单项门槛</span>
+            </div>
+            <div class="insight-desc">UTSC、UTM两个分校区要求雅思6.5(6.0)直录，无语言班/双录通道。UTSG主校有IFP，但2026-27新门槛要求单项≥5.0，且IFP分多个流（Applied Science&Engineering/Arts&Science/建筑景观设计/音乐），CS可走Arts&Science IFP。</div>
+          </div>
+          <div class="insight-item fade-in delay-3">
+            <div class="title-row">
+              <span class="num important">8</span>
+              <span class="insight-title">双录取有专业限制</span>
+            </div>
+            <div class="insight-desc">多大IFP覆盖Arts&Science/建筑景观设计/音乐但新门槛单项≥5.0；约克工程要求雅思7.5不接受双录；阿尔伯塔EAP不含工程。申请双录时务必确认目标专业是否在双录覆盖范围内。</div>
+          </div>
+          <div class="insight-item fade-in delay-3">
+            <div class="title-row">
+              <span class="num info">9</span>
+              <span class="insight-title">学费差距巨大</span>
+            </div>
+            <div class="insight-desc">纽芬兰纪念大学仅6-9万人民币/年，多大UTSG则高达21-34万/年，4年本科差距可达60-100万人民币。</div>
+          </div>
+          <div class="insight-item fade-in delay-3">
+            <div class="title-row">
+              <span class="num success">10</span>
+              <span class="insight-title">澳洲预科是安全网</span>
+            </div>
+            <div class="insight-desc">UNSW Extended预科雅思5.0(4.5)门槛，你已达标。15个月预科+升学率91%，QS综合排名#19。</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 三策略方案 -->
+      <div class="insight-section">
+        <h2>🎯 三维策略方案</h2>
+        <div class="strategy-grid">
+          <div class="strategy-card fade-in">
+            <div class="strat-icon">🛡️</div>
+            <h3>方案A：稳扎稳打（现在即可启动）</h3>
+            <ul class="strat-list">
+              <li>渥太华大学（双录门槛4.0+，你5.0已超）</li>
+              <li>温莎大学（双录门槛4.5+，Co-op强）</li>
+              <li>曼尼托巴大学（双录门槛5.0+，学费9-12万/年）</li>
+              <li>纽芬兰纪念大学（学费最低6-9万/年）</li>
+              <li>康考迪亚大学（蒙特利尔，CS Co-op）</li>
+            </ul>
+          </div>
+          <div class="strategy-card fade-in delay-1">
+            <div class="strat-icon">🎯</div>
+            <h3>方案B：冲刺优化（需提雅思到6.5）</h3>
+            <ul class="strat-list">
+              <li>多大UTM CS（mid-high 80s你踩线）</li>
+              <li>多大UTSC心理（mid-high 70s你远超+Co-op）</li>
+              <li>UBC Okanagan工程（80-85%你完全够+EFP双录）</li>
+              <li>麦马数学（85%你踩线）</li>
+              <li>阿尔伯塔CS/心理（雅思6.5即可）</li>
+            </ul>
+          </div>
+          <div class="strategy-card fade-in delay-2">
+            <div class="strat-icon">🦘</div>
+            <h3>方案C：澳洲预科（安全网）</h3>
+            <ul class="strat-list">
+              <li>UNSW Extended预科（QS #19，雅思5.0已达标）</li>
+              <li>昆士兰大学标准预科（Go8名校）</li>
+              <li>阿德莱德大学标准预科（Go8名校）</li>
+              <li>15个月预科→本科直通</li>
+              <li>如加拿大不顺利，无缝切换澳洲</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 时间规划 -->
+      <div class="insight-section">
+        <h2>📅 建议时间线</h2>
+        <div class="timeline">
+          <div class="tl-item fade-in">
+            <div class="tl-date">2026年7月-8月</div>
+            <div class="tl-title">完成保底校申请</div>
+            <div class="tl-desc">渥太华、温莎、曼大、纽芬兰纪念、康考迪亚 — 这些学校滚动录取或截止日期晚，但早申早录</div>
+          </div>
+          <div class="tl-item fade-in delay-1">
+            <div class="tl-date">2026年9月-12月</div>
+            <div class="tl-title">冲刺雅思 6.5 · 重点突破阅读听力</div>
+            <div class="tl-desc">阅读4.5→6.0、听力4.5→6.0是最大短板。建议每天2小时精听+精读，配合模考。</div>
+          </div>
+          <div class="tl-item fade-in delay-1">
+            <div class="tl-date">2027年1月-2月</div>
+            <div class="tl-title">提交冲刺校申请</div>
+            <div class="tl-desc">多大UTM/UTSC、麦马、UBC Okanagan、阿尔伯塔等1月15日截止的学校。</div>
+          </div>
+          <div class="tl-item fade-in delay-2">
+            <div class="tl-date">2027年3月-5月</div>
+            <div class="tl-title">等待录取结果 · 评估选择</div>
+            <div class="tl-desc">对比各校offer，考虑专业、排名、Co-op、学费、城市等因素做出最终选择。</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<footer class="footer">
+  <p>数据来源：各校官网(2026) + QS/THE/US News排名 · 每日自动更新</p>
+</footer>
+
+<script src="../js/auth.js"></script>
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold:0.1, rootMargin:'0px 0px -20px 0px' });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// Auth state management
+async function populatePersonalData() {
+  const data = await AUTH.fetchData();
+  if (!data) return;
+  const gpaEl = document.querySelector('.data-gpa');
+  const ieltsEl = document.querySelector('.data-ielts-total');
+  if (gpaEl) gpaEl.textContent = data.gpa;
+  if (ieltsEl) ieltsEl.textContent = data.ielts.overall;
+}
+
+AUTH.onChange(async (logged) => {
+  AUTH.initPage();
+  const content = document.querySelector('.private-content');
+  if (logged) {
+    await populatePersonalData();
+    if (content) content.style.display = '';
+    document.querySelectorAll('.private-section').forEach(el => el.style.display = '');
+    document.querySelectorAll('.visitor-only').forEach(el => el.style.display = 'none');
+  } else {
+    if (content) content.style.display = 'none';
+    document.querySelectorAll('.private-section').forEach(el => el.style.display = 'none');
+    document.querySelectorAll('.visitor-only').forEach(el => el.style.display = '');
+  }
+});
+
+// Initialize
+const logged = AUTH.isLoggedIn();
+AUTH.initPage();
+if (logged) {
+  populatePersonalData();
+  const content = document.querySelector('.private-content');
+  if (content) content.style.display = '';
+  document.querySelectorAll('.private-section').forEach(el => el.style.display = '');
+  document.querySelectorAll('.visitor-only').forEach(el => el.style.display = 'none');
+}
+</script>
+</body>
+</html>

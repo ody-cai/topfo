@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>下载APP · 学生升学数据</title>
+<link rel="stylesheet" href="../css/common.css">
+<style>
+.dl-hero { text-align:left; padding:8px 0 24px; }
+.dl-hero h1 { font-size:22px; margin-bottom:4px; }
+.dl-hero .subtitle { font-size:13px; color:var(--c-text-secondary); }
+
+.dl-platform-badge {
+  display:inline-flex; align-items:center; gap:6px;
+  font-size:12px; padding:4px 12px;
+  border-radius:var(--radius-sm);
+  background:var(--c-success-bg); color:var(--c-success);
+  font-weight:500; margin-top:10px;
+}
+
+.version-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:16px; margin-top:20px; }
+
+.version-card {
+  background:var(--c-surface); border-radius:var(--radius-lg);
+  border:0.5px solid var(--c-border); overflow:hidden;
+  transition:all var(--transition); display:flex; flex-direction:column;
+  position:relative;
+}
+.version-card:hover { box-shadow:var(--shadow-md); border-color:var(--c-accent); }
+.version-card.latest { border-color:var(--c-accent); border-width:1.5px; }
+
+.version-card .latest-badge {
+  position:absolute; top:12px; right:12px;
+  font-size:10px; font-weight:600;
+  padding:3px 10px; border-radius:10px;
+  background:var(--c-accent); color:#fff;
+}
+.version-card-body { padding:24px 24px 16px; flex:1; }
+.version-card .card-icon { font-size:42px; margin-bottom:14px; display:block; }
+.version-card h3 { font-size:18px; font-weight:700; margin-bottom:6px; }
+.version-card .card-meta { font-size:11px; color:var(--c-text-tertiary); margin-bottom:12px; display:flex;gap:16px;flex-wrap:wrap; }
+.version-card .card-meta span { display:inline-flex;align-items:center;gap:4px; }
+.version-card .card-features { font-size:12px; color:var(--c-text-secondary); line-height:1.9; margin-bottom:8px; }
+.version-card .card-features li { list-style:none; }
+.version-card .card-features li::before { content:'✓ '; color:var(--c-success); font-weight:bold; }
+
+.version-card-footer { padding:14px 24px;border-top:0.5px solid var(--c-border);display:flex;gap:8px; }
+.btn-card { font-size:13px;padding:8px 20px;border-radius:var(--radius-sm);font-weight:600;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:6px;transition:all var(--transition);text-decoration:none; }
+.btn-card.primary { background:var(--c-accent);color:#fff; }
+.btn-card.primary:hover { background:var(--c-accent-hover); }
+.btn-card.secondary { background:var(--c-bg);color:var(--c-text);border:0.5px solid var(--c-border-strong); }
+.btn-card.secondary:hover { border-color:var(--c-accent);color:var(--c-accent); }
+
+/* 安装说明 */
+.install-section { margin-top:40px; margin-bottom:40px; }
+.install-section h2 { font-size:18px; font-weight:700; margin-bottom:20px; }
+.install-steps { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:12px; }
+.install-step {
+  background:var(--c-surface); border-radius:var(--radius-md);
+  padding:20px; border:0.5px solid var(--c-border);
+  display:flex; gap:14px; align-items:flex-start;
+}
+.install-step .step-num {
+  width:32px; height:32px; border-radius:50%;
+  background:var(--c-accent-light); color:var(--c-accent);
+  display:flex; align-items:center; justify-content:center;
+  font-weight:700; font-size:14px; flex-shrink:0;
+}
+.install-step .step-content h4 { font-size:14px; font-weight:600; margin-bottom:4px; }
+.install-step .step-content p { font-size:12px; color:var(--c-text-secondary); line-height:1.6; }
+
+/* 登录弹窗 */
+.nav-auth-btn {
+  font-size:12px;padding:5px 14px;border-radius:var(--radius-sm);
+  background:var(--c-accent-light);color:var(--c-accent);
+  cursor:pointer;font-weight:500;border:0.5px solid var(--c-accent);
+  transition:all var(--transition);margin-left:8px;white-space:nowrap;
+}
+.nav-auth-btn:hover { background:var(--c-accent);color:#fff; }
+.nav-auth-btn.logged { background:var(--c-success-bg);color:var(--c-success);border-color:var(--c-success); }
+
+.login-modal { display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.4);z-index:9999;justify-content:center;align-items:center; }
+.login-modal.show { display:flex; }
+.login-modal-content { background:var(--c-surface);border-radius:var(--radius-lg);padding:32px;width:360px;max-width:90vw;box-shadow:var(--shadow-lg);position:relative; }
+.login-modal-content h2 { font-size:20px;font-weight:700;margin-bottom:4px; }
+.login-modal-content .login-sub { font-size:13px;color:var(--c-text-secondary);margin-bottom:20px; }
+.login-field { margin-bottom:14px; }
+.login-field label { font-size:12px;font-weight:500;color:var(--c-text-secondary);margin-bottom:4px;display:block; }
+.login-field input { width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:0.5px solid var(--c-border-strong);font-size:14px;background:var(--c-bg);color:var(--c-text);outline:none; }
+.login-field input:focus { border-color:var(--c-accent); }
+.login-error { display:none;font-size:12px;color:var(--c-danger);margin-bottom:12px;padding:6px 10px;background:var(--c-danger-bg);border-radius:var(--radius-sm); }
+.login-submit { width:100%;padding:12px;border-radius:var(--radius-md);background:var(--c-accent);color:#fff;font-size:14px;font-weight:600;cursor:pointer;border:none;transition:all var(--transition); }
+.login-submit:hover { background:var(--c-accent-hover); }
+.login-close { position:absolute;top:12px;right:16px;font-size:20px;color:var(--c-text-tertiary);cursor:pointer;background:none;border:none; }
+
+@media(max-width:480px) {
+  .version-grid { grid-template-columns:1fr; }
+  .install-steps { grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav-bar">
+  <a href="../index.html" class="nav-logo"><span class="dot"></span> 升学数据</a>
+  <div class="nav-links">
+    <a href="../index.html" class="nav-link">首页</a>
+    <a href="admission.html" class="nav-link">录取对照表</a>
+    <a href="rankings.html" class="nav-link">排名参考</a>
+    <a href="insights.html" class="nav-link">关键发现</a>
+    <a href="files.html" class="nav-link">文件</a>
+    <a href="download.html" class="nav-link active">下载APP</a>
+    <button id="navAuthBtn" class="nav-auth-btn" onclick="AUTH.handleNavAuthClick()">登录</button>
+  </div>
+</nav>
+
+<div id="loginModal" class="login-modal">
+  <div class="login-modal-content">
+    <button class="login-close" onclick="AUTH.hideLoginModal()">✕</button>
+    <h2>登录查看个人数据</h2>
+    <p class="login-sub">登录后可查看个性化录取匹配、GPA分析、升学策略等私密数据</p>
+    <div class="login-field">
+      <label>用户名</label>
+      <input id="loginUser" type="text" placeholder="请输入用户名" autocomplete="username">
+    </div>
+    <div class="login-field">
+      <label>密码</label>
+      <input id="loginPass" type="password" placeholder="请输入密码" autocomplete="current-password">
+    </div>
+    <div id="loginError" class="login-error"></div>
+    <button id="loginSubmitBtn" class="login-submit" onclick="AUTH.handleLoginSubmit()">登录</button>
+  </div>
+</div>
+
+<div class="page-container" style="padding-top:20px;">
+  <a href="../index.html" class="back-link">← 返回首页</a>
+
+  <div class="dl-hero">
+    <h1>📲 下载 TopFO App</h1>
+    <p class="subtitle">学生升学数据平台 · 随身携带，随时查阅</p>
+    <span class="dl-platform-badge">🤖 Android</span>
+  </div>
+
+  <!-- 当前版本 -->
+  <div style="margin-bottom:12px;">
+    <h2 style="font-size:16px;font-weight:600;">当前版本</h2>
+  </div>
+
+  <div class="version-grid">
+    <!-- v1.0.2 -->
+    <div class="version-card latest">
+      <span class="latest-badge">最新</span>
+      <div class="version-card-body">
+        <span class="card-icon">📱</span>
+        <h3>TopFO v1.0.2</h3>
+        <div class="card-meta">
+          <span>📅 2026-07-08</span>
+          <span>📦 ~19 MB</span>
+          <span>🤖 Android 8.0+</span>
+        </div>
+        <ul class="card-features">
+          <li>修复后台返回后"我的"页面要求重新登录的问题</li>
+          <li>新增"版本"按钮 · 应用内检查更新</li>
+          <li>新版本自动下载 + 一键安装</li>
+          <li>录取对照表（9专业 × 26院校）</li>
+          <li>QS / THE / US News 排名</li>
+          <li>深色主题 · 平板自适应</li>
+        </ul>
+      </div>
+      <div class="version-card-footer">
+        <a href="../download/TopFO-v1.0.2.apk" class="btn-card primary" download>⬇ 下载 APK</a>
+        <a href="download-v1.0.2.html" class="btn-card secondary">📋 版本详情</a>
+      </div>
+    </div>
+
+    <!-- v1.0.1 -->
+    <div class="version-card">
+      <div class="version-card-body">
+        <span class="card-icon">📱</span>
+        <h3>TopFO v1.0.1</h3>
+        <div class="card-meta">
+          <span>📅 2026-07-08</span>
+          <span>📦 ~18 MB</span>
+          <span>🤖 Android 8.0+</span>
+        </div>
+        <ul class="card-features">
+          <li>深色主题切换 · 夜间模式</li>
+          <li>全新极简几何图标</li>
+          <li>导航栏颜色主题适配</li>
+          <li>录取对照表（9专业 × 26院校）</li>
+          <li>QS / THE / US News 排名</li>
+          <li>个人GPA/雅思匹配 · 平板自适应</li>
+        </ul>
+      </div>
+      <div class="version-card-footer">
+        <a href="../download/TopFO-v1.0.1.apk" class="btn-card primary" download>⬇ 下载 APK</a>
+        <a href="download-v1.0.1.html" class="btn-card secondary">📋 版本详情</a>
+      </div>
+    </div>
+
+    <!-- v1.0.0 -->
+    <div class="version-card">
+      <div class="version-card-body">
+        <span class="card-icon">📱</span>
+        <h3>TopFO v1.0.0</h3>
+        <div class="card-meta">
+          <span>📅 2026-07-08</span>
+          <span>📦 18 MB</span>
+          <span>🤖 Android 8.0+</span>
+        </div>
+        <ul class="card-features">
+          <li>录取要求对照表（9大专业 × 26所院校）</li>
+          <li>三大排名参考（QS / THE / US News）</li>
+          <li>关键发现与升学策略建议</li>
+          <li>文件中心 · 权威报告下载</li>
+          <li>帐号登录 · 个人GPA/雅思匹配</li>
+          <li>平板自适应 · 导航栏左侧布局</li>
+        </ul>
+      </div>
+      <div class="version-card-footer">
+        <a href="../download/TopFO-v1.0.0.apk" class="btn-card primary" download>⬇ 下载 APK</a>
+        <a href="download-v1.0.0.html" class="btn-card secondary">📋 版本详情</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 安装说明 -->
+  <div class="install-section">
+    <h2>📖 安装说明</h2>
+    <div class="install-steps">
+      <div class="install-step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h4>下载 APK 文件</h4>
+          <p>点击上方「下载 APK」按钮，将安装包保存到手机</p>
+        </div>
+      </div>
+      <div class="install-step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h4>允许安装未知来源应用</h4>
+          <p>打开手机 设置 → 安全 → 允许「未知来源」或「安装未知应用」</p>
+        </div>
+      </div>
+      <div class="install-step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h4>安装并打开</h4>
+          <p>点击 APK 文件完成安装，桌面会出现 TopFO 图标</p>
+        </div>
+      </div>
+      <div class="install-step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h4>登录帐号</h4>
+          <p>使用与网页版相同的帐号登录，数据完全同步</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align:center;padding:32px 0;color:var(--c-text-tertiary);font-size:13px;">
+    📱 App 与网页版数据实时同步 · 更多功能持续更新中
+  </div>
+</div>
+
+<footer class="footer">
+  <p>TopFO App 仅供学习参考 · 数据来源为各大学官方网站及QS/THE/US News公开排名</p>
+</footer>
+
+<script src="../js/auth.js"></script>
+<script>AUTH.initPage();</script>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>文件中心 · 学生升学数据</title>
+<link rel="stylesheet" href="../css/common.css">
+<style>
+.files-hero { text-align:left; padding:8px 0 24px; }
+.files-hero h1 { font-size:22px; margin-bottom:4px; }
+.files-hero .subtitle { font-size:13px; color:var(--c-text-secondary); }
+
+.report-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:16px; }
+
+.report-card {
+  background:var(--c-surface); border-radius:var(--radius-lg);
+  border:0.5px solid var(--c-border); overflow:hidden;
+  transition:all var(--transition); display:flex; flex-direction:column;
+}
+.report-card:hover { box-shadow:var(--shadow-md); border-color:var(--c-accent); }
+.report-card-body { padding:20px 24px 16px; flex:1; }
+.report-card .card-icon { font-size:36px; margin-bottom:12px; display:block; }
+.report-card h3 { font-size:16px; font-weight:600; margin-bottom:6px; line-height:1.4; }
+.report-card .card-meta { font-size:11px; color:var(--c-text-tertiary); margin-bottom:10px; display:flex;gap:12px;flex-wrap:wrap; }
+.report-card .card-meta span { display:inline-flex;align-items:center;gap:3px; }
+.report-card .card-desc { font-size:12px; color:var(--c-text-secondary); line-height:1.7; margin-bottom:8px; }
+.report-card .card-tags { display:flex;gap:4px;flex-wrap:wrap;margin-bottom:12px; }
+.report-tag { font-size:10px;padding:3px 8px;border-radius:10px;background:var(--c-bg);color:var(--c-text-secondary); }
+
+.report-card-footer { padding:12px 24px;border-top:0.5px solid var(--c-border);display:flex;gap:8px; }
+.btn-card { font-size:12px;padding:7px 16px;border-radius:var(--radius-sm);font-weight:500;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:5px;transition:all var(--transition);text-decoration:none; }
+.btn-card.primary { background:var(--c-accent);color:#fff; }
+.btn-card.primary:hover { background:var(--c-accent-hover); }
+.btn-card.secondary { background:var(--c-bg);color:var(--c-text);border:0.5px solid var(--c-border-strong); }
+.btn-card.secondary:hover { border-color:var(--c-accent);color:var(--c-accent); }
+
+.empty-state { text-align:center;padding:60px 20px;color:var(--c-text-tertiary); }
+.empty-state .icon { font-size:48px;margin-bottom:16px;display:block; }
+
+.nav-auth-btn {
+  font-size:12px;padding:5px 14px;border-radius:var(--radius-sm);
+  background:var(--c-accent-light);color:var(--c-accent);
+  cursor:pointer;font-weight:500;border:0.5px solid var(--c-accent);
+  transition:all var(--transition);margin-left:8px;white-space:nowrap;
+}
+.nav-auth-btn:hover { background:var(--c-accent);color:#fff; }
+.nav-auth-btn.logged { background:var(--c-success-bg);color:var(--c-success);border-color:var(--c-success); }
+
+.login-modal { display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.4);z-index:9999;justify-content:center;align-items:center; }
+.login-modal.show { display:flex; }
+.login-modal-content { background:var(--c-surface);border-radius:var(--radius-lg);padding:32px;width:360px;max-width:90vw;box-shadow:var(--shadow-lg);position:relative; }
+.login-modal-content h2 { font-size:20px;font-weight:700;margin-bottom:4px; }
+.login-modal-content .login-sub { font-size:13px;color:var(--c-text-secondary);margin-bottom:20px; }
+.login-field { margin-bottom:14px; }
+.login-field label { font-size:12px;font-weight:500;color:var(--c-text-secondary);margin-bottom:4px;display:block; }
+.login-field input { width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:0.5px solid var(--c-border-strong);font-size:14px;background:var(--c-bg);color:var(--c-text);outline:none; }
+.login-field input:focus { border-color:var(--c-accent); }
+.login-error { display:none;font-size:12px;color:var(--c-danger);margin-bottom:12px;padding:6px 10px;background:var(--c-danger-bg);border-radius:var(--radius-sm); }
+.login-submit { width:100%;padding:12px;border-radius:var(--radius-md);background:var(--c-accent);color:#fff;font-size:14px;font-weight:600;cursor:pointer;border:none;transition:all var(--transition); }
+.login-submit:hover { background:var(--c-accent-hover); }
+.login-close { position:absolute;top:12px;right:16px;font-size:20px;color:var(--c-text-tertiary);cursor:pointer;background:none;border:none; }
+</style>
+</head>
+<body>
+
+<nav class="nav-bar">
+  <a href="../index.html" class="nav-logo"><span class="dot"></span> 升学数据</a>
+  <div class="nav-links">
+    <a href="../index.html" class="nav-link">首页</a>
+    <a href="admission.html" class="nav-link">录取对照表</a>
+    <a href="rankings.html" class="nav-link">排名参考</a>
+    <a href="insights.html" class="nav-link">关键发现</a>
+    <a href="files.html" class="nav-link active">文件</a>
+    <a href="download.html" class="nav-link">下载APP</a>
+    <button id="navAuthBtn" class="nav-auth-btn" onclick="AUTH.handleNavAuthClick()">登录</button>
+  </div>
+</nav>
+
+<div id="loginModal" class="login-modal">
+  <div class="login-modal-content">
+    <button class="login-close" onclick="AUTH.hideLoginModal()">✕</button>
+    <h2>登录查看个人数据</h2>
+    <p class="login-sub">登录后可查看个性化录取匹配、GPA分析、升学策略等私密数据</p>
+    <div class="login-field">
+      <label>用户名</label>
+      <input id="loginUser" type="text" placeholder="请输入用户名" autocomplete="username">
+    </div>
+    <div class="login-field">
+      <label>密码</label>
+      <input id="loginPass" type="password" placeholder="请输入密码" autocomplete="current-password">
+    </div>
+    <div id="loginError" class="login-error"></div>
+    <button id="loginSubmitBtn" class="login-submit" onclick="AUTH.handleLoginSubmit()">登录</button>
+  </div>
+</div>
+
+<div class="page-container" style="padding-top:20px;">
+  <a href="../index.html" class="back-link">← 返回首页</a>
+
+  <div class="files-hero">
+    <h1>📁 文件中心</h1>
+    <p class="subtitle">权威报告 · 政策文件 · 升学参考资料，持续更新中</p>
+  </div>
+
+  <div class="report-grid" id="reportGrid">
+    <div class="report-card">
+      <div class="report-card-body">
+        <span class="card-icon">📘</span>
+        <h3>教育发展"十五五"规划</h3>
+        <div class="card-meta">
+          <span>📅 2026.6</span><span>📄 19页</span><span>🏛 国务院</span><span>📜 国发〔2026〕19号</span>
+        </div>
+        <p class="card-desc">面向2030年教育强国的顶层设计。5大战略任务+3大规划布局+6项综合改革。涵盖AI全学段教育、双一流扩招、出国留学服务体系、教育评价改革等关键议题。</p>
+        <div class="card-tags"><span class="report-tag">十五五</span><span class="report-tag">教育强国</span><span class="report-tag">AI教育</span><span class="report-tag">出国留学</span></div>
+      </div>
+      <div class="report-card-footer">
+        <a href="file-edu-15th-plan-2026.html" class="btn-card primary">📖 查看解读</a>
+        <a href="../files/GuoFa2026-19_Edu15thPlan.pdf" class="btn-card secondary" download>📥 下载PDF</a>
+      </div>
+    </div>
+
+    <div class="report-card">
+      <div class="report-card-body">
+        <span class="card-icon">🎓</span>
+        <h3>QS World Future Skills Index 2027</h3>
+        <div class="card-meta">
+          <span>📅 2026年</span><span>📄 64页</span><span>🌍 89国</span><span>🏫 QS</span>
+        </div>
+        <p class="card-desc">评估全球89个经济体高等教育体系与劳动力市场需求的匹配度。四大维度：技能匹配、学术准备、未来工作、经济转型。加拿大综合排名第5。</p>
+        <div class="card-tags"><span class="report-tag">QS</span><span class="report-tag">技能指数</span><span class="report-tag">AI与就业</span><span class="report-tag">全球排名</span></div>
+      </div>
+      <div class="report-card-footer">
+        <a href="file-qs-skills-2027.html" class="btn-card primary">📖 查看解读</a>
+        <a href="../files/QS_World_Future_Skills_Index_2027.pdf" class="btn-card secondary" download>📥 下载PDF</a>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align:center;padding:40px 0;color:var(--c-text-tertiary);font-size:13px;">
+    📂 更多报告将陆续添加 · 欢迎关注
+  </div>
+</div>
+
+<footer class="footer">
+  <p>文件来源均为公开权威报告 · 仅供学习参考 · 版权归原作者所有</p>
+</footer>
+
+<script src="../js/auth.js"></script>
+<script>AUTH.initPage();</script>
+</body>
+</html>

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TopFO v1.0.0 · 版本详情</title>
+<link rel="stylesheet" href="../css/common.css">
+<style>
+.detail-hero { padding:8px 0 24px; display:flex; gap:24px; align-items:flex-start; flex-wrap:wrap; }
+.detail-hero .app-icon { font-size:64px; line-height:1; }
+.detail-hero .app-info h1 { font-size:28px; font-weight:800; margin-bottom:4px; }
+.detail-hero .app-info .version-badge {
+  display:inline-block; font-size:12px; padding:2px 10px;
+  border-radius:10px; background:var(--c-accent-light); color:var(--c-accent);
+  font-weight:600; margin-bottom:8px;
+}
+.detail-hero .app-info .meta-row { font-size:12px; color:var(--c-text-tertiary); display:flex;gap:20px;flex-wrap:wrap;margin-top:6px; }
+.detail-hero .app-info .meta-row span { display:inline-flex;align-items:center;gap:4px; }
+
+.detail-hero .dl-area { margin-left:auto; text-align:center; }
+.dl-btn {
+  display:inline-flex; align-items:center; gap:10px;
+  padding:14px 36px; border-radius:var(--radius-md);
+  background:var(--c-accent); color:#fff; font-size:16px; font-weight:700;
+  text-decoration:none; transition:all var(--transition);
+  border:none; cursor:pointer;
+}
+.dl-btn:hover { background:var(--c-accent-hover); transform:translateY(-2px); box-shadow:0 8px 24px rgba(79,70,229,.35); }
+.dl-area .dl-size { font-size:11px; color:var(--c-text-tertiary); margin-top:8px; }
+
+/* 面包屑 */
+.breadcrumb { font-size:12px; color:var(--c-text-tertiary); margin-bottom:20px; }
+.breadcrumb a { color:var(--c-accent); text-decoration:none; }
+.breadcrumb a:hover { text-decoration:underline; }
+
+.section { margin-bottom:36px; }
+.section h2 { font-size:16px; font-weight:700; margin-bottom:14px; padding-bottom:8px; border-bottom:0.5px solid var(--c-border); }
+.section h3 { font-size:14px; font-weight:600; margin-bottom:8px; color:var(--c-accent); }
+
+/* 功能列表 */
+.feature-list { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:10px; }
+.feature-item {
+  background:var(--c-surface); border-radius:var(--radius-md);
+  padding:16px 18px; border:0.5px solid var(--c-border);
+  display:flex; gap:14px; align-items:flex-start;
+}
+.feature-item .feat-icon { font-size:24px; flex-shrink:0; margin-top:2px; }
+.feature-item .feat-content h4 { font-size:13px; font-weight:600; margin-bottom:3px; }
+.feature-item .feat-content p { font-size:12px; color:var(--c-text-secondary); line-height:1.6; }
+
+/* 更新日志 */
+.changelog { list-style:none; padding:0; }
+.changelog li {
+  font-size:13px; color:var(--c-text-secondary);
+  padding:8px 0; border-bottom:0.5px solid var(--c-border);
+  display:flex; gap:10px; line-height:1.7;
+}
+.changelog li:last-child { border-bottom:none; }
+.changelog .tag {
+  display:inline-flex; align-items:center;
+  font-size:10px; font-weight:600; padding:1px 8px;
+  border-radius:8px; flex-shrink:0; margin-top:2px;
+  height:20px;
+}
+.tag-new { background:var(--c-success-bg); color:var(--c-success); }
+.tag-fix { background:var(--c-warning-bg); color:var(--c-warning); }
+.tag-opt { background:var(--c-accent-light); color:var(--c-accent); }
+
+/* 技术规格 */
+.spec-table { width:100%; border-collapse:collapse; }
+.spec-table td {
+  padding:10px 14px; font-size:13px;
+  border-bottom:0.5px solid var(--c-border);
+}
+.spec-table td:first-child { color:var(--c-text-tertiary); width:140px; font-weight:500; }
+.spec-table td:last-child { color:var(--c-text); }
+
+/* 登录弹窗 */
+.nav-auth-btn {
+  font-size:12px;padding:5px 14px;border-radius:var(--radius-sm);
+  background:var(--c-accent-light);color:var(--c-accent);
+  cursor:pointer;font-weight:500;border:0.5px solid var(--c-accent);
+  transition:all var(--transition);margin-left:8px;white-space:nowrap;
+}
+.nav-auth-btn:hover { background:var(--c-accent);color:#fff; }
+.nav-auth-btn.logged { background:var(--c-success-bg);color:var(--c-success);border-color:var(--c-success); }
+
+.login-modal { display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.4);z-index:9999;justify-content:center;align-items:center; }
+.login-modal.show { display:flex; }
+.login-modal-content { background:var(--c-surface);border-radius:var(--radius-lg);padding:32px;width:360px;max-width:90vw;box-shadow:var(--shadow-lg);position:relative; }
+.login-modal-content h2 { font-size:20px;font-weight:700;margin-bottom:4px; }
+.login-modal-content .login-sub { font-size:13px;color:var(--c-text-secondary);margin-bottom:20px; }
+.login-field { margin-bottom:14px; }
+.login-field label { font-size:12px;font-weight:500;color:var(--c-text-secondary);margin-bottom:4px;display:block; }
+.login-field input { width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:0.5px solid var(--c-border-strong);font-size:14px;background:var(--c-bg);color:var(--c-text);outline:none; }
+.login-field input:focus { border-color:var(--c-accent); }
+.login-error { display:none;font-size:12px;color:var(--c-danger);margin-bottom:12px;padding:6px 10px;background:var(--c-danger-bg);border-radius:var(--radius-sm); }
+.login-submit { width:100%;padding:12px;border-radius:var(--radius-md);background:var(--c-accent);color:#fff;font-size:14px;font-weight:600;cursor:pointer;border:none;transition:all var(--transition); }
+.login-submit:hover { background:var(--c-accent-hover); }
+.login-close { position:absolute;top:12px;right:16px;font-size:20px;color:var(--c-text-tertiary);cursor:pointer;background:none;border:none; }
+
+@media(max-width:768px) {
+  .detail-hero { flex-direction:column; }
+  .detail-hero .dl-area { margin-left:0; width:100%; }
+  .dl-btn { width:100%; justify-content:center; }
+  .feature-list { grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav-bar">
+  <a href="../index.html" class="nav-logo"><span class="dot"></span> 升学数据</a>
+  <div class="nav-links">
+    <a href="../index.html" class="nav-link">首页</a>
+    <a href="admission.html" class="nav-link">录取对照表</a>
+    <a href="rankings.html" class="nav-link">排名参考</a>
+    <a href="insights.html" class="nav-link">关键发现</a>
+    <a href="files.html" class="nav-link">文件</a>
+    <a href="download.html" class="nav-link active">下载APP</a>
+    <button id="navAuthBtn" class="nav-auth-btn" onclick="AUTH.handleNavAuthClick()">登录</button>
+  </div>
+</nav>
+
+<div id="loginModal" class="login-modal">
+  <div class="login-modal-content">
+    <button class="login-close" onclick="AUTH.hideLoginModal()">✕</button>
+    <h2>登录查看个人数据</h2>
+    <p class="login-sub">登录后可查看个性化录取匹配、GPA分析、升学策略等私密数据</p>
+    <div class="login-field">
+      <label>用户名</label>
+      <input id="loginUser" type="text" placeholder="请输入用户名" autocomplete="username">
+    </div>
+    <div class="login-field">
+      <label>密码</label>
+      <input id="loginPass" type="password" placeholder="请输入密码" autocomplete="current-password">
+    </div>
+    <div id="loginError" class="login-error"></div>
+    <button id="loginSubmitBtn" class="login-submit" onclick="AUTH.handleLoginSubmit()">登录</button>
+  </div>
+</div>
+
+<div class="page-container" style="padding-top:20px;">
+
+  <!-- 面包屑 -->
+  <div class="breadcrumb">
+    <a href="../index.html">首页</a> / <a href="download.html">下载APP</a> / TopFO v1.0.0
+  </div>
+
+  <!-- 版本头部 -->
+  <div class="detail-hero">
+    <div>
+      <span class="app-icon">📱</span>
+    </div>
+    <div class="app-info">
+      <span class="version-badge">v1.0.0</span>
+      <h1>TopFO App</h1>
+      <p style="font-size:14px;color:var(--c-text-secondary);line-height:1.7;margin-bottom:12px;">
+        学生升学数据平台 Android 客户端。随身携带，随时查阅录取要求、排名数据和升学策略。
+      </p>
+      <div class="meta-row">
+        <span>📅 发布日期：2026-07-08</span>
+        <span>📦 安装包大小：18 MB</span>
+        <span>🤖 最低系统：Android 8.0</span>
+      </div>
+    </div>
+    <div class="dl-area">
+      <a href="../download/TopFO-v1.0.0.apk" class="dl-btn" download>
+        <span style="font-size:22px;">⬇</span> 下载安装包
+      </a>
+      <div class="dl-size">TopFO-v1.0.0.apk · 18 MB</div>
+    </div>
+  </div>
+
+  <!-- 功能亮点 -->
+  <div class="section">
+    <h2>✨ 功能亮点</h2>
+    <div class="feature-list">
+      <div class="feature-item">
+        <span class="feat-icon">📊</span>
+        <div class="feat-content">
+          <h4>录取要求对照表</h4>
+          <p>9大专业方向 × 26所院校含分校区，支持GPA/雅思匹配筛选</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <span class="feat-icon">🏆</span>
+        <div class="feat-content">
+          <h4>三大排名参考</h4>
+          <p>QS 2027 / THE 2026 / US News 综合与专业排名，与网站实时同步</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <span class="feat-icon">💡</span>
+        <div class="feat-content">
+          <h4>关键发现与策略</h4>
+          <p>登录后解锁个性化升学策略、三阶段规划与时间线建议</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <span class="feat-icon">📁</span>
+        <div class="feat-content">
+          <h4>文件中心</h4>
+          <p>权威报告在线查看与下载，支持 PDF 预览</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <span class="feat-icon">🤖</span>
+        <div class="feat-content">
+          <h4>AI 升学顾问</h4>
+          <p>基于个人数据的智能对话，实时解答升学疑问</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <span class="feat-icon">📱</span>
+        <div class="feat-content">
+          <h4>平板自适应</h4>
+          <p>手机端底部导航，平板端左侧导航栏，完美适配不同屏幕</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <span class="feat-icon">🔄</span>
+        <div class="feat-content">
+          <h4>数据实时同步</h4>
+          <p>学校排名与录取数据通过 Cloudflare API 自动同步，始终保持最新</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <span class="feat-icon">🔐</span>
+        <div class="feat-content">
+          <h4>帐号互通</h4>
+          <p>与网页版共用同一帐号，登录后 G 个人数据完全一致</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 更新日志 -->
+  <div class="section">
+    <h2>📝 更新日志</h2>
+    <ul class="changelog">
+      <li>
+        <span class="tag tag-new">新增</span>
+        <span>首个正式版本发布，包含录取对照表、排名参考、关键发现、文件中心、AI 升学顾问五大核心模块</span>
+      </li>
+      <li>
+        <span class="tag tag-new">新增</span>
+        <span>JWT 认证登录，与网页版共用同一帐号体系</span>
+      </li>
+      <li>
+        <span class="tag tag-new">新增</span>
+        <span>平板自适应布局，大屏设备自动切换左侧导航栏</span>
+      </li>
+      <li>
+        <span class="tag tag-new">新增</span>
+        <span>NetworkFirst 数据策略：API 优先 → 本地缓存 → 内置兜底</span>
+      </li>
+      <li>
+        <span class="tag tag-new">新增</span>
+        <span>EncryptedSharedPreferences 加密存储 Token 和用户数据</span>
+      </li>
+      <li>
+        <span class="tag tag-opt">优化</span>
+        <span>Material 3 设计语言，遵循 Material Design 3 规范</span>
+      </li>
+      <li>
+        <span class="tag tag-opt">优化</span>
+        <span>冷启动时间优化至 2 秒以内</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- 技术规格 -->
+  <div class="section">
+    <h2>🔧 技术规格</h2>
+    <table class="spec-table">
+      <tr><td>应用名称</td><td>TopFO</td></tr>
+      <tr><td>版本号</td><td>1.0.0</td></tr>
+      <tr><td>包名</td><td>com.topfo.app</td></tr>
+      <tr><td>平台</td><td>Android</td></tr>
+      <tr><td>最低系统</td><td>Android 8.0 (API Level 26)</td></tr>
+      <tr><td>目标系统</td><td>Android 14 (API Level 34)</td></tr>
+      <tr><td>开发语言</td><td>Kotlin + Jetpack Compose</td></tr>
+      <tr><td>UI 框架</td><td>Material 3 (Material Design 3)</td></tr>
+      <tr><td>架构</td><td>MVVM + Repository 模式</td></tr>
+      <tr><td>本地存储</td><td>Room Database + EncryptedSharedPreferences</td></tr>
+      <tr><td>网络层</td><td>Retrofit + OkHttp (JWT 拦截器)</td></tr>
+      <tr><td>安装包大小</td><td>18 MB</td></tr>
+      <tr><td>发布日期</td><td>2026年7月8日</td></tr>
+    </table>
+  </div>
+
+  <div style="text-align:center;padding:32px 0;">
+    <a href="../download/TopFO-v1.0.0.apk" class="dl-btn" download style="font-size:15px;">
+      <span>⬇</span> 下载 TopFO v1.0.0
+    </a>
+    <div class="dl-size" style="margin-top:10px;">18 MB · Android 8.0+</div>
+  </div>
+</div>
+
+<footer class="footer">
+  <p>TopFO App v1.0.0 · 学生升学数据平台 · 数据持续更新中</p>
+</footer>
+
+<script src="../js/auth.js"></script>
+<script>AUTH.initPage();</script>
+</body>
+</html>

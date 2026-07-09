@@ -1,0 +1,6 @@
+{
+  "versionName": "1.0.2",
+  "versionCode": 3,
+  "apkUrl": "https://topfo.pages.dev/download/TopFO-v1.0.2.apk",
+  "changelog": "修复后台返回后'我的'页面要求重新登录的问题；新增版本检查与自动更新功能"
+}
