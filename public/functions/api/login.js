@@ -1,6 +1,9 @@
 // POST /api/login - PBKDF2-SHA256 password verification + JWT issue
 const PW_SALT = "6537689ccc9064f9b12b5379837eacf2";
-const PW_HASH = "3a2461f7988fbce6135ec558a301fb53dd2c80bb0350c485a385fe19f74d3344";
+const USERS = {
+  caiqijun: { hash: "3a2461f7988fbce6135ec558a301fb53dd2c80bb0350c485a385fe19f74d3344", role: "user", name: "奇均", display: "奇均" },
+  demo:     { hash: "a2190df6895d6cc65f283240b8244b9538b27311e781c89184be2cce4e7c698a", role: "demo", name: "访客", display: "体验用户" }
+};
 const JWT_SECRET = "2baea092dd1542e27bdbbde82a3491cb5e3e30cfcd1fba8f4c5e5731b22859a0";
 
 function hexToBytes(hex) {
@@ -64,13 +67,15 @@ export async function onRequestPost(context) {
     try { ({ username, password } = JSON.parse(body)); } catch { return Response.json({ error: "Invalid JSON" }, { status: 400, headers: corsHeaders() }); }
 
     if (!username || !password) return Response.json({ error: "Missing username or password" }, { status: 400, headers: corsHeaders() });
-    if (username !== "caiqijun") return Response.json({ error: "Invalid credentials" }, { status: 401, headers: corsHeaders() });
 
-    const ok = await pbkdf2Verify(password, PW_SALT, PW_HASH);
+    const userDef = USERS[username];
+    if (!userDef) return Response.json({ error: "Invalid credentials" }, { status: 401, headers: corsHeaders() });
+
+    const ok = await pbkdf2Verify(password, PW_SALT, userDef.hash);
     if (!ok) return Response.json({ error: "Invalid credentials" }, { status: 401, headers: corsHeaders() });
 
     const token = await issueJWT(username);
-    return Response.json({ token, user: { name: "奇均", display: "奇均" } }, { headers: corsHeaders() });
+    return Response.json({ token, user: { name: userDef.name, display: userDef.display } }, { headers: corsHeaders() });
   } catch (e) {
     return Response.json({ error: "Internal error: " + e.message }, { status: 500, headers: corsHeaders() });
   }

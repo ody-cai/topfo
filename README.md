@@ -25,9 +25,10 @@ Covers **26 Canadian universities (including satellite campuses) × 9 major prog
 | 📱 **Android App** | Liquid Glass 设计语言，Kotlin + Jetpack Compose |
 | 🌏 **澳洲预科** | UNSW/UQ/Monash/Adelaide 预科录取数据 |
 
-### 🔐 登录信息 | Demo Login
+### 🔐 体验登录 | Demo Login
 
-> 账号: `caiqijun` / 密码: `20262026`
+> 体验账号: `demo` / 密码: `topfo2026`  
+> *体验账号仅可查看公开数据，不含个人GPA/雅思信息*
 
 ---
 

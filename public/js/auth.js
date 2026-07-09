@@ -23,7 +23,9 @@ const AUTH = {
       if (!raw) return null;
       const parts = JSON.parse(raw).token.split('.');
       const claims = JSON.parse(atob(parts[1].replace(/-/g, '+').replace(/_/g, '/')));
-      return { name: '奇均', display: '奇均' };
+      // 从 localStorage 获取登录时服务端返回的 user 信息
+      const loginInfo = JSON.parse(localStorage.getItem('admission_user') || '{}');
+      return { name: loginInfo.name || claims.sub, display: loginInfo.display || claims.sub };
     } catch { return null; }
   },
 
@@ -35,6 +37,16 @@ const AUTH = {
       const parts = JSON.parse(raw).token.split('.');
       const claims = JSON.parse(atob(parts[1].replace(/-/g, '+').replace(/_/g, '/')));
       return claims.sub || null;
+    } catch { return null; }
+  },
+
+  _getRole() {
+    try {
+      const raw = localStorage.getItem(this._key);
+      if (!raw) return null;
+      const parts = JSON.parse(raw).token.split('.');
+      const claims = JSON.parse(atob(parts[1].replace(/-/g, '+').replace(/_/g, '/')));
+      return claims.role || null;
     } catch { return null; }
   },
 
@@ -92,12 +104,13 @@ const AUTH = {
 
       this._token = result.token;
       localStorage.setItem(this._key, JSON.stringify({ token: result.token, ts: Date.now() }));
+      localStorage.setItem('admission_user', JSON.stringify(result.user || { name: username, display: username }));
 
       // 立即获取个人数据
       await this._fetchPersonalData();
 
       this._notifyAll();
-      return { ok: true, msg: '登录成功', user: { name: '奇均', display: '奇均' } };
+      return { ok: true, msg: '登录成功', user: result.user };
     } catch (e) {
       return { ok: false, msg: '网络错误，请重试' };
     }
@@ -105,6 +118,7 @@ const AUTH = {
 
   logout() {
     localStorage.removeItem(this._key);
+    localStorage.removeItem('admission_user');
     sessionStorage.removeItem(this._dataKey);
     this._token = null;
     this._data = null;
@@ -193,18 +207,22 @@ const AUTH = {
       btn.textContent = user ? user.display : '用户';
       btn.title = '点击退出登录';
 
-      // 插入编辑数据按钮
-      const editBtn = document.createElement('button');
-      editBtn.id = 'navEditBtn';
-      editBtn.className = 'nav-auth-btn';
-      editBtn.textContent = '✏️ 编辑数据';
-      editBtn.title = '修改GPA和雅思分数';
-      editBtn.style.marginLeft = '8px';
-      editBtn.onclick = () => AUTH.showProfileModal();
-      btn.parentNode.insertBefore(editBtn, btn.nextSibling);
+      // 仅个人账号(Cai Qijun)显示编辑数据按钮和聊天
+      if (this.getUsername() === 'caiqijun') {
+        const editBtn = document.createElement('button');
+        editBtn.id = 'navEditBtn';
+        editBtn.className = 'nav-auth-btn';
+        editBtn.textContent = '✏️ 编辑数据';
+        editBtn.title = '修改GPA和雅思分数';
+        editBtn.style.marginLeft = '8px';
+        editBtn.onclick = () => AUTH.showProfileModal();
+        btn.parentNode.insertBefore(editBtn, btn.nextSibling);
 
-      // 显示/隐藏 AI 聊天
-      this._updateChatWidget();
+        // 显示 AI 聊天
+        this._updateChatWidget();
+      } else {
+        this._hideChatWidget();
+      }
     } else {
       btn.className = 'nav-auth-btn';
       btn.textContent = '登录';
@@ -478,7 +496,9 @@ const AUTH = {
 
   _updateChatWidget() {
     const username = this.getUsername();
-    if (username === 'caiqijun') {
+    const role = this._getRole();
+    // 仅 caiqijun 个人账号可用 AI 升学顾问
+    if (username === 'caiqijun' && role === 'user') {
       this._injectChatWidget();
       const w = document.getElementById('chatWidget');
       if (w) w.classList.add('visible');
