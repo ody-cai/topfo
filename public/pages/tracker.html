@@ -378,16 +378,17 @@ body { background: var(--c-bg); }
 <nav class="nav-bar">
   <a href="../index.html" class="nav-logo"><span class="dot"></span> 升学数据</a>
   <div class="nav-links">
-    <a href="../index.html" class="nav-link">首页</a>
-    <a href="admission.html" class="nav-link">录取对照表</a>
-    <a href="rankings.html" class="nav-link">排名参考</a>
-    <a href="insights.html" class="nav-link">关键发现</a>
-    <a href="tracker.html" class="nav-link active">申请追踪</a>
-    <a href="community.html" class="nav-link">社区</a>
-    <a href="files.html" class="nav-link">文件</a>
-    <a href="download.html" class="nav-link">下载APP</a>
-    <a href="notifications.html" class="nav-link">🔔 通知</a>
-    <button id="navAuthBtn" class="nav-auth-btn" onclick="AUTH.handleNavAuthClick()">登录</button>
+    <a href="../index.html" class="nav-link" data-i18n="nav.home">首页</a>
+    <a href="admission.html" class="nav-link" data-i18n="nav.admission">录取对照表</a>
+    <a href="rankings.html" class="nav-link" data-i18n="nav.rankings">排名参考</a>
+    <a href="insights.html" class="nav-link" data-i18n="nav.insights">关键发现</a>
+    <a href="tracker.html" class="nav-link active" data-i18n="nav.tracker">申请追踪</a>
+    <a href="community.html" class="nav-link" data-i18n="nav.community">社区</a>
+    <a href="recommend.html" class="nav-link" data-i18n="nav.recommend">AI 选校</a>
+    <a href="files.html" class="nav-link" data-i18n="nav.files">文件</a>
+    <a href="download.html" class="nav-link" data-i18n="nav.download">下载APP</a>
+    <a href="notifications.html" class="nav-link" data-i18n="nav.notifications">🔔 通知</a>
+    <button id="navAuthBtn" class="nav-auth-btn" onclick="AUTH.handleNavAuthClick()" data-i18n="nav.login">登录</button>
   </div>
 </nav>
 
@@ -874,9 +875,10 @@ document.addEventListener('click', function(e) {
 // ===== 认证变化 =====
 AUTH.onChange((logged) => {
   // 初始化 i18n
-(async function(){if(typeof I18N!=="undefined"){await I18N.init();}})();
-
-AUTH.initPage();
+(async function(){
+  if(typeof I18N!=="undefined"){await I18N.init();}
+  AUTH.initPage();
+})();
   if (logged) {
     loadApplications();
     loadSchools();
@@ -891,9 +893,10 @@ AUTH.initPage();
 
 // ===== 初始化 =====
 // 初始化 i18n
-(async function(){if(typeof I18N!=="undefined"){await I18N.init();}})();
-
-AUTH.initPage();
+(async function(){
+  if(typeof I18N!=="undefined"){await I18N.init();}
+  AUTH.initPage();
+})();
 loadSchools();
 
 if (AUTH.isLoggedIn()) {

@@ -516,6 +516,42 @@ body { font-family:var(--font-sans); background:var(--c-bg); color:var(--c-text)
 }
 .nav-notif-btn:hover { background:var(--c-accent-light); }
 
+/* 登录弹窗（所有页面共享） */
+.login-modal {
+  display:none;
+  position:fixed;top:0;left:0;right:0;bottom:0;
+  background:rgba(0,0,0,.4);
+  z-index:9999;
+  justify-content:center;align-items:center;
+}
+.login-modal.show { display:flex; }
+.login-modal-content {
+  background:var(--c-surface);
+  border-radius:var(--radius-lg);
+  padding:32px;
+  width:100%;max-width:90vw;
+  box-shadow:var(--shadow-lg);
+  position:relative;
+}
+.login-modal-content h2 { font-size:20px;font-weight:700;margin-bottom:4px; }
+.login-modal-content .login-sub { font-size:13px;color:var(--c-text-secondary);margin-bottom:20px; }
+.login-field { margin-bottom:14px; }
+.login-field label { font-size:12px;font-weight:500;color:var(--c-text-secondary);margin-bottom:4px;display:block; }
+.login-field input {
+  width:100%;padding:10px 14px;border:1px solid var(--c-border);border-radius:var(--radius-md);
+  font-size:14px;background:var(--c-bg-secondary);color:var(--c-text);outline:none;
+}
+.login-field input:focus { border-color:var(--c-accent);box-shadow:0 0 0 3px var(--c-accent-light); }
+.login-close {
+  position:absolute;top:12px;right:16px;font-size:20px;
+  color:var(--c-text-tertiary);cursor:pointer;
+  background:none;border:none;
+}
+
+@media(max-width:768px) {
+  .login-modal-content { padding:24px; }
+}
+
 @media(max-width:768px) {
   .nav-lang-menu { right:60px; }
 }
