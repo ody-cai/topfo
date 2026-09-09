@@ -114,7 +114,7 @@ tbody tr:hover{background:#F1EFE8}
   <h1><span class="icon">🎓</span> 蔡奇均 · 加拿大大学录取追踪</h1>
   <div class="subtitle">9大专业 · 直录 + 双录取 + Co-op + 学费 · 26所院校(含分校区) · 每日更新</div>
   <div class="profile-bar">
-    <div class="profile-item gpa">GPA 86</div>
+    <div class="profile-item gpa">GPA 89.6</div>
     <div class="profile-item ielts">雅思 5.0（写5.5 / 读4.5 / 听4.5 / 口5.0）</div>
     <div class="profile-item target">目标直录 6.5(单项5.5-6.0)</div>
   </div>
@@ -152,11 +152,11 @@ tbody tr:hover{background:#F1EFE8}
 <div class="content">
   <div class="update-bar">
     <span>数据：各校官网 + uniscope.ca + eic.org.cn | 雅思/GPA/双录/Co-op/学费/截止日期</span>
-    <span class="fresh" id="updateDate">最后更新：2026-07-09</span>
+    <span class="fresh" id="updateDate">最后更新：2026-09-09</span>
   </div>
 
   <div class="summary-box">
-    <h2>你的匹配速览（GPA 86 · 雅思 5.0）</h2>
+    <h2>你的匹配速览（GPA 89.6 · 雅思 5.0）</h2>
     <div class="summary-grid" id="summaryGrid"></div>
   </div>
 
@@ -173,7 +173,7 @@ tbody tr:hover{background:#F1EFE8}
 </div>
 
 <script>
-const MY_GPA = 86;
+const MY_GPA = 89.6;
 const MY_IELTS = {total:5.0,w:5.5,r:4.5,l:4.5,s:5.0};
 
 const PROGRAMS = {
@@ -191,8 +191,8 @@ const TIERS = [
 // School meta: city, province, deadline, tuition(CAD/year intl), tuitionRMB
 const SCHOOLS = {
   t1:[
-    {name:'多大·圣乔治',city:'多伦多',prov:'安省',deadline:'1月15日(热门)/3月31日',tuition:'42,000-62,000',tuitionRMB:'21-34万',programs:{
-      eng:{gpa:'92-95%',label:'hard',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'yes',coop_note:'PEY Co-op',note:'工程无IFP双录!须直录雅思6.5',note_detail:'⚠️2026-27 IFP仅覆盖Arts&Science/建筑景观设计/音乐，不含Faculty of Applied Science&Engineering！工程必须直录雅思6.5(6.0)'},
+    {name:'多大·圣乔治',city:'多伦多',prov:'安省',deadline:'2027季:工程/音乐1/15,其余(文理/Rotman/CS等)材料/补充2/1',tuition:'42,000-62,000',tuitionRMB:'21-34万',programs:{
+      eng:{gpa:'92-95%',label:'hard',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'yes',coop_note:'PEY Co-op',note:'工程无IFP双录!须直录雅思6.5',note_detail:'⚠️2026-27/2027-28 IFP官网仅覆盖Arts&Science/建筑景观设计/音乐，不含工程(须直录6.5(6.0));OUInfo仍列示IFP-Engineering旧条目(TUH,区间mid-80s~low90s),2027-28是否实际招生需向工程学院确认'},
       cs:{gpa:'93%(comp)/97.2%(median)',label:'hard',ielts:'6.5(6.0)',dual:'yes',dual_type:'IFP(Arts&Sci/Arch/Music)',dual_thr:'5.0-6.5(写作5.5/单项≥5.0)',coop:'yes',coop_note:'PEY Co-op',note:'CS竞争均分93%但录取中位97.2%;IFP覆盖Arts&Sci含CS',note_detail:'2026-27 IFP覆盖Arts&Science(含CS/数学/心理)、建筑景观设计、音乐；新门槛单项≥5.0你听力/阅读4.5未达标'},
       math:{gpa:'85-90%',label:'close',ielts:'6.5(6.0)',dual:'yes',dual_type:'IFP(Arts&Sci/Arch/Music)',dual_thr:'5.0-6.5(写作5.5/单项≥5.0)',coop:'yes',coop_note:'',note:'IFP含Arts&Sci数学;门槛单项≥5.0你不够',note_detail:'2026-27 IFP覆盖Arts&Science(含数学)、建筑景观设计、音乐；新门槛单项≥5.0你听力/阅读4.5未达标'},
       psych:{gpa:'85-90%',label:'close',ielts:'6.5(6.0)',dual:'yes',dual_type:'IFP(Arts&Sci/Arch/Music)',dual_thr:'5.0-6.5(写作5.5/单项≥5.0)',coop:'no',coop_note:'',note:'IFP含Arts&Sci心理;门槛单项≥5.0你不够',note_detail:'2026-27 IFP覆盖Arts&Science(含心理)、建筑景观设计、音乐；新门槛单项≥5.0你听力/阅读4.5未达标'},
@@ -202,13 +202,13 @@ const SCHOOLS = {
       social:{gpa:'80-85%',label:'close',ielts:'6.5(6.0)',dual:'yes',dual_type:'IFP(Arts&Sci/Arch/Music)',dual_thr:'5.0-6.5(写作5.5/单项≥5.0)',coop:'no',coop_note:'',note:'IFP含Arts&Sci社科;门槛单项≥5.0你不够',note_detail:'2026-27 IFP覆盖Arts&Science、建筑景观设计、音乐；新门槛单项≥5.0你听力/阅读4.5未达标'}
     }},
     {name:'UBC·温哥华',city:'温哥华',prov:'BC省',deadline:'1月15日',tuition:'40,000-48,000',tuitionRMB:'20-25万',programs:{
-      eng:{gpa:'90-94%',label:'hard',ielts:'6.5(6.0)',dual:'yes',dual_type:'Vantage',dual_thr:'5.0(单项4.5)',coop:'yes',coop_note:'Engineering Co-op',note:'Vantage可双录',note_detail:'Vantage College提供工程/数学/物理方向双录，你雅思5.0已达标'},
-      cs:{gpa:'92-95%',label:'hard',ielts:'6.5(6.0)',dual:'yes',dual_type:'Vantage',dual_thr:'5.0(单项4.5)',coop:'yes',coop_note:'CS Co-op',note:'Vantage可双录',note_detail:''},
-      math:{gpa:'85-90%',label:'close',ielts:'6.5(6.0)',dual:'yes',dual_type:'Vantage',dual_thr:'5.0(单项4.5)',coop:'yes',coop_note:'',note:'你雅思5.0已达标Vantage',note_detail:''},
+      eng:{gpa:'90-94%',label:'hard',ielts:'6.5(6.0)',dual:'yes',dual_type:'Vantage(One Engineering)',dual_thr:'5.5(听说5.0/读写5.5)',coop:'yes',coop_note:'Engineering Co-op',note:'Vantage需5.5未达标;CAP 6.0',note_detail:'⚠️2026-27官方Vantage最低雅思5.5(听说≥5.0/读写≥5.5)，你5.0未达标;Vantage One现仅剩Engineering/Science两轨(Management无限期暂停);另有CAP条件录取需6.0(单项≥5.5)'},
+      cs:{gpa:'92-95%',label:'hard',ielts:'6.5(6.0)',dual:'yes',dual_type:'Vantage(One Science可修CS)',dual_thr:'5.5(听说5.0/读写5.5)',coop:'yes',coop_note:'CS Co-op',note:'Vantage需5.5未达标',note_detail:'⚠️Vantage官方最低雅思5.5(听说≥5.0/读写≥5.5)，你5.0未达标;CS可经Vantage One Science衔接或直入Science后进CS;CAP需6.0(单项≥5.5)'},
+      math:{gpa:'85-90%',label:'close',ielts:'6.5(6.0)',dual:'yes',dual_type:'Vantage(One Science)',dual_thr:'5.5(听说5.0/读写5.5)',coop:'yes',coop_note:'',note:'Vantage需5.5未达标',note_detail:'⚠️Vantage官方最低雅思5.5(听说≥5.0/读写≥5.5)，你5.0未达标;建议先冲雅思总分5.5且读写5.5'},
       psych:{gpa:'85-90%',label:'close',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'no',coop_note:'',note:'须直录',note_detail:'UBC心理学无Vantage双录'},
       biz:{gpa:'90-94%',label:'hard',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'yes',coop_note:'Sauder Co-op',note:'Sauder极难+补充申请',note_detail:'需Personal Profile+面试'},
       health:{gpa:'85-90%',label:'close',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'no',coop_note:'',note:'须直录',note_detail:''},
-      sci:{gpa:'85-90%',label:'close',ielts:'6.5(6.0)',dual:'yes',dual_type:'Vantage',dual_thr:'5.0(单项4.5)',coop:'yes',coop_note:'',note:'你雅思5.0已达标Vantage',note_detail:''},
+      sci:{gpa:'85-90%',label:'close',ielts:'6.5(6.0)',dual:'yes',dual_type:'Vantage(One Science)',dual_thr:'5.5(听说5.0/读写5.5)',coop:'yes',coop_note:'',note:'Vantage需5.5未达标',note_detail:'⚠️Vantage官方最低雅思5.5(听说≥5.0/读写≥5.5)，你5.0未达标;Science轨内可选CS/数学等;CAP需6.0(单项≥5.5)'},
       social:{gpa:'80-85%',label:'close',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'no',coop_note:'',note:'须直录',note_detail:''}
     }},
     {name:'麦吉尔',city:'蒙特利尔',prov:'魁省',deadline:'1月15日',tuition:'34,000-45,000',tuitionRMB:'17-23万',programs:{
@@ -233,7 +233,7 @@ const SCHOOLS = {
     }}
   ],
   t2:[
-    {name:'多大·士嘉堡(UTSC)',city:'多伦多(东)',prov:'安省',deadline:'3月2日(国际)',tuition:'67,700',tuitionRMB:'34万',programs:{
+    {name:'多大·士嘉堡(UTSC)',city:'多伦多(东)',prov:'安省',deadline:'2027季:材料/补充2/1(部分专业)',tuition:'67,700',tuitionRMB:'34万',programs:{
       eng:{gpa:'—',label:'na',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'no',coop_note:'',note:'无传统工程',note_detail:'UTSC无Engineering本科'},
       cs:{gpa:'Low 90s(非Co-op)/High 90s(Co-op)',label:'close',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'yes',coop_note:'CS Co-op(3×4月)',note:'非Co-op踩线!Co-op差远',note_detail:'UTSC CS非Co-op版low 90s你89.6踩线;Co-op版要high 90s几乎不可能;不需补充申请'},
       math:{gpa:'85-90%',label:'close',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'yes',coop_note:'统计Co-op',note:'踩线',note_detail:'UTSC Applied Statistics high 80s'},
@@ -243,7 +243,7 @@ const SCHOOLS = {
       sci:{gpa:'80-85%',label:'ok',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'yes',coop_note:'',note:'',note_detail:''},
       social:{gpa:'Mid 70s',label:'ok',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'no',coop_note:'',note:'GPA绰绰有余',note_detail:''}
     }},
-    {name:'多大·密西沙加(UTM)',city:'密西沙加',prov:'安省',deadline:'3月2日(国际)',tuition:'67,700',tuitionRMB:'34万',programs:{
+    {name:'多大·密西沙加(UTM)',city:'密西沙加',prov:'安省',deadline:'2027季:材料2/1',tuition:'67,700',tuitionRMB:'34万',programs:{
       eng:{gpa:'—',label:'na',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'no',coop_note:'',note:'无工程专业',note_detail:'UTM无Engineering本科'},
       cs:{gpa:'Mid-high 80s(85-88%)',label:'close',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'yes',coop_note:'CS Co-op',note:'你踩线!需补充申请',note_detail:'UTM CS 85-88%你刚好踩线;需要supplementary application;有Co-op选项；🆕IFP@UTM将于2027年9月上线'},
       math:{gpa:'Mid-high 80s',label:'close',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'no',coop_note:'',note:'踩线',note_detail:'UTM Math & Computational Sciences mid-high 80s'},
@@ -283,7 +283,7 @@ const SCHOOLS = {
       sci:{gpa:'75-80%',label:'ok',ielts:'6.5(写作6.5/其余6.0)',dual:'yes',dual_type:'EIP',dual_thr:'4.0+',coop:'yes',coop_note:'',note:'你雅思5.0已达标!',note_detail:''},
       social:{gpa:'80-85%',label:'ok',ielts:'6.5(写作6.5/其余6.0)',dual:'yes',dual_type:'EIP',dual_thr:'4.0+',coop:'no',coop_note:'',note:'你雅思5.0已达标!',note_detail:''}
     }},
-    {name:'韦士敦',city:'伦敦',prov:'安省',deadline:'3月31日(Ivey建议1月前)',tuition:'32,000-38,000',tuitionRMB:'16-19万',programs:{
+    {name:'韦士敦',city:'伦敦',prov:'安省',deadline:'2027-01-15平等考虑(Ivey AEO同日)',tuition:'32,000-38,000',tuitionRMB:'16-19万',programs:{
       eng:{gpa:'91%',label:'hard',ielts:'6.5(6.0)',dual:'yes',dual_type:'Boost',dual_thr:'总分5.5(读写5.5/听说5.0)',coop:'yes',coop_note:'Engineering Co-op',note:'你听力阅读4.5不够Boost',note_detail:'Boost9周读完免雅思，但你听力4.5<门槛5.0'},
       cs:{gpa:'84%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'Boost',dual_thr:'总分5.5(读写5.5/听说5.0)',coop:'yes',coop_note:'',note:'GPA够但Boost门槛不够',note_detail:''},
       math:{gpa:'mid 70s',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'Boost',dual_thr:'总分5.5(读写5.5/听说5.0)',coop:'no',coop_note:'',note:'',note_detail:''},
@@ -341,7 +341,7 @@ const SCHOOLS = {
       math:{gpa:'75-80%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:''},
       psych:{gpa:'75-80%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:''},
       biz:{gpa:'80-85%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'',note_detail:''},
-      health:{gpa:'80-85%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'',note_detail:''},
+      health:{gpa:'80-85%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'',note_detail:'🆕护理BScN(主校区)自2026Fall起:均分≥82%者进入抽签制而非纯拼分(官方日历);本行健康科学为通用口径,护理为独立申请通道'},
       sci:{gpa:'75-80%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:''},
       social:{gpa:'70-75%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:''}
     }},
@@ -456,46 +456,46 @@ const SCHOOLS = {
       social:{gpa:'65-70%',label:'ok',ielts:'6.5(读写6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:'2026起直录雅思要求读写单项≥6.0'}
     }},
     {name:'康考迪亚',city:'蒙特利尔',prov:'魁省',deadline:'2月1日(部分滚动)',tuition:'22,000-28,000',tuitionRMB:'11-14万',programs:{
-      eng:{gpa:'75-80%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'蒙特利尔',note_detail:''},
-      cs:{gpa:'75-80%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'CS Co-op',note:'',note_detail:''},
-      math:{gpa:'70-75%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:''},
-      psych:{gpa:'70-75%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:''},
-      biz:{gpa:'75-80%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'JMSB Co-op',note:'JMSB商学院',note_detail:''},
-      health:{gpa:'70-75%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:''},
-      sci:{gpa:'70-75%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:''},
-      social:{gpa:'65-70%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:''}
+      eng:{gpa:'75-80%',label:'ok',ielts:'6.0(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'蒙特利尔',note_detail:'🆕2026-27官网确认:本科直录IELTS 6.0(单项≥5.5)；未达标者可能被录取但需入学修ESL课程'},
+      cs:{gpa:'75-80%',label:'ok',ielts:'6.0(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'CS Co-op',note:'',note_detail:'🆕2026-27官网确认:本科直录IELTS 6.0(单项≥5.5)；未达标者可能被录取但需入学修ESL课程'},
+      math:{gpa:'70-75%',label:'ok',ielts:'6.0(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:'🆕2026-27官网确认:本科直录IELTS 6.0(单项≥5.5)；未达标者可能被录取但需入学修ESL课程'},
+      psych:{gpa:'70-75%',label:'ok',ielts:'6.0(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:'🆕2026-27官网确认:本科直录IELTS 6.0(单项≥5.5)；未达标者可能被录取但需入学修ESL课程'},
+      biz:{gpa:'75-80%',label:'ok',ielts:'6.0(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'JMSB Co-op',note:'JMSB商学院',note_detail:'🆕2026-27官网确认:本科直录IELTS 6.0(单项≥5.5)；未达标者可能被录取但需入学修ESL课程'},
+      health:{gpa:'70-75%',label:'ok',ielts:'6.0(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:'🆕2026-27官网确认:本科直录IELTS 6.0(单项≥5.5)；未达标者可能被录取但需入学修ESL课程'},
+      sci:{gpa:'70-75%',label:'ok',ielts:'6.0(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:'🆕2026-27官网确认:本科直录IELTS 6.0(单项≥5.5)；未达标者可能被录取但需入学修ESL课程'},
+      social:{gpa:'65-70%',label:'ok',ielts:'6.0(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:'🆕2026-27官网确认:本科直录IELTS 6.0(单项≥5.5)；未达标者可能被录取但需入学修ESL课程'}
     }}
   ],
   au:[
     {name:'UNSW',city:'悉尼',prov:'澳洲',deadline:'滚动',tuition:'42,000',tuitionRMB:'约20万',isFoundation:true,programs:{
-      eng:{gpa:'预科GPA7.5/9.0',label:'ok',ielts:'Extended预科:5.0(4.5)|标准理科:5.5(写作5.5其他5.0)',dual:'yes',dual_type:'Extended预科(15月)',dual_thr:'5.0(4.5)',coop:'yes',coop_note:'',note:'你雅思5.0走Extended达标!',note_detail:'UNSW Extended预科15个月IELTS5.0(4.5)你达标;🆕2026起标准预科分轨:理科/文科IELTS5.5(写作5.5/其他≥5.0)你总分差0.5;商科IELTS6.0(写作5.5/其他≥5.5)你差1.0;升学率91%'},
-      cs:{gpa:'预科GPA7.5/9.0',label:'ok',ielts:'Extended预科:5.0(4.5)|标准理科:5.5(写作5.5其他5.0)',dual:'yes',dual_type:'Extended预科(15月)',dual_thr:'5.0(4.5)',coop:'yes',coop_note:'',note:'你雅思5.0走Extended达标!',note_detail:'🆕2026起标准预科分轨:理科IELTS5.5(写作5.5/其他≥5.0)你总分差0.5'},
-      math:{gpa:'预科GPA7.0/9.0',label:'ok',ielts:'Extended预科:5.0(4.5)|标准理科:5.5(写作5.5其他5.0)',dual:'yes',dual_type:'Extended预科(15月)',dual_thr:'5.0(4.5)',coop:'no',coop_note:'',note:'',note_detail:'🆕2026起标准预科分轨'},
-      psych:{gpa:'预科GPA6.5/9.0',label:'ok',ielts:'Extended预科:5.0(4.5)|标准理科:5.5(写作5.5其他5.0)',dual:'yes',dual_type:'Extended预科(15月)',dual_thr:'5.0(4.5)',coop:'no',coop_note:'',note:'',note_detail:'🆕2026起标准预科分轨'},
-      biz:{gpa:'预科GPA7.0/9.0',label:'ok',ielts:'Extended预科:5.0(4.5)|标准商科:6.0(写作5.5其他5.5)',dual:'yes',dual_type:'Extended预科(15月)',dual_thr:'5.0(4.5)',coop:'yes',coop_note:'',note:'标准商科IELTS6.0你差1.0;走Extended可行',note_detail:'🆕2026起标准预科商科IELTS6.0(写作5.5/其他≥5.5)你差1.0;Extended预科IELTS5.0(4.5)你达标'},
-      health:{gpa:'预科GPA7.0/9.0',label:'ok',ielts:'Extended预科:5.0(4.5)|标准理科:5.5(写作5.5其他5.0)',dual:'yes',dual_type:'Extended预科(15月)',dual_thr:'5.0(4.5)',coop:'no',coop_note:'',note:'',note_detail:'🆕2026起标准预科分轨'},
-      sci:{gpa:'预科GPA7.0/9.0',label:'ok',ielts:'Extended预科:5.0(4.5)|标准理科:5.5(写作5.5其他5.0)',dual:'yes',dual_type:'Extended预科(15月)',dual_thr:'5.0(4.5)',coop:'no',coop_note:'',note:'',note_detail:'🆕2026起标准预科分轨'},
-      social:{gpa:'预科GPA6.5/9.0',label:'ok',ielts:'Extended预科:5.0(4.5)|标准理科:5.5(写作5.5其他5.0)',dual:'yes',dual_type:'Extended预科(15月)',dual_thr:'5.0(4.5)',coop:'no',coop_note:'',note:'',note_detail:'🆕2026起标准预科分轨'}
+      eng:{gpa:'预科GPA7.5/9.0',label:'ok',ielts:'Extended:5.0(4.5)|Standard Plus:5.5(5.0)|Standard理科:5.5(写作5.5其他5.0)',dual:'yes',dual_type:'Extended(15月)/Standard Plus(12月)',dual_thr:'5.0(4.5)Extended / 5.5(5.0)Standard Plus',coop:'yes',coop_note:'',note:'你雅思5.0走Extended达标!',note_detail:'UNSW Extended预科15个月IELTS5.0(4.5)你达标;🆕2026起新增Standard Plus 12个月(IELTS5.5/5.0);标准预科分轨:理科/文科IELTS5.5(写作5.5/其他≥5.0)你总分差0.5;商科IELTS6.0(写作5.5/其他≥5.5)你差1.0;升学率91%'},
+      cs:{gpa:'预科GPA7.5/9.0',label:'ok',ielts:'Extended:5.0(4.5)|Standard Plus:5.5(5.0)|Standard理科:5.5(写作5.5其他5.0)',dual:'yes',dual_type:'Extended(15月)/Standard Plus(12月)',dual_thr:'5.0(4.5)Extended / 5.5(5.0)Standard Plus',coop:'yes',coop_note:'',note:'你雅思5.0走Extended达标!',note_detail:'UNSW Extended预科15个月IELTS5.0(4.5)你达标;🆕2026起新增Standard Plus 12个月(IELTS5.5/5.0);标准预科理科IELTS5.5(写作5.5/其他≥5.0)你总分差0.5'},
+      math:{gpa:'预科GPA7.0/9.0',label:'ok',ielts:'Extended:5.0(4.5)|Standard Plus:5.5(5.0)|Standard理科:5.5(写作5.5其他5.0)',dual:'yes',dual_type:'Extended(15月)/Standard Plus(12月)',dual_thr:'5.0(4.5)Extended / 5.5(5.0)Standard Plus',coop:'no',coop_note:'',note:'',note_detail:'🆕2026起新增Standard Plus 12个月(IELTS5.5/5.0);标准预科理科IELTS5.5(写作5.5/其他≥5.0)'},
+      psych:{gpa:'预科GPA6.5/9.0',label:'ok',ielts:'Extended:5.0(4.5)|Standard Plus:5.5(5.0)|Standard理科:5.5(写作5.5其他5.0)',dual:'yes',dual_type:'Extended(15月)/Standard Plus(12月)',dual_thr:'5.0(4.5)Extended / 5.5(5.0)Standard Plus',coop:'no',coop_note:'',note:'',note_detail:'🆕2026起新增Standard Plus 12个月(IELTS5.5/5.0);标准预科理科IELTS5.5(写作5.5/其他≥5.0)'},
+      biz:{gpa:'预科GPA7.0/9.0',label:'ok',ielts:'Extended:5.0(4.5)|Standard Plus:5.5(5.0)|Standard商科:6.0(写作5.5其他5.5)',dual:'yes',dual_type:'Extended(15月)/Standard Plus(12月)',dual_thr:'5.0(4.5)Extended / 5.5(5.0)Standard Plus',coop:'yes',coop_note:'',note:'标准商科IELTS6.0你差1.0;走Extended可行',note_detail:'🆕2026起新增Standard Plus 12个月(IELTS5.5/5.0);标准预科商科IELTS6.0(写作5.5/其他≥5.5)你差1.0;Extended预科IELTS5.0(4.5)你达标'},
+      health:{gpa:'预科GPA7.0/9.0',label:'ok',ielts:'Extended:5.0(4.5)|Standard Plus:5.5(5.0)|Standard理科:5.5(写作5.5其他5.0)',dual:'yes',dual_type:'Extended(15月)/Standard Plus(12月)',dual_thr:'5.0(4.5)Extended / 5.5(5.0)Standard Plus',coop:'no',coop_note:'',note:'',note_detail:'🆕2026起新增Standard Plus 12个月(IELTS5.5/5.0);标准预科理科IELTS5.5(写作5.5/其他≥5.0)'},
+      sci:{gpa:'预科GPA7.0/9.0',label:'ok',ielts:'Extended:5.0(4.5)|Standard Plus:5.5(5.0)|Standard理科:5.5(写作5.5其他5.0)',dual:'yes',dual_type:'Extended(15月)/Standard Plus(12月)',dual_thr:'5.0(4.5)Extended / 5.5(5.0)Standard Plus',coop:'no',coop_note:'',note:'',note_detail:'🆕2026起新增Standard Plus 12个月(IELTS5.5/5.0);标准预科理科IELTS5.5(写作5.5/其他≥5.0)'},
+      social:{gpa:'预科GPA6.5/9.0',label:'ok',ielts:'Extended:5.0(4.5)|Standard Plus:5.5(5.0)|Standard理科:5.5(写作5.5其他5.0)',dual:'yes',dual_type:'Extended(15月)/Standard Plus(12月)',dual_thr:'5.0(4.5)Extended / 5.5(5.0)Standard Plus',coop:'no',coop_note:'',note:'',note_detail:'🆕2026起新增Standard Plus 12个月(IELTS5.5/5.0);标准预科理科IELTS5.5(写作5.5/其他≥5.0)'}
     }},
     {name:'昆士兰',city:'布里斯班',prov:'澳洲',deadline:'滚动',tuition:'36,000',tuitionRMB:'约18万',isFoundation:true,programs:{
-      eng:{gpa:'预科GPA60%',label:'ok',ielts:'预科入:5.0(4.5)',dual:'yes',dual_type:'标准预科',dual_thr:'5.0(4.5)',coop:'yes',coop_note:'',note:'你雅思5.0已达标!',note_detail:''},
-      cs:{gpa:'预科GPA60%',label:'ok',ielts:'预科入:5.0(4.5)',dual:'yes',dual_type:'标准预科',dual_thr:'5.0(4.5)',coop:'no',coop_note:'',note:'',note_detail:''},
-      math:{gpa:'预科GPA60%',label:'ok',ielts:'预科入:5.0(4.5)',dual:'yes',dual_type:'标准预科',dual_thr:'5.0(4.5)',coop:'no',coop_note:'',note:'',note_detail:''},
-      psych:{gpa:'预科GPA60%',label:'ok',ielts:'预科入:5.0(4.5)',dual:'yes',dual_type:'标准预科',dual_thr:'5.0(4.5)',coop:'no',coop_note:'',note:'',note_detail:''},
-      biz:{gpa:'预科GPA60%',label:'ok',ielts:'预科入:5.0(4.5)',dual:'yes',dual_type:'标准预科',dual_thr:'5.0(4.5)',coop:'no',coop_note:'',note:'',note_detail:''},
-      health:{gpa:'预科GPA60%',label:'ok',ielts:'预科入:5.0(4.5)',dual:'yes',dual_type:'标准预科',dual_thr:'5.0(4.5)',coop:'no',coop_note:'',note:'',note_detail:''},
-      sci:{gpa:'预科GPA60%',label:'ok',ielts:'预科入:5.0(4.5)',dual:'yes',dual_type:'标准预科',dual_thr:'5.0(4.5)',coop:'no',coop_note:'',note:'',note_detail:''},
-      social:{gpa:'预科GPA60%',label:'ok',ielts:'预科入:5.0(4.5)',dual:'yes',dual_type:'标准预科',dual_thr:'5.0(4.5)',coop:'no',coop_note:'',note:'',note_detail:''}
+      eng:{gpa:'预科GPA60%',label:'ok',ielts:'标准:5.5(5.0)|IE打包:5.0(5.0)',dual:'yes',dual_type:'标准预科(10月)/IE+预科打包',dual_thr:'5.5(5.0)标准 / 5.0(5.0)+IE打包',coop:'yes',coop_note:'',note:'标准预科差0.5;IE打包你总分够但单项需5.0',note_detail:'🆕2026-27 UQ College官方:标准预科IELTS 5.5(单项≥5.0,10个月);打包Integrated English+预科IELTS 5.0(单项≥5.0);加速预科4个月IELTS 6.0(W6.0/其他≥5.5)。你听力/阅读4.5未达标标准预科，可走IE打包或先读语言'},
+      cs:{gpa:'预科GPA60%',label:'ok',ielts:'标准:5.5(5.0)|IE打包:5.0(5.0)',dual:'yes',dual_type:'标准预科(10月)/IE+预科打包',dual_thr:'5.5(5.0)标准 / 5.0(5.0)+IE打包',coop:'no',coop_note:'',note:'标准预科差0.5;IE打包你总分够但单项需5.0',note_detail:'🆕2026-27 UQ College官方:标准预科IELTS 5.5(单项≥5.0,10个月);打包Integrated English+预科IELTS 5.0(单项≥5.0);加速预科4个月IELTS 6.0(W6.0/其他≥5.5)。你听力/阅读4.5未达标标准预科，可走IE打包或先读语言'},
+      math:{gpa:'预科GPA60%',label:'ok',ielts:'标准:5.5(5.0)|IE打包:5.0(5.0)',dual:'yes',dual_type:'标准预科(10月)/IE+预科打包',dual_thr:'5.5(5.0)标准 / 5.0(5.0)+IE打包',coop:'no',coop_note:'',note:'标准预科差0.5;IE打包你总分够但单项需5.0',note_detail:'🆕2026-27 UQ College官方:标准预科IELTS 5.5(单项≥5.0,10个月);打包Integrated English+预科IELTS 5.0(单项≥5.0);加速预科4个月IELTS 6.0(W6.0/其他≥5.5)。你听力/阅读4.5未达标标准预科，可走IE打包或先读语言'},
+      psych:{gpa:'预科GPA60%',label:'ok',ielts:'标准:5.5(5.0)|IE打包:5.0(5.0)',dual:'yes',dual_type:'标准预科(10月)/IE+预科打包',dual_thr:'5.5(5.0)标准 / 5.0(5.0)+IE打包',coop:'no',coop_note:'',note:'标准预科差0.5;IE打包你总分够但单项需5.0',note_detail:'🆕2026-27 UQ College官方:标准预科IELTS 5.5(单项≥5.0,10个月);打包Integrated English+预科IELTS 5.0(单项≥5.0);加速预科4个月IELTS 6.0(W6.0/其他≥5.5)。你听力/阅读4.5未达标标准预科，可走IE打包或先读语言'},
+      biz:{gpa:'预科GPA60%',label:'ok',ielts:'标准:5.5(5.0)|IE打包:5.0(5.0)',dual:'yes',dual_type:'标准预科(10月)/IE+预科打包',dual_thr:'5.5(5.0)标准 / 5.0(5.0)+IE打包',coop:'no',coop_note:'',note:'标准预科差0.5;IE打包你总分够但单项需5.0',note_detail:'🆕2026-27 UQ College官方:标准预科IELTS 5.5(单项≥5.0,10个月);打包Integrated English+预科IELTS 5.0(单项≥5.0);加速预科4个月IELTS 6.0(W6.0/其他≥5.5)。你听力/阅读4.5未达标标准预科，可走IE打包或先读语言'},
+      health:{gpa:'预科GPA60%',label:'ok',ielts:'标准:5.5(5.0)|IE打包:5.0(5.0)',dual:'yes',dual_type:'标准预科(10月)/IE+预科打包',dual_thr:'5.5(5.0)标准 / 5.0(5.0)+IE打包',coop:'no',coop_note:'',note:'标准预科差0.5;IE打包你总分够但单项需5.0',note_detail:'🆕2026-27 UQ College官方:标准预科IELTS 5.5(单项≥5.0,10个月);打包Integrated English+预科IELTS 5.0(单项≥5.0);加速预科4个月IELTS 6.0(W6.0/其他≥5.5)。你听力/阅读4.5未达标标准预科，可走IE打包或先读语言'},
+      sci:{gpa:'预科GPA60%',label:'ok',ielts:'标准:5.5(5.0)|IE打包:5.0(5.0)',dual:'yes',dual_type:'标准预科(10月)/IE+预科打包',dual_thr:'5.5(5.0)标准 / 5.0(5.0)+IE打包',coop:'no',coop_note:'',note:'标准预科差0.5;IE打包你总分够但单项需5.0',note_detail:'🆕2026-27 UQ College官方:标准预科IELTS 5.5(单项≥5.0,10个月);打包Integrated English+预科IELTS 5.0(单项≥5.0);加速预科4个月IELTS 6.0(W6.0/其他≥5.5)。你听力/阅读4.5未达标标准预科，可走IE打包或先读语言'},
+      social:{gpa:'预科GPA60%',label:'ok',ielts:'标准:5.5(5.0)|IE打包:5.0(5.0)',dual:'yes',dual_type:'标准预科(10月)/IE+预科打包',dual_thr:'5.5(5.0)标准 / 5.0(5.0)+IE打包',coop:'no',coop_note:'',note:'标准预科差0.5;IE打包你总分够但单项需5.0',note_detail:'🆕2026-27 UQ College官方:标准预科IELTS 5.5(单项≥5.0,10个月);打包Integrated English+预科IELTS 5.0(单项≥5.0);加速预科4个月IELTS 6.0(W6.0/其他≥5.5)。你听力/阅读4.5未达标标准预科，可走IE打包或先读语言'}
     }},
     {name:'阿德莱德',city:'阿德莱德',prov:'澳洲',deadline:'滚动',tuition:'34,000',tuitionRMB:'约17万',isFoundation:true,programs:{
-      eng:{gpa:'预科GPA60%',label:'ok',ielts:'预科入:5.0(4.5)',dual:'yes',dual_type:'标准预科',dual_thr:'5.0(4.5)',coop:'yes',coop_note:'',note:'你雅思5.0已达标!',note_detail:''},
-      cs:{gpa:'预科GPA60%',label:'ok',ielts:'预科入:5.0(4.5)',dual:'yes',dual_type:'标准预科',dual_thr:'5.0(4.5)',coop:'no',coop_note:'',note:'',note_detail:''},
-      math:{gpa:'预科GPA60%',label:'ok',ielts:'预科入:5.0(4.5)',dual:'yes',dual_type:'标准预科',dual_thr:'5.0(4.5)',coop:'no',coop_note:'',note:'',note_detail:''},
-      psych:{gpa:'预科GPA60%',label:'ok',ielts:'预科入:5.0(4.5)',dual:'yes',dual_type:'标准预科',dual_thr:'5.0(4.5)',coop:'no',coop_note:'',note:'',note_detail:''},
-      biz:{gpa:'预科GPA60%',label:'ok',ielts:'预科入:5.0(4.5)',dual:'yes',dual_type:'标准预科',dual_thr:'5.0(4.5)',coop:'no',coop_note:'',note:'',note_detail:''},
-      health:{gpa:'预科GPA60%',label:'ok',ielts:'预科入:5.0(4.5)',dual:'yes',dual_type:'标准预科',dual_thr:'5.0(4.5)',coop:'no',coop_note:'',note:'',note_detail:''},
-      sci:{gpa:'预科GPA60%',label:'ok',ielts:'预科入:5.0(4.5)',dual:'yes',dual_type:'标准预科',dual_thr:'5.0(4.5)',coop:'no',coop_note:'',note:'',note_detail:''},
-      social:{gpa:'预科GPA60%',label:'ok',ielts:'预科入:5.0(4.5)',dual:'yes',dual_type:'标准预科',dual_thr:'5.0(4.5)',coop:'no',coop_note:'',note:'',note_detail:''}
+      eng:{gpa:'预科GPA60%',label:'ok',ielts:'标准:5.5(5.0)|延伸:5.0(5.0)',dual:'yes',dual_type:'标准/延伸预科',dual_thr:'5.5(5.0)标准 / 5.0(5.0)延伸',coop:'yes',coop_note:'',note:'标准预科差0.5;延伸你总分够但单项需5.0',note_detail:'🆕2026-27 Adelaide College官方:标准/强化预科IELTS 5.5(单项≥5.0,9-12个月);延伸预科IELTS 5.0(单项≥5.0);加速预科IELTS 6.0(5.5)。你听力/阅读4.5未达标，需先读语言或考出5.0单项'},
+      cs:{gpa:'预科GPA60%',label:'ok',ielts:'标准:5.5(5.0)|延伸:5.0(5.0)',dual:'yes',dual_type:'标准/延伸预科',dual_thr:'5.5(5.0)标准 / 5.0(5.0)延伸',coop:'no',coop_note:'',note:'标准预科差0.5;延伸你总分够但单项需5.0',note_detail:'🆕2026-27 Adelaide College官方:标准/强化预科IELTS 5.5(单项≥5.0,9-12个月);延伸预科IELTS 5.0(单项≥5.0);加速预科IELTS 6.0(5.5)。你听力/阅读4.5未达标，需先读语言或考出5.0单项'},
+      math:{gpa:'预科GPA60%',label:'ok',ielts:'标准:5.5(5.0)|延伸:5.0(5.0)',dual:'yes',dual_type:'标准/延伸预科',dual_thr:'5.5(5.0)标准 / 5.0(5.0)延伸',coop:'no',coop_note:'',note:'标准预科差0.5;延伸你总分够但单项需5.0',note_detail:'🆕2026-27 Adelaide College官方:标准/强化预科IELTS 5.5(单项≥5.0,9-12个月);延伸预科IELTS 5.0(单项≥5.0);加速预科IELTS 6.0(5.5)。你听力/阅读4.5未达标，需先读语言或考出5.0单项'},
+      psych:{gpa:'预科GPA60%',label:'ok',ielts:'标准:5.5(5.0)|延伸:5.0(5.0)',dual:'yes',dual_type:'标准/延伸预科',dual_thr:'5.5(5.0)标准 / 5.0(5.0)延伸',coop:'no',coop_note:'',note:'标准预科差0.5;延伸你总分够但单项需5.0',note_detail:'🆕2026-27 Adelaide College官方:标准/强化预科IELTS 5.5(单项≥5.0,9-12个月);延伸预科IELTS 5.0(单项≥5.0);加速预科IELTS 6.0(5.5)。你听力/阅读4.5未达标，需先读语言或考出5.0单项'},
+      biz:{gpa:'预科GPA60%',label:'ok',ielts:'标准:5.5(5.0)|延伸:5.0(5.0)',dual:'yes',dual_type:'标准/延伸预科',dual_thr:'5.5(5.0)标准 / 5.0(5.0)延伸',coop:'no',coop_note:'',note:'标准预科差0.5;延伸你总分够但单项需5.0',note_detail:'🆕2026-27 Adelaide College官方:标准/强化预科IELTS 5.5(单项≥5.0,9-12个月);延伸预科IELTS 5.0(单项≥5.0);加速预科IELTS 6.0(5.5)。你听力/阅读4.5未达标，需先读语言或考出5.0单项'},
+      health:{gpa:'预科GPA60%',label:'ok',ielts:'标准:5.5(5.0)|延伸:5.0(5.0)',dual:'yes',dual_type:'标准/延伸预科',dual_thr:'5.5(5.0)标准 / 5.0(5.0)延伸',coop:'no',coop_note:'',note:'标准预科差0.5;延伸你总分够但单项需5.0',note_detail:'🆕2026-27 Adelaide College官方:标准/强化预科IELTS 5.5(单项≥5.0,9-12个月);延伸预科IELTS 5.0(单项≥5.0);加速预科IELTS 6.0(5.5)。你听力/阅读4.5未达标，需先读语言或考出5.0单项'},
+      sci:{gpa:'预科GPA60%',label:'ok',ielts:'标准:5.5(5.0)|延伸:5.0(5.0)',dual:'yes',dual_type:'标准/延伸预科',dual_thr:'5.5(5.0)标准 / 5.0(5.0)延伸',coop:'no',coop_note:'',note:'标准预科差0.5;延伸你总分够但单项需5.0',note_detail:'🆕2026-27 Adelaide College官方:标准/强化预科IELTS 5.5(单项≥5.0,9-12个月);延伸预科IELTS 5.0(单项≥5.0);加速预科IELTS 6.0(5.5)。你听力/阅读4.5未达标，需先读语言或考出5.0单项'},
+      social:{gpa:'预科GPA60%',label:'ok',ielts:'标准:5.5(5.0)|延伸:5.0(5.0)',dual:'yes',dual_type:'标准/延伸预科',dual_thr:'5.5(5.0)标准 / 5.0(5.0)延伸',coop:'no',coop_note:'',note:'标准预科差0.5;延伸你总分够但单项需5.0',note_detail:'🆕2026-27 Adelaide College官方:标准/强化预科IELTS 5.5(单项≥5.0,9-12个月);延伸预科IELTS 5.0(单项≥5.0);加速预科IELTS 6.0(5.5)。你听力/阅读4.5未达标，需先读语言或考出5.0单项'}
     }}
   ]
 };
