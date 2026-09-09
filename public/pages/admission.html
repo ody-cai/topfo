@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>录取要求对照表 · 学生升学数据</title>
+<title data-i18n="admission.pageTitle">录取要求对照表 · 学生升学数据</title>
 <link rel="stylesheet" href="../css/common.css">
 <style>
 .tier-section{margin-bottom:20px}
@@ -133,6 +133,7 @@ tbody tr:hover{background:var(--c-bg)}
   <div class="nav-links">
     <a href="../index.html" class="nav-link" data-i18n="nav.home">首页</a>
     <a href="admission.html" class="nav-link active" data-i18n="nav.admission">录取对照表</a>
+    <a href="timeline.html" class="nav-link" data-i18n="nav.timeline">申请时间线</a>
     <a href="rankings.html" class="nav-link" data-i18n="nav.rankings">排名参考</a>
     <a href="insights.html" class="nav-link" data-i18n="nav.insights">关键发现</a>
     <a href="community.html" class="nav-link" data-i18n="nav.community">社区</a>
@@ -146,24 +147,24 @@ tbody tr:hover{background:var(--c-bg)}
 
 
 <div class="page-container" style="padding-top:20px;">
-  <a href="../index.html" class="back-link">← 返回首页</a>
+  <a href="../index.html" class="back-link" data-i18n="common.back">← 返回首页</a>
 
   <div class="page-header" style="text-align:left;padding:8px 0 16px;">
-    <h1 style="font-size:22px;">📋 录取要求对照表</h1>
-    <p class="subtitle">9大专业方向 × 26所院校含分校区 · 直录+双录+Co-op+学费+截止日期</p>
+    <h1 style="font-size:22px;" data-i18n="admission.titleFull">📋 录取要求对照表</h1>
+    <p class="subtitle" data-i18n="admission.subtitle">9大专业方向 × 26所院校含分校区 · 直录+双录+Co-op+学费+截止日期</p>
   </div>
 
   <!-- 访客提示：未登录 -->
   <div class="visitor-banner-page visitor-only">
     <div class="icon">🔒</div>
-    <div class="text">你正在查看<strong>公开数据版</strong>——所有录取要求、雅思标准、双录信息均可正常查看。<strong>登录后</strong>可解锁：GPA匹配标记（✓够/≈接近/✗差远）、雅思达标筛选、个人匹配速览。</div>
+    <div class="text" data-i18n="admission.visitorBanner">你正在查看<strong>公开数据版</strong>——所有录取要求、雅思标准、双录信息均可正常查看。<strong>登录后</strong>可解锁：GPA匹配标记（✓够/≈接近/✗差远）、雅思达标筛选、个人匹配速览。</div>
   </div>
 
   <!-- 个人档案条：登录后显示 -->
   <div class="profile-bar private-section" style="display:none;">
     <div class="profile-item gpa">GPA <span class="data-gpa">—</span></div>
-    <div class="profile-item ielts">雅思 <span class="data-ielts-total">—</span>（<span class="data-ielts-detail">—</span>）</div>
-    <div class="profile-item target">目标直录 6.5(单项5.5-6.0)</div>
+    <div class="profile-item ielts"><span data-i18n="admission.profileIelts">雅思</span> <span class="data-ielts-total">—</span>（<span class="data-ielts-detail">—</span>）</div>
+    <div class="profile-item target" data-i18n="admission.profileTarget">目标直录 6.5(单项5.5-6.0)</div>
   </div>
 
   <div class="controls">
@@ -171,7 +172,7 @@ tbody tr:hover{background:var(--c-bg)}
     <span id="progBtns">
     <button class="tab-btn active" onclick="switchTab('all',this)" data-i18n="admission.all">全部</button>
     <button class="tab-btn" onclick="switchTab('eng',this)" data-i18n="admission.eng">工程</button>
-    <button class="tab-btn" onclick="switchTab('cs',this)">CS</button>
+    <button class="tab-btn" onclick="switchTab('cs',this)" data-i18n="admission.cs">CS</button>
     <button class="tab-btn" onclick="switchTab('math',this)" data-i18n="admission.math">数学</button>
     <button class="tab-btn" onclick="switchTab('psych',this)" data-i18n="admission.psych">心理学</button>
     <button class="tab-btn" onclick="switchTab('biz',this)" data-i18n="admission.biz">商科</button>
@@ -188,13 +189,14 @@ tbody tr:hover{background:var(--c-bg)}
     <button class="tab-btn active" onclick="filterMatch('dual-ok',this)" data-i18n="admission.filterDualOk">双录达标</button>
     <button class="tab-btn" onclick="filterMatch('stretch',this)" data-i18n="admission.filterStretch">需冲刺</button>
     </span>
+    </span>
     <div class="divider private-section" style="display:none;"></div>
     <input class="search-input" type="text" data-i18n-placeholder="admission.search" placeholder="搜索学校…" oninput="handleSearch(this.value)">
   </div>
 
   <div class="update-bar">
     <span data-i18n="admission.dataSource">数据：各校官网 + uniscope.ca + eic.org.cn | 雅思/GPA/双录/Co-op/学费/截止日期</span>
-    <span class="fresh" id="updateDate">最后更新：2026-07-09</span>
+    <span class="fresh" id="updateDate" data-i18n="admission.lastUpdate">最后更新：2026-09-09</span>
   </div>
 
   <!-- 匹配速览：登录后显示 -->
@@ -220,15 +222,17 @@ let searchTerm = '';
 let isLoggedIn = false;
 
 function dualBadge(type){
-  if(type==='yes') return '<span class="dual yes">有双录</span>';
-  if(type==='no') return '<span class="dual no">无</span>';
-  if(type==='limit') return '<span class="dual limit">有限制</span>';
+  const t = (k, fb) => { const v = typeof I18N !== 'undefined' ? I18N.t(k) : ''; return v || fb || k; };
+  if(type==='yes') return '<span class="dual yes">' + t('admission.dualYes','有双录') + '</span>';
+  if(type==='no') return '<span class="dual no">' + t('admission.dualNo','无') + '</span>';
+  if(type==='limit') return '<span class="dual limit">' + t('admission.dualLimit','有限制') + '</span>';
   return '<span class="dual no">—</span>';
 }
 
 function coopBadge(has,note){
+  const t = (k, fb) => { const v = typeof I18N !== 'undefined' ? I18N.t(k) : ''; return v || fb || k; };
   if(has==='yes') return '<span class="coop">Co-op'+(note?'('+note+')':'')+'</span>';
-  return '<span class="coop no">无</span>';
+  return '<span class="coop no">' + t('admission.coopNo','无') + '</span>';
 }
 
 function matchTag(label){
@@ -300,18 +304,18 @@ function renderTables(){
 
     if(filtered.length===0) return;
 
+    const t = (k, fb) => { const v = typeof I18N !== 'undefined' ? I18N.t(k) : ''; return v || fb || k; };
     let html = `<div class="tier-section">
       <div class="tier-title"><span class="tier-badge ${tierInfo.badge}">${tierInfo.label}</span> ${tierInfo.title}</div>
       <div class="table-wrap"><table><thead><tr>
-        <th>学校</th>`;
+        <th>${t('admission.thSchool','学校')}</th>`;
 
     if(currentTab==='all'){
       vp.forEach(pk=>{ html += `<th>${PROGRAMS[pk]}</th>`; });
-      html += `<th>雅思直录</th><th>双录取</th><th>双录门槛</th><th>Co-op</th><th>年学费</th><th>截止</th>`;
-      // 备注列：登录后显示个人备注，访客显示通用备注
-      html += `<th>备注</th>`;
+      html += `<th>${t('admission.thIelts','雅思直录')}</th><th>${t('admission.thDual','双录取')}</th><th>${t('admission.thDualThr','双录门槛')}</th><th>Co-op</th><th>${t('admission.thTuition','年学费')}</th><th>${t('admission.thDeadline','截止')}</th>`;
+      html += `<th>${t('admission.thNote','备注')}</th>`;
     } else {
-      html += `<th>GPA</th><th>雅思直录</th><th>双录取</th><th>双录门槛</th><th>Co-op</th><th>年学费</th><th>截止</th><th>备注</th>`;
+      html += `<th>GPA</th><th>${t('admission.thIelts','雅思直录')}</th><th>${t('admission.thDual','双录取')}</th><th>${t('admission.thDualThr','双录门槛')}</th><th>Co-op</th><th>${t('admission.thTuition','年学费')}</th><th>${t('admission.thDeadline','截止')}</th><th>${t('admission.thNote','备注')}</th>`;
     }
     html += `</tr></thead><tbody>`;
 
@@ -413,11 +417,12 @@ function renderSummary(){
     if(hasHard) hardSchools.push(s.name);
   });
 
+  const t = (k, fb) => { const v = typeof I18N !== 'undefined' ? I18N.t(k) : ''; return v || fb || k; };
   grid.innerHTML = `
-    <div class="summary-card"><div class="label">雅思5.0双录已达标（最优先申请）</div><div class="value green">${dualOkSchools.join(' / ')}</div></div>
-    <div class="summary-card"><div class="label">需冲刺(GPA差2-6分)</div><div class="value amber">${dualCloseSchools.join(' / ')||'无'}</div></div>
-    <div class="summary-card"><div class="label">极难(GPA差8+分/无双录)</div><div class="value red">${hardSchools.join(' / ')}</div></div>
-    <div class="summary-card"><div class="label">学费最低(6-12万/年)</div><div class="value green">曼尼托巴 · 萨省 · 纽芬兰纪念</div></div>
+    <div class="summary-card"><div class="label">${t('admission.sumDualOk','雅思5.0双录已达标（最优先申请）')}</div><div class="value green">${dualOkSchools.join(' / ')}</div></div>
+    <div class="summary-card"><div class="label">${t('admission.sumStretch','需冲刺(GPA差2-6分)')}</div><div class="value amber">${dualCloseSchools.join(' / ')||t('admission.sumNone','无')}</div></div>
+    <div class="summary-card"><div class="label">${t('admission.sumHard','极难(GPA差8+分/无双录)')}</div><div class="value red">${hardSchools.join(' / ')}</div></div>
+    <div class="summary-card"><div class="label">${t('admission.sumLowTuition','学费最低(6-12万/年)')}</div><div class="value green">${t('admission.sumLowTuitionSchools','曼尼托巴 · 萨省 · 纽芬兰纪念')}</div></div>
   `;
 }
 
@@ -442,7 +447,7 @@ async function populatePersonalData() {
   document.querySelectorAll('.data-gpa').forEach(el => el.textContent = data.gpa);
   document.querySelectorAll('.data-ielts-total').forEach(el => el.textContent = data.ielts.overall);
   document.querySelectorAll('.data-ielts-detail').forEach(el => {
-    el.textContent = `写${data.ielts.writing} / 读${data.ielts.reading} / 听${data.ielts.listening} / 口${data.ielts.speaking}`;
+    el.textContent = typeof I18N !== 'undefined' ? I18N.t('home.ieltsDetail', {writing: data.ielts.writing, reading: data.ielts.reading, listening: data.ielts.listening, speaking: data.ielts.speaking}) : `写${data.ielts.writing} / 读${data.ielts.reading} / 听${data.ielts.listening} / 口${data.ielts.speaking}`;
   });
 }
 
@@ -494,22 +499,22 @@ document.getElementById('updateDate').textContent = (typeof I18N !== 'undefined'
 <!-- ===== 登录弹窗 ===== -->
 <div id="loginModal" class="login-modal">
   <div class="login-modal-content" style="max-width:360px;">
-    <h3 style="margin:0 0 16px;font-size:18px;font-weight:600;color:var(--c-text);">🔐 登录</h3>
+    <h3 style="margin:0 0 16px;font-size:18px;font-weight:600;color:var(--c-text);" data-i18n="auth.login.title">🔐 登录</h3>
     <div style="display:flex;flex-direction:column;gap:12px;">
-      <input id="loginUser" type="text" placeholder="用户名"
+      <input id="loginUser" type="text" data-i18n-placeholder="auth.login.username" placeholder="用户名"
         style="padding:10px 14px;border:1px solid var(--c-border);border-radius:8px;font-size:14px;background:var(--c-bg-secondary);color:var(--c-text);outline:none;"
         autocomplete="username">
-      <input id="loginPass" type="password" placeholder="密码"
+      <input id="loginPass" type="password" data-i18n-placeholder="auth.login.password" placeholder="密码"
         style="padding:10px 14px;border:1px solid var(--c-border);border-radius:8px;font-size:14px;background:var(--c-bg-secondary);color:var(--c-text);outline:none;"
         autocomplete="current-password">
     </div>
     <div id="loginError" style="display:none;color:#e74c3c;font-size:12px;margin:8px 0;"></div>
     <button id="loginSubmitBtn" onclick="AUTH.handleLoginSubmit()"
-      style="width:100%;padding:12px;margin-top:12px;background:var(--c-primary);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:500;cursor:pointer;">登录</button>
+      style="width:100%;padding:12px;margin-top:12px;background:var(--c-primary);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:500;cursor:pointer;" data-i18n="auth.login.submit">登录</button>
     <div style="margin-top:12px;text-align:center;font-size:12px;color:var(--c-text-tertiary);">
-      <a href="javascript:void(0)" onclick="AUTH.hideLoginModal();AUTH.showRegisterModal();" style="color:var(--c-primary);text-decoration:none;">还没有账号？注册</a>
+      <a href="javascript:void(0)" onclick="AUTH.hideLoginModal();AUTH.showRegisterModal();" style="color:var(--c-primary);text-decoration:none;" data-i18n="auth.login.noAccount">还没有账号？注册</a>
       &nbsp;·&nbsp;
-      <span style="cursor:pointer;">体验: demo / topfo2026</span>
+      <span style="cursor:pointer;" data-i18n="auth.login.demo">体验: demo / topfo2026</span>
     </div>
   </div>
 </div>
@@ -517,25 +522,26 @@ document.getElementById('updateDate').textContent = (typeof I18N !== 'undefined'
 <!-- ===== 注册弹窗 ===== -->
 <div id="registerModal" class="login-modal">
   <div class="login-modal-content" style="max-width:360px;">
-    <h3 style="margin:0 0 16px;font-size:18px;font-weight:600;color:var(--c-text);">📝 注册</h3>
+    <h3 style="margin:0 0 16px;font-size:18px;font-weight:600;color:var(--c-text);" data-i18n="auth.register.title">📝 注册</h3>
     <div style="display:flex;flex-direction:column;gap:12px;">
-      <input id="regUser" type="text" placeholder="用户名"
+      <input id="regUser" type="text" data-i18n-placeholder="auth.register.username" placeholder="用户名"
         style="padding:10px 14px;border:1px solid var(--c-border);border-radius:8px;font-size:14px;background:var(--c-bg-secondary);color:var(--c-text);outline:none;"
         autocomplete="username">
-      <input id="regPass" type="password" placeholder="密码"
+      <input id="regPass" type="password" data-i18n-placeholder="auth.register.password" placeholder="密码"
         style="padding:10px 14px;border:1px solid var(--c-border);border-radius:8px;font-size:14px;background:var(--c-bg-secondary);color:var(--c-text);outline:none;"
         autocomplete="new-password">
-      <input id="regDisplay" type="text" placeholder="显示名称（选填）"
+      <input id="regDisplay" type="text" data-i18n-placeholder="auth.register.displayName" placeholder="显示名称（选填）"
         style="padding:10px 14px;border:1px solid var(--c-border);border-radius:8px;font-size:14px;background:var(--c-bg-secondary);color:var(--c-text);outline:none;">
     </div>
     <div id="regError" style="display:none;color:#e74c3c;font-size:12px;margin:8px 0;"></div>
     <button id="regSubmitBtn" onclick="AUTH.handleRegisterSubmit()"
-      style="width:100%;padding:12px;margin-top:12px;background:var(--c-primary);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:500;cursor:pointer;">注册</button>
+      style="width:100%;padding:12px;margin-top:12px;background:var(--c-primary);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:500;cursor:pointer;" data-i18n="auth.register.submit">注册</button>
     <div style="margin-top:12px;text-align:center;font-size:12px;color:var(--c-text-tertiary);">
-      <a href="javascript:void(0)" onclick="AUTH.hideRegisterModal();AUTH.showLoginModal();" style="color:var(--c-primary);text-decoration:none;">已有账号？登录</a>
+      <a href="javascript:void(0)" onclick="AUTH.hideRegisterModal();AUTH.showLoginModal();" style="color:var(--c-primary);text-decoration:none;" data-i18n="auth.register.hasAccount">已有账号？登录</a>
     </div>
   </div>
 </div>
 
 </body>
+<!-- delpoy_rev_91894 -->
 </html>
