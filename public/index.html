@@ -207,6 +207,7 @@
   <div class="nav-links">
     <a href="index.html" class="nav-link active" data-i18n="nav.home">首页</a>
     <a href="pages/admission.html" class="nav-link" data-i18n="nav.admission">录取对照表</a>
+    <a href="pages/timeline.html" class="nav-link" data-i18n="nav.timeline">申请时间线</a>
     <a href="pages/rankings.html" class="nav-link" data-i18n="nav.rankings">排名参考</a>
     <a href="pages/insights.html" class="nav-link" data-i18n="nav.insights">关键发现</a>
     <a href="pages/community.html" class="nav-link" data-i18n="nav.community">社区</a>
@@ -222,22 +223,22 @@
 <!-- ===== 登录弹窗（硬编码确保工作） ===== -->
 <div id="loginModal" class="login-modal">
   <div class="login-modal-content" style="max-width:360px;">
-    <h3 style="margin:0 0 16px;font-size:18px;font-weight:600;color:var(--c-text);">🔐 登录</h3>
+    <h3 style="margin:0 0 16px;font-size:18px;font-weight:600;color:var(--c-text);" data-i18n="auth.login.title">🔐 登录</h3>
     <div style="display:flex;flex-direction:column;gap:12px;">
-      <input id="loginUser" type="text" placeholder="用户名"
+      <input id="loginUser" type="text" data-i18n-placeholder="auth.login.username" placeholder="用户名"
         style="padding:10px 14px;border:1px solid var(--c-border);border-radius:8px;font-size:14px;background:var(--c-bg-secondary);color:var(--c-text);outline:none;"
         autocomplete="username">
-      <input id="loginPass" type="password" placeholder="密码"
+      <input id="loginPass" type="password" data-i18n-placeholder="auth.login.password" placeholder="密码"
         style="padding:10px 14px;border:1px solid var(--c-border);border-radius:8px;font-size:14px;background:var(--c-bg-secondary);color:var(--c-text);outline:none;"
         autocomplete="current-password">
     </div>
     <div id="loginError" style="display:none;color:#e74c3c;font-size:12px;margin:8px 0;"></div>
     <button id="loginSubmitBtn" onclick="AUTH.handleLoginSubmit()"
-      style="width:100%;padding:12px;margin-top:12px;background:var(--c-primary);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:500;cursor:pointer;">登录</button>
+      style="width:100%;padding:12px;margin-top:12px;background:var(--c-primary);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:500;cursor:pointer;" data-i18n="auth.login.submit">登录</button>
     <div style="margin-top:12px;text-align:center;font-size:12px;color:var(--c-text-tertiary);">
-      <a href="javascript:void(0)" onclick="AUTH.hideLoginModal();AUTH.showRegisterModal();" style="color:var(--c-primary);text-decoration:none;">还没有账号？注册</a>
+      <a href="javascript:void(0)" onclick="AUTH.hideLoginModal();AUTH.showRegisterModal();" style="color:var(--c-primary);text-decoration:none;" data-i18n="auth.login.noAccount">还没有账号？注册</a>
       &nbsp;·&nbsp;
-      <span style="cursor:pointer;">体验: demo / topfo2026</span>
+      <span style="cursor:pointer;" data-i18n="auth.login.demo">体验: demo / topfo2026</span>
     </div>
   </div>
 </div>
@@ -245,22 +246,22 @@
 <!-- ===== 注册弹窗 ===== -->
 <div id="registerModal" class="login-modal">
   <div class="login-modal-content" style="max-width:360px;">
-    <h3 style="margin:0 0 16px;font-size:18px;font-weight:600;color:var(--c-text);">📝 注册</h3>
+    <h3 style="margin:0 0 16px;font-size:18px;font-weight:600;color:var(--c-text);" data-i18n="auth.register.title">📝 注册</h3>
     <div style="display:flex;flex-direction:column;gap:12px;">
-      <input id="regUser" type="text" placeholder="用户名"
+      <input id="regUser" type="text" data-i18n-placeholder="auth.register.username" placeholder="用户名"
         style="padding:10px 14px;border:1px solid var(--c-border);border-radius:8px;font-size:14px;background:var(--c-bg-secondary);color:var(--c-text);outline:none;"
         autocomplete="username">
-      <input id="regPass" type="password" placeholder="密码"
+      <input id="regPass" type="password" data-i18n-placeholder="auth.register.password" placeholder="密码"
         style="padding:10px 14px;border:1px solid var(--c-border);border-radius:8px;font-size:14px;background:var(--c-bg-secondary);color:var(--c-text);outline:none;"
         autocomplete="new-password">
-      <input id="regDisplay" type="text" placeholder="显示名称（选填）"
+      <input id="regDisplay" type="text" data-i18n-placeholder="auth.register.displayName" placeholder="显示名称（选填）"
         style="padding:10px 14px;border:1px solid var(--c-border);border-radius:8px;font-size:14px;background:var(--c-bg-secondary);color:var(--c-text);outline:none;">
     </div>
     <div id="regError" style="display:none;color:#e74c3c;font-size:12px;margin:8px 0;"></div>
     <button id="regSubmitBtn" onclick="AUTH.handleRegisterSubmit()"
-      style="width:100%;padding:12px;margin-top:12px;background:var(--c-primary);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:500;cursor:pointer;">注册</button>
+      style="width:100%;padding:12px;margin-top:12px;background:var(--c-primary);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:500;cursor:pointer;" data-i18n="auth.register.submit">注册</button>
     <div style="margin-top:12px;text-align:center;font-size:12px;color:var(--c-text-tertiary);">
-      <a href="javascript:void(0)" onclick="AUTH.hideRegisterModal();AUTH.showLoginModal();" style="color:var(--c-primary);text-decoration:none;">已有账号？登录</a>
+      <a href="javascript:void(0)" onclick="AUTH.hideRegisterModal();AUTH.showLoginModal();" style="color:var(--c-primary);text-decoration:none;" data-i18n="auth.register.hasAccount">已有账号？登录</a>
     </div>
   </div>
 </div>
@@ -273,12 +274,12 @@
     <div class="hero-content">
       <h1><span class="highlight" data-i18n="home.title">升学数据</span><br><span data-i18n="home.subtitle">平台</span></h1>
       <p class="hero-sub" data-i18n="home.subtitle" style="display:none;">一站式数据平台</p>
-      <p class="hero-sub">9大专业方向 · 26所院校含分校区 · 加拿大+澳洲 · 排名+录取+Co-op全覆盖</p>
+      <p class="hero-sub" data-i18n="home.hero.desc">9大专业方向 · 26所院校含分校区 · 加拿大+澳洲 · 排名+录取+Co-op全覆盖</p>
       <div class="hero-badge">📅 <span data-i18n="footer.dataSource">数据来源：各校官网 + QS + THE + US News · 手工维护</span></div>
       <div class="cta-row" style="margin-top:20px;">
-        <a href="pages/admission.html" class="cta-btn cta-primary visitor-only">📋 查看录取要求 →</a>
-        <a href="pages/rankings.html" class="cta-btn cta-secondary">📊 查看排名数据 →</a>
-        <a href="pages/admission.html" class="cta-btn cta-primary private-section" style="display:none;">📋 我的录取匹配 →</a>
+        <a href="pages/admission.html" class="cta-btn cta-primary visitor-only" data-i18n="home.cta.admission">📋 查看录取要求 →</a>
+        <a href="pages/rankings.html" class="cta-btn cta-secondary" data-i18n="home.cta.rankings">📊 查看排名数据 →</a>
+        <a href="pages/admission.html" class="cta-btn cta-primary private-section" style="display:none;" data-i18n="home.cta.myMatch">📋 我的录取匹配 →</a>
       </div>
     </div>
   </section>
@@ -309,7 +310,7 @@
       <div class="stat-icon">📚</div>
       <div class="stat-value"><span class="data-gpa">—</span>%</div>
       <div class="stat-label" data-i18n="home.gpa">当前GPA</div>
-      <div class="stat-detail">目标冲刺 90%</div>
+      <div class="stat-detail" data-i18n="home.stat.gpaTarget">目标冲刺 90%</div>
     </div>
     <div class="stat-card fade-in delay-1">
       <div class="stat-icon">🌐</div>
@@ -321,13 +322,13 @@
       <div class="stat-icon">🎯</div>
       <div class="stat-value">6.5</div>
       <div class="stat-label" data-i18n="common.search">目标雅思</div>
-      <div class="stat-detail">单项不低于5.5-6.0</div>
+      <div class="stat-detail" data-i18n="home.stat.ieltsTarget">单项不低于5.5-6.0</div>
     </div>
     <div class="stat-card fade-in delay-3">
       <div class="stat-icon">🏫</div>
       <div class="stat-value">26</div>
       <div class="stat-label" data-i18n="nav.recommend">追踪院校</div>
-      <div class="stat-detail">含分校区 + 澳洲预科</div>
+      <div class="stat-detail" data-i18n="home.stat.trackedSchools">含分校区 + 澳洲预科</div>
     </div>
   </div>
 
@@ -336,22 +337,22 @@
     <a href="pages/admission.html" class="nav-card card-admission fade-in delay-1">
       <div class="card-icon">📋</div>
       <div class="card-title card-admission-title" data-i18n="admission.title">录取要求对照表</div>
-      <div class="card-desc visitor-only">9大专业方向 × 26所院校的完整录取数据，包括GPA要求、雅思标准、双录取路径、Co-op、学费、截止日期。</div>
-      <div class="card-desc private-section" style="display:none;">9大专业方向 × 26所院校的完整录取数据，支持按你的GPA和雅思做个性化匹配筛选。</div>
+      <div class="card-desc visitor-only" data-i18n="home.card.admission.visitor">9大专业方向 × 26所院校的完整录取数据，包括GPA要求、雅思标准、双录取路径、Co-op、学费、截止日期。</div>
+      <div class="card-desc private-section" style="display:none;" data-i18n="home.card.admission.private">9大专业方向 × 26所院校的完整录取数据，支持按你的GPA和雅思做个性化匹配筛选。</div>
       <div class="card-tags">
-        <span class="card-tag tag-accent">直录+双录</span>
+        <span class="card-tag tag-accent" data-i18n="home.card.admission.tag1">直录+双录</span>
         <span class="card-tag tag-accent">Co-op</span>
-        <span class="card-tag tag-accent">学费对比</span>
+        <span class="card-tag tag-accent" data-i18n="home.card.admission.tag3">学费对比</span>
       </div>
       <span class="card-arrow">→</span>
     </a>
     <a href="pages/rankings.html" class="nav-card card-rankings fade-in delay-2">
       <div class="card-icon">📊</div>
       <div class="card-title card-rankings-title" data-i18n="rankings.title">三大排名参考</div>
-      <div class="card-desc">QS 2025/2027 · THE 2026 · US News 2025-2027 综合排名 + 8个专业排名，涵盖计算机、工程、数学、心理学等方向。</div>
+      <div class="card-desc" data-i18n="home.card.rankings.desc">QS 2025/2027 · THE 2026 · US News 2025-2027 综合排名 + 8个专业排名，涵盖计算机、工程、数学、心理学等方向。</div>
       <div class="card-tags">
-        <span class="card-tag tag-warning">QS排名</span>
-        <span class="card-tag tag-warning">THE排名</span>
+        <span class="card-tag tag-warning" data-i18n="home.card.rankings.tag1">QS排名</span>
+        <span class="card-tag tag-warning" data-i18n="home.card.rankings.tag2">THE排名</span>
         <span class="card-tag tag-warning">US News</span>
       </div>
       <span class="card-arrow">→</span>
@@ -359,36 +360,36 @@
     <a href="pages/insights.html" class="nav-card card-insights fade-in delay-3">
       <div class="card-icon">💡</div>
       <div class="card-title card-insights-title" data-i18n="nav.insights">关键发现与建议</div>
-      <div class="card-desc visitor-only">登录后可查看基于个人数据的升学策略分析、现实可行选择、冲刺目标、时间规划建议。</div>
-      <div class="card-desc private-section" style="display:none;">基于你的数据的升学策略分析：现实可行选择、冲刺目标、备选路径、时间规划建议。</div>
+      <div class="card-desc visitor-only" data-i18n="home.card.insights.visitor">登录后可查看基于个人数据的升学策略分析、现实可行选择、冲刺目标、时间规划建议。</div>
+      <div class="card-desc private-section" style="display:none;" data-i18n="home.card.insights.private">基于你的数据的升学策略分析：现实可行选择、冲刺目标、备选路径、时间规划建议。</div>
       <div class="card-tags visitor-only">
-        <span class="card-tag tag-accent" style="opacity:.5">🔒 需登录</span>
+        <span class="card-tag tag-accent" style="opacity:.5" data-i18n="home.card.insights.locked">🔒 需登录</span>
       </div>
       <div class="card-tags private-section" style="display:none;">
-        <span class="card-tag tag-success">策略分析</span>
-        <span class="card-tag tag-success">时间规划</span>
-        <span class="card-tag tag-success">备选方案</span>
+        <span class="card-tag tag-success" data-i18n="home.card.insights.tag1">策略分析</span>
+        <span class="card-tag tag-success" data-i18n="home.card.insights.tag2">时间规划</span>
+        <span class="card-tag tag-success" data-i18n="home.card.insights.tag3">备选方案</span>
       </div>
       <span class="card-arrow">→</span>
     </a>
     <a href="pages/files.html" class="nav-card card-files fade-in delay-4">
       <div class="card-icon">📁</div>
       <div class="card-title card-files-title" data-i18n="nav.files">文件中心</div>
-      <div class="card-desc">权威报告与政策文件解读，包括QS未来技能指数等升学相关参考资料。含原文下载，持续更新。</div>
+      <div class="card-desc" data-i18n="home.card.files.desc">权威报告与政策文件解读，包括QS未来技能指数等升学相关参考资料。含原文下载，持续更新。</div>
       <div class="card-tags">
-        <span class="card-tag tag-accent">QS报告</span>
-        <span class="card-tag tag-accent">政策文件</span>
-        <span class="card-tag tag-accent">免费下载</span>
+        <span class="card-tag tag-accent" data-i18n="home.card.files.tag1">QS报告</span>
+        <span class="card-tag tag-accent" data-i18n="home.card.files.tag2">政策文件</span>
+        <span class="card-tag tag-accent" data-i18n="home.card.files.tag3">免费下载</span>
       </div>
       <span class="card-arrow">→</span>
     </a>
     <a href="pages/download.html" class="nav-card card-download fade-in delay-5">
       <div class="card-icon">📲</div>
       <div class="card-title card-download-title" data-i18n="nav.download">下载 App</div>
-      <div class="card-desc">TopFO Android 客户端，随身携带升学数据。支持录取对照、排名查询、AI 顾问，数据与网页版实时同步。</div>
+      <div class="card-desc" data-i18n="home.card.download.desc">TopFO Android 客户端，随身携带升学数据。支持录取对照、排名查询、AI 顾问，数据与网页版实时同步。</div>
       <div class="card-tags">
         <span class="card-tag tag-accent">Android</span>
-        <span class="card-tag tag-accent">免费下载</span>
+        <span class="card-tag tag-accent" data-i18n="home.card.download.free">免费下载</span>
         <span class="card-tag tag-accent">v1.0.2</span>
       </div>
       <span class="card-arrow">→</span>
@@ -397,38 +398,38 @@
 
   <!-- 三阶段规划：登录后显示 -->
   <div class="phase-section private-section" style="display:none;">
-    <h2>📅 升学三阶段规划</h2>
+    <h2 data-i18n="home.plan.title">📅 升学三阶段规划</h2>
     <div class="phase-cards">
       <div class="phase-card fade-in">
-        <span class="phase-tag now">现在 — 2026年9月</span>
+        <span class="phase-tag now" data-i18n="home.plan.phase1.time">现在 — 2026年9月</span>
         <h3 data-i18n="home.plan.phase1">第一阶段：保底申请</h3>
         <ul class="phase-list">
-          <li>渥太华大学（雅思5.0双录已达标）</li>
-          <li>温莎大学（ELIP双录门槛4.5+）</li>
-          <li>曼尼托巴大学（ELSP双录门槛5.0+）</li>
-          <li>纽芬兰纪念大学（学费最低6-9万/年）</li>
-          <li>康考迪亚大学（蒙特利尔，CS Co-op）</li>
+          <li data-i18n="home.plan.phase1.item1">渥太华大学（雅思5.0双录已达标）</li>
+          <li data-i18n="home.plan.phase1.item2">温莎大学（ELIP双录门槛4.5+）</li>
+          <li data-i18n="home.plan.phase1.item3">曼尼托巴大学（ELSP双录门槛5.0+）</li>
+          <li data-i18n="home.plan.phase1.item4">纽芬兰纪念大学（学费最低6-9万/年）</li>
+          <li data-i18n="home.plan.phase1.item5">康考迪亚大学（蒙特利尔，CS Co-op）</li>
         </ul>
       </div>
       <div class="phase-card fade-in delay-1">
-        <span class="phase-tag next">2026年9月 — 2027年1月</span>
+        <span class="phase-tag next" data-i18n="home.plan.phase2.time">2026年9月 — 2027年1月</span>
         <h3 data-i18n="home.plan.phase2">第二阶段：冲刺雅思</h3>
         <ul class="phase-list">
-          <li>重点突破阅读（4.5→6.0）和听力（4.5→6.0）</li>
-          <li>麦马（数学85%你踩线，需雅思6.5）</li>
-          <li>多大UTM CS（mid-high 80s你踩线）</li>
-          <li>多大UTSC心理（mid-high 70s你远超）</li>
-          <li>UBC Okanagan工程（80-85%你完全够）</li>
+          <li data-i18n="home.plan.phase2.item1">重点突破阅读（4.5→6.0）和听力（4.5→6.0）</li>
+          <li data-i18n="home.plan.phase2.item2">麦马（数学85%你踩线，需雅思6.5）</li>
+          <li data-i18n="home.plan.phase2.item3">多大UTM CS（mid-high 80s你踩线）</li>
+          <li data-i18n="home.plan.phase2.item4">多大UTSC心理（mid-high 70s你远超）</li>
+          <li data-i18n="home.plan.phase2.item5">UBC Okanagan工程（80-85%你完全够）</li>
         </ul>
       </div>
       <div class="phase-card fade-in delay-2">
-        <span class="phase-tag later">备选方案</span>
+        <span class="phase-tag later" data-i18n="home.plan.phase3.time">备选方案</span>
         <h3 data-i18n="home.plan.phase3">第三阶段：澳洲预科</h3>
         <ul class="phase-list">
-          <li>UNSW Extended预科（雅思5.0已达标！升学率91%）</li>
-          <li>昆士兰大学标准预科（雅思5.0已达标）</li>
-          <li>阿德莱德大学标准预科（雅思5.0已达标）</li>
-          <li>15个月预科 → 本科直通，时间成本可控</li>
+          <li data-i18n="home.plan.phase3.item1">UNSW Extended预科（雅思5.0已达标！升学率91%）</li>
+          <li data-i18n="home.plan.phase3.item2">昆士兰大学标准预科（雅思5.0已达标）</li>
+          <li data-i18n="home.plan.phase3.item3">阿德莱德大学标准预科（雅思5.0已达标）</li>
+          <li data-i18n="home.plan.phase3.item4">15个月预科 → 本科直通，时间成本可控</li>
         </ul>
       </div>
     </div>
@@ -450,6 +451,8 @@
   if (typeof I18N !== 'undefined') {
     await I18N.init();
   }
+  // 语言包到达后，用同一批卡片重渲染亮点，避免首屏漏出 i18n key 原文
+  rerenderHighlights();
   // 再初始化 Auth（此时 I18N.t() 可用）
   AUTH.initPage();
   if (AUTH.isLoggedIn()) updatePrivateContent();
@@ -487,13 +490,16 @@ function shuffleArray(arr) {
 }
 
 function translateText(key, fallback) {
-  const t = typeof I18N !== 'undefined' ? I18N.t(key) : '';
-  return t || fallback || '';
+  // 用 tOr：词条缺失时用 fallback，绝不把 i18n 的 key 原文渲染到页面上
+  return typeof I18N !== 'undefined' ? I18N.tOr(key, fallback) : (fallback || '');
 }
+
+let currentHighlights = [];
 
 function renderHighlights(items) {
   const grid = document.getElementById('highlightsGrid');
   if (!grid) return;
+  currentHighlights = items || [];
   // Add staggered animation delays
   grid.innerHTML = items.map((item, i) => `
     <div class="hl-card" style="animation-delay:${i * 0.1}s">
@@ -505,6 +511,13 @@ function renderHighlights(items) {
       </div>
     </div>
   `).join('');
+}
+
+// 语言包是异步 fetch 的：首屏渲染必然早于语言包到达，
+// 因此在语言包加载完成后用「同一批」卡片重渲染一次（不重新随机），
+// 保证显示的是当前语言的文案，也不会出现首屏漏 key / 语言错配。
+function rerenderHighlights() {
+  if (currentHighlights.length) renderHighlights(currentHighlights);
 }
 
 function refreshHighlights() {
@@ -533,7 +546,11 @@ async function updatePrivateContent() {
   if (gpaEl) gpaEl.textContent = data.gpa;
   if (ieltsTotalEl) ieltsTotalEl.textContent = data.ielts ? data.ielts.overall : '';
   if (ieltsDetailEl && data.ielts) {
-    ieltsDetailEl.textContent = `写${data.ielts.writing} / 读${data.ielts.reading} / 听${data.ielts.listening} / 口${data.ielts.speaking}`;
+    // 用 tOr + fallback：语言包缺失/词条缺失时也不漏出 i18n key 原文
+    const ieltsFallback = `写${data.ielts.writing} / 读${data.ielts.reading} / 听${data.ielts.listening} / 口${data.ielts.speaking}`;
+    ieltsDetailEl.textContent = typeof I18N !== 'undefined'
+      ? I18N.tOr('home.ieltsDetail', ieltsFallback, {writing: data.ielts.writing, reading: data.ielts.reading, listening: data.ielts.listening, speaking: data.ielts.speaking})
+      : ieltsFallback;
   }
   document.querySelectorAll('.private-section').forEach(el => el.style.display = '');
   document.querySelectorAll('.visitor-only').forEach(el => el.style.display = 'none');
@@ -550,4 +567,5 @@ AUTH.onChange(async (logged) => {
 });
 </script>
 </body>
+<!-- delpoy_rev_91894 -->
 </html>

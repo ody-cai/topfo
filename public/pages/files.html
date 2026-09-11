@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>文件中心 · 学生升学数据</title>
+<title data-i18n="files.pageTitle">文件中心 · 学生升学数据</title>
 <link rel="stylesheet" href="../css/common.css">
 <style>
 .files-hero { text-align:left; padding:8px 0 24px; }
@@ -69,6 +69,7 @@
   <div class="nav-links">
     <a href="../index.html" class="nav-link" data-i18n="nav.home">首页</a>
     <a href="admission.html" class="nav-link" data-i18n="nav.admission">录取对照表</a>
+    <a href="timeline.html" class="nav-link" data-i18n="nav.timeline">申请时间线</a>
     <a href="rankings.html" class="nav-link" data-i18n="nav.rankings">排名参考</a>
     <a href="insights.html" class="nav-link" data-i18n="nav.insights">关键发现</a>
     <a href="community.html" class="nav-link" data-i18n="nav.community">社区</a>
@@ -81,10 +82,10 @@
 </nav>
 
 <div class="page-container" style="padding-top:20px;">
-  <a href="../index.html" class="back-link">← 返回首页</a>
+  <a href="../index.html" class="back-link" data-i18n="common.back">← 返回首页</a>
 
   <div class="files-hero">
-    <h1>📁 文件中心</h1>
+    <h1 data-i18n="files.titleFull">📁 文件中心</h1>
     <p class="subtitle" data-i18n="files.subtitle">权威报告 · 政策文件 · 升学参考资料，持续更新中</p>
   </div>
 
@@ -98,7 +99,7 @@
           <span class="report-tag-lang">🇨🇳 <span data-i18n="files.origLang">原文中文</span></span>
         </div>
         <p class="card-desc" data-i18n="files.doc1.desc">面向2030年教育强国的顶层设计。5大战略任务+3大规划布局+6项综合改革。涵盖AI全学段教育、双一流扩招、出国留学服务体系、教育评价改革等关键议题。</p>
-        <div class="card-tags"><span class="report-tag">十五五</span><span class="report-tag">教育强国</span><span class="report-tag">AI教育</span><span class="report-tag">出国留学</span></div>
+        <div class="card-tags"><span class="report-tag" data-i18n="files.tag15th">十五五</span><span class="report-tag" data-i18n="files.tagEduPower">教育强国</span><span class="report-tag" data-i18n="files.tagAiEdu">AI教育</span><span class="report-tag" data-i18n="files.tagStudyAbroad">出国留学</span></div>
       </div>
       <div class="report-card-footer">
         <a href="file-edu-15th-plan-2026.html" class="btn-card primary"><span data-i18n="files.view">📖 查看解读</span></a>
@@ -118,7 +119,7 @@
         <div class="card-tags"><span class="report-tag">QS</span><span class="report-tag"><span data-i18n="files.tagSkills">技能指数</span></span><span class="report-tag"><span data-i18n="files.tagAiJobs">AI与就业</span></span><span class="report-tag"><span data-i18n="files.tagGlobal">全球排名</span></span></div>
       </div>
       <div class="report-card-footer">
-        <a href="file-qs-skills-2027.html" class="btn-card primary"><span data-i18n="files.view">📖 查看解读</span></a>
+        <a href="skills-qs-2027.html" class="btn-card primary"><span data-i18n="files.view">📖 查看解读</span></a>
         <a href="../files/QS_World_Future_Skills_Index_2027.pdf" class="btn-card secondary" download><span data-i18n="files.downloadPdf">📥 下载PDF</span></a>
       </div>
     </div>
@@ -130,7 +131,7 @@
 </div>
 
 <footer class="footer">
-  <p>文件来源均为公开权威报告 · 仅供学习参考 · 版权归原作者所有</p>
+  <p data-i18n="files.footer">文件来源均为公开权威报告 · 仅供学习参考 · 版权归原作者所有</p>
 </footer>
 
 <script src="../js/i18n.js"></script>
@@ -144,22 +145,22 @@
 <!-- ===== 登录弹窗 ===== -->
 <div id="loginModal" class="login-modal">
   <div class="login-modal-content" style="max-width:360px;">
-    <h3 style="margin:0 0 16px;font-size:18px;font-weight:600;color:var(--c-text);">🔐 登录</h3>
+    <h3 style="margin:0 0 16px;font-size:18px;font-weight:600;color:var(--c-text);" data-i18n="auth.login.title">🔐 登录</h3>
     <div style="display:flex;flex-direction:column;gap:12px;">
-      <input id="loginUser" type="text" placeholder="用户名"
+      <input id="loginUser" type="text" data-i18n-placeholder="auth.login.username" placeholder="用户名"
         style="padding:10px 14px;border:1px solid var(--c-border);border-radius:8px;font-size:14px;background:var(--c-bg-secondary);color:var(--c-text);outline:none;"
         autocomplete="username">
-      <input id="loginPass" type="password" placeholder="密码"
+      <input id="loginPass" type="password" data-i18n-placeholder="auth.login.password" placeholder="密码"
         style="padding:10px 14px;border:1px solid var(--c-border);border-radius:8px;font-size:14px;background:var(--c-bg-secondary);color:var(--c-text);outline:none;"
         autocomplete="current-password">
     </div>
     <div id="loginError" style="display:none;color:#e74c3c;font-size:12px;margin:8px 0;"></div>
     <button id="loginSubmitBtn" onclick="AUTH.handleLoginSubmit()"
-      style="width:100%;padding:12px;margin-top:12px;background:var(--c-primary);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:500;cursor:pointer;">登录</button>
+      style="width:100%;padding:12px;margin-top:12px;background:var(--c-primary);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:500;cursor:pointer;" data-i18n="auth.login.submit">登录</button>
     <div style="margin-top:12px;text-align:center;font-size:12px;color:var(--c-text-tertiary);">
-      <a href="javascript:void(0)" onclick="AUTH.hideLoginModal();AUTH.showRegisterModal();" style="color:var(--c-primary);text-decoration:none;">还没有账号？注册</a>
+      <a href="javascript:void(0)" onclick="AUTH.hideLoginModal();AUTH.showRegisterModal();" style="color:var(--c-primary);text-decoration:none;" data-i18n="auth.login.noAccount">还没有账号？注册</a>
       &nbsp;·&nbsp;
-      <span style="cursor:pointer;">体验: demo / topfo2026</span>
+      <span style="cursor:pointer;" data-i18n="auth.login.demo">体验: demo / topfo2026</span>
     </div>
   </div>
 </div>
@@ -167,25 +168,26 @@
 <!-- ===== 注册弹窗 ===== -->
 <div id="registerModal" class="login-modal">
   <div class="login-modal-content" style="max-width:360px;">
-    <h3 style="margin:0 0 16px;font-size:18px;font-weight:600;color:var(--c-text);">📝 注册</h3>
+    <h3 style="margin:0 0 16px;font-size:18px;font-weight:600;color:var(--c-text);" data-i18n="auth.register.title">📝 注册</h3>
     <div style="display:flex;flex-direction:column;gap:12px;">
-      <input id="regUser" type="text" placeholder="用户名"
+      <input id="regUser" type="text" data-i18n-placeholder="auth.register.username" placeholder="用户名"
         style="padding:10px 14px;border:1px solid var(--c-border);border-radius:8px;font-size:14px;background:var(--c-bg-secondary);color:var(--c-text);outline:none;"
         autocomplete="username">
-      <input id="regPass" type="password" placeholder="密码"
+      <input id="regPass" type="password" data-i18n-placeholder="auth.register.password" placeholder="密码"
         style="padding:10px 14px;border:1px solid var(--c-border);border-radius:8px;font-size:14px;background:var(--c-bg-secondary);color:var(--c-text);outline:none;"
         autocomplete="new-password">
-      <input id="regDisplay" type="text" placeholder="显示名称（选填）"
+      <input id="regDisplay" type="text" data-i18n-placeholder="auth.register.displayName" placeholder="显示名称（选填）"
         style="padding:10px 14px;border:1px solid var(--c-border);border-radius:8px;font-size:14px;background:var(--c-bg-secondary);color:var(--c-text);outline:none;">
     </div>
     <div id="regError" style="display:none;color:#e74c3c;font-size:12px;margin:8px 0;"></div>
     <button id="regSubmitBtn" onclick="AUTH.handleRegisterSubmit()"
-      style="width:100%;padding:12px;margin-top:12px;background:var(--c-primary);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:500;cursor:pointer;">注册</button>
+      style="width:100%;padding:12px;margin-top:12px;background:var(--c-primary);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:500;cursor:pointer;" data-i18n="auth.register.submit">注册</button>
     <div style="margin-top:12px;text-align:center;font-size:12px;color:var(--c-text-tertiary);">
-      <a href="javascript:void(0)" onclick="AUTH.hideRegisterModal();AUTH.showLoginModal();" style="color:var(--c-primary);text-decoration:none;">已有账号？登录</a>
+      <a href="javascript:void(0)" onclick="AUTH.hideRegisterModal();AUTH.showLoginModal();" style="color:var(--c-primary);text-decoration:none;" data-i18n="auth.register.hasAccount">已有账号？登录</a>
     </div>
   </div>
 </div>
 
 </body>
+<!-- delpoy_rev_91894 -->
 </html>

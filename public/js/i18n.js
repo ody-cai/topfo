@@ -40,6 +40,19 @@ const I18N = {
     return text;
   },
 
+  // 当前语言下是否真的存在该词条（用于区分“词条缺失”与“取到了 key 原文”）
+  has(key) {
+    return Object.prototype.hasOwnProperty.call(this._translations, key);
+  },
+
+  // 带兜底的取词：词条缺失时返回 fallback。
+  // ⚠️ 不要写 `I18N.t(k) || fallback`：t() 在词条缺失时会返回 key 本身（真值），
+  //    兜底永远不会生效，页面上就会漏出 `highlights.1.title` 这类 key 原文。
+  tOr(key, fallback, params = {}) {
+    if (this.has(key)) return this.t(key, params);
+    return fallback != null ? fallback : key;
+  },
+
   async setLang(lang) {
     this._currentLang = lang;
     document.cookie = `lang=${lang};path=/;max-age=31536000`;
@@ -51,19 +64,19 @@ const I18N = {
   onChange(fn) { this._listeners.push(fn); },
 
   _applyTranslations() {
-    // Update all data-i18n element text
+    // 注意：词条缺失时（例如语言包请求失败）保留页面原有文案，不能把 key 原文覆盖进页面
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.getAttribute('data-i18n');
-      el.textContent = this.t(key);
+      if (this.has(key)) el.textContent = this.t(key);
     });
     // Update all data-i18n-placeholder element placeholder
     document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
       const key = el.getAttribute('data-i18n-placeholder');
-      el.placeholder = this.t(key);
+      if (this.has(key)) el.placeholder = this.t(key);
     });
     // Update page title
     const titleKey = document.querySelector('title')?.getAttribute('data-i18n');
-    if (titleKey) {
+    if (titleKey && this.has(titleKey)) {
       document.title = this.t(titleKey);
     }
   },
@@ -73,3 +86,5 @@ const I18N = {
 
 // 显式暴露到 window，确保 inline onclick 可访问
 window.I18N = I18N;
+
+// delpoy_rev_91894

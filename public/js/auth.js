@@ -215,8 +215,8 @@ const AUTH = {
     const langBtn = document.createElement('button');
     langBtn.id = 'navLangBtn';
     langBtn.className = 'nav-lang-btn';
-    langBtn.title = typeof I18N !== 'undefined' && I18N.t ? I18N.t('lang.switch') : '切换语言';
-    langBtn.textContent = typeof I18N !== 'undefined' && I18N.t ? I18N.t('lang.' + (I18N.getCurrentLang())) : '🌐';
+    langBtn.title = typeof I18N !== 'undefined' ? I18N.tOr('lang.switch', '切换语言') : '切换语言';
+    langBtn.textContent = typeof I18N !== 'undefined' ? I18N.tOr('lang.' + (I18N.getCurrentLang()), '🌐') : '🌐';
     langBtn.onclick = (e) => {
       e.stopPropagation();
       const menu = document.getElementById('navLangMenu');
@@ -248,7 +248,7 @@ const AUTH = {
     const notifBtn = document.createElement('button');
     notifBtn.id = 'navNotifBtn';
     notifBtn.className = 'nav-notif-btn';
-    notifBtn.title = I18N ? I18N.t('nav.notifications') : '通知';
+    notifBtn.title = typeof I18N !== 'undefined' ? I18N.tOr('nav.notifications', '通知') : '通知';
     notifBtn.style.display = 'none'; // 登录后显示
     notifBtn.innerHTML = '🔔 <span id="notifBadge" style="display:none;background:red;color:white;border-radius:50%;padding:1px 5px;font-size:10px;vertical-align:top;">0</span>';
     notifBtn.onclick = () => { window.location.href = '/pages/notifications.html'; };
@@ -269,7 +269,7 @@ const AUTH = {
     // 更新语言切换按钮文本
     const langBtn = document.getElementById('navLangBtn');
     if (langBtn && typeof I18N !== 'undefined') {
-      langBtn.textContent = I18N.t('lang.' + I18N.getCurrentLang());
+      langBtn.textContent = I18N.tOr('lang.' + I18N.getCurrentLang(), '🌐');
     }
 
     if (logged) {
@@ -289,7 +289,7 @@ const AUTH = {
         const editBtn = document.createElement('button');
         editBtn.id = 'navEditBtn';
         editBtn.className = 'nav-auth-btn';
-        editBtn.textContent = '✏️ ' + (typeof I18N !== 'undefined' ? I18N.t('nav.editData') : '编辑数据');
+        editBtn.textContent = '✏️ ' + (typeof I18N !== 'undefined' ? I18N.tOr('nav.editData', '编辑数据') : '编辑数据');
         editBtn.title = '修改GPA和雅思分数';
         editBtn.style.marginLeft = '8px';
         editBtn.onclick = () => AUTH.showProfileModal();
@@ -301,7 +301,7 @@ const AUTH = {
       }
     } else {
       btn.className = 'nav-auth-btn';
-      btn.textContent = typeof I18N !== 'undefined' ? I18N.t('nav.login') : '登录';
+      btn.textContent = typeof I18N !== 'undefined' ? I18N.tOr('nav.login', '登录') : '登录';
       btn.title = '登录查看个人数据';
       this._hideChatWidget();
 
@@ -482,26 +482,28 @@ const AUTH = {
     // 如果页面 HTML 已经有弹窗了，不需要 JS 注入
     if (document.getElementById('loginModal')) return;
 
-    const t = (typeof I18N !== 'undefined' && I18N.t) ? I18N.t : (k) => k;
+    const t = (typeof I18N !== 'undefined' && typeof I18N.tOr === 'function')
+      ? (k, fb, p) => I18N.tOr(k, fb, p)
+      : (k, fb) => (fb != null ? fb : k);
     const html = `
     <div id="loginModal" class="login-modal">
       <div class="login-modal-content" style="max-width:360px;">
-        <h3 style="margin:0 0 16px;font-size:18px;font-weight:600;color:var(--c-text);">🔐 ${t('auth.login.title')}</h3>
+        <h3 style="margin:0 0 16px;font-size:18px;font-weight:600;color:var(--c-text);">🔐 ${t('auth.login.title', '登录')}</h3>
         <div style="display:flex;flex-direction:column;gap:12px;">
-          <input id="loginUser" type="text" placeholder="${t('auth.login.username')}"
+          <input id="loginUser" type="text" placeholder="${t('auth.login.username', '用户名')}"
             style="padding:10px 14px;border:1px solid var(--c-border);border-radius:8px;font-size:14px;background:var(--c-bg-secondary);color:var(--c-text);outline:none;"
             autocomplete="username">
-          <input id="loginPass" type="password" placeholder="${t('auth.login.password')}"
+          <input id="loginPass" type="password" placeholder="${t('auth.login.password', '密码')}"
             style="padding:10px 14px;border:1px solid var(--c-border);border-radius:8px;font-size:14px;background:var(--c-bg-secondary);color:var(--c-text);outline:none;"
             autocomplete="current-password">
         </div>
         <div id="loginError" style="display:none;color:#e74c3c;font-size:12px;margin:8px 0;"></div>
         <button id="loginSubmitBtn" onclick="AUTH.handleLoginSubmit()"
-          style="width:100%;padding:12px;margin-top:12px;background:var(--c-primary);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:500;cursor:pointer;">${t('auth.login.submit')}</button>
+          style="width:100%;padding:12px;margin-top:12px;background:var(--c-primary);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:500;cursor:pointer;">${t('auth.login.submit', '登录')}</button>
         <div style="margin-top:12px;text-align:center;font-size:12px;color:var(--c-text-tertiary);">
-          <a href="javascript:void(0)" onclick="AUTH.hideLoginModal();AUTH.showRegisterModal();" style="color:var(--c-primary);text-decoration:none;">${t('auth.login.noAccount')}</a>
+          <a href="javascript:void(0)" onclick="AUTH.hideLoginModal();AUTH.showRegisterModal();" style="color:var(--c-primary);text-decoration:none;">${t('auth.login.noAccount', '还没有账号？注册')}</a>
           &nbsp;·&nbsp;
-          <span style="cursor:pointer;">${t('auth.login.demo', {demo: 'demo', pass: 'topfo2026'}) || '体验: demo / topfo2026'}</span>
+          <span style="cursor:pointer;">${t('auth.login.demo', '体验: demo / topfo2026', {demo: 'demo', pass: 'topfo2026'})}</span>
         </div>
       </div>
     </div>`;
@@ -844,26 +846,28 @@ const AUTH = {
     // 如果页面 HTML 已经有注册弹窗了，不需要 JS 注入
     if (document.getElementById('registerModal')) return;
 
-    const t = (typeof I18N !== 'undefined' && I18N.t) ? I18N.t : (k) => k;
+    const t = (typeof I18N !== 'undefined' && typeof I18N.tOr === 'function')
+      ? (k, fb, p) => I18N.tOr(k, fb, p)
+      : (k, fb) => (fb != null ? fb : k);
     const html = `
     <div id="registerModal" class="login-modal">
       <div class="login-modal-content" style="max-width:360px;">
-        <h3 style="margin:0 0 16px;font-size:18px;font-weight:600;color:var(--c-text);">📝 ${t('auth.register.title')}</h3>
+        <h3 style="margin:0 0 16px;font-size:18px;font-weight:600;color:var(--c-text);">📝 ${t('auth.register.title', '注册')}</h3>
         <div style="display:flex;flex-direction:column;gap:12px;">
-          <input id="regUser" type="text" placeholder="${t('auth.register.username')}"
+          <input id="regUser" type="text" placeholder="${t('auth.register.username', '用户名')}"
             style="padding:10px 14px;border:1px solid var(--c-border);border-radius:8px;font-size:14px;background:var(--c-bg-secondary);color:var(--c-text);outline:none;"
             autocomplete="username">
-          <input id="regPass" type="password" placeholder="${t('auth.register.password')}"
+          <input id="regPass" type="password" placeholder="${t('auth.register.password', '密码')}"
             style="padding:10px 14px;border:1px solid var(--c-border);border-radius:8px;font-size:14px;background:var(--c-bg-secondary);color:var(--c-text);outline:none;"
             autocomplete="new-password">
-          <input id="regDisplay" type="text" placeholder="${t('auth.register.displayName')}"
+          <input id="regDisplay" type="text" placeholder="${t('auth.register.displayName', '显示名称（选填）')}"
             style="padding:10px 14px;border:1px solid var(--c-border);border-radius:8px;font-size:14px;background:var(--c-bg-secondary);color:var(--c-text);outline:none;">
         </div>
         <div id="regError" style="display:none;color:#e74c3c;font-size:12px;margin:8px 0;"></div>
         <button id="regSubmitBtn" onclick="AUTH.handleRegisterSubmit()"
-          style="width:100%;padding:12px;margin-top:12px;background:var(--c-primary);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:500;cursor:pointer;">${t('auth.register.submit')}</button>
+          style="width:100%;padding:12px;margin-top:12px;background:var(--c-primary);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:500;cursor:pointer;">${t('auth.register.submit', '注册')}</button>
         <div style="margin-top:12px;text-align:center;font-size:12px;color:var(--c-text-tertiary);">
-          <a href="javascript:void(0)" onclick="AUTH.hideRegisterModal();AUTH.showLoginModal();" style="color:var(--c-primary);text-decoration:none;">${t('common.login') || '已有账号？登录'}</a>
+          <a href="javascript:void(0)" onclick="AUTH.hideRegisterModal();AUTH.showLoginModal();" style="color:var(--c-primary);text-decoration:none;">${t('common.login', '已有账号？登录')}</a>
         </div>
       </div>
     </div>`;
@@ -1029,3 +1033,46 @@ document.addEventListener('keydown', function(e) {
     }
   }
 });
+
+// ===== 移动端导航栏汉堡菜单（自动注入，无需改动任何 HTML）=====
+(function initMobileNav(){
+  function close(bar, btn){
+    bar.classList.remove('nav-open');
+    btn.innerHTML = '☰';
+    btn.setAttribute('aria-label', '打开菜单');
+  }
+  function build(){
+    document.querySelectorAll('.nav-bar').forEach(function(bar){
+      if (bar.querySelector('.nav-toggle')) return; // 防止重复注入
+      var btn = document.createElement('button');
+      btn.className = 'nav-toggle';
+      btn.setAttribute('type', 'button');
+      btn.setAttribute('aria-label', '打开菜单');
+      btn.innerHTML = '☰';
+      bar.appendChild(btn);
+      btn.addEventListener('click', function(e){
+        e.stopPropagation();
+        var open = bar.classList.toggle('nav-open');
+        btn.innerHTML = open ? '✕' : '☰';
+        btn.setAttribute('aria-label', open ? '关闭菜单' : '打开菜单');
+      });
+      // 点击抽屉内的任意链接后自动收起
+      bar.querySelectorAll('.nav-links a').forEach(function(a){
+        a.addEventListener('click', function(){ close(bar, btn); });
+      });
+      // 点击页面其它区域自动收起
+      document.addEventListener('click', function(e){
+        if (bar.classList.contains('nav-open') && !bar.contains(e.target)) {
+          close(bar, btn);
+        }
+      });
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', build);
+  } else {
+    build();
+  }
+})();
+
+// delpoy_rev_91894

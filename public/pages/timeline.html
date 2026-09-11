@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-i18n="tl.pageTitle">申请时间线 · 2027秋季入学</title>
+<link rel="stylesheet" href="../css/common.css">
+<style>
+:root{color-scheme:light}
+.tl-update{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;background:var(--c-surface);border:1px solid var(--c-border);border-radius:var(--radius-md);padding:8px 16px;font-size:12px;color:var(--c-text-secondary);margin:4px 0 16px}
+.tl-update .fresh{background:var(--c-success-bg);color:var(--c-success);padding:2px 8px;border-radius:999px;font-size:11px;font-weight:600}
+.phase-note{background:var(--c-accent-light);border:1px solid var(--c-accent);border-radius:var(--radius-md);padding:12px 16px;font-size:12px;color:var(--c-text);line-height:1.7;margin-bottom:18px}
+.phase-note b{color:var(--c-accent)}
+.src-tag{display:inline-block;padding:1px 8px;border-radius:999px;font-size:10px;font-weight:600;margin-right:6px;vertical-align:1px}
+.src-ok{background:var(--c-success-bg);color:var(--c-success)}
+.src-ref{background:var(--c-warning-bg);color:var(--c-warning)}
+
+.sec-title{font-size:15px;font-weight:600;color:var(--c-text);margin:22px 0 10px;display:flex;align-items:center;gap:8px}
+.sec-title .bar{width:4px;height:16px;border-radius:2px;background:var(--c-accent)}
+
+/* 倒计时卡片 */
+.countdown-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:4px}
+.cd-card{background:var(--c-surface);border:1px solid var(--c-border);border-radius:var(--radius-md);padding:12px 14px;display:flex;flex-direction:column;gap:4px;position:relative}
+.cd-card .cd-num{font-size:20px;font-weight:700;color:var(--c-accent);line-height:1.1}
+.cd-card .cd-num.past{color:var(--c-text-tertiary);font-size:14px;font-weight:500}
+.cd-card .cd-num.today{color:var(--c-success)}
+.cd-card .cd-label{font-size:11px;color:var(--c-text-secondary);line-height:1.4}
+.cd-card .cd-date{font-size:10px;color:var(--c-text-tertiary)}
+
+/* 通道速览 */
+.ch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+.ch-card{background:var(--c-surface);border:1px solid var(--c-border);border-radius:var(--radius-md);padding:12px 14px}
+.ch-card .ch-name{font-size:13px;font-weight:600;color:var(--c-text);margin-bottom:6px}
+.ch-card .ch-row{font-size:11px;color:var(--c-text-secondary);line-height:1.7}
+.ch-card .ch-row b{color:var(--c-text)}
+.ch-card a{color:var(--c-accent);text-decoration:none}
+.ch-card a:hover{text-decoration:underline}
+
+/* 垂直时间线 */
+.month-group{background:var(--c-surface);border:1px solid var(--c-border);border-radius:var(--radius-lg);padding:16px 18px;margin-bottom:14px}
+.month-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.month-badge{background:var(--c-accent);color:#fff;font-size:12px;font-weight:600;padding:4px 12px;border-radius:999px}
+.month-badge.past{background:var(--c-border-strong)}
+.month-badge.now{background:var(--c-success)}
+.month-sub{font-size:11px;color:var(--c-text-tertiary)}
+.tl-list{position:relative;padding-left:22px;list-style:none;margin:0}
+.tl-list::before{content:'';position:absolute;left:6px;top:6px;bottom:6px;width:2px;background:var(--c-border)}
+.tl-item{position:relative;padding:8px 0 8px 4px}
+.tl-item::before{content:'';position:absolute;left:-19px;top:15px;width:8px;height:8px;border-radius:50%;background:var(--c-surface);border:2px solid var(--c-accent)}
+.tl-item.kind-offer::before{border-color:var(--c-success)}
+.tl-item.kind-visa::before{border-color:var(--c-warning)}
+.tl-item.kind-test::before{border-color:var(--c-danger)}
+.tl-item .tl-date{font-size:11px;font-weight:600;color:var(--c-accent);display:inline-block;min-width:86px}
+.tl-item .tl-date.past{color:var(--c-text-tertiary);text-decoration:line-through}
+.tl-item .tl-date.today{color:var(--c-success)}
+.tl-item .tl-body{display:inline}
+.tl-item .tl-title{font-size:13px;font-weight:600;color:var(--c-text)}
+.tl-item .tl-note{font-size:11px;color:var(--c-text-secondary);margin-top:3px;line-height:1.6}
+.tag{display:inline-block;font-size:10px;padding:1px 7px;border-radius:4px;margin-left:6px;font-weight:600;vertical-align:1px}
+.tag.ouac{background:var(--c-tier2);color:var(--c-tier2-text)}
+.tag.ubc{background:var(--c-au);color:var(--c-au-text)}
+.tag.personal{background:var(--c-danger-bg);color:var(--c-danger)}
+.tag.lang{background:var(--c-tier3);color:var(--c-tier3-text)}
+.tag.visa{background:var(--c-warning-bg);color:var(--c-warning)}
+.tag.award{background:var(--c-tier1);color:var(--c-tier1-text)}
+.tag.supp{background:var(--c-tier2);color:var(--c-tier2-text)}
+.tag.offer{background:var(--c-success-bg);color:var(--c-success)}
+
+/* 个人待办检查表 */
+.check-panel{background:var(--c-surface);border:1px solid var(--c-border);border-radius:var(--radius-lg);padding:18px 20px;margin-bottom:10px}
+.prog-wrap{height:8px;background:var(--c-bg);border-radius:999px;margin:10px 0 14px;overflow:hidden}
+.prog-bar{height:100%;background:var(--c-accent);border-radius:999px;transition:width .3s;width:0}
+.prog-text{font-size:11px;color:var(--c-text-secondary);margin-bottom:4px}
+.check-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px}
+.check-item{display:flex;align-items:flex-start;gap:8px;background:var(--c-bg);border:1px solid var(--c-border);border-radius:8px;padding:9px 12px;cursor:pointer;user-select:none;transition:border-color .2s}
+.check-item:hover{border-color:var(--c-accent)}
+.check-item input{margin-top:3px;accent-color:var(--c-accent)}
+.check-item .ck{font-size:12px;color:var(--c-text);line-height:1.5}
+.check-item.done .ck{color:var(--c-text-tertiary);text-decoration:line-through}
+.check-item .ck small{display:block;color:var(--c-text-tertiary);font-size:10px;text-decoration:none;line-height:1.4}
+
+@media(max-width:768px){.tl-item .tl-date{display:block;min-width:0;margin-bottom:2px}}
+</style>
+</head>
+<body>
+
+<nav class="nav-bar">
+  <a href="../index.html" class="nav-logo"><span class="dot"></span> 升学数据</a>
+  <div class="nav-links">
+    <a href="../index.html" class="nav-link" data-i18n="nav.home">首页</a>
+    <a href="admission.html" class="nav-link" data-i18n="nav.admission">录取对照</a>
+    <a href="timeline.html" class="nav-link active" data-i18n="nav.timeline">申请时间线</a>
+    <a href="rankings.html" class="nav-link" data-i18n="nav.rankings">排名参考</a>
+    <a href="insights.html" class="nav-link" data-i18n="nav.insights">关键发现</a>
+    <a href="community.html" class="nav-link" data-i18n="nav.community">社区</a>
+    <a href="recommend.html" class="nav-link" data-i18n="nav.recommend">AI 选校</a>
+    <a href="files.html" class="nav-link" data-i18n="nav.files">文件</a>
+    <a href="download.html" class="nav-link" data-i18n="nav.download">下载APP</a>
+    <a href="notifications.html" class="nav-link" data-i18n="nav.notifications">通知</a>
+    <button id="navAuthBtn" class="nav-auth-btn" onclick="AUTH.handleNavAuthClick()" data-i18n="nav.login">登录</button>
+  </div>
+</nav>
+
+<div class="page-container" style="padding-top:20px;">
+  <a href="../index.html" class="back-link" data-i18n="common.back">← 返回首页</a>
+
+  <div class="page-header" style="text-align:left;padding:8px 0 10px;">
+    <h1 style="font-size:22px;" data-i18n="tl.titleFull">📅 申请时间线</h1>
+    <p class="subtitle" data-i18n="tl.subtitle">2027 Fall（2026.9–2027.8）入学关键节点 · OUAC / EducationPlannerBC / 各校官网</p>
+  </div>
+
+  <div class="tl-update">
+    <span data-i18n="tl.dataSource">数据：各校官网 + OUAC/EPBC + IRCC | ✔已核实(2026-09) / ◐参考上一季(以当年官网为准)</span>
+    <span class="fresh" id="updateDate" data-i18n="tl.lastUpdate">最后更新：2026-09-08</span>
+  </div>
+
+  <div class="phase-note">
+    <b>📌 2026-09-08 核实要点：</b>OUAC（安省）2027 Fall 申请已于 2026 年 9 月下旬前后开放，安省普遍<b>平等考虑截止 2027-01-15</b>（多大 UTSG/UTM/UTSC、麦马、皇后、韦士敦含 Ivey AEO 均为同日参考）；UBC 走 EducationPlannerBC，约 <b>2026-10-01 开放</b>；麦吉尔国际生截止 2027-01-15。<b>你的个人节奏：2026-11 前完成雅思重考出分</b>（多数校 2 月前送分），双录/直录同轮申请，语言成绩最晚可后补至 4 月中旬（各校不同）。
+  </div>
+
+  <!-- 倒计时 -->
+  <div class="sec-title"><span class="bar"></span><span id="countdownTitle">⏳ 即将到来的节点</span></div>
+  <div class="countdown-row" id="countdownRow"></div>
+
+  <!-- 通道速览 -->
+  <div class="sec-title"><span class="bar"></span>🗂 申请通道速览</div>
+  <div class="ch-grid">
+    <div class="ch-card">
+      <div class="ch-name">安大略省 · OUAC</div>
+      <div class="ch-row"><b>开放：</b>2026年9月下旬（105/101）<br><b>平等考虑：</b>2027-01-15<br><b>适用：</b>多大三校区 / 麦马 / 皇后 / 韦士敦 / 渥太华 / 滑铁卢 / 卡尔顿 / 约克 / 温莎等<br><a href="https://www.ouac.on.ca" target="_blank" rel="noopener">ouac.on.ca ↗</a></div>
+    </div>
+    <div class="ch-card">
+      <div class="ch-name">BC省 · EducationPlannerBC</div>
+      <div class="ch-row"><b>开放：</b>约2026-10-01<br><b>截止参考：</b>2027-03-31<br><b>适用：</b>UBC 温哥华 / UBC Okanagan / SFU / UVic 等<br><a href="https://apply.educationplannerbc.ca" target="_blank" rel="noopener">educationplannerbc.ca ↗</a></div>
+    </div>
+    <div class="ch-card">
+      <div class="ch-name">魁北克 · 麦吉尔 / 康考迪亚</div>
+      <div class="ch-row"><b>国际生截止：</b>麦吉尔 2027-01-15<br>康考迪亚 参考 2/1–3/1<br><a href="https://www.mcgill.ca" target="_blank" rel="noopener">mcgill.ca ↗</a></div>
+    </div>
+    <div class="ch-card">
+      <div class="ch-name">阿尔伯塔省 · 阿尔伯塔 / 卡尔加里</div>
+      <div class="ch-row"><b>截止参考：</b>2027-03-01 前后（滚动，早申为佳）<br><a href="https://www.ualberta.ca" target="_blank" rel="noopener">ualberta.ca ↗</a> · <a href="https://www.ucalgary.ca" target="_blank" rel="noopener">ucalgary.ca ↗</a></div>
+    </div>
+    <div class="ch-card">
+      <div class="ch-name">海洋省 · 戴尔豪斯 / 纽芬兰纪念</div>
+      <div class="ch-row"><b>截止参考：</b>滚动录取为主，3–6月较灵活<br><a href="https://www.dal.ca" target="_blank" rel="noopener">dal.ca ↗</a></div>
+    </div>
+    <div class="ch-card">
+      <div class="ch-name">澳洲预科（保底）</div>
+      <div class="ch-row"><b>UNSW College：</b>Term1 2027-03-01 / Term4 2027-10-18（UEEC语言课衔接窗口见下）<br><b>UQ：</b>加速预科 2027-02<br><b>阿德莱德：</b>延伸/标准 2月·6月·10月<br><a href="https://www.unswcollege.edu.au" target="_blank" rel="noopener">unswcollege.edu.au ↗</a></div>
+    </div>
+  </div>
+
+  <!-- 垂直时间线 -->
+  <div class="sec-title"><span class="bar"></span>🗓 2026-09 → 2027-08 逐月时间线</div>
+  <div id="timelineRoot"></div>
+
+  <!-- 个人检查表 -->
+  <div class="sec-title"><span class="bar"></span>✅ 我的申请待办（自动保存于本机）</div>
+  <div class="check-panel">
+    <div class="prog-text" id="progText">0 / 12 已完成</div>
+    <div class="prog-wrap"><div class="prog-bar" id="progBar"></div></div>
+    <div class="check-grid" id="checkGrid"></div>
+  </div>
+
+  <div class="tl-update" style="margin-top:14px">
+    <span data-i18n="tl.footNote">注：标注 ◐ 的日期沿用上一申请季公开口径，本季具体日期以各校/OUAC/EPBC 官网当年公布为准。个人档案（GPA/雅思）以你登录后的数据为准。</span>
+  </div>
+</div>
+
+<footer class="footer">
+  <p data-i18n="footer.dataSource">数据来源：各校官网 + OUAC/EPBC + IRCC · 定期手工更新 · 非官方承诺，申请前请以官网为准</p>
+</footer>
+
+<script src="../js/i18n.js"></script>
+<script src="../js/auth.js"></script>
+<script>
+/* ===== 时间线数据 =====
+   d: 日期(YYYY-MM-DD)；t: 标题；n: 备注；
+   k: 类型 offer/visa/test/apply(默认)；tag: 通道标签；s: 来源 ok=已核实 ref=参考上季 */
+const TL_ITEMS = [
+  // ---------- 2026-09 ----------
+  {m:'2026-09', d:'2026-09-08', k:'', tag:'personal', s:'ok', t:'今天 · 启动申请季', n:'2027 Fall 申请季正式进入实操期：定校、语言、材料三线并行。今日数据更新：UBC Vantage 门槛已核实为雅思5.5；麦马 MELD(5.0+12学分)仍为最佳双录选项。'},
+  {m:'2026-09', d:'2026-09-20', k:'', tag:'ouac', s:'ref', t:'OUAC 2027 Fall 申请开放（105 国际通道 9 月中下旬）', n:'OUAC 官方指引 2026-08 已上线 2027 Fall 申请材料；105/101 开放日以 OUAC 官网为准（韦士敦口径"9月下旬"，uOttawa 105F 参考 9/15 前后）。注册后即可选校，热门项目建议 10-11 月完成递交。'},
+  // ---------- 2026-10 ----------
+  {m:'2026-10', d:'2026-10-01', k:'', tag:'ubc', s:'ok', t:'UBC 2027 申请开放（官方口径 10 月初）', n:'UBC 本科经 EducationPlannerBC 申请，Sauder 官方口径"early October 2026"开放；麦吉尔 2027 亦约 10/1 开放。UBC BCS 2027/28 窗口 2026-10 开放；Vantage One 需走独立申请表。'},
+  {m:'2026-10', d:'2026-10-31', k:'', tag:'personal', s:'ok', t:'定校清单 3–5 所 + 材料启动', n:'建议组合：冲刺(多大/麦吉尔/滑铁卢) + 匹配(麦马/渥太华/韦士敦) + 保底(温莎/曼尼托巴/康考迪亚/澳洲预科)。同步准备成绩单、毕业证明、在读证明（中加两校）。'},
+  // ---------- 2026-11 ----------
+  {m:'2026-11', d:'2026-11-15', k:'', tag:'award', s:'ref', t:'UBC Vantage One Excellence Award 参考截止', n:'上一季为 11/15（2026-2027）；2027-2028 以 Vantage 官网为准。'},
+  {m:'2026-11', d:'2026-11-30', k:'test', tag:'lang', s:'ok', t:'雅思重考出分窗口（建议）', n:'目标总分5.5–6.0（重点拉阅读/听力）。多数校要求 2027年2月前完成语言送分；双录（IFP/MELD/EIP 等）与直录同轮申请。'},
+  // ---------- 2026-12 ----------
+  {m:'2026-12', d:'2026-12-01', k:'', tag:'award', s:'ok', t:'UBC 奖学金评审申请截止 12/1（官方）', n:'Sauder 官方：12/1 前申请 UBC 才纳入奖学金评审；麦吉尔入学奖学金随申请勾选（参考）。'},
+  {m:'2026-12', d:'2026-12-31', k:'', tag:'supp', s:'ok', t:'补充申请材料初稿完成（OSP / AIF / Personal Profile）', n:'多大工程/CS 需 Online Student Profile（OSP，含文书+视频面试）；滑铁卢需 AIF；UBC 需 Personal Profile。UBC 若两志愿均为 Vantage 可免 Personal Profile。'},
+  // ---------- 2027-01 ----------
+  {m:'2027-01', d:'2027-01-15', k:'', tag:'ouac', s:'ok', t:'安省主流截止 · UBC 最终截止 · 麦吉尔国际生截止', n:'✔官方 2027 口径：滑铁卢工程 1/15；韦士敦平等考虑 1/15（Ivey AEO 同日）；麦吉尔国际生 1/15；UBC 全部本科最终截止 1/15（含 BCom）。多大 UTSG 工程等热门 1/15（A&S/Rotman 参考 2/2）。安省 101 学生此日为平等考虑截止。'},
+  {m:'2027-01', d:'2027-01-31', k:'', tag:'supp', s:'ok', t:'多大 OSP / Rotman 补充申请窗口', n:'多大工程/CS 补充申请一般 2/1 前截止（以当年为准）；Rotman Commerce 需单独补充申请。'},
+  // ---------- 2027-02 ----------
+  {m:'2027-02', d:'2027-02-01', k:'', tag:'ouac', s:'ok', t:'滑铁卢多数专业截止 2/1（官方 2027）', n:'✔滑铁卢官方：非工程专业申请 2/1、文件 2/15；工程已 1/15（文件 2/1）。国际生同截止。多大 Arts&Science/Rotman 参考 2/2。数学/CS 竞争激烈建议提前。'},
+  {m:'2027-02', d:'2027-02-15', k:'', tag:'supp', s:'ok', t:'皇后补充材料 2/15（参考）· 滑铁卢非工程文件 2/15（官方）', n:'✔滑铁卢官方：非工程专业文件（AIF/成绩单等）2/15 前提交。皇后 Smith/HealthSci 等补充材料 2/15 为去年口径（以 SOLUS 当年为准）。uOttawa 105F 最终截止参考 4/1（部分热门工程 3/1）。'},
+  // ---------- 2027-03 ----------
+  {m:'2027-03', d:'2027-03-01', k:'', tag:'ouac', s:'ok', t:'卡尔加里 2027 申请截止 3/1（官方已核实）', n:'✔卡尔加里官方日历：国内外生同为 3/1 申请截止、文件 3/15；阿尔伯塔（省外同省体系）参考 3/1 前后，滚动录取建议早交。'},
+  {m:'2027-03', d:'2027-03-02', k:'', tag:'supp', s:'ok', t:'韦士敦工程 Casper 最晚考试日', n:'韦士敦 2027 已核实：工程申请者 Casper 最晚 2027-03-02 考试。'},
+  {m:'2027-03', d:'2027-03-31', k:'', tag:'ubc', s:'ref', t:'BC 省多数项目截止（EPBC）参考', n:'UBC/SFU/UVic 多数本科 3/31 截止（UBC 分轮更早）。UBC Okanagan 竞争低于温哥华，可作 BC 保底。'},
+  // ---------- 2027-04 ----------
+  {m:'2027-04', d:'2027-04-01', k:'', tag:'ouac', s:'ref', t:'麦马文件截止 / 皇后部分材料截止参考', n:'麦马 1/15 或 4/1（按项目）申请截止、4/1 材料截止（MELD 亦同）。'},
+  {m:'2027-04', d:'2027-04-15', k:'', tag:'lang', s:'ok', t:'语言成绩最终补交截止（各校不同）', n:'韦士敦 2027 参考：4月中旬前需收到英语成绩；双录学生按语言班分级要求提交。'},
+  // ---------- 2027-05 ----------
+  {m:'2027-05', d:'2027-05-01', k:'offer', tag:'offer', s:'ref', t:'Offer 确认 + 押金常见截止 · 宿舍申请', n:'多数校 5/1 前缴押金确认入学（各校不同，以 offer 信为准）；多大等宿舍申请同批。'},
+  {m:'2027-05', d:'2027-05-15', k:'offer', tag:'offer', s:'ref', t:'安省最大放榜轮（约 5 月中）', n:'安省大学 5 月中旬前后发放大批录取；麦吉尔/UBC 放榜集中在 3–5 月分批进行。'},
+  // ---------- 2027-06 ----------
+  {m:'2027-06', d:'2027-06-01', k:'offer', tag:'offer', s:'ok', t:'OUAC 规则：1/15 前申请者最晚 5/28 获答复；6/1 最早可要求回复', n:'OUAC 2026-27 指引：5/28/2027 为 1/15 前申请者收到回复的最晚日期；6/1 为安省在读生最早可被要求接受 offer/缴押金日。国际生以 offer 标注期限为准。'},
+  {m:'2027-06', d:'2027-06-30', k:'visa', tag:'visa', s:'ok', t:'确认入读 → 启动 PAL + 学签', n:'接受 offer 后尽早申请省认证信(PAL，本科需要)，再递交 IRCC 学签；资金证明需覆盖学费 + 生活费 ≥ CAD 22,895/年（魁省外）。建议 4–6 月递签，预留审理时间。'},
+  // ---------- 2027-07 ----------
+  {m:'2027-07', d:'2027-07-15', k:'visa', tag:'visa', s:'ok', t:'学签申请高峰前完成递交（建议）', n:'高峰期审理放缓，越早越好；Co-op 学生学签自带 Co-op 工作许可（2026-04 起简化，无需单独申请）。'},
+  // ---------- 2027-08 ----------
+  {m:'2027-08', d:'2027-08-15', k:'', tag:'personal', s:'ref', t:'行前：住宿 / 机票 / Orientation', n:'Vantage Jump Start 迎新约 8 月中开始；多数校 Orientation 在 8 月底–9 月初。'},
+  {m:'2027-08', d:'2027-08-28', k:'', tag:'personal', s:'ok', t:'开学前 Checklist', n:'学签获批、体检、住宿确认、选课注册、学费缴纳完成。'},
+  // ---------- 2027-09 ----------
+  {m:'2027-09', d:'2027-09-01', k:'offer', tag:'offer', s:'ok', t:'2027 Fall 开学', n:'安省/BC/AB 大部分院校 9 月初开学；祝顺利 🎓'},
+];
+
+/* UNSW College UEEC 语言课衔接窗口（2027 入读参考） */
+const UEEC_NOTE = 'UNSW College 语言衔接：UEEC10 在线班 2026-10-12→12-18 衔接 2027-03-01；2027-05-24→07-30 与 06-28→09-03 衔接 2027-10-18 Term4。';
+
+/* ===== 个人待办 ===== */
+const CHECKS = [
+  {t:'定校 3–5 所（冲刺/匹配/保底）', s:'含澳洲预科保底；对照录取对照表筛选双录 5.0 达标校'},
+  {t:'报名雅思重考，目标 5.5–6.0', s:'重点拉阅读 4.5 / 听力 4.5，写作口语保持'},
+  {t:'2026-11 前拿到语言成绩并送分', s:'多数校要求 2027-02 前官方送分'},
+  {t:'注册 OUAC / EducationPlannerBC 账号', s:'OUAC 9月下旬开放；EPBC 约 10/1'},
+  {t:'准备补充申请材料', s:'多大 OSP、滑铁卢 AIF、UBC Personal Profile、韦士敦 Ivey AEO 文书'},
+  {t:'开具中加两校成绩单/在读/毕业证明', s:'提前盖章，注意英文翻译件'},
+  {t:'2027-01-15 前递交安省全部申请', s:'含多大三校区/麦马/皇后/韦士敦/渥太华等'},
+  {t:'各校 Portal 上传材料并确认收讫', s:'成绩单、语言、文书逐项核对'},
+  {t:'跟进 3–5 月放榜，及时回复', s:'offer 附带条件（期末均分/语言补交）逐条满足'},
+  {t:'确认 Offer + 缴纳押金', s:'常见 5/1 截止，以 offer 为准'},
+  {t:'申请 PAL → 递交 IRCC 学签', s:'资金证明 ≥ 学费 + CAD 22,895/年；4–6 月递签'},
+  {t:'行前：宿舍/机票/Orientation', s:'8 月中 Vantage Jump Start（如适用）'},
+];
+
+const MONTH_ORDER = ['2026-09','2026-10','2026-11','2026-12','2027-01','2027-02','2027-03','2027-04','2027-05','2027-06','2027-07','2027-08','2027-09'];
+const MONTH_LABEL = {'2026-09':'2026年9月 · 申请启动','2026-10':'2026年10月','2026-11':'2026年11月','2026-12':'2026年12月','2027-01':'2027年1月 · 递交高峰','2027-02':'2027年2月','2027-03':'2027年3月','2027-04':'2027年4月','2027-05':'2027年5月 · 放榜与确认','2027-06':'2027年6月','2027-07':'2027年7月','2027-08':'2027年8月 · 行前','2027-09':'2027年9月 · 开学'};
+const TAG_CLASS = {ouac:'ouac',ubc:'ubc',personal:'personal',lang:'lang',visa:'visa',award:'award',supp:'supp',offer:'offer'};
+
+const $ = id => document.getElementById(id);
+function fmtDate(ds){ const [y,m,d]=ds.split('-'); return `${y}-${m}-${d}`; }
+function daysFromNow(ds){
+  const t = new Date(); t.setHours(0,0,0,0);
+  const d = new Date(ds+'T00:00:00');
+  return Math.round((d - t)/86400000);
+}
+function daysText(n){
+  if(n===0) return '今天';
+  if(n<0) return '已过 ' + (-n) + ' 天';
+  return '还有 ' + n + ' 天';
+}
+
+function renderCountdown(){
+  const today = new Date(); today.setHours(0,0,0,0);
+  const soon = TL_ITEMS
+    .filter(it => new Date(it.d+'T00:00:00') >= today)
+    .sort((a,b)=> a.d<b.d?-1:1)
+    .slice(0,6);
+  if(soon.length===0){ $('countdownRow').innerHTML='<div class="cd-card"><div class="cd-label">暂无未到期节点，全部完成 🎉</div></div>'; return; }
+  $('countdownRow').innerHTML = soon.map(it=>{
+    const n = daysFromNow(it.d);
+    const cls = n===0?'today':(n<0?'past':'');
+    return `<div class="cd-card"><div class="cd-num ${cls}">${daysText(n)}</div><div class="cd-label">${it.t}</div><div class="cd-date">${fmtDate(it.d)}</div></div>`;
+  }).join('');
+}
+
+function tagHtml(it){
+  const tcls = TAG_CLASS[it.tag]||'ouac';
+  const name = ({ouac:'OUAC',ubc:'UBC',personal:'个人',lang:'语言',visa:'签证',award:'奖学金',supp:'补充材料',offer:'录取'})[it.tag]||it.tag;
+  return `<span class="tag ${tcls}">${name}</span>`;
+}
+
+function renderTimeline(){
+  const now = new Date(); now.setHours(0,0,0,0);
+  const root = $('timelineRoot');
+  let html = '';
+  MONTH_ORDER.forEach(m=>{
+    const items = TL_ITEMS.filter(it=>it.m===m);
+    if(!items.length) return;
+    const monthPast = new Date(m+'-28T00:00:00') < now;
+    const monthNow = m === now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
+    const badgeCls = monthNow?'now':(monthPast?'past':'');
+    html += `<div class="month-group"><div class="month-head"><span class="month-badge ${badgeCls}">${MONTH_LABEL[m]||m}</span></div><ul class="tl-list">`;
+    items.forEach(it=>{
+      const diff = daysFromNow(it.d);
+      const past = diff<0, today = diff===0;
+      const dateCls = today?'today':(past?'past':'');
+      const kindCls = it.k==='offer'?'kind-offer':(it.k==='visa'?'kind-visa':(it.k==='test'?'kind-test':''));
+      const src = it.s==='ok' ? '<span class="src-tag src-ok">✔已核实</span>' : '<span class="src-tag src-ref">◐参考上季</span>';
+      html += `<li class="tl-item ${kindCls}"><span class="tl-date ${dateCls}">${fmtDate(it.d)}</span>${tagHtml(it)}<div class="tl-title">${it.t}</div><div class="tl-note">${src}${it.n}</div></li>`;
+    });
+    html += `</ul></div>`;
+  });
+  root.innerHTML = html;
+}
+
+function renderChecks(){
+  const STORE = 'topfo_tl_done';
+  let done = {};
+  try{ done = JSON.parse(localStorage.getItem(STORE)||'{}'); }catch(e){}
+  const grid = $('checkGrid');
+  grid.innerHTML = CHECKS.map((c,i)=>{
+    const isDone = !!done[i];
+    return `<label class="check-item ${isDone?'done':''}"><input type="checkbox" data-i="${i}" ${isDone?'checked':''}><span class="ck">${c.t}<small>${c.s}</small></span></label>`;
+  }).join('');
+  // NOTE: data-i template above uses string concat for attr; fix bind below
+  grid.querySelectorAll('input').forEach(inp=>{
+    inp.addEventListener('change', ()=>{
+      done[inp.dataset.i] = inp.checked;
+      localStorage.setItem(STORE, JSON.stringify(done));
+      inp.closest('.check-item').classList.toggle('done', inp.checked);
+      updateProg(done);
+    });
+  });
+  updateProg(done);
+}
+function updateProg(done){
+  const n = Object.values(done).filter(Boolean).length;
+  $('progText').textContent = n + ' / ' + CHECKS.length + ' 已完成';
+  $('progBar').style.width = Math.round(n/CHECKS.length*100) + '%';
+}
+
+(function init(){
+  if(typeof I18N!=='undefined'){ I18N.init().then(()=>{ AUTH.initPage(); }); } else { AUTH.initPage(); }
+  renderCountdown();
+  renderTimeline();
+  renderChecks();
+  // 取数据实际更新日期（固定常量），不再用 new Date()（UTC 00:00-08:00 会跨日造成虚报"今日已更新"）
+  const d = '2026-09-08';
+  const el = $('updateDate');
+  if(el){
+    const _fb = '最后更新：' + d;
+    el.textContent = typeof I18N !== 'undefined' ? I18N.tOr('tl.lastUpdate', _fb, {date:d}) : _fb;
+  }
+})();
+</script>
+
+<!-- ===== 登录弹窗（供导航按钮使用） ===== -->
+<div id="loginModal" class="login-modal">
+  <div class="login-modal-content" style="max-width:360px;">
+    <h3 style="margin:0 0 16px;font-size:18px;font-weight:600;color:var(--c-text);" data-i18n="auth.login.title">🔐 登录</h3>
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <input id="loginUser" type="text" data-i18n-placeholder="auth.login.username" placeholder="用户名"
+        style="padding:10px 14px;border:1px solid var(--c-border);border-radius:8px;font-size:14px;background:var(--c-bg-secondary);color:var(--c-text);outline:none;" autocomplete="username">
+      <input id="loginPass" type="password" data-i18n-placeholder="auth.login.password" placeholder="密码"
+        style="padding:10px 14px;border:1px solid var(--c-border);border-radius:8px;font-size:14px;background:var(--c-bg-secondary);color:var(--c-text);outline:none;" autocomplete="current-password">
+    </div>
+    <div id="loginError" style="display:none;color:#e74c3c;font-size:12px;margin:8px 0;"></div>
+    <button id="loginSubmitBtn" onclick="AUTH.handleLoginSubmit()"
+      style="width:100%;padding:12px;margin-top:12px;background:var(--c-primary);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:500;cursor:pointer;" data-i18n="auth.login.submit">登录</button>
+    <div style="margin-top:12px;text-align:center;font-size:12px;color:var(--c-text-tertiary);">
+      <a href="javascript:void(0)" onclick="AUTH.hideLoginModal();AUTH.showRegisterModal();" style="color:var(--c-primary);text-decoration:none;" data-i18n="auth.login.noAccount">还没有账号？注册</a>
+    </div>
+  </div>
+</div>
+<div id="registerModal" class="login-modal">
+  <div class="login-modal-content" style="max-width:360px;">
+    <h3 style="margin:0 0 16px;font-size:18px;font-weight:600;color:var(--c-text);" data-i18n="auth.register.title">📝 注册</h3>
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <input id="regUser" type="text" data-i18n-placeholder="auth.register.username" placeholder="用户名"
+        style="padding:10px 14px;border:1px solid var(--c-border);border-radius:8px;font-size:14px;background:var(--c-bg-secondary);color:var(--c-text);outline:none;" autocomplete="username">
+      <input id="regPass" type="password" data-i18n-placeholder="auth.register.password" placeholder="密码"
+        style="padding:10px 14px;border:1px solid var(--c-border);border-radius:8px;font-size:14px;background:var(--c-bg-secondary);color:var(--c-text);outline:none;" autocomplete="new-password">
+      <input id="regDisplay" type="text" data-i18n-placeholder="auth.register.displayName" placeholder="显示名称（选填）"
+        style="padding:10px 14px;border:1px solid var(--c-border);border-radius:8px;font-size:14px;background:var(--c-bg-secondary);color:var(--c-text);outline:none;">
+    </div>
+    <div id="regError" style="display:none;color:#e74c3c;font-size:12px;margin:8px 0;"></div>
+    <button id="regSubmitBtn" onclick="AUTH.handleRegisterSubmit()"
+      style="width:100%;padding:12px;margin-top:12px;background:var(--c-primary);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:500;cursor:pointer;" data-i18n="auth.register.submit">注册</button>
+    <div style="margin-top:12px;text-align:center;font-size:12px;color:var(--c-text-tertiary);">
+      <a href="javascript:void(0)" onclick="AUTH.hideRegisterModal();AUTH.showLoginModal();" style="color:var(--c-primary);text-decoration:none;" data-i18n="auth.register.hasAccount">已有账号？登录</a>
+    </div>
+  </div>
+</div>
+
+</body>
+<!-- delpoy_rev_91894 -->
+</html>
