@@ -199,6 +199,7 @@
   <div class="nav-links">
     <a href="../index.html" class="nav-link" data-i18n="nav.home">首页</a>
     <a href="admission.html" class="nav-link" data-i18n="nav.admission">录取对照表</a>
+    <a href="timeline.html" class="nav-link" data-i18n="nav.timeline">申请时间线</a>
     <a href="rankings.html" class="nav-link" data-i18n="nav.rankings">排名参考</a>
     <a href="insights.html" class="nav-link" data-i18n="nav.insights">关键发现</a>
     <a href="community.html" class="nav-link" data-i18n="nav.community">社区</a>
@@ -216,20 +217,20 @@
   <!-- 🚀 最新版大英雄区 -->
   <div class="latest-hero">
     <div class="hero-new-badge">✨ 最新版本</div>
-    <h2>TopFO v1.1.0 · 液态玻璃</h2>
-    <p class="hero-sub">iOS 26 / macOS 26 风格的 Liquid Glass 设计语言，全界面视觉重构</p>
+    <h2>TopFO v1.1.3 · 排版修复</h2>
+    <p class="hero-sub">APP 全屏间距优化、最小字号调大、文件详情页重写，告别"搓成一团"</p>
     <div class="hero-tags">
-      <span>🎨 Liquid Glass</span>
-      <span>🪟 磨砂玻璃质感</span>
-      <span>📱 9屏统一</span>
-      <span>🌙 深色主题</span>
-      <span>📅 2026-07-09</span>
+      <span>📐 间距优化</span>
+      <span>🔤 排版调大</span>
+      <span>🔄 详情页重写</span>
+      <span>🧩 UX 提升</span>
+      <span>📅 2026-07-11</span>
     </div>
     <div class="hero-dl-row">
-      <a href="../download/TopFO-v1.1.0.apk" class="hero-dl-btn" download>
-        <span class="dl-icon">⬇</span> 下载 v1.1.0 APK
+      <a href="../download/TopFO-v1.1.3.apk" class="hero-dl-btn" download>
+        <span class="dl-icon">⬇</span> 下载 v1.1.3 APK
       </a>
-      <span class="hero-meta">~19 MB · Android 8.0+</span>
+      <span class="hero-meta">~2 MB · Android 8.0+</span>
     </div>
   </div>
 
@@ -249,24 +250,90 @@
       <span class="bb-badge main">🆕 主要分支</span>
     </div>
     <div class="version-grid">
-      <!-- v1.1.0 — 最新 Liquid Glass 重构版 -->
+      <!-- v1.1.3 — 排版修复版 -->
       <div class="version-card latest">
         <span class="latest-badge">最新</span>
+        <div class="version-card-body">
+          <span class="card-icon">📐</span>
+          <h3>TopFO v1.1.3</h3>
+          <div class="card-meta">
+            <span>📅 2026-07-11</span>
+            <span>📦 ~2 MB</span>
+            <span>🤖 Android 8.0+</span>
+          </div>
+          <ul class="card-features">
+            <li>UI 全屏间距优化：基准间距全面增大（sm:8→10, lg:16→20, 屏幕边距20→24dp）</li>
+            <li>最小字号调大（labelSmall 10→11sp），小屏可读性提升</li>
+            <li>文件详情页（FileDetailScreen）完全重写——告别压缩在一行</li>
+            <li>首页功能卡片增高（120→140dp），模块间距更舒适</li>
+            <li>SectionHeader 间距 + NavBar 主题标签字号同步优化</li>
+            <li>Liquid Glass 设计体系 + 深色主题 + 平板自适应</li>
+          </ul>
+        </div>
+        <div class="version-card-footer">
+          <a href="../download/TopFO-v1.1.3.apk" class="btn-card primary" download>⬇ 下载 APK</a>
+        </div>
+      </div>
+
+      <!-- v1.1.2 — API 对齐修复 -->
+      <div class="version-card">
+        <div class="version-card-body">
+          <span class="card-icon">🛠️</span>
+          <h3>TopFO v1.1.2</h3>
+          <div class="card-meta">
+            <span>📅 2026-07-09</span>
+            <span>📦 ~2 MB</span>
+            <span>🤖 Android 8.0+</span>
+          </div>
+          <ul class="card-features">
+            <li>修复 Android 14+ 应用内更新崩溃（BroadcastReceiver RECEIVER_NOT_EXPORTED）</li>
+            <li>API 数据格式全对齐：MeData/rankings/schools 解析修正</li>
+            <li>APP 排版优化：登录对话框去重、参数签名修正、chip 布局</li>
+            <li>Liquid Glass 设计体系 + 深色主题 + 平板自适应</li>
+            <li>录取对照表（9专业 × 26院校含分校区）· Chat 升学顾问</li>
+          </ul>
+        </div>
+        <div class="version-card-footer">
+          <a href="../download/TopFO-v1.1.2.apk?v=2" class="btn-card primary" download>⬇ 下载 APK</a>
+        </div>
+      </div>
+
+      <!-- v1.1.1 — API 对齐 -->
+      <div class="version-card">
+        <div class="version-card-body">
+          <span class="card-icon">🔄</span>
+          <h3>TopFO v1.1.1</h3>
+          <div class="card-meta">
+            <span>📅 2026-07-09</span>
+            <span>📦 ~2 MB</span>
+            <span>🤖 Android 8.0+</span>
+          </div>
+          <ul class="card-features">
+            <li>API-APP 数据格式全对齐：MeData/rankings/schools DTO 重写</li>
+            <li>排版修复：Composable 参数签名规范、登录对话框去重</li>
+            <li>Liquid Glass 设计体系 · 录取对照表 · 排名 · Chat</li>
+          </ul>
+        </div>
+        <div class="version-card-footer">
+          <a href="../download/TopFO-v1.1.1.apk" class="btn-card primary" download>⬇ 下载 APK</a>
+        </div>
+      </div>
+
+      <!-- v1.1.0 — Liquid Glass 首版 -->
+      <div class="version-card">
         <div class="version-card-body">
           <span class="card-icon">🪟</span>
           <h3>TopFO v1.1.0</h3>
           <div class="card-meta">
             <span>📅 2026-07-09</span>
-            <span>📦 ~19 MB</span>
+            <span>📦 ~2 MB</span>
             <span>🤖 Android 8.0+</span>
           </div>
           <ul class="card-features">
-            <li>iOS 26 / macOS 26 风格 Liquid Glass 液态玻璃设计语言</li>
+            <li>iOS 26 / macOS 26 Liquid Glass 液态玻璃设计语言首版发布</li>
             <li>GlassCard · GlassTopBar · GlassNavBar/Rail 统一组件体系</li>
             <li>大圆角 (16-32dp) · 半透明玻璃色板 · 渐变背景</li>
-            <li>全屏统一 · 零硬编码色 · 深色主题适配</li>
-            <li>录取对照表（9专业 × 26院校含分校区）</li>
-            <li>QS / THE / US News 三大排名 · 文件中心 · Chat</li>
+            <li>深色主题适配 · 录取对照表 · QS/THE/US News排名 · Chat</li>
           </ul>
         </div>
         <div class="version-card-footer">
@@ -464,4 +531,5 @@
 </div>
 
 </body>
+<!-- delpoy_rev_91894 -->
 </html>

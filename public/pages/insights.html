@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>关键发现与建议 · 学生升学数据</title>
+<title data-i18n="insights.pageTitle">关键发现与建议 · 学生升学数据</title>
 <link rel="stylesheet" href="../css/common.css">
 <style>
 .insight-section{margin-bottom:32px}
@@ -104,6 +104,7 @@
   <div class="nav-links">
     <a href="../index.html" class="nav-link" data-i18n="nav.home">首页</a>
     <a href="admission.html" class="nav-link" data-i18n="nav.admission">录取对照表</a>
+    <a href="timeline.html" class="nav-link" data-i18n="nav.timeline">申请时间线</a>
     <a href="rankings.html" class="nav-link" data-i18n="nav.rankings">排名参考</a>
     <a href="insights.html" class="nav-link active" data-i18n="nav.insights">关键发现</a>
     <a href="community.html" class="nav-link" data-i18n="nav.community">社区</a>
@@ -117,21 +118,21 @@
 
 
 <div class="page-container" style="padding-top:20px;">
-  <a href="../index.html" class="back-link">← 返回首页</a>
+  <a href="../index.html" class="back-link" data-i18n="common.back">← 返回首页</a>
 
   <div class="page-header" style="text-align:left;padding:8px 0 16px;">
-    <h1 style="font-size:22px;">💡 关键发现与升学建议</h1>
-    <p class="subtitle visitor-only">登录后可查看基于个人数据的全面升学策略分析</p>
-    <p class="subtitle private-section" style="display:none;">基于 GPA <span class="data-gpa">—</span>、雅思 <span class="data-ielts-total">—</span> 的全面数据分析</p>
+    <h1 style="font-size:22px;" data-i18n="insights.titleFull">💡 关键发现与升学建议</h1>
+    <p class="subtitle visitor-only" data-i18n="insights.subtitleVisitor">登录后可查看基于个人数据的全面升学策略分析</p>
+    <p class="subtitle private-section" style="display:none;" data-i18n="insights.subtitlePrivate">基于 GPA <span class="data-gpa">—</span>、雅思 <span class="data-ielts-total">—</span> 的全面数据分析</p>
   </div>
 
   <!-- 访客锁定遮罩 -->
   <div class="gate-overlay visitor-only">
     <div>
       <div class="gate-icon">🔒</div>
-      <div class="gate-title">此页面内容需要登录</div>
-      <div class="gate-desc">关键发现与升学建议包含个人GPA匹配分析、雅思达标路径、三维策略方案、时间规划等私密内容。请登录后查看。</div>
-      <button class="gate-btn" onclick="AUTH.showLoginModal()">🔑 立即登录</button>
+      <div class="gate-title" data-i18n="insights.gateTitle">此页面内容需要登录</div>
+      <div class="gate-desc" data-i18n="insights.gateDesc">关键发现与升学建议包含个人GPA匹配分析、雅思达标路径、三维策略方案、时间规划等私密内容。请登录后查看。</div>
+      <button class="gate-btn" onclick="AUTH.showLoginModal()" data-i18n="insights.gateBtn">🔑 立即登录</button>
     </div>
   </div>
 
@@ -140,9 +141,9 @@
     <div class="gate-overlay" style="display:none;">
       <div>
         <div class="gate-icon">🔒</div>
-        <div class="gate-title">此页面内容需要登录</div>
-        <div class="gate-desc">关键发现与升学建议包含个人数据分析。请登录后查看。</div>
-        <button class="gate-btn" onclick="AUTH.showLoginModal()">🔑 立即登录</button>
+        <div class="gate-title" data-i18n="insights.gateTitle">此页面内容需要登录</div>
+        <div class="gate-desc" data-i18n="insights.gateDesc2">关键发现与升学建议包含个人数据分析。请登录后查看。</div>
+        <button class="gate-btn" onclick="AUTH.showLoginModal()" data-i18n="insights.gateBtn">🔑 立即登录</button>
       </div>
     </div>
 
@@ -151,116 +152,116 @@
 
       <!-- 关键发现 -->
       <div class="insight-section">
-        <h2>🔍 10大关键发现</h2>
+        <h2 data-i18n="insights.findingsTitle">🔍 10大关键发现</h2>
         <div class="insight-list">
           <div class="insight-item fade-in">
             <div class="title-row">
               <span class="num critical">1</span>
-              <span class="insight-title">多大分校区比主校容易很多</span>
+              <span class="insight-title" data-i18n="insights.finding1.title">多大分校区比主校容易很多</span>
             </div>
-            <div class="insight-desc">UTM CS要求mid-high 80s，你GPA 89.6已超线（相比UTSG 93%竞争均分/97.2%录取中位差3.4分）；UTSC心理仅需mid-high 70s，你89.6远超，且有Co-op项目。这是最大的"捡漏"机会。</div>
+            <div class="insight-desc" data-i18n="insights.finding1.desc">UTM CS要求mid-high 80s，你GPA 89.6已超线（相比UTSG 93%竞争均分/97.2%录取中位差3.4分）；UTSC心理仅需mid-high 70s，你89.6远超，且有Co-op项目。这是最大的"捡漏"机会。</div>
           </div>
           <div class="insight-item fade-in delay-1">
             <div class="title-row">
               <span class="num critical">2</span>
-              <span class="insight-title">UBC Okanagan比温哥华低10分，且有双录</span>
+              <span class="insight-title" data-i18n="insights.finding2.title">UBC Okanagan比温哥华低10分，且有双录</span>
             </div>
-            <div class="insight-desc">UBC Okanagan工程80-85%你完全够，有EFP英语预科双录路径。对比UBC温哥华工程92%+的录取线，Okanagan是进入UBC体系的绝佳跳板。</div>
+            <div class="insight-desc" data-i18n="insights.finding2.desc">UBC Okanagan工程80-85%你完全够，有EFP英语预科双录路径。对比UBC温哥华工程92%+的录取线，Okanagan是进入UBC体系的绝佳跳板。</div>
           </div>
           <div class="insight-item fade-in delay-1">
             <div class="title-row">
               <span class="num important">3</span>
-              <span class="insight-title">数学比CS好进约9分</span>
+              <span class="insight-title" data-i18n="insights.finding3.title">数学比CS好进约9分</span>
             </div>
-            <div class="insight-desc">麦马数学85% vs CS 94%，你正好踩线数学。如果对数学有兴趣，可以以数学为跳板，之后辅修或转CS。</div>
+            <div class="insight-desc" data-i18n="insights.finding3.desc">麦马数学85% vs CS 94%，你正好踩线数学。如果对数学有兴趣，可以以数学为跳板，之后辅修或转CS。</div>
           </div>
           <div class="insight-item fade-in delay-1">
             <div class="title-row">
               <span class="num important">4</span>
-              <span class="insight-title">心理学比CS好进10-15分</span>
+              <span class="insight-title" data-i18n="insights.finding4.title">心理学比CS好进10-15分</span>
             </div>
-            <div class="insight-desc">阿尔伯塔心理75% vs CS 82%，你89.6远超心理线。考虑青少年心理学方向，这条路在多大UTSC有Co-op且录取友好。</div>
+            <div class="insight-desc" data-i18n="insights.finding4.desc">阿尔伯塔心理75% vs CS 82%，你89.6远超心理线。考虑青少年心理学方向，这条路在多大UTSC有Co-op且录取友好。</div>
           </div>
           <div class="insight-item fade-in delay-2">
             <div class="title-row">
               <span class="num success">5</span>
-              <span class="insight-title">TMU(原Ryerson) CS 82%你完全够</span>
+              <span class="insight-title" data-i18n="insights.finding5.title">TMU(原Ryerson) CS 82%你完全够</span>
             </div>
-            <div class="insight-desc">多伦多市中心+Co-op项目+雅思5.0双录已达标，是城市大学中最现实的选择之一。</div>
+            <div class="insight-desc" data-i18n="insights.finding5.desc">多伦多市中心+Co-op项目+雅思5.0双录已达标，是城市大学中最现实的选择之一。</div>
           </div>
           <div class="insight-item fade-in delay-2">
             <div class="title-row">
               <span class="num success">6</span>
-              <span class="insight-title">渥太华大学雅思4.0+即可双录</span>
+              <span class="insight-title" data-i18n="insights.finding6.title">渥太华大学雅思4.0+即可双录</span>
             </div>
-            <div class="insight-desc">你雅思5.0已超过EIP双录门槛（4.0+），工程/CS/数学/心理全可双录。渥太华位于首都，Co-op项目强，综合排名也不错（QS 2027 #228）。</div>
+            <div class="insight-desc" data-i18n="insights.finding6.desc">你雅思5.0已超过EIP双录门槛（4.0+），工程/CS/数学/心理全可双录。渥太华位于首都，Co-op项目强，综合排名也不错（QS 2027 #228）。</div>
           </div>
           <div class="insight-item fade-in delay-2">
             <div class="title-row">
               <span class="num critical">7</span>
-              <span class="insight-title">多大UTSC/UTM不提供双录取，主校IFP有单项门槛</span>
+              <span class="insight-title" data-i18n="insights.finding7.title">多大UTSC/UTM不提供双录取，主校IFP有单项门槛</span>
             </div>
-            <div class="insight-desc">UTSC、UTM两个分校区要求雅思6.5(6.0)直录，无语言班/双录通道。UTSG主校有IFP，但2026-27新门槛要求单项≥5.0，且IFP分多个流（Applied Science&Engineering/Arts&Science/建筑景观设计/音乐），CS可走Arts&Science IFP。</div>
+            <div class="insight-desc" data-i18n="insights.finding7.desc">UTSC、UTM两个分校区要求雅思6.5(6.0)直录，无语言班/双录通道。UTSG主校有IFP，但2026-27新门槛要求单项≥5.0，且IFP分多个流（Applied Science&Engineering/Arts&Science/建筑景观设计/音乐），CS可走Arts&Science IFP。</div>
           </div>
           <div class="insight-item fade-in delay-3">
             <div class="title-row">
               <span class="num important">8</span>
-              <span class="insight-title">双录取有专业限制</span>
+              <span class="insight-title" data-i18n="insights.finding8.title">双录取有专业限制</span>
             </div>
-            <div class="insight-desc">多大IFP覆盖Arts&Science/建筑景观设计/音乐但新门槛单项≥5.0；约克工程要求雅思7.5不接受双录；阿尔伯塔EAP不含工程。申请双录时务必确认目标专业是否在双录覆盖范围内。</div>
+            <div class="insight-desc" data-i18n="insights.finding8.desc">多大IFP覆盖Arts&Science/建筑景观设计/音乐但新门槛单项≥5.0；约克工程要求雅思7.5不接受双录；阿尔伯塔EAP不含工程。申请双录时务必确认目标专业是否在双录覆盖范围内。</div>
           </div>
           <div class="insight-item fade-in delay-3">
             <div class="title-row">
               <span class="num info">9</span>
-              <span class="insight-title">学费差距巨大</span>
+              <span class="insight-title" data-i18n="insights.finding9.title">学费差距巨大</span>
             </div>
-            <div class="insight-desc">纽芬兰纪念大学仅6-9万人民币/年，多大UTSG则高达21-34万/年，4年本科差距可达60-100万人民币。</div>
+            <div class="insight-desc" data-i18n="insights.finding9.desc">纽芬兰纪念大学仅6-9万人民币/年，多大UTSG则高达21-34万/年，4年本科差距可达60-100万人民币。</div>
           </div>
           <div class="insight-item fade-in delay-3">
             <div class="title-row">
               <span class="num success">10</span>
-              <span class="insight-title">澳洲预科是安全网</span>
+              <span class="insight-title" data-i18n="insights.finding10.title">澳洲预科是安全网</span>
             </div>
-            <div class="insight-desc">UNSW Extended预科雅思5.0(4.5)门槛，你已达标。15个月预科+升学率91%，QS综合排名#19。</div>
+            <div class="insight-desc" data-i18n="insights.finding10.desc">UNSW Extended预科雅思5.0(4.5)门槛，你已达标。15个月预科+升学率91%，QS综合排名#19。</div>
           </div>
         </div>
       </div>
 
       <!-- 三策略方案 -->
       <div class="insight-section">
-        <h2>🎯 三维策略方案</h2>
+        <h2 data-i18n="insights.strategyTitle">🎯 三维策略方案</h2>
         <div class="strategy-grid">
           <div class="strategy-card fade-in">
             <div class="strat-icon">🛡️</div>
-            <h3>方案A：稳扎稳打（现在即可启动）</h3>
+            <h3 data-i18n="insights.stratA.title">方案A：稳扎稳打（现在即可启动）</h3>
             <ul class="strat-list">
-              <li>渥太华大学（双录门槛4.0+，你5.0已超）</li>
-              <li>温莎大学（双录门槛4.5+，Co-op强）</li>
-              <li>曼尼托巴大学（双录门槛5.0+，学费9-12万/年）</li>
-              <li>纽芬兰纪念大学（学费最低6-9万/年）</li>
-              <li>康考迪亚大学（蒙特利尔，CS Co-op）</li>
+              <li data-i18n="insights.stratA.item1">渥太华大学（双录门槛4.0+，你5.0已超）</li>
+              <li data-i18n="insights.stratA.item2">温莎大学（双录门槛4.5+，Co-op强）</li>
+              <li data-i18n="insights.stratA.item3">曼尼托巴大学（双录门槛5.0+，学费9-12万/年）</li>
+              <li data-i18n="insights.stratA.item4">纽芬兰纪念大学（学费最低6-9万/年）</li>
+              <li data-i18n="insights.stratA.item5">康考迪亚大学（蒙特利尔，CS Co-op）</li>
             </ul>
           </div>
           <div class="strategy-card fade-in delay-1">
             <div class="strat-icon">🎯</div>
-            <h3>方案B：冲刺优化（需提雅思到6.5）</h3>
+            <h3 data-i18n="insights.stratB.title">方案B：冲刺优化（需提雅思到6.5）</h3>
             <ul class="strat-list">
-              <li>多大UTM CS（mid-high 80s你踩线）</li>
-              <li>多大UTSC心理（mid-high 70s你远超+Co-op）</li>
-              <li>UBC Okanagan工程（80-85%你完全够+EFP双录）</li>
-              <li>麦马数学（85%你踩线）</li>
-              <li>阿尔伯塔CS/心理（雅思6.5即可）</li>
+              <li data-i18n="insights.stratB.item1">多大UTM CS（mid-high 80s你踩线）</li>
+              <li data-i18n="insights.stratB.item2">多大UTSC心理（mid-high 70s你远超+Co-op）</li>
+              <li data-i18n="insights.stratB.item3">UBC Okanagan工程（80-85%你完全够+EFP双录）</li>
+              <li data-i18n="insights.stratB.item4">麦马数学（85%你踩线）</li>
+              <li data-i18n="insights.stratB.item5">阿尔伯塔CS/心理（雅思6.5即可）</li>
             </ul>
           </div>
           <div class="strategy-card fade-in delay-2">
             <div class="strat-icon">🦘</div>
-            <h3>方案C：澳洲预科（安全网）</h3>
+            <h3 data-i18n="insights.stratC.title">方案C：澳洲预科（安全网）</h3>
             <ul class="strat-list">
-              <li>UNSW Extended预科（QS #19，雅思5.0已达标）</li>
-              <li>昆士兰大学标准预科（Go8名校）</li>
-              <li>阿德莱德大学标准预科（Go8名校）</li>
-              <li>15个月预科→本科直通</li>
-              <li>如加拿大不顺利，无缝切换澳洲</li>
+              <li data-i18n="insights.stratC.item1">UNSW Extended预科（QS #19，雅思5.0已达标）</li>
+              <li data-i18n="insights.stratC.item2">昆士兰大学标准预科（Go8名校）</li>
+              <li data-i18n="insights.stratC.item3">阿德莱德大学标准预科（Go8名校）</li>
+              <li data-i18n="insights.stratC.item4">15个月预科→本科直通</li>
+              <li data-i18n="insights.stratC.item5">如加拿大不顺利，无缝切换澳洲</li>
             </ul>
           </div>
         </div>
@@ -268,27 +269,27 @@
 
       <!-- 时间规划 -->
       <div class="insight-section">
-        <h2>📅 建议时间线</h2>
+        <h2 data-i18n="insights.timelineTitle">📅 建议时间线</h2>
         <div class="timeline">
           <div class="tl-item fade-in">
-            <div class="tl-date">2026年7月-8月</div>
-            <div class="tl-title">完成保底校申请</div>
-            <div class="tl-desc">渥太华、温莎、曼大、纽芬兰纪念、康考迪亚 — 这些学校滚动录取或截止日期晚，但早申早录</div>
+            <div class="tl-date" data-i18n="insights.tl1.date">2026年7月-8月</div>
+            <div class="tl-title" data-i18n="insights.tl1.title">完成保底校申请</div>
+            <div class="tl-desc" data-i18n="insights.tl1.desc">渥太华、温莎、曼大、纽芬兰纪念、康考迪亚 — 这些学校滚动录取或截止日期晚，但早申早录</div>
           </div>
           <div class="tl-item fade-in delay-1">
-            <div class="tl-date">2026年9月-12月</div>
-            <div class="tl-title">冲刺雅思 6.5 · 重点突破阅读听力</div>
-            <div class="tl-desc">阅读4.5→6.0、听力4.5→6.0是最大短板。建议每天2小时精听+精读，配合模考。</div>
+            <div class="tl-date" data-i18n="insights.tl2.date">2026年9月-12月</div>
+            <div class="tl-title" data-i18n="insights.tl2.title">冲刺雅思 6.5 · 重点突破阅读听力</div>
+            <div class="tl-desc" data-i18n="insights.tl2.desc">阅读4.5→6.0、听力4.5→6.0是最大短板。建议每天2小时精听+精读，配合模考。</div>
           </div>
           <div class="tl-item fade-in delay-1">
-            <div class="tl-date">2027年1月-2月</div>
-            <div class="tl-title">提交冲刺校申请</div>
-            <div class="tl-desc">多大UTM/UTSC、麦马、UBC Okanagan、阿尔伯塔等1月15日截止的学校。</div>
+            <div class="tl-date" data-i18n="insights.tl3.date">2027年1月-2月</div>
+            <div class="tl-title" data-i18n="insights.tl3.title">提交冲刺校申请</div>
+            <div class="tl-desc" data-i18n="insights.tl3.desc">多大UTM/UTSC、麦马、UBC Okanagan、阿尔伯塔等1月15日截止的学校。</div>
           </div>
           <div class="tl-item fade-in delay-2">
-            <div class="tl-date">2027年3月-5月</div>
-            <div class="tl-title">等待录取结果 · 评估选择</div>
-            <div class="tl-desc">对比各校offer，考虑专业、排名、Co-op、学费、城市等因素做出最终选择。</div>
+            <div class="tl-date" data-i18n="insights.tl4.date">2027年3月-5月</div>
+            <div class="tl-title" data-i18n="insights.tl4.title">等待录取结果 · 评估选择</div>
+            <div class="tl-desc" data-i18n="insights.tl4.desc">对比各校offer，考虑专业、排名、Co-op、学费、城市等因素做出最终选择。</div>
           </div>
         </div>
       </div>
@@ -299,7 +300,7 @@
 </div>
 
 <footer class="footer">
-  <p>数据来源：各校官网 + 三大排行榜排名 · 定期手工更新</p>
+  <p data-i18n="footer.dataSource">数据来源：各校官网 + 三大排行榜排名 · 定期手工更新</p>
 </footer>
 
 <script src="../js/i18n.js"></script>
@@ -358,22 +359,22 @@ if (logged) {
 <!-- ===== 登录弹窗 ===== -->
 <div id="loginModal" class="login-modal">
   <div class="login-modal-content" style="max-width:360px;">
-    <h3 style="margin:0 0 16px;font-size:18px;font-weight:600;color:var(--c-text);">🔐 登录</h3>
+    <h3 style="margin:0 0 16px;font-size:18px;font-weight:600;color:var(--c-text);" data-i18n="auth.login.title">🔐 登录</h3>
     <div style="display:flex;flex-direction:column;gap:12px;">
-      <input id="loginUser" type="text" placeholder="用户名"
+      <input id="loginUser" type="text" data-i18n-placeholder="auth.login.username" placeholder="用户名"
         style="padding:10px 14px;border:1px solid var(--c-border);border-radius:8px;font-size:14px;background:var(--c-bg-secondary);color:var(--c-text);outline:none;"
         autocomplete="username">
-      <input id="loginPass" type="password" placeholder="密码"
+      <input id="loginPass" type="password" data-i18n-placeholder="auth.login.password" placeholder="密码"
         style="padding:10px 14px;border:1px solid var(--c-border);border-radius:8px;font-size:14px;background:var(--c-bg-secondary);color:var(--c-text);outline:none;"
         autocomplete="current-password">
     </div>
     <div id="loginError" style="display:none;color:#e74c3c;font-size:12px;margin:8px 0;"></div>
     <button id="loginSubmitBtn" onclick="AUTH.handleLoginSubmit()"
-      style="width:100%;padding:12px;margin-top:12px;background:var(--c-primary);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:500;cursor:pointer;">登录</button>
+      style="width:100%;padding:12px;margin-top:12px;background:var(--c-primary);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:500;cursor:pointer;" data-i18n="auth.login.submit">登录</button>
     <div style="margin-top:12px;text-align:center;font-size:12px;color:var(--c-text-tertiary);">
-      <a href="javascript:void(0)" onclick="AUTH.hideLoginModal();AUTH.showRegisterModal();" style="color:var(--c-primary);text-decoration:none;">还没有账号？注册</a>
+      <a href="javascript:void(0)" onclick="AUTH.hideLoginModal();AUTH.showRegisterModal();" style="color:var(--c-primary);text-decoration:none;" data-i18n="auth.login.noAccount">还没有账号？注册</a>
       &nbsp;·&nbsp;
-      <span style="cursor:pointer;">体验: demo / topfo2026</span>
+      <span style="cursor:pointer;" data-i18n="auth.login.demo">体验: demo / topfo2026</span>
     </div>
   </div>
 </div>
@@ -381,25 +382,26 @@ if (logged) {
 <!-- ===== 注册弹窗 ===== -->
 <div id="registerModal" class="login-modal">
   <div class="login-modal-content" style="max-width:360px;">
-    <h3 style="margin:0 0 16px;font-size:18px;font-weight:600;color:var(--c-text);">📝 注册</h3>
+    <h3 style="margin:0 0 16px;font-size:18px;font-weight:600;color:var(--c-text);" data-i18n="auth.register.title">📝 注册</h3>
     <div style="display:flex;flex-direction:column;gap:12px;">
-      <input id="regUser" type="text" placeholder="用户名"
+      <input id="regUser" type="text" data-i18n-placeholder="auth.register.username" placeholder="用户名"
         style="padding:10px 14px;border:1px solid var(--c-border);border-radius:8px;font-size:14px;background:var(--c-bg-secondary);color:var(--c-text);outline:none;"
         autocomplete="username">
-      <input id="regPass" type="password" placeholder="密码"
+      <input id="regPass" type="password" data-i18n-placeholder="auth.register.password" placeholder="密码"
         style="padding:10px 14px;border:1px solid var(--c-border);border-radius:8px;font-size:14px;background:var(--c-bg-secondary);color:var(--c-text);outline:none;"
         autocomplete="new-password">
-      <input id="regDisplay" type="text" placeholder="显示名称（选填）"
+      <input id="regDisplay" type="text" data-i18n-placeholder="auth.register.displayName" placeholder="显示名称（选填）"
         style="padding:10px 14px;border:1px solid var(--c-border);border-radius:8px;font-size:14px;background:var(--c-bg-secondary);color:var(--c-text);outline:none;">
     </div>
     <div id="regError" style="display:none;color:#e74c3c;font-size:12px;margin:8px 0;"></div>
     <button id="regSubmitBtn" onclick="AUTH.handleRegisterSubmit()"
-      style="width:100%;padding:12px;margin-top:12px;background:var(--c-primary);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:500;cursor:pointer;">注册</button>
+      style="width:100%;padding:12px;margin-top:12px;background:var(--c-primary);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:500;cursor:pointer;" data-i18n="auth.register.submit">注册</button>
     <div style="margin-top:12px;text-align:center;font-size:12px;color:var(--c-text-tertiary);">
-      <a href="javascript:void(0)" onclick="AUTH.hideRegisterModal();AUTH.showLoginModal();" style="color:var(--c-primary);text-decoration:none;">已有账号？登录</a>
+      <a href="javascript:void(0)" onclick="AUTH.hideRegisterModal();AUTH.showLoginModal();" style="color:var(--c-primary);text-decoration:none;" data-i18n="auth.register.hasAccount">已有账号？登录</a>
     </div>
   </div>
 </div>
 
 </body>
+<!-- delpoy_rev_91894 -->
 </html>

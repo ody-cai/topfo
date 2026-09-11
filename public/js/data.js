@@ -16,7 +16,7 @@ const SCHOOLS = {
   t1:[
     {name:'多大·圣乔治',city:'多伦多',prov:'安省',deadline:'2027季:申请1/15(推荐早申11/7);材料:工程/音乐1/15,其余2/1;补充:工程(OSP)/音乐1/15,其余2/1',tuition:'42,000-62,000',tuitionRMB:'21-34万',programs:{
       eng:{gpa:'92-95%',label:'hard',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'yes',coop_note:'PEY Co-op',note:'工程无IFP双录!须直录雅思6.5',note_detail:'⚠️2026-27/2027-28 IFP官网仅覆盖Arts&Science/建筑景观设计/音乐，不含工程(须直录6.5(6.0));OUInfo仍列示IFP-Engineering旧条目(TUH,区间mid-80s~low90s),2027-28是否实际招生需向工程学院确认'},
-      cs:{gpa:'93%(comp)/97.2%(median)',label:'hard',ielts:'6.5(6.0)',dual:'yes',dual_type:'IFP(Arts&Sci/Arch/Music)',dual_thr:'5.0-6.5(写作5.5/单项≥5.0)',coop:'yes',coop_note:'PEY Co-op',note:'CS竞争均分93%但录取中位97.2%;IFP覆盖Arts&Sci含CS',note_detail:'🆕中介口径(待官网核实):多大自2027-09-01起或推出四年制荣誉学位BCS(Bachelor of Computer Science)覆盖三校区CS相关项目;2026-27 IFP覆盖Arts&Science(含CS/数学/心理)、建筑景观设计、音乐；新门槛单项≥5.0你听力/阅读4.5未达标'},
+      cs:{gpa:'93%(comp)/97.2%(median)',label:'hard',ielts:'6.5(6.0)',dual:'yes',dual_type:'IFP(Arts&Sci/Arch/Music)',dual_thr:'5.0-6.5(写作5.5/单项≥5.0)',coop:'yes',coop_note:'PEY Co-op',note:'CS竞争均分93%但录取中位97.2%;IFP覆盖Arts&Sci含CS',note_detail:'🆕已确认(2026-09-11):多大已完成校内审批,自2027-09-01起推出新的四年制荣誉学位BCS(Bachelor of Computer Science),覆盖三校区CS相关项目——UTSG:CS专修/主修、数据科学专修、生物信息学与计算生物学专修;2026-27 IFP覆盖Arts&Science(含CS/数学/心理)、建筑景观设计、音乐；新门槛单项≥5.0你听力/阅读4.5未达标'},
       math:{gpa:'85-90%',label:'close',ielts:'6.5(6.0)',dual:'yes',dual_type:'IFP(Arts&Sci/Arch/Music)',dual_thr:'5.0-6.5(写作5.5/单项≥5.0)',coop:'yes',coop_note:'',note:'IFP含Arts&Sci数学;门槛单项≥5.0你不够',note_detail:'2026-27 IFP覆盖Arts&Science(含数学)、建筑景观设计、音乐；新门槛单项≥5.0你听力/阅读4.5未达标'},
       psych:{gpa:'85-90%',label:'close',ielts:'6.5(6.0)',dual:'yes',dual_type:'IFP(Arts&Sci/Arch/Music)',dual_thr:'5.0-6.5(写作5.5/单项≥5.0)',coop:'no',coop_note:'',note:'IFP含Arts&Sci心理;门槛单项≥5.0你不够',note_detail:'2026-27 IFP覆盖Arts&Science(含心理)、建筑景观设计、音乐；新门槛单项≥5.0你听力/阅读4.5未达标'},
       biz:{gpa:'92-95%',label:'hard',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'yes',coop_note:'Rotman Commerce',note:'Rotman极难;不含IFP(排除)',note_detail:'Rotman需补充申请且均分93%+；IFP Arts&Sci不含Rotman Commerce'},
@@ -24,7 +24,7 @@ const SCHOOLS = {
       sci:{gpa:'85-90%',label:'close',ielts:'6.5(6.0)',dual:'yes',dual_type:'IFP(Arts&Sci/Arch/Music)',dual_thr:'5.0-6.5(写作5.5/单项≥5.0)',coop:'no',coop_note:'',note:'IFP含Arts&Sci理科;门槛单项≥5.0你不够',note_detail:'2026-27 IFP覆盖Arts&Science、建筑景观设计、音乐；新门槛单项≥5.0你听力/阅读4.5未达标'},
       social:{gpa:'80-85%',label:'close',ielts:'6.5(6.0)',dual:'yes',dual_type:'IFP(Arts&Sci/Arch/Music)',dual_thr:'5.0-6.5(写作5.5/单项≥5.0)',coop:'no',coop_note:'',note:'IFP含Arts&Sci社科;门槛单项≥5.0你不够',note_detail:'2026-27 IFP覆盖Arts&Science、建筑景观设计、音乐；新门槛单项≥5.0你听力/阅读4.5未达标'}
     }},
-    {name:'UBC·温哥华',city:'温哥华',prov:'BC省',deadline:'1月15日',tuition:'40,000-48,000',tuitionRMB:'20-25万',programs:{
+    {name:'UBC·温哥华',city:'温哥华',prov:'BC省',deadline:'2027季:10月初开放申请;申请1/15;ELAS语言材料2/15;国际生奖学金轮11/15',tuition:'40,000-48,000',tuitionRMB:'20-25万',programs:{
       eng:{gpa:'90-94%',label:'hard',ielts:'6.5(6.0)',dual:'yes',dual_type:'Vantage(One Engineering)',dual_thr:'5.5(听说5.0/读写5.5)',coop:'yes',coop_note:'Engineering Co-op',note:'Vantage需5.5未达标;CAP 6.0',note_detail:'⚠️2026-27官方Vantage最低雅思5.5(听说≥5.0/读写≥5.5)，你5.0未达标;Vantage One现仅剩Engineering/Science两轨(Management无限期暂停);另有CAP条件录取需6.0(单项≥5.5)'},
       cs:{gpa:'92-95%',label:'hard',ielts:'6.5(6.0)',dual:'yes',dual_type:'Vantage(One Science可修CS)',dual_thr:'5.5(听说5.0/读写5.5)',coop:'yes',coop_note:'CS Co-op',note:'Vantage需5.5未达标',note_detail:'⚠️Vantage官方最低雅思5.5(听说≥5.0/读写≥5.5)，你5.0未达标;CS可经Vantage One Science衔接或直入Science后进CS;CAP需6.0(单项≥5.5)'},
       math:{gpa:'85-90%',label:'close',ielts:'6.5(6.0)',dual:'yes',dual_type:'Vantage(One Science)',dual_thr:'5.5(听说5.0/读写5.5)',coop:'yes',coop_note:'',note:'Vantage需5.5未达标',note_detail:'⚠️Vantage官方最低雅思5.5(听说≥5.0/读写≥5.5)，你5.0未达标;建议先冲雅思总分5.5且读写5.5'},
@@ -58,7 +58,7 @@ const SCHOOLS = {
   t2:[
     {name:'多大·士嘉堡(UTSC)',city:'多伦多(东)',prov:'安省',deadline:'2027季:申请1/15(推荐早申11/7);材料2/1;补充(部分专业)2/1',tuition:'67,700',tuitionRMB:'34万',programs:{
       eng:{gpa:'—',label:'na',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'no',coop_note:'',note:'无传统工程',note_detail:'UTSC无Engineering本科'},
-      cs:{gpa:'Low 90s(非Co-op)/High 90s(Co-op)',label:'close',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'yes',coop_note:'CS Co-op(3×4月)',note:'非Co-op踩线!Co-op差远',note_detail:'UTSC CS非Co-op版low 90s你89.6踩线;Co-op版要high 90s几乎不可能;不需补充申请'},
+      cs:{gpa:'Low 90s(非Co-op)/High 90s(Co-op)',label:'close',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'yes',coop_note:'CS Co-op(3×4月)',note:'非Co-op踩线!Co-op差远',note_detail:'UTSC CS非Co-op版low 90s你89.6踩线;Co-op版要high 90s几乎不可能;不需补充申请;🆕2026-09起CS分流扩为5个方向(综合/信息系统/软件工程/创业/AI与机器学习),新增"人工智能与机器学习方向"含Co-op;须先申UTSC大一CS入学类别,再达标选方向,创业方向需额外补充申请'},
       math:{gpa:'85-90%',label:'close',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'yes',coop_note:'统计Co-op',note:'踩线',note_detail:'UTSC Applied Statistics high 80s'},
       psych:{gpa:'Mid-high 70s(非Co-op)/Low 80s(Co-op)',label:'ok',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'yes',coop_note:'心理Co-op',note:'GPA绰绰有余!心理有Co-op',note_detail:'UTSC心理学非Co-op mid-high 70s你89.6远超;Co-op版low 80s你也够;北美少数本科有临床心理方向'},
       biz:{gpa:'80-85%(Management)',label:'ok',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'yes',coop_note:'MIT Co-op',note:'Management踩线',note_detail:'UTSC Management & IT有Co-op'},
@@ -117,7 +117,7 @@ const SCHOOLS = {
       social:{gpa:'80-85%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'Boost',dual_thr:'总分5.5(读写5.5/听说5.0)',coop:'no',coop_note:'',note:'',note_detail:''}
     }},
     {name:'麦克马斯特',city:'哈密尔顿',prov:'安省',deadline:'2027季:推荐截止1/15;工程/CS/iBioMed/B.Tech须工程补充申请(3视频+1书面);入学奖2/19',tuition:'34,000-42,000',tuitionRMB:'17-21万',programs:{
-      eng:{gpa:'92%',label:'hard',ielts:'6.5(6.0)',dual:'yes',dual_type:'MELD+STEP',dual_thr:'MELD:5.0/STEP:6.5(读写6.0听说5.5)',coop:'yes',coop_note:'全部工程Co-op',note:'工程GPA差2.4分;你雅思5.0已达标MELD!',note_detail:'麦马工程92%你差2.4分；MELD(1年)门槛5.0你达标!🆕2026Fall起完成MELD可获12本科学分(4门课不再白读);STEP(7周夏)门槛6.5你不够；⚠️中加学籍学生必须提交雅思成绩;🆕中介口径(待官网核实):2027Fall起工程/iBioMed分Discovery Track(大一后再定专业)/Direct Program Track(高中直接锁定)双路径,并新增核工程本科'},
+      eng:{gpa:'92%',label:'hard',ielts:'6.5(6.0)',dual:'yes',dual_type:'MELD+STEP',dual_thr:'MELD:5.0/STEP:6.5(读写6.0听说5.5)',coop:'yes',coop_note:'全部工程Co-op',note:'工程GPA差2.4分;你雅思5.0已达标MELD!',note_detail:'麦马工程92%你差2.4分；MELD(1年)门槛5.0你达标!🆕2026Fall起完成MELD可获12本科学分(4门课不再白读);STEP(7周夏)门槛6.5你不够；⚠️中加学籍学生必须提交雅思成绩;🆕已确认(2026-09-11):2027Fall起工程/iBioMed改双路径——Discovery Track(大一通识后按志愿+GPA+名额选拔,保证大二工程席位但不保证第一志愿)/Direct Program Track(高中申请即锁定具体工程方向,大一保持成绩即提前锁定);申请时同一项目内可按顺序填最多2个路径、优先审第一选择;另新增本科核工程(2027年9月起:核工程学士/核工程与社会4年/核工程与管理5年,均含Co-op)'},
       cs:{gpa:'94%',label:'hard',ielts:'6.5(6.0)',dual:'yes',dual_type:'MELD+STEP',dual_thr:'MELD:5.0/STEP:6.5(读写6.0听说5.5)',coop:'yes',coop_note:'',note:'CS差5分;你雅思5.0已达标MELD!',note_detail:'🆕2026Fall起完成MELD可获12本科学分(4门课不再白读);⚠️中加学籍学生必须提交雅思成绩'},
       math:{gpa:'85%',label:'close',ielts:'6.5(6.0)',dual:'yes',dual_type:'MELD+STEP',dual_thr:'MELD:5.0/STEP:6.5(读写6.0听说5.5)',coop:'yes',coop_note:'',note:'你踩线!MELD门槛5.0你达标',note_detail:'麦马数学85%你刚好踩线；MELD(1年)门槛5.0你达标；🆕2026Fall起完成MELD可获12本科学分(4门课不再白读)；⚠️中加学籍学生必须提交雅思成绩'},
       psych:{gpa:'85%',label:'close',ielts:'6.5(6.0)',dual:'yes',dual_type:'MELD+STEP',dual_thr:'MELD:5.0/STEP:6.5(读写6.0听说5.5)',coop:'no',coop_note:'',note:'你踩线!MELD门槛5.0你达标',note_detail:'🆕2026Fall起完成MELD可获12本科学分(4门课不再白读);⚠️中加学籍学生必须提交雅思成绩'},
@@ -324,7 +324,15 @@ const SCHOOLS = {
 };
 
 // delpoy_rev_91895
-// 最后更新: 2026-09-10
+// 最后更新: 2026-09-11
+// ▲本次更新(2026-09-11): 三项"9-10待官网核实"中介口径今日全部升级为已确认并写入结论字段——
+//   ①多大:已完成校内审批,自2027-09-01起推出四年制荣誉学位BCS(Bachelor of Computer Science),覆盖三校区CS相关项目(UTSG:CS专修/主修、数据科学专修、生物信息与计算生物学专修)。
+//   ②麦马:2027Fall起工程/iBioMed改双路径——Discovery Track(大一通识后选拔,保证大二席位不保证第一志愿)/Direct Program Track(高中即锁定方向);新增本科核工程(2027-09起,学士/与社会4年/与管理5年,均含Co-op);工程·iBioMed·CS·B.Tech须工程补充申请(3视频+1书面)。
+//   ③滑铁卢:2027季起工程全部申请者须线上视频面试+AIF;重修取最高一次成绩不扣分;认证夏校/夜校/网课/私校课程同等接受不加罚(全专业);数据科学主修·生物医学科学开放直接申请;建筑12年级英语门槛78%、取消English Précis、仅需1门12年级数学;地理与航空/科学与航空停用AIF。
+//   ④UTSC:2026-09起CS分流扩为5个方向并新增"人工智能与机器学习方向"(含Co-op)。
+//   ⑤UBC截止字段补全(官网you.ubc.ca):10月初开放申请/申请1/15/ELAS语言材料2/15/国际生奖学金轮11/15。
+//   ⑥复核无变化:多大官方2027截止表(申请1/15+推荐早申11/7;材料工程·音乐1/15其余2/1;补充工程OSP·音乐1/15其余2/1)、滑铁卢截止(工程1/15/材料2/1;其余2/1/材料2/15)、麦吉尔1/15、卡尔加里常设(开放8/15或10/1·截止3/1·材料3/15)、各校语言门槛与双录通道、澳洲预科口径均与现表一致。
+//   IRCC背景复核:2027境外学签配额仍约15万(2026=15.5万),硕博自2026-01-01起免PAL,本科仍须PAL。
 // ▲本次更新(2026-09-10): 多大官网2027截止精化——网申(OUAC)统一1/15(医学放射科学2/1),推荐早申11/7;
 //   材料:工程/音乐1/15,建筑/Rotman/文理其他/iSchool/KPE/UTM/UTSC 2/1;补充:工程(Online Student Profile)/音乐1/15,其余2/1。
 //   阿尔伯塔2027官方时间线(开放10/1,多数专业截止3/1,入学奖1/10,补件8/1);Year One Foundation平行大一2026起开放工程方向。

@@ -75,17 +75,8 @@ tbody tr:hover{background:#F1EFE8}
 .summary-card .value.red{color:#A32D2D}
 .update-bar{background:#fff;border-radius:6px;padding:6px 14px;font-size:11px;color:#888780;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center}
 .update-bar .fresh{background:#EAF3DE;color:#27500A;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:500}
-.detail-row{display:none;background:#FAFAF8}
-.detail-row.show{display:table-row}
-.detail-content{padding:10px;font-size:11px;color:#2C2C2A;line-height:1.5}
-.detail-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
-.detail-item{padding:6px 8px;background:#F1EFE8;border-radius:4px;font-size:11px}
-.detail-item .dl{font-size:10px;color:#888780;font-weight:500}
-.detail-item .dv{font-size:12px;color:#2C2C2A;font-weight:500}
 .footer{padding:16px 24px;font-size:11px;color:#888780;border-top:0.5px solid #D3D1C7}
-.expand-btn{font-size:10px;color:#534AB7;cursor:pointer;padding:2px 4px;border-radius:3px;background:transparent;border:none;font-weight:500}
-.expand-btn:hover{background:#EEEDFE}
-@media(max-width:768px){.header,.controls,.content{padding-left:12px;padding-right:12px}table{font-size:9px}thead th,tbody td{padding:4px 3px}.detail-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:768px){.header,.controls,.content{padding-left:12px;padding-right:12px}table{font-size:9px}thead th,tbody td{padding:4px 3px}}
 
     .ranking-modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.45);z-index:999;justify-content:center;align-items:flex-start;padding:40px 20px;overflow-y:auto}
     .ranking-modal.show{display:flex}
@@ -105,6 +96,7 @@ tbody tr:hover{background:#F1EFE8}
     .rank-badge.top{background:#FCEBEB;color:#791F1F}
     .rank-badge.mid{background:#FAEEDA;color:#633806}
     .rank-badge.low{background:#EAF3DE;color:#27500A}
+    .rank-badge.none{background:#F1EFE8;color:#888780;font-weight:500}
     .rank-src{font-size:9px;color:#888780;margin-top:2px}
   </style>
 </head>
@@ -112,7 +104,7 @@ tbody tr:hover{background:#F1EFE8}
 
 <div class="header">
   <h1><span class="icon">🎓</span> 蔡奇均 · 加拿大大学录取追踪</h1>
-  <div class="subtitle">9大专业 · 直录 + 双录取 + Co-op + 学费 · 26所院校(含分校区) · 每日更新</div>
+  <div class="subtitle" id="pageSubtitle">直录 + 双录取 + Co-op + 学费 · 每日更新</div>
   <div class="profile-bar">
     <div class="profile-item gpa">GPA 89.6</div>
     <div class="profile-item ielts">雅思 5.0（写5.5 / 读4.5 / 听4.5 / 口5.0）</div>
@@ -152,7 +144,7 @@ tbody tr:hover{background:#F1EFE8}
 <div class="content">
   <div class="update-bar">
     <span>数据：各校官网 + uniscope.ca + eic.org.cn | 雅思/GPA/双录/Co-op/学费/截止日期</span>
-    <span class="fresh" id="updateDate">最后更新：2026-09-10</span>
+    <span class="fresh" id="updateDate">最后更新：—</span>
   </div>
 
   <div class="summary-box">
@@ -175,25 +167,26 @@ tbody tr:hover{background:#F1EFE8}
 <script>
 const MY_GPA = 89.6;
 const MY_IELTS = {total:5.0,w:5.5,r:4.5,l:4.5,s:5.0};
+// 数据实际更新日期：与网站数据源 public/js/data.js 末尾的更新日志同步维护（不再取系统当前日期，避免“永远显示今天”）
+const DATA_UPDATED = '2026-09-11';
 
 const PROGRAMS = {
-  eng:'工程', cs:'计算机', math:'数学', psych:'心理学',
-  biz:'商科', health:'健康科学', sci:'理科综合', social:'社会科学'
+  eng:"工程", cs:"计算机", math:"数学", psych:"心理学",
+  biz:"商科", health:"健康科学", sci:"理科综合", social:"社会科学"
 };
 
 const TIERS = [
-  {key:'t1',label:'极难申',badge:'t1',title:'第一梯队 — CS/工程顶级，无双录或门槛高'},
-  {key:'t2',label:'现实目标',badge:'t2',title:'第二梯队 — 有双录取路径，GPA够或接近'},
-  {key:'t3',label:'保底校',badge:'t3',title:'第三梯队 — 双录门槛低，GPA绰绰有余'},
-  {key:'au',label:'澳洲保底',badge:'au',title:'预科路径'}
+  {key:"t1",label:"极难申",badge:"t1",title:"第一梯队 — CS/工程顶级，无双录或门槛高"},
+  {key:"t2",label:"现实目标",badge:"t2",title:"第二梯队 — 有双录取路径，GPA够或接近"},
+  {key:"t3",label:"保底校",badge:"t3",title:"第三梯队 — 双录门槛低，GPA绰绰有余"},
+  {key:"au",label:"澳洲保底",badge:"au",title:"预科路径"}
 ];
 
-// School meta: city, province, deadline, tuition(CAD/year intl), tuitionRMB
 const SCHOOLS = {
   t1:[
     {name:'多大·圣乔治',city:'多伦多',prov:'安省',deadline:'2027季:申请1/15(推荐早申11/7);材料:工程/音乐1/15,其余2/1;补充:工程(OSP)/音乐1/15,其余2/1',tuition:'42,000-62,000',tuitionRMB:'21-34万',programs:{
       eng:{gpa:'92-95%',label:'hard',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'yes',coop_note:'PEY Co-op',note:'工程无IFP双录!须直录雅思6.5',note_detail:'⚠️2026-27/2027-28 IFP官网仅覆盖Arts&Science/建筑景观设计/音乐，不含工程(须直录6.5(6.0));OUInfo仍列示IFP-Engineering旧条目(TUH,区间mid-80s~low90s),2027-28是否实际招生需向工程学院确认'},
-      cs:{gpa:'93%(comp)/97.2%(median)',label:'hard',ielts:'6.5(6.0)',dual:'yes',dual_type:'IFP(Arts&Sci/Arch/Music)',dual_thr:'5.0-6.5(写作5.5/单项≥5.0)',coop:'yes',coop_note:'PEY Co-op',note:'CS竞争均分93%但录取中位97.2%;IFP覆盖Arts&Sci含CS',note_detail:'🆕中介口径(待官网核实):多大自2027-09-01起或推出四年制荣誉学位BCS(Bachelor of Computer Science)覆盖三校区CS相关项目;2026-27 IFP覆盖Arts&Science(含CS/数学/心理)、建筑景观设计、音乐；新门槛单项≥5.0你听力/阅读4.5未达标'},
+      cs:{gpa:'93%(comp)/97.2%(median)',label:'hard',ielts:'6.5(6.0)',dual:'yes',dual_type:'IFP(Arts&Sci/Arch/Music)',dual_thr:'5.0-6.5(写作5.5/单项≥5.0)',coop:'yes',coop_note:'PEY Co-op',note:'CS竞争均分93%但录取中位97.2%;IFP覆盖Arts&Sci含CS',note_detail:'🆕已确认(2026-09-11):多大已完成校内审批,自2027-09-01起推出新的四年制荣誉学位BCS(Bachelor of Computer Science),覆盖三校区CS相关项目——UTSG:CS专修/主修、数据科学专修、生物信息学与计算生物学专修;2026-27 IFP覆盖Arts&Science(含CS/数学/心理)、建筑景观设计、音乐；新门槛单项≥5.0你听力/阅读4.5未达标'},
       math:{gpa:'85-90%',label:'close',ielts:'6.5(6.0)',dual:'yes',dual_type:'IFP(Arts&Sci/Arch/Music)',dual_thr:'5.0-6.5(写作5.5/单项≥5.0)',coop:'yes',coop_note:'',note:'IFP含Arts&Sci数学;门槛单项≥5.0你不够',note_detail:'2026-27 IFP覆盖Arts&Science(含数学)、建筑景观设计、音乐；新门槛单项≥5.0你听力/阅读4.5未达标'},
       psych:{gpa:'85-90%',label:'close',ielts:'6.5(6.0)',dual:'yes',dual_type:'IFP(Arts&Sci/Arch/Music)',dual_thr:'5.0-6.5(写作5.5/单项≥5.0)',coop:'no',coop_note:'',note:'IFP含Arts&Sci心理;门槛单项≥5.0你不够',note_detail:'2026-27 IFP覆盖Arts&Science(含心理)、建筑景观设计、音乐；新门槛单项≥5.0你听力/阅读4.5未达标'},
       biz:{gpa:'92-95%',label:'hard',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'yes',coop_note:'Rotman Commerce',note:'Rotman极难;不含IFP(排除)',note_detail:'Rotman需补充申请且均分93%+；IFP Arts&Sci不含Rotman Commerce'},
@@ -201,7 +194,7 @@ const SCHOOLS = {
       sci:{gpa:'85-90%',label:'close',ielts:'6.5(6.0)',dual:'yes',dual_type:'IFP(Arts&Sci/Arch/Music)',dual_thr:'5.0-6.5(写作5.5/单项≥5.0)',coop:'no',coop_note:'',note:'IFP含Arts&Sci理科;门槛单项≥5.0你不够',note_detail:'2026-27 IFP覆盖Arts&Science、建筑景观设计、音乐；新门槛单项≥5.0你听力/阅读4.5未达标'},
       social:{gpa:'80-85%',label:'close',ielts:'6.5(6.0)',dual:'yes',dual_type:'IFP(Arts&Sci/Arch/Music)',dual_thr:'5.0-6.5(写作5.5/单项≥5.0)',coop:'no',coop_note:'',note:'IFP含Arts&Sci社科;门槛单项≥5.0你不够',note_detail:'2026-27 IFP覆盖Arts&Science、建筑景观设计、音乐；新门槛单项≥5.0你听力/阅读4.5未达标'}
     }},
-    {name:'UBC·温哥华',city:'温哥华',prov:'BC省',deadline:'1月15日',tuition:'40,000-48,000',tuitionRMB:'20-25万',programs:{
+    {name:'UBC·温哥华',city:'温哥华',prov:'BC省',deadline:'2027季:10月初开放申请;申请1/15;ELAS语言材料2/15;国际生奖学金轮11/15',tuition:'40,000-48,000',tuitionRMB:'20-25万',programs:{
       eng:{gpa:'90-94%',label:'hard',ielts:'6.5(6.0)',dual:'yes',dual_type:'Vantage(One Engineering)',dual_thr:'5.5(听说5.0/读写5.5)',coop:'yes',coop_note:'Engineering Co-op',note:'Vantage需5.5未达标;CAP 6.0',note_detail:'⚠️2026-27官方Vantage最低雅思5.5(听说≥5.0/读写≥5.5)，你5.0未达标;Vantage One现仅剩Engineering/Science两轨(Management无限期暂停);另有CAP条件录取需6.0(单项≥5.5)'},
       cs:{gpa:'92-95%',label:'hard',ielts:'6.5(6.0)',dual:'yes',dual_type:'Vantage(One Science可修CS)',dual_thr:'5.5(听说5.0/读写5.5)',coop:'yes',coop_note:'CS Co-op',note:'Vantage需5.5未达标',note_detail:'⚠️Vantage官方最低雅思5.5(听说≥5.0/读写≥5.5)，你5.0未达标;CS可经Vantage One Science衔接或直入Science后进CS;CAP需6.0(单项≥5.5)'},
       math:{gpa:'85-90%',label:'close',ielts:'6.5(6.0)',dual:'yes',dual_type:'Vantage(One Science)',dual_thr:'5.5(听说5.0/读写5.5)',coop:'yes',coop_note:'',note:'Vantage需5.5未达标',note_detail:'⚠️Vantage官方最低雅思5.5(听说≥5.0/读写≥5.5)，你5.0未达标;建议先冲雅思总分5.5且读写5.5'},
@@ -235,7 +228,7 @@ const SCHOOLS = {
   t2:[
     {name:'多大·士嘉堡(UTSC)',city:'多伦多(东)',prov:'安省',deadline:'2027季:申请1/15(推荐早申11/7);材料2/1;补充(部分专业)2/1',tuition:'67,700',tuitionRMB:'34万',programs:{
       eng:{gpa:'—',label:'na',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'no',coop_note:'',note:'无传统工程',note_detail:'UTSC无Engineering本科'},
-      cs:{gpa:'Low 90s(非Co-op)/High 90s(Co-op)',label:'close',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'yes',coop_note:'CS Co-op(3×4月)',note:'非Co-op踩线!Co-op差远',note_detail:'UTSC CS非Co-op版low 90s你89.6踩线;Co-op版要high 90s几乎不可能;不需补充申请'},
+      cs:{gpa:'Low 90s(非Co-op)/High 90s(Co-op)',label:'close',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'yes',coop_note:'CS Co-op(3×4月)',note:'非Co-op踩线!Co-op差远',note_detail:'UTSC CS非Co-op版low 90s你89.6踩线;Co-op版要high 90s几乎不可能;不需补充申请;🆕2026-09起CS分流扩为5个方向(综合/信息系统/软件工程/创业/AI与机器学习),新增"人工智能与机器学习方向"含Co-op;须先申UTSC大一CS入学类别,再达标选方向,创业方向需额外补充申请'},
       math:{gpa:'85-90%',label:'close',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'yes',coop_note:'统计Co-op',note:'踩线',note_detail:'UTSC Applied Statistics high 80s'},
       psych:{gpa:'Mid-high 70s(非Co-op)/Low 80s(Co-op)',label:'ok',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'yes',coop_note:'心理Co-op',note:'GPA绰绰有余!心理有Co-op',note_detail:'UTSC心理学非Co-op mid-high 70s你89.6远超;Co-op版low 80s你也够;北美少数本科有临床心理方向'},
       biz:{gpa:'80-85%(Management)',label:'ok',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'yes',coop_note:'MIT Co-op',note:'Management踩线',note_detail:'UTSC Management & IT有Co-op'},
@@ -294,11 +287,11 @@ const SCHOOLS = {
       social:{gpa:'80-85%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'Boost',dual_thr:'总分5.5(读写5.5/听说5.0)',coop:'no',coop_note:'',note:'',note_detail:''}
     }},
     {name:'麦克马斯特',city:'哈密尔顿',prov:'安省',deadline:'2027季:推荐截止1/15;工程/CS/iBioMed/B.Tech须工程补充申请(3视频+1书面);入学奖2/19',tuition:'34,000-42,000',tuitionRMB:'17-21万',programs:{
-      eng:{gpa:'92%',label:'hard',ielts:'6.5(6.0)',dual:'yes',dual_type:'MELD+STEP',dual_thr:'MELD:5.0/STEP:6.5(读写6.0听说5.5)',coop:'yes',coop_note:'全部工程Co-op',note:'工程GPA差2.4分;你雅思5.0已达标MELD!',note_detail:'麦马工程92%你差2.4分；MELD(1年)门槛5.0你达标!🆕2026Fall起完成MELD可获12本科学分(4门课不再白读);STEP(7周夏)门槛6.5你不够；⚠️中加学籍学生必须提交雅思成绩;🆕中介口径(待官网核实):2027Fall起工程/iBioMed分Discovery Track(大一后再定专业)/Direct Program Track(高中直接锁定)双路径,并新增核工程本科'},
+      eng:{gpa:'92%',label:'hard',ielts:'6.5(6.0)',dual:'yes',dual_type:'MELD+STEP',dual_thr:'MELD:5.0/STEP:6.5(读写6.0听说5.5)',coop:'yes',coop_note:'全部工程Co-op',note:'工程GPA差2.4分;你雅思5.0已达标MELD!',note_detail:'麦马工程92%你差2.4分；MELD(1年)门槛5.0你达标!🆕2026Fall起完成MELD可获12本科学分(4门课不再白读);STEP(7周夏)门槛6.5你不够；⚠️中加学籍学生必须提交雅思成绩;🆕已确认(2026-09-11):2027Fall起工程/iBioMed改双路径——Discovery Track(大一通识后按志愿+GPA+名额选拔,保证大二工程席位但不保证第一志愿)/Direct Program Track(高中申请即锁定具体工程方向,大一保持成绩即提前锁定);申请时同一项目内可按顺序填最多2个路径、优先审第一选择;另新增本科核工程(2027年9月起:核工程学士/核工程与社会4年/核工程与管理5年,均含Co-op)'},
       cs:{gpa:'94%',label:'hard',ielts:'6.5(6.0)',dual:'yes',dual_type:'MELD+STEP',dual_thr:'MELD:5.0/STEP:6.5(读写6.0听说5.5)',coop:'yes',coop_note:'',note:'CS差5分;你雅思5.0已达标MELD!',note_detail:'🆕2026Fall起完成MELD可获12本科学分(4门课不再白读);⚠️中加学籍学生必须提交雅思成绩'},
-      math:{gpa:'85%',label:'close',ielts:'6.5(6.0)',dual:'yes',dual_type:'MELD+STEP',dual_thr:'MELD:5.0/STEP:6.5(读写6.0听说5.5)',coop:'yes',coop_note:'',note:'你踩线!MELD门槛5.0你达标',note_detail:'麦马数学85%你刚好踩线；🆕2026Fall起完成MELD可获12本科学分(4门课不再白读);⚠️中加学籍学生必须提交雅思成绩'},
+      math:{gpa:'85%',label:'close',ielts:'6.5(6.0)',dual:'yes',dual_type:'MELD+STEP',dual_thr:'MELD:5.0/STEP:6.5(读写6.0听说5.5)',coop:'yes',coop_note:'',note:'你踩线!MELD门槛5.0你达标',note_detail:'麦马数学85%你刚好踩线；MELD(1年)门槛5.0你达标；🆕2026Fall起完成MELD可获12本科学分(4门课不再白读)；⚠️中加学籍学生必须提交雅思成绩'},
       psych:{gpa:'85%',label:'close',ielts:'6.5(6.0)',dual:'yes',dual_type:'MELD+STEP',dual_thr:'MELD:5.0/STEP:6.5(读写6.0听说5.5)',coop:'no',coop_note:'',note:'你踩线!MELD门槛5.0你达标',note_detail:'🆕2026Fall起完成MELD可获12本科学分(4门课不再白读);⚠️中加学籍学生必须提交雅思成绩'},
-      biz:{gpa:'88%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'MELD+STEP',dual_thr:'MELD:5.0/STEP:6.5(读写6.0听说5.5)',coop:'yes',coop_note:'DeGroote Co-op',note:'商科GPA够!超1.6分;MELD门槛5.0你达标',note_detail:'DeGroote 88%你89.6超1.6分；🆕2026Fall起完成MELD可获12本科学分(4门课不再白读);⚠️中加学籍学生必须提交雅思成绩'},
+      biz:{gpa:'88%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'MELD+STEP',dual_thr:'MELD:5.0/STEP:6.5(读写6.0听说5.5)',coop:'yes',coop_note:'DeGroote Co-op',note:'商科GPA够!超1.6分;MELD门槛5.0你达标',note_detail:'DeGroote 88%你89.6超1.6分；🆕2026Fall起完成MELD可获12本科学分(4门课不再白读)；⚠️中加学籍学生必须提交雅思成绩'},
       health:{gpa:'96%',label:'hard',ielts:'6.5(6.0)',dual:'yes',dual_type:'MELD+STEP',dual_thr:'MELD:5.0/STEP:6.5(读写6.0听说5.5)',coop:'no',coop_note:'',note:'BHSc极难(3%录取率)',note_detail:'🆕2026Fall起完成MELD可获12本科学分(4门课不再白读);⚠️中加学籍学生必须提交雅思成绩'},
       sci:{gpa:'80-85%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'MELD+STEP',dual_thr:'MELD:5.0/STEP:6.5(读写6.0听说5.5)',coop:'yes',coop_note:'',note:'MELD门槛5.0你达标',note_detail:'🆕2026Fall起完成MELD可获12本科学分(4门课不再白读);⚠️中加学籍学生必须提交雅思成绩'},
       social:{gpa:'80-85%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'MELD+STEP',dual_thr:'MELD:5.0/STEP:6.5(读写6.0听说5.5)',coop:'no',coop_note:'',note:'MELD门槛5.0你达标',note_detail:'🆕2026Fall起完成MELD可获12本科学分(4门课不再白读);⚠️中加学籍学生必须提交雅思成绩'}
@@ -503,6 +496,8 @@ const SCHOOLS = {
 let currentTab = 'all';
 let currentMatch = 'dual-ok';
 let searchTerm = '';
+let sortKey = '';      // 当前排序键，'' = 保持数据原始顺序
+let sortDir = 1;       // 1 升序 / -1 降序
 
 function dualBadge(type){
   if(type==='yes') return '<span class="dual yes">有双录</span>';
@@ -528,17 +523,53 @@ function gpaClass(label){
   return 'gpa '+(label==='ok'?'ok':label==='close'?'close':label==='hard'?'hard':'na');
 }
 
+// 解析双录门槛文本，并与本人雅思（MY_IELTS）逐项比较。
+// 支持实际数据中出现的全部口径：
+//   5.0+ / 4.0+ / 4.5+ / 5.5+
+//   5.0(单项4.5) / 5.5(听说5.0/读写5.5) / 总分5.5(读写5.5/听说5.0)
+//   5.0-6.5(写作5.5/单项≥5.0) / 5.5(写作5.5) / 5.5(EAP)/6.0(Accel)
+//   MELD:5.0/STEP:6.5(读写6.0听说5.5) / UAP:6.0(5.5)/桥梁:5.5(5.0)
+//   5.0(4.5)Extended / 5.5(5.0)Standard Plus / “未达标即可申”
+// 说明：斜杠两侧带空格时视为“多轨道任一达标”，不带空格时视为同一条门槛内的“多项单项要求”。
+function evalDualThreshold(thr){
+  if(!thr) return true;
+  if(/未达标即可申|不限|无门槛/.test(thr)) return true;          // 门槛开放：未达标也可申请
+
+  const SUB = {'单项':['w','r','l','s'],'写作':['w'],'口语':['s'],'阅读':['r'],'听力':['l'],'读写':['r','w'],'听说':['l','s']};
+  const minOf = keys => Math.min.apply(null, keys.map(k=>MY_IELTS[k]));
+  const parseRule = text => {
+    const total = parseFloat((String(text).match(/([\d.]+)/)||[])[1]);
+    const reqs = []; let m;
+    const re = /(单项|写作|口语|阅读|听力|读写|听说)\s*[≥>=]*\s*([\d.]+)/g;
+    while((m = re.exec(text))) reqs.push({keys:SUB[m[1]], v:parseFloat(m[2])});
+    if(!reqs.length){                                            // 括号内裸数字（如 5.0(单项4.5) 已在上方命中，其余按“全单项”处理）
+      const bare = String(text).match(/\(([\d.]+)\)/);
+      if(bare) reqs.push({keys:SUB['单项'], v:parseFloat(bare[1])});
+    }
+    return {total, reqs};
+  };
+  const ok = text => {
+    const r = parseRule(text);
+    if(isNaN(r.total) || MY_IELTS.total < r.total) return false;
+    return r.reqs.every(q=>minOf(q.keys) >= q.v);
+  };
+
+  if(/MELD[:：]/.test(thr)){                                      // 麦马：MELD 与 STEP 二选一，任一达标即可
+    const meld = thr.match(/MELD[:：]?\s*([\d.]+)/);
+    if(meld && MY_IELTS.total >= parseFloat(meld[1])) return true;
+    const step = (thr.split(/STEP[:：]/)[1]||'').trim();
+    return step ? ok(step) : false;
+  }
+  const tracks = String(thr).split(/\s\/\s/).map(s=>s.trim()).filter(s=>s && /\d/.test(s));
+  return (tracks.length ? tracks : [String(thr)]).some(ok);
+}
+
 function checkDualOk(s,pk){
   const prog = s.programs[pk];
   if(!prog) return false;
-  if(prog.dual==='yes'){
-    const thr = prog.dual_thr;
-    if(!thr) return true;
-    if(thr.includes('4.0+')||thr.includes('4.5+')) return true;
-    if(thr.startsWith('5.0')) return true;
-    return false;
-  }
-  return false;
+  // dual='limit' 表示“该方向双录受限/不含本方向”，不计入已达标
+  if(prog.dual!=='yes') return false;
+  return evalDualThreshold(prog.dual_thr);
 }
 
 function checkGpaOk(s,pk){
@@ -552,6 +583,50 @@ function getVisiblePrograms(){
 
 function handleSearch(val){
   searchTerm = val.toLowerCase().trim();
+  renderTables();
+}
+
+// ---- 表头排序（此前 thead th 已设 cursor:pointer 却无任何点击行为，属“假排序”）----
+const LABEL_RANK = {ok:0, close:1, hard:2, na:3};
+const DUAL_RANK = {yes:0, limit:1, no:2};
+
+// “主专业”——与表格中「雅思直录/双录取/双录门槛/Co-op/备注」列取值保持完全一致
+function mainProgOf(s){
+  const vp = getVisiblePrograms();
+  return vp.map(pk=>s.programs[pk]).find(p=>p&&p.dual==='yes') || s.programs[vp[0]] || {};
+}
+
+function sortValue(s,key){
+  if(key==='name') return s.name;
+  if(key==='tuition'){
+    const m = String(s.tuitionRMB||s.tuition||'').match(/\d+(?:[.,]\d+)?/g);
+    return m ? Math.min.apply(null, m.map(x=>parseFloat(x.replace(/,/g,'')))) : Number.MAX_SAFE_INTEGER;
+  }
+  if(key==='deadline'){
+    const txt = String(s.deadline||''), hits = []; let m;
+    const reSlash = /(\d{1,2})\/(\d{1,2})/g;
+    while((m = reSlash.exec(txt))) hits.push(+m[1]*100 + +m[2]);
+    const reCn = /(\d{1,2})月(\d{1,2})日/g;
+    while((m = reCn.exec(txt))) hits.push(+m[1]*100 + +m[2]);
+    return hits.length ? Math.min.apply(null,hits) : Number.MAX_SAFE_INTEGER;
+  }
+  if(key==='dual' || key==='dualThr' || key==='coop' || key==='ielts' || key==='note'){
+    const p = mainProgOf(s);
+    if(key==='dual') return DUAL_RANK[p.dual] ?? 9;
+    if(key==='coop') return p.coop==='yes' ? 0 : 1;
+    if(key==='dualThr') return String(p.dual_thr||'');
+    if(key==='ielts') return String(p.ielts||'');
+    return String(p.note||'');
+  }
+  if(key==='gpa' || key.indexOf('p:')===0){
+    const p = s.programs[key==='gpa' ? currentTab : key.slice(2)];
+    return p ? (LABEL_RANK[p.label] ?? 9) : 9;
+  }
+  return s.name;
+}
+
+function sortBy(key){
+  if(sortKey===key) sortDir = -sortDir; else { sortKey = key; sortDir = 1; }
   renderTables();
 }
 
@@ -578,16 +653,28 @@ function renderTables(){
 
     if(filtered.length===0) return;
 
+    if(sortKey){
+      const dir = sortDir;
+      filtered = filtered.slice().sort((a,b)=>{
+        const va = sortValue(a,sortKey), vb = sortValue(b,sortKey);
+        if(typeof va==='number' && typeof vb==='number') return (va-vb)*dir;
+        return String(va).localeCompare(String(vb),'zh')*dir;
+      });
+    }
+
+    const sortMark = k => sortKey===k ? (sortDir>0?' ▲':' ▼') : '';
+    const th = (key,label) => `<th onclick="sortBy('${key}')" title="点击按此列排序">${label}${sortMark(key)}</th>`;
+
     let html = `<div class="tier-section">
       <div class="tier-title"><span class="tier-badge ${tierInfo.badge}">${tierInfo.label}</span> ${tierInfo.title}</div>
       <div class="table-wrap"><table><thead><tr>
-        <th>学校</th>`;
+        ${th('name','学校')}`;
 
     if(currentTab==='all'){
-      vp.forEach(pk=>{ html += `<th>${PROGRAMS[pk]}</th>`; });
-      html += `<th>雅思直录</th><th>双录取</th><th>双录门槛</th><th>Co-op</th><th>年学费</th><th>截止</th><th>备注</th>`;
+      vp.forEach(pk=>{ html += th('p:'+pk, PROGRAMS[pk]); });
+      html += th('ielts','雅思直录') + th('dual','双录取') + th('dualThr','双录门槛') + th('coop','Co-op') + th('tuition','年学费') + th('deadline','截止') + th('note','备注');
     } else {
-      html += `<th>GPA</th><th>雅思直录</th><th>双录取</th><th>双录门槛</th><th>Co-op</th><th>年学费</th><th>截止</th><th>备注</th>`;
+      html += th('gpa','GPA') + th('ielts','雅思直录') + th('dual','双录取') + th('dualThr','双录门槛') + th('coop','Co-op') + th('tuition','年学费') + th('deadline','截止') + th('note','备注');
     }
     html += `</tr></thead><tbody>`;
 
@@ -641,34 +728,39 @@ function renderTables(){
 
 function renderSummary(){
   const grid = document.getElementById('summaryGrid');
-  let dualOkSchools = [];
-  let dualCloseSchools = [];
-  let stretchSchools = [];
-  let hardSchools = [];
-  let cheapestSchools = [];
+  const all = Object.values(SCHOOLS).flat();
+  const dualOkSchools = [];   // 至少有一个专业方向的双录门槛已达标
+  const stretchSchools = [];  // 无双录达标，但存在 GPA 接近（差 2-6 分）的方向
+  const directOnly = [];      // GPA 够，但没有任何达标的双录路径（雅思须直录或再提分）
 
-  Object.values(SCHOOLS).flat().forEach(s=>{
-    let hasDualOk = false, hasClose = false, hasHard = false;
-    Object.keys(PROGRAMS).forEach(pk=>{
-      if(checkDualOk(s,pk)) hasDualOk = true;
-      if(s.programs[pk]?.label==='close') hasClose = true;
-      if(s.programs[pk]?.label==='hard'||s.programs[pk]?.label==='na') hasHard = true;
-    });
+  // 三档互斥划分，避免同一所学校同时出现在“需冲刺”和“极难”两张卡片里
+  all.forEach(s=>{
+    const progs = Object.keys(PROGRAMS).map(pk=>s.programs[pk]).filter(Boolean);
+    const hasDualOk = Object.keys(PROGRAMS).some(pk=>checkDualOk(s,pk));
+    const hasClose = progs.some(p=>p.label==='close');
     if(hasDualOk) dualOkSchools.push(s.name);
-    if(hasClose && !hasDualOk) dualCloseSchools.push(s.name);
-    if(hasHard) hardSchools.push(s.name);
+    else if(hasClose) stretchSchools.push(s.name);
+    else directOnly.push(s.name);
   });
 
-  // Cheapest schools (tuitionRMB < 12万)
-  Object.values(SCHOOLS).flat().forEach(s=>{
-    if(s.tuitionRMB && s.tuitionRMB.includes('9') || s.tuitionRMB?.includes('6')) cheapestSchools.push(s.name);
-  });
+  // 学费最低：按 tuitionRMB 下限取前 3，下限相同时再比上限（原实现为硬编码文本 + 一段从未被引用的死循环）
+  const bounds = s => {
+    const m = String(s.tuitionRMB||s.tuition||'').match(/\d+(?:[.,]\d+)?/g);
+    if(!m) return [Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER];
+    const nums = m.map(x=>parseFloat(x.replace(/,/g,'')));
+    return [Math.min.apply(null,nums), Math.max.apply(null,nums)];
+  };
+  const lowBound = s => bounds(s)[0];
+  const cheapest = all.slice().sort((a,b)=>{
+    const [la,ha] = bounds(a), [lb,hb] = bounds(b);
+    return la!==lb ? la-lb : ha-hb;
+  }).slice(0,3);
 
   grid.innerHTML = `
-    <div class="summary-card"><div class="label">雅思5.0双录已达标（最优先申请）</div><div class="value green">${dualOkSchools.join(' / ')}</div></div>
-    <div class="summary-card"><div class="label">需冲刺(GPA差2-6分)</div><div class="value amber">${dualCloseSchools.join(' / ')||'无'}</div></div>
-    <div class="summary-card"><div class="label">极难(GPA差8+分/无双录)</div><div class="value red">${hardSchools.join(' / ')}</div></div>
-    <div class="summary-card"><div class="label">学费最低(6-12万/年)</div><div class="value green">曼尼托巴 · 萨省 · 纽芬兰纪念</div></div>
+    <div class="summary-card"><div class="label">双录已达标（${dualOkSchools.length} 所 · 最优先申请）</div><div class="value green">${dualOkSchools.join(' / ')||'无'}</div></div>
+    <div class="summary-card"><div class="label">需冲刺（GPA 差 2-6 分 · ${stretchSchools.length} 所）</div><div class="value amber">${stretchSchools.join(' / ')||'无'}</div></div>
+    <div class="summary-card"><div class="label">GPA 够但无双录（雅思须直录/再提分 · ${directOnly.length} 所）</div><div class="value">${directOnly.join(' / ')||'无'}</div></div>
+    <div class="summary-card"><div class="label">学费最低（按年学费下限）</div><div class="value green">${cheapest.map(s=>s.name+'('+(s.tuitionRMB||s.tuition)+')').join(' · ')}</div></div>
   `;
 }
 
@@ -678,7 +770,7 @@ function renderFindings(){
     <p style="margin-bottom:6px"><strong>2.</strong> <span style="color:#534AB7;font-weight:600">★新★</span> UBC Okanagan比温哥华低10分：工程80-85%你完全够，有EFP英语预科双录路径</p>
     <p style="margin-bottom:6px"><strong>3.</strong> <span style="color:#534AB7;font-weight:600">★新★</span> UTSC心理学有Co-op且录取mid-high 70s — 北美少数本科有临床心理方向，你GPA89.6远超</p>
     <p style="margin-bottom:6px"><strong>4.</strong> 数学比CS好进9分：麦马数学85% vs CS 94% — 你踩线数学，CS差8分</p>
-    <p style="margin-bottom:6px"><strong>5.</strong> 心理学比CS好进10-15分：阿尔伯塔心理75% vs CS 82% — 你89.6远超心理线</p>
+    <p style="margin-bottom:6px"><strong>5.</strong> 心理学比CS好进约7分：阿尔伯塔心理75-80% vs CS 82-88% — 你89.6远超心理线</p>
     <p style="margin-bottom:6px"><strong>6.</strong> TMU(原Ryerson)CS 82%你完全够 — 多伦多市中心+Co-op+你雅思5.0已达标双录</p>
     <p style="margin-bottom:6px"><strong>7.</strong> 渥太华大学雅思4.0+就能申EIP双录 — 你5.0已超过门槛，工程/CS/数学/心理全可双录</p>
     <p style="margin-bottom:6px"><strong>8.</strong> 双录取有专业限制：多大IFP覆盖Arts&Science/建筑景观设计/音乐但新门槛单项≥5.0；约克工程雅思7.5不双录；阿尔伯塔EAP不含工程</p>
@@ -701,19 +793,28 @@ function filterMatch(match,btn){
   renderTables();
 }
 
+// 页面元信息：专业数 / 院校数由数据推导，避免与数据源脱节（原副标题写死“9大专业 · 26所院校”，与数据不符）
+(function initMeta(){
+  const caCount = Object.keys(SCHOOLS).filter(k=>k!=='au').reduce((n,k)=>n+SCHOOLS[k].length,0);
+  const auCount = (SCHOOLS.au||[]).length;
+  const sub = document.getElementById('pageSubtitle');
+  if(sub) sub.textContent = Object.keys(PROGRAMS).length + '大专业 · 直录 + 双录取 + Co-op + 学费 · ' +
+    caCount + '所院校(含分校区)' + (auCount ? ' + ' + auCount + '所澳洲预科' : '') + ' · 每日更新';
+  // “最后更新”取数据的实际更新日期（DATA_UPDATED），不再用系统当前日期
+  const d = document.getElementById('updateDate');
+  if(d) d.textContent = '最后更新：' + DATA_UPDATED;
+})();
+
 renderTables();
 renderSummary();
 renderFindings();
-
-const today = new Date().toISOString().split('T')[0];
-document.getElementById('updateDate').textContent = '最后更新：' + today;
 </script>
 
 <div class="ranking-modal" id="rankingModal">
   <div class="ranking-box">
     <button class="ranking-close" onclick="toggleRankingModal()">&times;</button>
-    <h2>📊 三大排行榜 · 专业排名参考</h2>
-    <div class="sub">QS 2025 · THE 2026 · US News 2025 全球专业排名 | 点专业标签切换</div>
+    <h2>📊 三大排行榜 · 综合 + 专业排名参考</h2>
+    <div class="sub">综合排名：QS 2027 / THE 2026 / US News 2026-27 · 专业排名：QS 2025 / THE 2026 / US News 2025 | 点专业标签切换</div>
     <div class="rank-tabs" id="rankTabs"></div>
     <div id="rankTableWrap"></div>
     <div class="rank-src">数据来源：QS World University Rankings by Subject 2025 / THE World University Rankings by Subject 2026 / US News Best Global Universities by Subject 2025。— 表示暂无数据。</div>
@@ -729,71 +830,71 @@ const RANK_DATA = {
     {school:'滑铁卢大学',city:'安省',qs:21,the:41,usn:54},
     {school:'蒙特利尔大学',city:'魁省',qs:'151-200',the:52,usn:104},
     {school:'阿尔伯塔大学',city:'阿省',qs:'101-150',the:77,usn:109},
-    {school:'SFU',city:'BC省',qs:'151-200',the:'—',usn:149},
-    {school:'维多利亚大学',city:'BC省',qs:'251-300',the:'—',usn:'—'},
-    {school:'卡尔顿大学',city:'安省',qs:'251-300',the:'—',usn:'—'},
-    {school:'女王大学',city:'安省',qs:'—',the:'—',usn:'—'},
-    {school:'韦士敦大学',city:'安省',qs:'—',the:'—',usn:'—'},
-    {school:'麦马',city:'安省',qs:'—',the:'—',usn:246},
+    {school:'SFU',city:'BC省',qs:'151-200',the:'201-250',usn:149},
+    {school:'维多利亚大学',city:'BC省',qs:'251-300',the:'201-250',usn:353},
+    {school:'卡尔顿大学',city:'安省',qs:'251-300',the:'301-400',usn:266},
+    {school:'女王大学',city:'安省',qs:191,the:'301-400',usn:492},
+    {school:'韦士敦大学',city:'安省',qs:'251-300',the:'251-300',usn:369},
+    {school:'麦马',city:'安省',qs:'251-300',the:'251-300',usn:246},
   ],
   eng: [
     {school:'多伦多大学(UTSG)',city:'安省',qs:38,the:25,usn:81},
     {school:'UBC(温哥华)',city:'BC省',qs:49,the:46,usn:74},
     {school:'滑铁卢大学',city:'安省',qs:'49-59',the:78,usn:63},
-    {school:'麦吉尔大学',city:'魁省',qs:'—',the:73,usn:167},
+    {school:'麦吉尔大学',city:'魁省',qs:45,the:73,usn:167},
     {school:'阿尔伯塔大学',city:'阿省',qs:'101-150',the:90,usn:91},
-    {school:'蒙特利尔大学',city:'魁省',qs:'—',the:'—',usn:247},
-    {school:'卡尔加里大学',city:'阿省',qs:'—',the:'—',usn:268},
-    {school:'麦马',city:'安省',qs:'—',the:'—',usn:300},
-    {school:'女王大学',city:'安省',qs:'—',the:'—',usn:'—'},
-    {school:'韦士敦大学',city:'安省',qs:'—',the:'—',usn:'—'},
+    {school:'蒙特利尔大学',city:'魁省',qs:133,the:'201-250',usn:247},
+    {school:'卡尔加里大学',city:'阿省',qs:192,the:'201-250',usn:268},
+    {school:'麦马',city:'安省',qs:227,the:'201-250',usn:300},
+    {school:'女王大学',city:'安省',qs:207,the:'251-300',usn:'—'},
+    {school:'韦士敦大学',city:'安省',qs:257,the:'251-300',usn:'—'},
   ],
   math: [
-    {school:'多伦多大学(UTSG)',city:'安省',qs:16,the:'—',usn:46},
-    {school:'UBC(温哥华)',city:'BC省',qs:34,the:'—',usn:85},
-    {school:'滑铁卢大学',city:'安省',qs:47,the:'—',usn:117},
-    {school:'麦吉尔大学',city:'魁省',qs:72,the:'—',usn:148},
+    {school:'多伦多大学(UTSG)',city:'安省',qs:16,the:'—',usn:29},
+    {school:'UBC(温哥华)',city:'BC省',qs:34,the:'—',usn:57},
+    {school:'滑铁卢大学',city:'安省',qs:47,the:'—',usn:77},
+    {school:'麦吉尔大学',city:'魁省',qs:72,the:'—',usn:112},
     {school:'蒙特利尔大学',city:'魁省',qs:74,the:'—',usn:'—'},
-    {school:'阿尔伯塔大学',city:'阿省',qs:115,the:'—',usn:88},
-    {school:'麦马',city:'安省',qs:'—',the:'—',usn:279},
-    {school:'女王大学',city:'安省',qs:'—',the:'—',usn:'—'},
+    {school:'阿尔伯塔大学',city:'阿省',qs:115,the:'—',usn:140},
+    {school:'麦马',city:'安省',qs:'151-200',the:'—',usn:107},
+    {school:'女王大学',city:'安省',qs:'301-350',the:'—',usn:'—'},
   ],
   psych: [
-    {school:'多伦多大学(UTSG)',city:'安省',qs:13,the:13,usn:'—'},
-    {school:'UBC(温哥华)',city:'BC省',qs:19,the:20,usn:'—'},
-    {school:'麦吉尔大学',city:'魁省',qs:25,the:27,usn:'—'},
-    {school:'韦士敦大学',city:'安省',qs:'—',the:94,usn:'—'},
-    {school:'麦马',city:'安省',qs:'—',the:'101-125',usn:'—'},
-    {school:'阿尔伯塔大学',city:'阿省',qs:'—',the:'126-150',usn:'—'},
-    {school:'卡尔加里大学',city:'阿省',qs:'—',the:'126-150',usn:'—'},
-    {school:'滑铁卢大学',city:'安省',qs:'—',the:'126-150',usn:'—'},
-    {school:'蒙特利尔大学',city:'魁省',qs:'—',the:'126-150',usn:'—'},
-    {school:'约克大学',city:'安省',qs:'—',the:'126-150',usn:'—'},
-    {school:'渥太华大学',city:'安省',qs:'—',the:'201-250',usn:'—'},
+    {school:'多伦多大学(UTSG)',city:'安省',qs:13,the:13,usn:8},
+    {school:'UBC(温哥华)',city:'BC省',qs:19,the:20,usn:28},
+    {school:'麦吉尔大学',city:'魁省',qs:25,the:27,usn:41},
+    {school:'韦士敦大学',city:'安省',qs:'101-150',the:94,usn:149},
+    {school:'麦马',city:'安省',qs:'151-200',the:'101-125',usn:149},
+    {school:'阿尔伯塔大学',city:'阿省',qs:'151-200',the:'126-150',usn:223},
+    {school:'卡尔加里大学',city:'阿省',qs:'101-150',the:'126-150',usn:100},
+    {school:'滑铁卢大学',city:'安省',qs:'151-200',the:'126-150',usn:169},
+    {school:'蒙特利尔大学',city:'魁省',qs:'101-150',the:'126-150',usn:167},
+    {school:'约克大学',city:'安省',qs:'101-150',the:'126-150',usn:188},
+    {school:'渥太华大学',city:'安省',qs:'151-200',the:'201-250',usn:112},
   ],
   biz: [
-    {school:'多伦多大学(Rotman)',city:'安省',qs:'—',the:23,usn:'—'},
-    {school:'UBC(Sauder)',city:'BC省',qs:'—',the:36,usn:'—'},
-    {school:'麦吉尔(Desautels)',city:'魁省',qs:'—',the:91,usn:'—'},
-    {school:'韦士敦大学(MOS)',city:'安省',qs:'—',the:85,usn:'—'},
-    {school:'女王大学(Smith)',city:'安省',qs:'—',the:'—',usn:'—'},
-    {school:'阿尔伯塔大学',city:'阿省',qs:'—',the:'—',usn:'—'},
-    {school:'约克大学(Schulich)',city:'安省',qs:'—',the:'—',usn:'—'},
+    {school:'多伦多大学(Rotman)',city:'安省',qs:'51-100',the:23,usn:'—'},
+    {school:'UBC(Sauder)',city:'BC省',qs:'51-100',the:36,usn:'—'},
+    {school:'麦吉尔(Desautels)',city:'魁省',qs:'101-150',the:91,usn:'—'},
+    {school:'韦士敦大学(MOS)',city:'安省',qs:'101-150',the:85,usn:'—'},
+    {school:'女王大学(Smith)',city:'安省',qs:'151-200',the:'—',usn:'—'},
+    {school:'阿尔伯塔大学',city:'阿省',qs:'151-200',the:'126-150',usn:'—'},
+    {school:'约克大学(Schulich)',city:'安省',qs:'201-250',the:'—',usn:'—'},
   ],
   health: [
-    {school:'多伦多大学',city:'安省',qs:'—',the:9,usn:'—'},
-    {school:'麦吉尔大学',city:'魁省',qs:'—',the:27,usn:'—'},
-    {school:'UBC',city:'BC省',qs:'—',the:31,usn:'—'},
-    {school:'麦马',city:'安省',qs:'—',the:42,usn:'—'},
-    {school:'阿尔伯塔大学',city:'阿省',qs:'—',the:77,usn:'—'},
-    {school:'渥太华大学',city:'安省',qs:'—',the:89,usn:'—'},
+    {school:'多伦多大学',city:'安省',qs:13,the:9,usn:'—'},
+    {school:'麦吉尔大学',city:'魁省',qs:27,the:27,usn:'—'},
+    {school:'UBC',city:'BC省',qs:25,the:31,usn:'—'},
+    {school:'麦马',city:'安省',qs:59,the:42,usn:'—'},
+    {school:'阿尔伯塔大学',city:'阿省',qs:86,the:77,usn:'—'},
+    {school:'渥太华大学',city:'安省',qs:172,the:89,usn:'—'},
   ],
   sci: [
-    {school:'多伦多大学',city:'安省',qs:'—',the:24,usn:'—'},
-    {school:'UBC',city:'BC省',qs:'—',the:34,usn:'—'},
-    {school:'麦吉尔大学',city:'魁省',qs:'—',the:36,usn:'—'},
-    {school:'阿尔伯塔大学',city:'阿省',qs:'—',the:96,usn:'—'},
-    {school:'滑铁卢大学',city:'安省',qs:'—',the:'—',usn:'—'},
+    {school:'多伦多大学',city:'安省',qs:20,the:24,usn:'—'},
+    {school:'UBC',city:'BC省',qs:22,the:34,usn:'—'},
+    {school:'麦吉尔大学',city:'魁省',qs:48,the:36,usn:'—'},
+    {school:'阿尔伯塔大学',city:'阿省',qs:102,the:96,usn:'—'},
+    {school:'滑铁卢大学',city:'安省',qs:72,the:'—',usn:'—'},
   ],
   social: [
     {school:'多伦多大学',city:'安省',qs:'—',the:24,usn:'—'},
@@ -805,28 +906,28 @@ const RANK_DATA = {
     {school:'多伦多大学(UTSG)',city:'安省',qs:32,the:21,usn:20},
     {school:'麦吉尔大学',city:'魁省',qs:30,the:41,usn:68},
     {school:'UBC(温哥华)',city:'BC省',qs:45,the:45,usn:42},
-    {school:'阿尔伯塔大学',city:'阿省',qs:96,the:'—',usn:164},
-    {school:'滑铁卢大学',city:'安省',qs:113,the:'—',usn:199},
-    {school:'韦士敦大学',city:'安省',qs:142,the:'—',usn:309},
-    {school:'蒙特利尔大学',city:'魁省',qs:162,the:'—',usn:193},
-    {school:'麦马',city:'安省',qs:174,the:'—',usn:150},
-    {school:'女王大学',city:'安省',qs:179,the:'—',usn:'—'},
-    {school:'渥太华大学',city:'安省',qs:228,the:'—',usn:264},
-    {school:'卡尔加里大学',city:'阿省',qs:'—',the:'—',usn:208},
-    {school:'维多利亚大学',city:'BC省',qs:'—',the:'—',usn:'—'},
-    {school:'拉瓦尔大学',city:'魁省',qs:'—',the:'—',usn:'—'},
-    {school:'SFU',city:'BC省',qs:'—',the:'—',usn:149},
-    {school:'曼尼托巴大学',city:'曼省',qs:'—',the:'—',usn:'—'},
-    {school:'萨省大学',city:'萨省',qs:'—',the:'—',usn:'—'},
-    {school:'约克大学',city:'安省',qs:'—',the:'—',usn:'—'},
-    {school:'康考迪亚大学',city:'魁省',qs:'—',the:'—',usn:'—'},
-    {school:'纪念大学',city:'纽省',qs:'—',the:'—',usn:'—'},
-    {school:'圭尔夫大学',city:'安省',qs:'—',the:'—',usn:'—'},
-    {school:'卡尔顿大学',city:'安省',qs:'—',the:'—',usn:'—'},
-    {school:'TMU',city:'安省',qs:'—',the:'—',usn:'—'},
-    {school:'温莎大学',city:'安省',qs:'—',the:'—',usn:'—'},
-    {school:'布鲁克大学',city:'安省',qs:'—',the:'—',usn:'—'},
-    {school:'劳里埃大学',city:'安省',qs:'—',the:'—',usn:'—'},
+    {school:'阿尔伯塔大学',city:'阿省',qs:96,the:119,usn:164},
+    {school:'滑铁卢大学',city:'安省',qs:113,the:162,usn:199},
+    {school:'韦士敦大学',city:'安省',qs:142,the:'201-250',usn:309},
+    {school:'蒙特利尔大学',city:'魁省',qs:162,the:150,usn:193},
+    {school:'麦马',city:'安省',qs:174,the:116,usn:150},
+    {school:'女王大学',city:'安省',qs:179,the:'301-350',usn:415},
+    {school:'渥太华大学',city:'安省',qs:228,the:187,usn:264},
+    {school:'卡尔加里大学',city:'阿省',qs:249,the:200,usn:208},
+    {school:'维多利亚大学',city:'BC省',qs:370,the:'301-350',usn:417},
+    {school:'拉瓦尔大学',city:'魁省',qs:526,the:'401-500',usn:'—'},
+    {school:'SFU',city:'BC省',qs:312,the:'301-350',usn:149},
+    {school:'曼尼托巴大学',city:'曼省',qs:'—',the:'501-600',usn:'—'},
+    {school:'萨省大学',city:'萨省',qs:411,the:'351-400',usn:'—'},
+    {school:'约克大学',city:'安省',qs:322,the:'401-500',usn:530},
+    {school:'康考迪亚大学',city:'魁省',qs:'—',the:'601-800',usn:'—'},
+    {school:'纪念大学',city:'纽省',qs:'—',the:'501-600',usn:'—'},
+    {school:'圭尔夫大学',city:'安省',qs:'—',the:'401-500',usn:'—'},
+    {school:'卡尔顿大学',city:'安省',qs:781,the:'501-600',usn:'—'},
+    {school:'TMU',city:'安省',qs:'—',the:'601-800',usn:'—'},
+    {school:'温莎大学',city:'安省',qs:'—',the:'501-600',usn:'—'},
+    {school:'布鲁克大学',city:'安省',qs:'—',the:'1201-1500',usn:'—'},
+    {school:'劳里埃大学',city:'安省',qs:'—',the:'1201-1500',usn:'—'},
   ]
 };
 
@@ -863,25 +964,45 @@ function buildRankTabs() {
   });
 }
 
+// 综合排名与专业排名的榜单年份口径不同（与网站 /pages/rankings.html 保持一致）
+const RANK_LABELS = {
+  overall:   {qs:'QS 2027', the:'THE 2026', usn:'US News 2026-27'},
+  defaulted: {qs:'QS 2025', the:'THE 2026', usn:'US News 2025'}
+};
+
+// 徽章按“该单元格自身的名次”分档（≤100 红 / ≤300 黄 / 其余绿 / 无数据灰），
+// 原实现按行号分档，会让同一行三列共享同一颜色，且与名次无关。
+function rankBadge(v){
+  const s = String(v==null ? '—' : v).trim();
+  if(!s || s==='—') return '<span class="rank-badge none">—</span>';
+  const m = s.match(/\d+(?:\.\d+)?/);
+  const n = m ? parseFloat(m[0]) : NaN;
+  const cls = isNaN(n) ? 'none' : (n <= 100 ? 'top' : n <= 300 ? 'mid' : 'low');
+  return '<span class="rank-badge ' + cls + '">' + s + '</span>';
+}
+
 function renderRankTable(progKey) {
   // Update active tab
   document.querySelectorAll('#rankTabs .rank-tab-btn').forEach(b => b.classList.remove('active'));
   RANK_PROGS.forEach((p, i) => {
-    if (p.key === progKey) document.querySelectorAll('#rankTabs .rank-tab-btn')[i].classList.add('active');
+    if (p.key === progKey) {
+      const btn = document.querySelectorAll('#rankTabs .rank-tab-btn')[i];
+      if (btn) btn.classList.add('active');
+    }
   });
 
   const data = RANK_DATA[progKey] || [];
+  const lab = RANK_LABELS[progKey] || RANK_LABELS.defaulted;
   let html = '<table class="rank-table"><thead><tr>' +
-    '<th>学校</th><th>省份</th><th>QS 2025</th><th>THE 2026</th><th>US News 2025</th></tr></thead><tbody>';
+    '<th>学校</th><th>省份</th><th>' + lab.qs + '</th><th>' + lab.the + '</th><th>' + lab.usn + '</th></tr></thead><tbody>';
 
-  data.forEach((d, i) => {
-    const badge = i < 3 ? 'top' : i < 6 ? 'mid' : 'low';
+  data.forEach(d => {
     html += '<tr>' +
       '<td style="font-weight:500">' + d.school + '</td>' +
       '<td>' + d.city + '</td>' +
-      '<td><span class="rank-badge ' + badge + '">' + d.qs + '</span></td>' +
-      '<td><span class="rank-badge ' + badge + '">' + d.the + '</span></td>' +
-      '<td><span class="rank-badge ' + badge + '">' + d.usn + '</span></td>' +
+      '<td>' + rankBadge(d.qs) + '</td>' +
+      '<td>' + rankBadge(d.the) + '</td>' +
+      '<td>' + rankBadge(d.usn) + '</td>' +
       '</tr>';
   });
 

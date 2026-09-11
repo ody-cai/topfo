@@ -82,6 +82,18 @@ body { font-family:var(--font-sans); background:var(--c-bg); color:var(--c-text)
 .nav-link:hover { background:var(--c-accent-light); color:var(--c-accent); }
 .nav-link.active { background:var(--c-accent); color:#fff; }
 
+/* 移动端汉堡按钮：桌面隐藏，由 auth.js 自动注入到每个 .nav-bar */
+.nav-toggle {
+  display:none;
+  align-items:center; justify-content:center;
+  width:40px; height:40px; flex:0 0 auto;
+  margin-left:auto;
+  border:none; background:transparent;
+  color:var(--c-text); font-size:22px; line-height:1; cursor:pointer;
+  border-radius:10px; transition:background var(--transition);
+}
+.nav-toggle:hover { background:var(--c-accent-light); }
+
 /* ===== 页面容器 ===== */
 .page-container { max-width:1280px; margin:0 auto; padding:0 24px; }
 .page-header {
@@ -571,12 +583,43 @@ body { font-family:var(--font-sans); background:var(--c-bg); color:var(--c-text)
 
 /* ===== 响应式 ===== */
 @media(max-width:768px) {
-  .nav-bar { padding:0 16px; }
   .page-container { padding:0 16px; }
   .hero { padding:40px 0 32px; }
-  .nav-link { font-size:11px; padding:4px 8px; }
   .nav-logo { font-size:14px; }
   .page-header { padding:28px 0 16px; }
   .stats-grid { grid-template-columns:repeat(2,1fr); }
   .nav-cards { grid-template-columns:1fr; }
+
+  /* 导航栏移动端：汉堡按钮 + 下拉抽屉，避免链接挤成一坨 */
+  .nav-bar { padding:0 12px; height:auto; min-height:54px; justify-content:flex-start; }
+  .nav-toggle { display:flex; }
+  .nav-links {
+    position:absolute;
+    top:100%;
+    left:0; right:0;
+    flex-direction:column;
+    align-items:stretch;
+    gap:2px;
+    background:var(--c-surface);
+    border-bottom:1px solid var(--c-border);
+    box-shadow:var(--shadow-md, 0 10px 28px rgba(15,23,42,.14));
+    padding:8px 12px 12px;
+    display:none;
+    max-height:calc(100vh - 54px);
+    overflow-y:auto;
+    z-index:99;
+  }
+  .nav-bar.nav-open .nav-links { display:flex; }
+  .nav-link {
+    font-size:14px;
+    padding:11px 12px;
+    white-space:nowrap;
+  }
+  /* 抽屉内的登录按钮占满一行（仅对抽屉内的 .nav-auth-btn 生效） */
+  .nav-links .nav-auth-btn {
+    margin-left:0; width:100%; text-align:center;
+    padding:11px; margin-top:6px;
+  }
 }
+
+// delpoy_rev_91894

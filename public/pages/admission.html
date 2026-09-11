@@ -196,7 +196,7 @@ tbody tr:hover{background:var(--c-bg)}
 
   <div class="update-bar">
     <span data-i18n="admission.dataSource">数据：各校官网 + uniscope.ca + eic.org.cn | 雅思/GPA/双录/Co-op/学费/截止日期</span>
-    <span class="fresh" id="updateDate" data-i18n="admission.lastUpdate">最后更新：2026-09-10</span>
+    <span class="fresh" id="updateDate" data-i18n="admission.lastUpdate">最后更新：2026-09-11</span>
   </div>
 
   <!-- 匹配速览：登录后显示 -->
@@ -222,7 +222,7 @@ let searchTerm = '';
 let isLoggedIn = false;
 
 function dualBadge(type){
-  const t = (k, fb) => { const v = typeof I18N !== 'undefined' ? I18N.t(k) : ''; return v || fb || k; };
+  const t = (k, fb) => typeof I18N !== 'undefined' ? I18N.tOr(k, fb) : (fb || k);
   if(type==='yes') return '<span class="dual yes">' + t('admission.dualYes','有双录') + '</span>';
   if(type==='no') return '<span class="dual no">' + t('admission.dualNo','无') + '</span>';
   if(type==='limit') return '<span class="dual limit">' + t('admission.dualLimit','有限制') + '</span>';
@@ -230,7 +230,7 @@ function dualBadge(type){
 }
 
 function coopBadge(has,note){
-  const t = (k, fb) => { const v = typeof I18N !== 'undefined' ? I18N.t(k) : ''; return v || fb || k; };
+  const t = (k, fb) => typeof I18N !== 'undefined' ? I18N.tOr(k, fb) : (fb || k);
   if(has==='yes') return '<span class="coop">Co-op'+(note?'('+note+')':'')+'</span>';
   return '<span class="coop no">' + t('admission.coopNo','无') + '</span>';
 }
@@ -238,7 +238,10 @@ function coopBadge(has,note){
 function matchTag(label){
   // 访客模式不显示匹配标签
   if(!isLoggedIn) return '';
-  const t = (k) => { const v = typeof I18N !== 'undefined' ? I18N.t(k) : ''; return v || {ok:'✓够',close:'≈接近',hard:'✗差远',na:'✗不可'}[k] || k; };
+  const t = (k) => {
+    const fb = {ok:'✓够',close:'≈接近',hard:'✗差远',na:'✗不可'}[k] || k;
+    return typeof I18N !== 'undefined' ? I18N.tOr(k, fb) : fb;
+  };
   if(label==='ok') return '<span class="match green">' + t('admission.matchOk') + '</span>';
   if(label==='close') return '<span class="match yellow">' + t('admission.matchClose') + '</span>';
   if(label==='hard') return '<span class="match red">' + t('admission.matchHard') + '</span>';
@@ -304,7 +307,7 @@ function renderTables(){
 
     if(filtered.length===0) return;
 
-    const t = (k, fb) => { const v = typeof I18N !== 'undefined' ? I18N.t(k) : ''; return v || fb || k; };
+    const t = (k, fb) => typeof I18N !== 'undefined' ? I18N.tOr(k, fb) : (fb || k);
     let html = `<div class="tier-section">
       <div class="tier-title"><span class="tier-badge ${tierInfo.badge}">${tierInfo.label}</span> ${tierInfo.title}</div>
       <div class="table-wrap"><table><thead><tr>
@@ -417,7 +420,7 @@ function renderSummary(){
     if(hasHard) hardSchools.push(s.name);
   });
 
-  const t = (k, fb) => { const v = typeof I18N !== 'undefined' ? I18N.t(k) : ''; return v || fb || k; };
+  const t = (k, fb) => typeof I18N !== 'undefined' ? I18N.tOr(k, fb) : (fb || k);
   grid.innerHTML = `
     <div class="summary-card"><div class="label">${t('admission.sumDualOk','雅思5.0双录已达标（最优先申请）')}</div><div class="value green">${dualOkSchools.join(' / ')}</div></div>
     <div class="summary-card"><div class="label">${t('admission.sumStretch','需冲刺(GPA差2-6分)')}</div><div class="value amber">${dualCloseSchools.join(' / ')||t('admission.sumNone','无')}</div></div>
@@ -447,7 +450,11 @@ async function populatePersonalData() {
   document.querySelectorAll('.data-gpa').forEach(el => el.textContent = data.gpa);
   document.querySelectorAll('.data-ielts-total').forEach(el => el.textContent = data.ielts.overall);
   document.querySelectorAll('.data-ielts-detail').forEach(el => {
-    el.textContent = typeof I18N !== 'undefined' ? I18N.t('home.ieltsDetail', {writing: data.ielts.writing, reading: data.ielts.reading, listening: data.ielts.listening, speaking: data.ielts.speaking}) : `写${data.ielts.writing} / 读${data.ielts.reading} / 听${data.ielts.listening} / 口${data.ielts.speaking}`;
+    // 用 tOr + fallback：语言包缺失/词条缺失时也不漏出 i18n key 原文
+    const ieltsFallback = `写${data.ielts.writing} / 读${data.ielts.reading} / 听${data.ielts.listening} / 口${data.ielts.speaking}`;
+    el.textContent = typeof I18N !== 'undefined'
+      ? I18N.tOr('home.ieltsDetail', ieltsFallback, {writing: data.ielts.writing, reading: data.ielts.reading, listening: data.ielts.listening, speaking: data.ielts.speaking})
+      : ieltsFallback;
   });
 }
 
@@ -478,6 +485,9 @@ isLoggedIn = AUTH.isLoggedIn();
 (async function(){
   if(typeof I18N!=="undefined"){await I18N.init();}
   AUTH.initPage();
+  // 语言包到达后重渲染一次：首屏渲染早于语言包 fetch，否则表头/徽章会漏出 i18n key 原文
+  renderTables();
+  if (isLoggedIn) renderSummary();
 })();
 if(isLoggedIn) {
   document.querySelectorAll('.private-section').forEach(el => el.style.display = '');
@@ -493,7 +503,12 @@ if(isLoggedIn) {
   currentMatch = 'all';
   renderTables();
 }
-document.getElementById('updateDate').textContent = (typeof I18N !== 'undefined' ? I18N.t('admission.lastUpdate', {date: new Date().toISOString().split('T')[0]}) : '最后更新：' + new Date().toISOString().split('T')[0]);
+(function(){
+  // 取数据的实际更新日期（固定常量），不再用 new Date()（UTC 00:00-08:00 会跨日）
+  const _d = '2026-09-11';
+  const _fb = '最后更新：' + _d;
+  document.getElementById('updateDate').textContent = typeof I18N !== 'undefined' ? I18N.tOr('admission.lastUpdate', _fb, {date: _d}) : _fb;
+})();
 </script>
 
 <!-- ===== 登录弹窗 ===== -->

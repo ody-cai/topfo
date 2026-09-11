@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>三大排名参考 · 学生升学数据</title>
+<title data-i18n="rankings.pageTitle">三大排名参考 · 学生升学数据</title>
 <link rel="stylesheet" href="../css/common.css">
 <style>
 .rank-tabs{display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap}
@@ -18,6 +18,7 @@
 .rank-badge.top{background:var(--c-tier1);color:var(--c-tier1-text)}
 .rank-badge.mid{background:var(--c-warning-bg);color:var(--c-warning)}
 .rank-badge.low{background:var(--c-success-bg);color:var(--c-success)}
+.rank-badge.none{background:var(--c-bg);color:var(--c-text-tertiary);font-weight:500}
 .rank-src{font-size:11px;color:var(--c-text-tertiary);margin-top:8px;padding:12px;background:var(--c-bg);border-radius:var(--radius-sm);line-height:1.7}
 .source-box{background:var(--c-surface);border-radius:var(--radius-md);border:1px solid var(--c-border);padding:16px 20px;margin-bottom:20px}
 .source-box h3{font-size:14px;font-weight:600;margin-bottom:8px}
@@ -58,6 +59,7 @@
   <div class="nav-links">
     <a href="../index.html" class="nav-link" data-i18n="nav.home">首页</a>
     <a href="admission.html" class="nav-link" data-i18n="nav.admission">录取对照表</a>
+    <a href="timeline.html" class="nav-link" data-i18n="nav.timeline">申请时间线</a>
     <a href="rankings.html" class="nav-link active" data-i18n="nav.rankings">排名参考</a>
     <a href="insights.html" class="nav-link" data-i18n="nav.insights">关键发现</a>
     <a href="community.html" class="nav-link" data-i18n="nav.community">社区</a>
@@ -71,20 +73,20 @@
 
 
 <div class="page-container" style="padding-top:20px;">
-  <a href="../index.html" class="back-link">← 返回首页</a>
+  <a href="../index.html" class="back-link" data-i18n="common.back">← 返回首页</a>
 
   <div class="page-header" style="text-align:left;padding:8px 0 16px;">
-    <h1 style="font-size:22px;">📊 三大排行榜 · 专业排名参考</h1>
-    <p class="subtitle">QS 2025/2027 · THE 2026 · US News 2025-2027 综合排名 + 8个专业方向排名</p>
+    <h1 style="font-size:22px;" data-i18n="rankings.titleFull">📊 三大排行榜 · 专业排名参考</h1>
+    <p class="subtitle" data-i18n="rankings.subtitle">QS 2025/2027 · THE 2026 · US News 2025-2027 综合排名 + 8个专业方向排名</p>
   </div>
 
   <!-- 数据来源说明 -->
   <div class="source-box">
-    <h3>📌 数据来源说明</h3>
+    <h3 data-i18n="rankings.sourceTitle">📌 数据来源说明</h3>
     <div class="source-grid">
-      <div class="source-item"><strong>QS 世界大学排名</strong>综合排名：QS 2027（2026年6月发布）<br>专业排名：QS 2025（2025年3月发布）<br>官网：topuniversities.com</div>
-      <div class="source-item"><strong>THE 泰晤士高等教育</strong>综合排名：THE 2026（2025年10月发布）<br>专业排名：THE 2026（2026年2月发布）<br>官网：timeshighereducation.com</div>
-      <div class="source-item"><strong>US News 全球大学</strong>综合排名：US News 2026-2027（2026年6月发布）<br>专业排名：US News 2025<br>官网：usnews.com</div>
+      <div class="source-item" data-i18n="rankings.sourceQS"><strong>QS 世界大学排名</strong>综合排名：QS 2027（2026年6月发布）<br>专业排名：QS 2025（2025年3月发布）<br>官网：topuniversities.com</div>
+      <div class="source-item" data-i18n="rankings.sourceTHE"><strong>THE 泰晤士高等教育</strong>综合排名：THE 2026（2025年10月发布）<br>专业排名：THE 2026（2026年2月发布）<br>官网：timeshighereducation.com</div>
+      <div class="source-item" data-i18n="rankings.sourceUSN"><strong>US News 全球大学</strong>综合排名：US News 2026-2027（2026年6月发布）<br>专业排名：US News 2025<br>官网：usnews.com</div>
     </div>
   </div>
 
@@ -94,11 +96,11 @@
   <!-- 排名表格 -->
   <div id="rankTableWrap"></div>
 
-  <div class="rank-src">💡 提示：排名数字越小表示排名越靠前。区间排名（如101-150）表示该大学位于此排名区间内。<strong>—</strong> 表示对应排名系统暂未发布该专业的全球排名数据，或该大学未进入排名榜单。</div>
+  <div class="rank-src" data-i18n="rankings.tip">💡 提示：排名数字越小表示排名越靠前。区间排名（如101-150）表示该大学位于此排名区间内。<strong>—</strong> 表示对应排名系统暂未发布该专业的全球排名数据，或该大学未进入排名榜单。</div>
 </div>
 
 <footer class="footer">
-  <p>数据来源：QS World University Rankings · THE World University Rankings · US News Best Global Universities · 定期手工更新</p>
+  <p data-i18n="footer.dataSource">数据来源：QS World University Rankings · THE World University Rankings · US News Best Global Universities · 定期手工更新</p>
 </footer>
 
 <script src="../js/rankings.js"></script>
@@ -117,7 +119,21 @@ function buildRankTabs() {
   });
 }
 
+// 徽章按「该单元格自身的名次」分档（≤100 红 / ≤300 黄 / 其余绿 / 无数据灰）。
+// 原实现按行号分档，导致同一行三列共享同一颜色、且与该列名次无关。
+function rankBadge(v){
+  const s = String(v == null ? '—' : v).trim();
+  if(!s || s === '—') return '<span class="rank-badge none">—</span>';
+  const m = s.match(/\d+(?:\.\d+)?/);
+  const n = m ? parseFloat(m[0]) : NaN;
+  const cls = isNaN(n) ? 'none' : (n <= 100 ? 'top' : n <= 300 ? 'mid' : 'low');
+  return '<span class="rank-badge ' + cls + '">' + s + '</span>';
+}
+
+let currentRankProg = 'overall';
+
 function renderRankTable(progKey) {
+  currentRankProg = progKey;
   document.querySelectorAll('#rankTabs .rank-tab-btn').forEach(b => b.classList.remove('active'));
   RANK_PROGS.forEach((p, i) => {
     if (p.key === progKey) document.querySelectorAll('#rankTabs .rank-tab-btn')[i].classList.add('active');
@@ -129,17 +145,17 @@ function renderRankTable(progKey) {
   const theLabel = isOverall ? 'THE 2026' : 'THE 2026';
   const usnLabel = isOverall ? 'US News 2026-27' : 'US News 2025';
 
+  const t = (k, fb) => typeof I18N !== 'undefined' ? I18N.tOr(k, fb) : (fb || k);
   let html = '<table class="rank-table"><thead><tr>' +
-    '<th>学校</th><th>省份</th><th>' + qsLabel + '</th><th>' + theLabel + '</th><th>' + usnLabel + '</th></tr></thead><tbody>';
+    '<th>' + t('rankings.thSchool','学校') + '</th><th>' + t('rankings.thProvince','省份') + '</th><th>' + qsLabel + '</th><th>' + theLabel + '</th><th>' + usnLabel + '</th></tr></thead><tbody>';
 
-  data.forEach((d, i) => {
-    const badge = i < 3 ? 'top' : i < 6 ? 'mid' : 'low';
+  data.forEach(d => {
     html += '<tr>' +
       '<td style="font-weight:500">' + d.school + '</td>' +
       '<td style="color:var(--c-text-secondary);font-size:11px">' + d.city + '</td>' +
-      '<td><span class="rank-badge ' + badge + '">' + d.qs + '</span></td>' +
-      '<td><span class="rank-badge ' + badge + '">' + d.the + '</span></td>' +
-      '<td><span class="rank-badge ' + badge + '">' + d.usn + '</span></td>' +
+      '<td>' + rankBadge(d.qs) + '</td>' +
+      '<td>' + rankBadge(d.the) + '</td>' +
+      '<td>' + rankBadge(d.usn) + '</td>' +
       '</tr>';
   });
 
@@ -156,28 +172,30 @@ AUTH.onChange((logged, user) => { AUTH._updateNav(logged, user); });
 (async function(){
   if(typeof I18N!=="undefined"){await I18N.init();}
   AUTH.initPage();
+  // 语言包到达后重渲染一次：首屏渲染早于语言包 fetch，否则表头会漏出 i18n key 原文
+  renderRankTable(currentRankProg);
 })();
 </script>
 
 <!-- ===== 登录弹窗 ===== -->
 <div id="loginModal" class="login-modal">
   <div class="login-modal-content" style="max-width:360px;">
-    <h3 style="margin:0 0 16px;font-size:18px;font-weight:600;color:var(--c-text);">🔐 登录</h3>
+    <h3 style="margin:0 0 16px;font-size:18px;font-weight:600;color:var(--c-text);" data-i18n="auth.login.title">🔐 登录</h3>
     <div style="display:flex;flex-direction:column;gap:12px;">
-      <input id="loginUser" type="text" placeholder="用户名"
+      <input id="loginUser" type="text" data-i18n-placeholder="auth.login.username" placeholder="用户名"
         style="padding:10px 14px;border:1px solid var(--c-border);border-radius:8px;font-size:14px;background:var(--c-bg-secondary);color:var(--c-text);outline:none;"
         autocomplete="username">
-      <input id="loginPass" type="password" placeholder="密码"
+      <input id="loginPass" type="password" data-i18n-placeholder="auth.login.password" placeholder="密码"
         style="padding:10px 14px;border:1px solid var(--c-border);border-radius:8px;font-size:14px;background:var(--c-bg-secondary);color:var(--c-text);outline:none;"
         autocomplete="current-password">
     </div>
     <div id="loginError" style="display:none;color:#e74c3c;font-size:12px;margin:8px 0;"></div>
     <button id="loginSubmitBtn" onclick="AUTH.handleLoginSubmit()"
-      style="width:100%;padding:12px;margin-top:12px;background:var(--c-primary);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:500;cursor:pointer;">登录</button>
+      style="width:100%;padding:12px;margin-top:12px;background:var(--c-primary);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:500;cursor:pointer;" data-i18n="auth.login.submit">登录</button>
     <div style="margin-top:12px;text-align:center;font-size:12px;color:var(--c-text-tertiary);">
-      <a href="javascript:void(0)" onclick="AUTH.hideLoginModal();AUTH.showRegisterModal();" style="color:var(--c-primary);text-decoration:none;">还没有账号？注册</a>
+      <a href="javascript:void(0)" onclick="AUTH.hideLoginModal();AUTH.showRegisterModal();" style="color:var(--c-primary);text-decoration:none;" data-i18n="auth.login.noAccount">还没有账号？注册</a>
       &nbsp;·&nbsp;
-      <span style="cursor:pointer;">体验: demo / topfo2026</span>
+      <span style="cursor:pointer;" data-i18n="auth.login.demo">体验: demo / topfo2026</span>
     </div>
   </div>
 </div>
@@ -185,25 +203,26 @@ AUTH.onChange((logged, user) => { AUTH._updateNav(logged, user); });
 <!-- ===== 注册弹窗 ===== -->
 <div id="registerModal" class="login-modal">
   <div class="login-modal-content" style="max-width:360px;">
-    <h3 style="margin:0 0 16px;font-size:18px;font-weight:600;color:var(--c-text);">📝 注册</h3>
+    <h3 style="margin:0 0 16px;font-size:18px;font-weight:600;color:var(--c-text);" data-i18n="auth.register.title">📝 注册</h3>
     <div style="display:flex;flex-direction:column;gap:12px;">
-      <input id="regUser" type="text" placeholder="用户名"
+      <input id="regUser" type="text" data-i18n-placeholder="auth.register.username" placeholder="用户名"
         style="padding:10px 14px;border:1px solid var(--c-border);border-radius:8px;font-size:14px;background:var(--c-bg-secondary);color:var(--c-text);outline:none;"
         autocomplete="username">
-      <input id="regPass" type="password" placeholder="密码"
+      <input id="regPass" type="password" data-i18n-placeholder="auth.register.password" placeholder="密码"
         style="padding:10px 14px;border:1px solid var(--c-border);border-radius:8px;font-size:14px;background:var(--c-bg-secondary);color:var(--c-text);outline:none;"
         autocomplete="new-password">
-      <input id="regDisplay" type="text" placeholder="显示名称（选填）"
+      <input id="regDisplay" type="text" data-i18n-placeholder="auth.register.displayName" placeholder="显示名称（选填）"
         style="padding:10px 14px;border:1px solid var(--c-border);border-radius:8px;font-size:14px;background:var(--c-bg-secondary);color:var(--c-text);outline:none;">
     </div>
     <div id="regError" style="display:none;color:#e74c3c;font-size:12px;margin:8px 0;"></div>
     <button id="regSubmitBtn" onclick="AUTH.handleRegisterSubmit()"
-      style="width:100%;padding:12px;margin-top:12px;background:var(--c-primary);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:500;cursor:pointer;">注册</button>
+      style="width:100%;padding:12px;margin-top:12px;background:var(--c-primary);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:500;cursor:pointer;" data-i18n="auth.register.submit">注册</button>
     <div style="margin-top:12px;text-align:center;font-size:12px;color:var(--c-text-tertiary);">
-      <a href="javascript:void(0)" onclick="AUTH.hideRegisterModal();AUTH.showLoginModal();" style="color:var(--c-primary);text-decoration:none;">已有账号？登录</a>
+      <a href="javascript:void(0)" onclick="AUTH.hideRegisterModal();AUTH.showLoginModal();" style="color:var(--c-primary);text-decoration:none;" data-i18n="auth.register.hasAccount">已有账号？登录</a>
     </div>
   </div>
 </div>
 
 </body>
+<!-- delpoy_rev_91894 -->
 </html>

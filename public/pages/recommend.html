@@ -195,6 +195,7 @@
   <div class="nav-links">
     <a href="../index.html" class="nav-link" data-i18n="nav.home">首页</a>
     <a href="admission.html" class="nav-link" data-i18n="nav.admission">录取对照表</a>
+    <a href="timeline.html" class="nav-link" data-i18n="nav.timeline">申请时间线</a>
     <a href="rankings.html" class="nav-link" data-i18n="nav.rankings">排名参考</a>
     <a href="insights.html" class="nav-link" data-i18n="nav.insights">关键发现</a>
     <a href="community.html" class="nav-link" data-i18n="nav.community">社区</a>
@@ -418,15 +419,15 @@ function renderCard(prog, tier, matchRate) {
       <div class="school-name">${prog.school_name}</div>
       <div class="program-name">${prog.category}${prog.major ? ' · ' + prog.major : ''}</div>
       <div class="meta-row">
-        <span class="meta-tag gpa-tag highlight" title="GPA 要求">📚 ${I18N ? I18N.t('recommend.gpa') : 'GPA'}: ${gpaMin}</span>
-        <span class="meta-tag ielts-tag highlight" title="雅思要求">🌐 ${I18N ? I18N.t('recommend.ielts') : 'IELTS'}: ${ieltsMin}</span>
+        <span class="meta-tag gpa-tag highlight" title="GPA 要求">📚 ${typeof I18N !== 'undefined' ? I18N.tOr('recommend.gpa', 'GPA') : 'GPA'}: ${gpaMin}</span>
+        <span class="meta-tag ielts-tag highlight" title="雅思要求">🌐 ${typeof I18N !== 'undefined' ? I18N.tOr('recommend.ielts', 'IELTS') : 'IELTS'}: ${ieltsMin}</span>
         ${location ? `<span class="meta-tag location-tag">📍 ${location}</span>` : ''}
-        ${hasCoop ? `<span class="meta-tag coop-tag">💼 ${I18N ? I18N.t('admission.coop') : 'Co-op'}</span>` : ''}
-        ${hasDual ? `<span class="meta-tag dual-tag">📋 ${I18N ? I18N.t('admission.dualEnrollment') : '双录取'}: ${dualLabel}</span>` : ''}
+        ${hasCoop ? `<span class="meta-tag coop-tag">💼 ${typeof I18N !== 'undefined' ? I18N.tOr('admission.coop', 'Co-op') : 'Co-op'}</span>` : ''}
+        ${hasDual ? `<span class="meta-tag dual-tag">📋 ${typeof I18N !== 'undefined' ? I18N.tOr('admission.dualEnrollment', '双录取') : '双录取'}: ${dualLabel}</span>` : ''}
       </div>
       <div class="match-bar-wrap">
         <div class="match-bar-label">
-          <span>${I18N ? I18N.t('recommend.matchRate') : '匹配度'}</span>
+          <span>${typeof I18N !== 'undefined' ? I18N.tOr('recommend.matchRate', '匹配度') : '匹配度'}</span>
           <span class="match-pct">${matchRate}%</span>
         </div>
         <div class="match-bar">
@@ -605,4 +606,5 @@ if (AUTH.isLoggedIn()) loadRecommendations();
 </div>
 
 </body>
+<!-- delpoy_rev_91894 -->
 </html>
