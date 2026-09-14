@@ -68,13 +68,13 @@ const SCHOOLS = {
     }},
     {name:'多大·密西沙加(UTM)',city:'密西沙加',prov:'安省',deadline:'2027季:申请1/15(推荐早申11/7);材料2/1',tuition:'67,700',tuitionRMB:'34万',programs:{
       eng:{gpa:'—',label:'na',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'no',coop_note:'',note:'无工程专业',note_detail:'UTM无Engineering本科'},
-      cs:{gpa:'Mid-high 80s(85-88%)',label:'close',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'yes',coop_note:'CS Co-op',note:'你踩线!需补充申请',note_detail:'UTM CS 85-88%你刚好踩线;需要supplementary application;有Co-op选项；🆕IFP@UTM将于2027年9月上线'},
-      math:{gpa:'Mid-high 80s',label:'close',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'no',coop_note:'',note:'踩线',note_detail:'UTM Math & Computational Sciences mid-high 80s'},
-      psych:{gpa:'Mid 70s',label:'ok',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'no',coop_note:'',note:'GPA绰绰有余',note_detail:''},
-      biz:{gpa:'80-85%',label:'ok',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'yes',coop_note:'',note:'',note_detail:''},
-      health:{gpa:'75-80%',label:'ok',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'no',coop_note:'',note:'',note_detail:''},
-      sci:{gpa:'Mid-high 80s',label:'close',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'no',coop_note:'',note:'Physical/Mathematical Sciences',note_detail:''},
-      social:{gpa:'Mid 70s',label:'ok',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'no',coop_note:'',note:'GPA绰绰有余',note_detail:''}
+      cs:{gpa:'Mid-high 80s(85-88%)',label:'close',ielts:'6.5(6.0)',dual:'yes',dual_type:'IFP@UTM(2027-09首开)',dual_thr:'待公布(参照UTSG IFP:5.0-6.5/写作5.5/单项≥5.0)',coop:'yes',coop_note:'CS Co-op',note:'踩线但新增双录通道!',note_detail:'UTM CS 85-88%你踩线;需要supplementary application;有Co-op选项;🆕已确认(2026-09-14,多大国际项目官网):IFP(International Foundation Program)将于2027年9月首开于UTM,提供"入学即有条件录取U of T+学分课程",覆盖Arts/Science/Business共180+专业(不含工程,UTM本身无工程);具体雅思门槛与申请截止待官网公布,2026-27参照UTSG IFP为总分5.0-6.5(写作≥5.5/单项≥5.0)——你听力/阅读4.5仍差0.5'},
+      math:{gpa:'Mid-high 80s',label:'close',ielts:'6.5(6.0)',dual:'yes',dual_type:'IFP@UTM(2027-09首开)',dual_thr:'待公布(参照UTSG IFP:5.0-6.5/写作5.5/单项≥5.0)',coop:'no',coop_note:'',note:'踩线;新增双录通道',note_detail:'UTM Math & Computational Sciences mid-high 80s;🆕IFP@UTM 2027-09首开,覆盖Science方向;门槛待官网公布,参照UTSG IFP 5.0-6.5(写作5.5/单项≥5.0),你单项4.5未达标'},
+      psych:{gpa:'Mid 70s',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'IFP@UTM(2027-09首开)',dual_thr:'待公布(参照UTSG IFP:5.0-6.5/写作5.5/单项≥5.0)',coop:'no',coop_note:'',note:'GPA绰绰有余+新增双录',note_detail:'GPA绰绰有余;🆕IFP@UTM 2027-09首开覆盖Science;门槛待公布,参照UTSG IFP 5.0-6.5(写作5.5/单项≥5.0),你单项4.5未达标'},
+      biz:{gpa:'80-85%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'IFP@UTM(2027-09首开)',dual_thr:'待公布(参照UTSG IFP:5.0-6.5/写作5.5/单项≥5.0)',coop:'yes',coop_note:'',note:'新增双录通道',note_detail:'🆕IFP@UTM 2027-09首开,官网明确覆盖Business;门槛待公布,参照UTSG IFP 5.0-6.5(写作5.5/单项≥5.0),你单项4.5未达标'},
+      health:{gpa:'75-80%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'IFP@UTM(2027-09首开)',dual_thr:'待公布(参照UTSG IFP:5.0-6.5/写作5.5/单项≥5.0)',coop:'no',coop_note:'',note:'新增双录通道',note_detail:'🆕IFP@UTM 2027-09首开覆盖Science;门槛待公布,参照UTSG IFP 5.0-6.5(写作5.5/单项≥5.0),你单项4.5未达标'},
+      sci:{gpa:'Mid-high 80s',label:'close',ielts:'6.5(6.0)',dual:'yes',dual_type:'IFP@UTM(2027-09首开)',dual_thr:'待公布(参照UTSG IFP:5.0-6.5/写作5.5/单项≥5.0)',coop:'no',coop_note:'',note:'Physical/Mathematical Sciences;新增双录',note_detail:'Physical/Mathematical Sciences mid-high 80s;🆕IFP@UTM 2027-09首开覆盖Science;门槛待公布,参照UTSG IFP 5.0-6.5(写作5.5/单项≥5.0),你单项4.5未达标'},
+      social:{gpa:'Mid 70s',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'IFP@UTM(2027-09首开)',dual_thr:'待公布(参照UTSG IFP:5.0-6.5/写作5.5/单项≥5.0)',coop:'no',coop_note:'',note:'GPA绰绰有余+新增双录',note_detail:'GPA绰绰有余;🆕IFP@UTM 2027-09首开覆盖Arts/Science;门槛待公布,参照UTSG IFP 5.0-6.5(写作5.5/单项≥5.0),你单项4.5未达标'}
     }},
     {name:'UBC·Okanagan',city:'基洛纳',prov:'BC省',deadline:'1月15日',tuition:'30,000-38,000',tuitionRMB:'15-19万',programs:{
       eng:{gpa:'80-85%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'EFP英语预科',dual_thr:'未达标即可申',coop:'yes',coop_note:'Engineering Co-op',note:'比温哥华校区低10分!',note_detail:'UBC Okanagan工程80-85%你完全够;有English Foundation Program双录路径'},
@@ -126,15 +126,15 @@ const SCHOOLS = {
       sci:{gpa:'80-85%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'MELD+STEP',dual_thr:'MELD:5.0/STEP:6.5(读写6.0听说5.5)',coop:'yes',coop_note:'',note:'MELD门槛5.0你达标',note_detail:'🆕2026Fall起完成MELD可获12本科学分(4门课不再白读);⚠️中加学籍学生必须提交雅思成绩'},
       social:{gpa:'80-85%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'MELD+STEP',dual_thr:'MELD:5.0/STEP:6.5(读写6.0听说5.5)',coop:'no',coop_note:'',note:'MELD门槛5.0你达标',note_detail:'🆕2026Fall起完成MELD可获12本科学分(4门课不再白读);⚠️中加学籍学生必须提交雅思成绩'}
     }},
-    {name:'皇后',city:'金斯顿',prov:'安省',deadline:'2月1日(国际生)',tuition:'34,000-42,000',tuitionRMB:'17-21万',programs:{
-      eng:{gpa:'88%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'Q-Bridge',dual_thr:'5.5(EAP)/6.0(Accel)',coop:'yes',coop_note:'',note:'GPA够!超1.6分;EAP 5.5/Accel 6.0',note_detail:'2026 Q-Bridge分EAP(5.5)和Accelerated(6.0)两轨；你雅思5.0未达标'},
-      cs:{gpa:'85-90%',label:'close',ielts:'6.5(6.0)',dual:'yes',dual_type:'Q-Bridge',dual_thr:'5.5(EAP)/6.0(Accel)',coop:'no',coop_note:'',note:'EAP 5.5/Accel 6.0',note_detail:'2026 Q-Bridge分EAP(5.5)和Accelerated(6.0)两轨；你雅思5.0未达标'},
-      math:{gpa:'80-85%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'Q-Bridge',dual_thr:'5.5(EAP)/6.0(Accel)',coop:'no',coop_note:'',note:'EAP 5.5/Accel 6.0',note_detail:'2026 Q-Bridge分EAP(5.5)和Accelerated(6.0)两轨；你雅思5.0未达标'},
-      psych:{gpa:'80-85%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'Q-Bridge',dual_thr:'5.5(EAP)/6.0(Accel)',coop:'no',coop_note:'',note:'EAP 5.5/Accel 6.0',note_detail:'2026 Q-Bridge分EAP(5.5)和Accelerated(6.0)两轨；你雅思5.0未达标'},
-      biz:{gpa:'94%',label:'hard',ielts:'6.5(6.0)',dual:'yes',dual_type:'Q-Bridge',dual_thr:'5.5(EAP)/6.0(Accel)',coop:'yes',coop_note:'Smith Commerce',note:'Smith Commerce极难',note_detail:'需要补充申请；2026 Q-Bridge分EAP(5.5)和Accelerated(6.0)两轨'},
-      health:{gpa:'94%',label:'hard',ielts:'6.5(6.0)',dual:'yes',dual_type:'Q-Bridge',dual_thr:'5.5(EAP)/6.0(Accel)',coop:'no',coop_note:'',note:'极难(7%录取率)',note_detail:'2026 Q-Bridge分EAP(5.5)和Accelerated(6.0)两轨'},
-      sci:{gpa:'85-90%',label:'close',ielts:'6.5(6.0)',dual:'yes',dual_type:'Q-Bridge',dual_thr:'5.5(EAP)/6.0(Accel)',coop:'no',coop_note:'',note:'EAP 5.5/Accel 6.0',note_detail:'2026 Q-Bridge分EAP(5.5)和Accelerated(6.0)两轨；你雅思5.0未达标'},
-      social:{gpa:'80-85%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'Q-Bridge',dual_thr:'5.5(EAP)/6.0(Accel)',coop:'no',coop_note:'',note:'EAP 5.5/Accel 6.0',note_detail:'2026 Q-Bridge分EAP(5.5)和Accelerated(6.0)两轨；你雅思5.0未达标'}
+    {name:'皇后',city:'金斯顿',prov:'安省',deadline:'2月1日(国际生);⚠️待官网核实(中介口径):2027冬季入学面向国际生(BA/BSc/BCmp/HealthSci),网申约9/30、材料10/15',tuition:'34,000-42,000',tuitionRMB:'17-21万',programs:{
+      eng:{gpa:'88%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'Q-Bridge',dual_thr:'5.5(EAP)/6.0(Accel)',coop:'yes',coop_note:'',note:'GPA够!超1.6分;EAP 5.5/Accel 6.0',note_detail:'2026 Q-Bridge分EAP(5.5)和Accelerated(6.0)两轨；你雅思5.0未达标；📊2026Fall录取实况(女王官网Gazette)：共64,400份申请(+8%创纪录)，录取新生平均高中均分92.3%——竞争度明显上移'},
+      cs:{gpa:'85-90%',label:'close',ielts:'6.5(6.0)',dual:'yes',dual_type:'Q-Bridge',dual_thr:'5.5(EAP)/6.0(Accel)',coop:'no',coop_note:'',note:'EAP 5.5/Accel 6.0',note_detail:'2026 Q-Bridge分EAP(5.5)和Accelerated(6.0)两轨；你雅思5.0未达标；📊2026Fall录取实况(女王官网Gazette)：共64,400份申请(+8%创纪录)，录取新生平均高中均分92.3%——竞争度明显上移'},
+      math:{gpa:'80-85%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'Q-Bridge',dual_thr:'5.5(EAP)/6.0(Accel)',coop:'no',coop_note:'',note:'EAP 5.5/Accel 6.0',note_detail:'2026 Q-Bridge分EAP(5.5)和Accelerated(6.0)两轨；你雅思5.0未达标；📊2026Fall录取实况(女王官网Gazette)：共64,400份申请(+8%创纪录)，录取新生平均高中均分92.3%——竞争度明显上移'},
+      psych:{gpa:'80-85%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'Q-Bridge',dual_thr:'5.5(EAP)/6.0(Accel)',coop:'no',coop_note:'',note:'EAP 5.5/Accel 6.0',note_detail:'2026 Q-Bridge分EAP(5.5)和Accelerated(6.0)两轨；你雅思5.0未达标；📊2026Fall录取实况(女王官网Gazette)：共64,400份申请(+8%创纪录)，录取新生平均高中均分92.3%——竞争度明显上移'},
+      biz:{gpa:'94%',label:'hard',ielts:'6.5(6.0)',dual:'yes',dual_type:'Q-Bridge',dual_thr:'5.5(EAP)/6.0(Accel)',coop:'yes',coop_note:'Smith Commerce',note:'Smith Commerce极难',note_detail:'需要补充申请；2026 Q-Bridge分EAP(5.5)和Accelerated(6.0)两轨；📊2026Fall录取实况(女王官网Gazette)：共64,400份申请(+8%创纪录)，录取新生平均高中均分92.3%——竞争度明显上移'},
+      health:{gpa:'94%',label:'hard',ielts:'6.5(6.0)',dual:'yes',dual_type:'Q-Bridge',dual_thr:'5.5(EAP)/6.0(Accel)',coop:'no',coop_note:'',note:'极难(7%录取率)',note_detail:'2026 Q-Bridge分EAP(5.5)和Accelerated(6.0)两轨；📊2026Fall录取实况(女王官网Gazette)：共64,400份申请(+8%创纪录)，录取新生平均高中均分92.3%——竞争度明显上移'},
+      sci:{gpa:'85-90%',label:'close',ielts:'6.5(6.0)',dual:'yes',dual_type:'Q-Bridge',dual_thr:'5.5(EAP)/6.0(Accel)',coop:'no',coop_note:'',note:'EAP 5.5/Accel 6.0',note_detail:'2026 Q-Bridge分EAP(5.5)和Accelerated(6.0)两轨；你雅思5.0未达标；📊2026Fall录取实况(女王官网Gazette)：共64,400份申请(+8%创纪录)，录取新生平均高中均分92.3%——竞争度明显上移'},
+      social:{gpa:'80-85%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'Q-Bridge',dual_thr:'5.5(EAP)/6.0(Accel)',coop:'no',coop_note:'',note:'EAP 5.5/Accel 6.0',note_detail:'2026 Q-Bridge分EAP(5.5)和Accelerated(6.0)两轨；你雅思5.0未达标；📊2026Fall录取实况(女王官网Gazette)：共64,400份申请(+8%创纪录)，录取新生平均高中均分92.3%——竞争度明显上移'}
     }},
     {name:'TMU(原Ryerson)',city:'多伦多',prov:'安省',deadline:'3月31日',tuition:'28,000-36,000',tuitionRMB:'14-18万',programs:{
       eng:{gpa:'88%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'全部工程Co-op',note:'工程GPA够!超1.6分',note_detail:'TMU工程88%你89.6超1.6分，CS更好进'},
@@ -198,7 +198,7 @@ const SCHOOLS = {
       sci:{gpa:'75-80%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'',note_detail:''},
       social:{gpa:'70-75%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:''}
     }},
-    {name:'约克',city:'多伦多',prov:'安省',deadline:'滚动;2027国际生入学奖申请11/1-1/27',tuition:'26,000-34,000',tuitionRMB:'13-17万',programs:{
+    {name:'约克',city:'多伦多',prov:'安省',deadline:'滚动;2027国际生入学奖11/1-1/27;⚠️待官网核实(中介口径):Fall 2027国际生约3/24、Winter 2027约11/18',tuition:'26,000-34,000',tuitionRMB:'13-17万',programs:{
       eng:{gpa:'雅思7.5不双录!',label:'na',ielts:'7.5!',dual:'limit',dual_type:'YUELI不含工程CS',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'工程雅思7.5不双录!',note_detail:'约克工程要求雅思7.5且不接受双录取！'},
       cs:{gpa:'雅思7.5不双录!',label:'na',ielts:'7.5!',dual:'limit',dual_type:'YUELI不含工程CS',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'CS同工程限制',note_detail:''},
       math:{gpa:'75-80%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'YUELI',dual_thr:'5.0+',coop:'no',coop_note:'',note:'理学院可双录',note_detail:''},
@@ -291,8 +291,8 @@ const SCHOOLS = {
   ],
   au:[
     {name:'UNSW',city:'悉尼',prov:'澳洲',deadline:'滚动',tuition:'43,650(2027)',tuitionRMB:'约21万',isFoundation:true,programs:{
-      eng:{gpa:'预科GPA7.5/9.0',label:'ok',ielts:'Extended:5.0(4.5)|Standard Plus:5.5(5.0)|Standard理科:5.5(写作5.5其他5.0)',dual:'yes',dual_type:'Extended(15月)/Standard Plus(12月)',dual_thr:'5.0(4.5)Extended / 5.5(5.0)Standard Plus',coop:'yes',coop_note:'',note:'你雅思5.0走Extended达标!',note_detail:'UNSW Extended预科15个月IELTS5.0(4.5)你达标;🆕2026起新增Standard Plus 12个月(IELTS5.5/5.0);标准预科分轨:理科/文科IELTS5.5(写作5.5/其他≥5.0)你总分差0.5;商科IELTS6.0(写作5.5/其他≥5.5)你差1.0;升学率91%'},
-      cs:{gpa:'预科GPA7.5/9.0',label:'ok',ielts:'Extended:5.0(4.5)|Standard Plus:5.5(5.0)|Standard理科:5.5(写作5.5其他5.0)',dual:'yes',dual_type:'Extended(15月)/Standard Plus(12月)',dual_thr:'5.0(4.5)Extended / 5.5(5.0)Standard Plus',coop:'yes',coop_note:'',note:'你雅思5.0走Extended达标!',note_detail:'UNSW Extended预科15个月IELTS5.0(4.5)你达标;🆕2026起新增Standard Plus 12个月(IELTS5.5/5.0);标准预科理科IELTS5.5(写作5.5/其他≥5.0)你总分差0.5'},
+      eng:{gpa:'预科GPA7.5/9.0',label:'ok',ielts:'Extended:5.0(4.5)|Standard Plus:5.5(5.0)|Standard理科:5.5(写作5.5其他5.0)',dual:'yes',dual_type:'Extended(15月)/Standard Plus(12月)',dual_thr:'5.0(4.5)Extended / 5.5(5.0)Standard Plus',coop:'yes',coop_note:'',note:'你雅思5.0走Extended达标!',note_detail:'UNSW Extended预科15个月IELTS5.0(4.5)你达标;🆕2026起新增Standard Plus 12个月(IELTS5.5/5.0);标准预科分轨:理科/文科IELTS5.5(写作5.5/其他≥5.0)你总分差0.5;商科IELTS6.0(写作5.5/其他≥5.5)你差1.0;升学率91%;🆕2026-09-14复核(CRICOS登记数据):Standard Plus(47周)学费A$46,000+非学费A$1,000=A$47,000;⚠️待官网核实(中介口径):UNSW国际大一(Diploma)2027年入学取消5月批次、仅保留1月与8月;商科方向高考总分67%或高三均分94%、IELTS6.5(写作6.0);理科方向高三均分85%+数学90%、IELTS6.0(写作6.0)'},
+      cs:{gpa:'预科GPA7.5/9.0',label:'ok',ielts:'Extended:5.0(4.5)|Standard Plus:5.5(5.0)|Standard理科:5.5(写作5.5其他5.0)',dual:'yes',dual_type:'Extended(15月)/Standard Plus(12月)',dual_thr:'5.0(4.5)Extended / 5.5(5.0)Standard Plus',coop:'yes',coop_note:'',note:'你雅思5.0走Extended达标!',note_detail:'UNSW Extended预科15个月IELTS5.0(4.5)你达标;🆕2026起新增Standard Plus 12个月(IELTS5.5/5.0);标准预科理科IELTS5.5(写作5.5/其他≥5.0)你总分差0.5;🆕2026-09-14复核(CRICOS登记数据):Standard Plus(47周)学费A$46,000+非学费A$1,000合计A$47,000;⚠️待官网核实(中介口径):UNSW国际大一(Diploma)2027年入学取消5月批次、仅保留1月与8月;商科方向高考总分67%或高三均分94%、IELTS6.5(写作6.0);理科方向高三均分85%+数学90%、IELTS6.0(写作6.0)'},
       math:{gpa:'预科GPA7.0/9.0',label:'ok',ielts:'Extended:5.0(4.5)|Standard Plus:5.5(5.0)|Standard理科:5.5(写作5.5其他5.0)',dual:'yes',dual_type:'Extended(15月)/Standard Plus(12月)',dual_thr:'5.0(4.5)Extended / 5.5(5.0)Standard Plus',coop:'no',coop_note:'',note:'',note_detail:'🆕2026起新增Standard Plus 12个月(IELTS5.5/5.0);标准预科理科IELTS5.5(写作5.5/其他≥5.0)'},
       psych:{gpa:'预科GPA6.5/9.0',label:'ok',ielts:'Extended:5.0(4.5)|Standard Plus:5.5(5.0)|Standard理科:5.5(写作5.5其他5.0)',dual:'yes',dual_type:'Extended(15月)/Standard Plus(12月)',dual_thr:'5.0(4.5)Extended / 5.5(5.0)Standard Plus',coop:'no',coop_note:'',note:'',note_detail:'🆕2026起新增Standard Plus 12个月(IELTS5.5/5.0);标准预科理科IELTS5.5(写作5.5/其他≥5.0)'},
       biz:{gpa:'预科GPA7.0/9.0',label:'ok',ielts:'Extended:5.0(4.5)|Standard Plus:5.5(5.0)|Standard商科:6.0(写作5.5其他5.5)',dual:'yes',dual_type:'Extended(15月)/Standard Plus(12月)',dual_thr:'5.0(4.5)Extended / 5.5(5.0)Standard Plus',coop:'yes',coop_note:'',note:'标准商科IELTS6.0你差1.0;走Extended可行',note_detail:'🆕2026起新增Standard Plus 12个月(IELTS5.5/5.0);标准预科商科IELTS6.0(写作5.5/其他≥5.5)你差1.0;Extended预科IELTS5.0(4.5)你达标'},
@@ -323,8 +323,25 @@ const SCHOOLS = {
   ]
 };
 
-// delpoy_rev_91913
-// 最后更新: 2026-09-13
+// delpoy_rev_91914
+// 最后更新: 2026-09-14
+// ▲本次更新(2026-09-14): 🆕UTM 新增 IFP 双录通道(多大国际项目官网原文确认)——这是本月对"你"最实质的一条。
+//   ①IFP(International Foundation Program)将于 2027年9月 首次开设于 UTM 校区(Mississauga)。
+//     官方表述:"Enter U of T Mississauga conditionally as an undergraduate from day one—earning degree credits while building academic fluency",
+//     即"入学即有条件录取U of T + 计入毕业学分",覆盖 Arts / Science / Business 共 180+ 专业、90 个学科领域(含CCIT、法证科学、环境科学等);
+//     官方仅确认首开时间与覆盖范围,雅思门槛与申请截止尚未公布 → 表中 dual 字段由 no 改为 yes,门槛标"待公布(参照UTSG IFP:5.0-6.5/写作5.5/单项≥5.0)"。
+//     ⚠️UTM 本身不设工程本科,故工程一栏维持 na;此前"UTSC/UTM 均无语言班"的判断对 UTM 已不成立(UTSC 仍无)。
+//   ②皇后:📊2026Fall 录取实况(女王官网 Gazette):共 64,400 份申请(+8%,创校史纪录),录取新生平均高中均分 92.3% → 已写入各专业 note_detail。
+//   ③UNSW:CRICOS 登记数据复核,Standard Plus(47周)学费 A$46,000 + 非学费 A$1,000 = A$47,000(与现表一致);
+//     ⚠️中介口径待官网核实:UNSW 国际大一(Diploma)2027 取消 5 月批次、仅保留 1 月与 8 月;商科方向高考总分67%或高三均分94%、IELTS6.5(写作6.0);理科方向高三均分85%+数学90%、IELTS6.0(写作6.0)。
+//   ④约克:⚠️待官网核实(中介口径)Fall 2027 国际生截止约 3/24、Winter 2027 约 11/18;皇后:冬季入学面向国际生(9/30网申/10/15材料)亦为中介口径。
+//   ⑤澳洲 2027 名额与门槛(背景,均为院校层面或硕士口径,未写入本科结论字段):2027 国际新生国家规划名额维持 29.5 万,八大名额同比 +9%~18%;
+//     悉尼大学取消合作办学 MOI 英文豁免、部分限额热门专业雅思提至 7.0(单项6.0);澳国立/悉尼/UNSW/UQ 授课型硕士双非均分下调(硕士口径,与本科申请无关)。
+//   ⑥复核无变化(官方):UBC 2027(10月初开放/申请1/15/ELAS材料2/15/国际生奖学金轮11/15,冬季与夏季学期同期开放)、多大 2027 三张表、IRCC 学签资金 23,448(2026-09-01起)、
+//     UTM/UTSC deadline 字段、各校语言门槛与双录通道、9 个专业方向录取 GPA/雅思门槛 —— 全数零变动,无放宽无收窄。
+//   ⚠️反复出现但仍未采纳的中介口径(与官网不符):新东方系"多大文理/Rotman/建筑 网申 2/2、材料 2/16"(官网为 2/1,已连续 5 日不采纳);
+//     SFU 商科/CS"隐性语言门槛 7.0";Concordia Grey Nuns 宿舍 2027-28 不开放。
+//   ⚠️长期遗留:GPA 86 与 89.6 的口径分歧(本人任务书写 86,项目数据自 2026-07-27 起统一用 89.6)——本文件仍按 89.6 执行,待用户确认。
 // ▲本次更新(2026-09-13): 🆕IRCC 学签规则集中调整(多项已生效)——直接影响语言/双录取路径。
 //   ①前置课程学签有效期缩短(2026-02-19起):语言课/预科/bridging 等前置课程学签有效期=课程时长+90天(旧规为课程时长+12个月);
 //     课程结束后须在加拿大境内重新申请学签才能进入正课(等待期可用 maintained status 继续就读)。
