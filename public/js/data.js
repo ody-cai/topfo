@@ -14,7 +14,7 @@ const TIERS = [
 
 const SCHOOLS = {
   t1:[
-    {name:'多大·圣乔治',city:'多伦多',prov:'安省',deadline:'2027季:申请1/15(推荐早申11/7);材料:工程/音乐1/15,其余2/1;补充:工程(OSP)/音乐1/15,其余2/1',tuition:'42,000-62,000',tuitionRMB:'21-34万',programs:{
+    {name:'多大·圣乔治',city:'多伦多',prov:'安省',deadline:'2027季:申请1/15(推荐早申11/7);材料:工程/音乐1/15,其余2/1;补充:工程(OSP)/音乐1/15,其余2/1;⚠️口径冲突(9/15新增):多大国际项目官网IFP页称Arts&Sci的CS/人文/生命科学/社科/数理申请已延至2/1、材料延至2/16,但future.utoronto.ca官方汇总页仍为申请1/15/材料2/1→按1/15执行;🎓Lester B. Pearson国际奖学金2027:校提名10/9(noon EST)、OUAC入学申请10/16、奖学金材料11/6',tuition:'42,000-62,000',tuitionRMB:'21-34万',programs:{
       eng:{gpa:'92-95%',label:'hard',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'yes',coop_note:'PEY Co-op',note:'工程无IFP双录!须直录雅思6.5',note_detail:'⚠️2026-27/2027-28 IFP官网仅覆盖Arts&Science/建筑景观设计/音乐，不含工程(须直录6.5(6.0));OUInfo仍列示IFP-Engineering旧条目(TUH,区间mid-80s~low90s),2027-28是否实际招生需向工程学院确认'},
       cs:{gpa:'93%(comp)/97.2%(median)',label:'hard',ielts:'6.5(6.0)',dual:'yes',dual_type:'IFP(Arts&Sci/Arch/Music)',dual_thr:'5.0-6.5(写作5.5/单项≥5.0)',coop:'yes',coop_note:'PEY Co-op',note:'CS竞争均分93%但录取中位97.2%;IFP覆盖Arts&Sci含CS',note_detail:'🆕已确认(2026-09-11):多大已完成校内审批,自2027-09-01起推出新的四年制荣誉学位BCS(Bachelor of Computer Science),覆盖三校区CS相关项目——UTSG:CS专修/主修、数据科学专修、生物信息学与计算生物学专修;2026-27 IFP覆盖Arts&Science(含CS/数学/心理)、建筑景观设计、音乐；新门槛单项≥5.0你听力/阅读4.5未达标'},
       math:{gpa:'85-90%',label:'close',ielts:'6.5(6.0)',dual:'yes',dual_type:'IFP(Arts&Sci/Arch/Music)',dual_thr:'5.0-6.5(写作5.5/单项≥5.0)',coop:'yes',coop_note:'',note:'IFP含Arts&Sci数学;门槛单项≥5.0你不够',note_detail:'2026-27 IFP覆盖Arts&Science(含数学)、建筑景观设计、音乐；新门槛单项≥5.0你听力/阅读4.5未达标'},
@@ -66,7 +66,7 @@ const SCHOOLS = {
       sci:{gpa:'80-85%',label:'ok',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'yes',coop_note:'',note:'',note_detail:''},
       social:{gpa:'Mid 70s',label:'ok',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'no',coop_note:'',note:'GPA绰绰有余',note_detail:''}
     }},
-    {name:'多大·密西沙加(UTM)',city:'密西沙加',prov:'安省',deadline:'2027季:申请1/15(推荐早申11/7);材料2/1',tuition:'67,700',tuitionRMB:'34万',programs:{
+    {name:'多大·密西沙加(UTM)',city:'密西沙加',prov:'安省',deadline:'2027季(官网utm.utoronto.ca核实):申请1/15(推荐早申11/7);材料2/1;CS补充申请2/1;Theatre&Drama试镜2026年11月开放登记;桥接通道(Bridging)/难民通道(Refugee)2027年3月初开放',tuition:'67,700',tuitionRMB:'34万',programs:{
       eng:{gpa:'—',label:'na',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'no',coop_note:'',note:'无工程专业',note_detail:'UTM无Engineering本科'},
       cs:{gpa:'Mid-high 80s(85-88%)',label:'close',ielts:'6.5(6.0)',dual:'yes',dual_type:'IFP@UTM(2027-09首开)',dual_thr:'待公布(参照UTSG IFP:5.0-6.5/写作5.5/单项≥5.0)',coop:'yes',coop_note:'CS Co-op',note:'踩线但新增双录通道!',note_detail:'UTM CS 85-88%你踩线;需要supplementary application;有Co-op选项;🆕已确认(2026-09-14,多大国际项目官网):IFP(International Foundation Program)将于2027年9月首开于UTM,提供"入学即有条件录取U of T+学分课程",覆盖Arts/Science/Business共180+专业(不含工程,UTM本身无工程);具体雅思门槛与申请截止待官网公布,2026-27参照UTSG IFP为总分5.0-6.5(写作≥5.5/单项≥5.0)——你听力/阅读4.5仍差0.5'},
       math:{gpa:'Mid-high 80s',label:'close',ielts:'6.5(6.0)',dual:'yes',dual_type:'IFP@UTM(2027-09首开)',dual_thr:'待公布(参照UTSG IFP:5.0-6.5/写作5.5/单项≥5.0)',coop:'no',coop_note:'',note:'踩线;新增双录通道',note_detail:'UTM Math & Computational Sciences mid-high 80s;🆕IFP@UTM 2027-09首开,覆盖Science方向;门槛待官网公布,参照UTSG IFP 5.0-6.5(写作5.5/单项≥5.0),你单项4.5未达标'},
@@ -116,7 +116,7 @@ const SCHOOLS = {
       sci:{gpa:'80-85%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'Boost',dual_thr:'总分5.5(读写5.5/听说5.0)',coop:'yes',coop_note:'',note:'',note_detail:''},
       social:{gpa:'80-85%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'Boost',dual_thr:'总分5.5(读写5.5/听说5.0)',coop:'no',coop_note:'',note:'',note_detail:''}
     }},
-    {name:'麦克马斯特',city:'哈密尔顿',prov:'安省',deadline:'2027季:推荐截止1/15;工程/CS/iBioMed/B.Tech须工程补充申请(3视频+1书面);入学奖2/19',tuition:'34,000-42,000',tuitionRMB:'17-21万',programs:{
+    {name:'麦克马斯特',city:'哈密尔顿',prov:'安省',deadline:'2027季:推荐截止1/15;工程/CS/iBioMed/B.Tech须工程补充申请(3视频+1书面);入学奖(AwardSpring)截止2027-02-19 23:59 ET,卓越奖最高CAD 20万',tuition:'34,000-42,000',tuitionRMB:'17-21万',programs:{
       eng:{gpa:'92%',label:'hard',ielts:'6.5(6.0)',dual:'yes',dual_type:'MELD+STEP',dual_thr:'MELD:5.0/STEP:6.5(读写6.0听说5.5)',coop:'yes',coop_note:'全部工程Co-op',note:'工程GPA差2.4分;你雅思5.0已达标MELD!',note_detail:'麦马工程92%你差2.4分；MELD(1年)门槛5.0你达标!🆕2026Fall起完成MELD可获12本科学分(4门课不再白读);STEP(7周夏)门槛6.5你不够；⚠️中加学籍学生必须提交雅思成绩;🆕已确认(2026-09-11):2027Fall起工程/iBioMed改双路径——Discovery Track(大一通识后按志愿+GPA+名额选拔,保证大二工程席位但不保证第一志愿)/Direct Program Track(高中申请即锁定具体工程方向,大一保持成绩即提前锁定);申请时同一项目内可按顺序填最多2个路径、优先审第一选择;另新增本科核工程(2027年9月起:核工程学士/核工程与社会4年/核工程与管理5年,均含Co-op)'},
       cs:{gpa:'94%',label:'hard',ielts:'6.5(6.0)',dual:'yes',dual_type:'MELD+STEP',dual_thr:'MELD:5.0/STEP:6.5(读写6.0听说5.5)',coop:'yes',coop_note:'',note:'CS差5分;你雅思5.0已达标MELD!',note_detail:'🆕2026Fall起完成MELD可获12本科学分(4门课不再白读);⚠️中加学籍学生必须提交雅思成绩'},
       math:{gpa:'85%',label:'close',ielts:'6.5(6.0)',dual:'yes',dual_type:'MELD+STEP',dual_thr:'MELD:5.0/STEP:6.5(读写6.0听说5.5)',coop:'yes',coop_note:'',note:'你踩线!MELD门槛5.0你达标',note_detail:'麦马数学85%你刚好踩线；MELD(1年)门槛5.0你达标；🆕2026Fall起完成MELD可获12本科学分(4门课不再白读)；⚠️中加学籍学生必须提交雅思成绩'},
@@ -323,9 +323,34 @@ const SCHOOLS = {
   ]
 };
 
-// delpoy_rev_91914
-// 最后更新: 2026-09-14
-// ▲本次更新(2026-09-14): 🆕UTM 新增 IFP 双录通道(多大国际项目官网原文确认)——这是本月对"你"最实质的一条。
+// delpoy_rev_91915
+// 最后更新: 2026-09-15
+// ▲本次更新(2026-09-15): ⚠️多大 Arts&Science 截止口径出现官方子域冲突 + 🎓Pearson 奖学金节点补全 + UTM 官方页面细化
+//   ①⚠️**多大 Arts&Science 截止口径冲突升级(今日最需要你决策的一条)**:多大国际项目官网 IFP 专页(internationalprograms.utoronto.ca)明确写
+//      "Application deadlines have been extended for the following programs in the Faculty of Arts and Science — New Deadline: **February 1, 2027**",
+//      列出 Computer Science / Humanities / Life Sciences / Social Science / Mathematical and Physical Science 五类;其 Document Deadline Extension 写 "February 16, 2026"(年份疑为笔误)。
+//      但未来学生官方汇总页(future.utoronto.ca/deadlines)2027 三张表仍为 **网申 1/15 / 材料 2/1 / 补充 2/1**。
+//      → 判定:以官方汇总页(1/15+2/1)为准执行;但**该"延至2/1、材料2/16"说法确实出自 uoft.ca 官方子域**,故不再简单归为"中介错报"——
+//        此前连续 5 日判错的"新东方系 2/2、2/16"口径,来源即此页。已在 UTSG 的 deadline 字段加注冲突提示。
+//        ⚠️实操建议:仍按 **1/15 递交**;若 1/15 后该页仍显示延期,可作为补交窗口的备选依据,但不要依赖延期。
+//   ②🎓**多大 Lester B. Pearson 国际奖学金 2027 关键节点(官方)**:学校提名截止 **2026-10-09 12:00 EST**、
+//      OUAC 入学申请截止 **2026-10-16**、奖学金申请+材料截止 **2026-11-06**。每年约 37 人,覆盖四年全额学费+住宿+书本+杂费(单份价值超 CAD 20 万,全校年投入超 CAD 1200 万)。
+//      每个中学每年仅可提名 **1 人** → 若考虑此通道,须**立刻**联系学校指导老师争取校内提名。
+//   ③🆕**UTM 官方 Dates & Deadlines 页面核实(Fall 2027)**:网申 2027-01-15、早申推荐 11/7、材料 2027-02-01、
+//      **CS 补充申请 2027-02-01**、Theatre & Drama Studies 试镜 2026 年 11 月开放登记、
+//      **Bridging Pathway(桥接通道)与 Refugee Pathway(难民通道)2027 年 3 月初开放申请**、非学位/春季课程按项目单独截止。
+//      → 已写入 UTM 的 deadline 字段(此前仅记 1/15 申请 + 2/1 材料)。UTM 的 Arts/Science/Business 各类材料统一 2/1。
+//   ④📊**麦克马斯特 2027 复核**:推荐申请截止 2027-01-15;入学奖学金(AwardSpring)截止 **2027-02-19 23:59 ET**(与现表一致);
+//      卓越奖学金额度可达 **CAD 20 万**(已补入 deadline 字段);MELD(8 个月)门槛 IELTS 5.0+/DET 75+、STEP(7 周夏)IELTS 6.5(读写 6.0/听说 5.5) —— 门槛**无变化**。
+//   ⑤复核无变化(官方):UBC 2027 全量节点(10 月初开放 / 申请 1/15 / ELAS 材料 2/15 / 国际生奖学金轮 11/15 / 本国生奖学金轮 12/1 / 国际学者材料 1/31)、
+//      滑铁卢 AIF(工程 2027-02-01、工程+数学 2027-02-01、其他 2027-02-15、Pharmacy 2027-01-20)、
+//      UNSW College 2027 学费 **A$43,650**(2026 为 A$42,700;Standard 9 个月,4 月/10 月两次入学)、
+//      UNSW 预科入口 IELTS 5.5、商科方向 6.0(单项 5.5)、IRCC 学签资金 **CAD 23,448**(2026-09-01 起)、
+//      **9 个专业方向 GPA/雅思门槛零变动**、各校语言门槛与双录通道全数无放宽无收窄。
+//   ⑥IRCC 背景(未影响本科申请门槛):2027-2028 学年新入境目标约 **15 万**(2026 为 155,000);2026-01~06 硕博占新学签 21%(2025 同期 12%);
+//      博士学签 2 周加急;自 2026-09-04 起持有效工签者可在无需学签情况下修读 ≤6 个月课程(至 2027-12-31,与本科新生无关);
+//      2026 年内 PGWP 专业清单不增不减;PGWP 本科及以上学位毕业生豁免 field-of-study 限制。
+// ▲上次更新(2026-09-14): 🆕UTM 新增 IFP 双录通道(多大国际项目官网原文确认)——这是本月对"你"最实质的一条。
 //   ①IFP(International Foundation Program)将于 2027年9月 首次开设于 UTM 校区(Mississauga)。
 //     官方表述:"Enter U of T Mississauga conditionally as an undergraduate from day one—earning degree credits while building academic fluency",
 //     即"入学即有条件录取U of T + 计入毕业学分",覆盖 Arts / Science / Business 共 180+ 专业、90 个学科领域(含CCIT、法证科学、环境科学等);
