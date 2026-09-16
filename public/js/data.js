@@ -198,7 +198,7 @@ const SCHOOLS = {
       sci:{gpa:'75-80%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'',note_detail:''},
       social:{gpa:'70-75%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:''}
     }},
-    {name:'约克',city:'多伦多',prov:'安省',deadline:'滚动;2027国际生入学奖11/1-1/27;⚠️待官网核实(中介口径):Fall 2027国际生约3/24、Winter 2027约11/18',tuition:'26,000-34,000',tuitionRMB:'13-17万',programs:{
+    {name:'约克',city:'多伦多',prov:'安省',deadline:'滚动;2027国际生入学奖11/1-1/27;Winter 2027申请截止11/18(9/16第二来源独立复核一致);⚠️仍待官网核实:Fall 2027国际生约3/24',tuition:'26,000-34,000',tuitionRMB:'13-17万',programs:{
       eng:{gpa:'雅思7.5不双录!',label:'na',ielts:'7.5!',dual:'limit',dual_type:'YUELI不含工程CS',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'工程雅思7.5不双录!',note_detail:'约克工程要求雅思7.5且不接受双录取！'},
       cs:{gpa:'雅思7.5不双录!',label:'na',ielts:'7.5!',dual:'limit',dual_type:'YUELI不含工程CS',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'CS同工程限制',note_detail:''},
       math:{gpa:'75-80%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'YUELI',dual_thr:'5.0+',coop:'no',coop_note:'',note:'理学院可双录',note_detail:''},
@@ -278,7 +278,7 @@ const SCHOOLS = {
       sci:{gpa:'70-75%',label:'ok',ielts:'6.5(读写6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'',note_detail:'2026起直录雅思要求读写单项≥6.0'},
       social:{gpa:'65-70%',label:'ok',ielts:'6.5(读写6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:'2026起直录雅思要求读写单项≥6.0'}
     }},
-    {name:'康考迪亚',city:'蒙特利尔',prov:'魁省',deadline:'常设:秋季3/1(国际生建议2/1);冬季11/1;最多填3个志愿',tuition:'22,000-28,000',tuitionRMB:'11-14万',programs:{
+    {name:'康考迪亚',city:'蒙特利尔',prov:'魁省',deadline:'常设:秋季3/1(国际生建议2/1);冬季11/1(国际生建议8/1);自建系统(不走OUAC),最多填3个志愿(至多1个BComm);⚠️Grey Nuns宿舍2027-28不开放(9/16第二来源确认),2027住宿申请尚未公布',tuition:'22,000-28,000',tuitionRMB:'11-14万',programs:{
       eng:{gpa:'75-80%',label:'ok',ielts:'6.0(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'蒙特利尔',note_detail:'🆕2026-27官网确认:本科直录IELTS 6.0(单项≥5.5)；未达标者可能被录取但需入学修ESL课程'},
       cs:{gpa:'75-80%',label:'ok',ielts:'6.0(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'CS Co-op',note:'',note_detail:'🆕2026-27官网确认:本科直录IELTS 6.0(单项≥5.5)；未达标者可能被录取但需入学修ESL课程'},
       math:{gpa:'70-75%',label:'ok',ielts:'6.0(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:'🆕2026-27官网确认:本科直录IELTS 6.0(单项≥5.5)；未达标者可能被录取但需入学修ESL课程'},
@@ -291,8 +291,8 @@ const SCHOOLS = {
   ],
   au:[
     {name:'UNSW',city:'悉尼',prov:'澳洲',deadline:'滚动',tuition:'43,650(2027)',tuitionRMB:'约21万',isFoundation:true,programs:{
-      eng:{gpa:'预科GPA7.5/9.0',label:'ok',ielts:'Extended:5.0(4.5)|Standard Plus:5.5(5.0)|Standard理科:5.5(写作5.5其他5.0)',dual:'yes',dual_type:'Extended(15月)/Standard Plus(12月)',dual_thr:'5.0(4.5)Extended / 5.5(5.0)Standard Plus',coop:'yes',coop_note:'',note:'你雅思5.0走Extended达标!',note_detail:'UNSW Extended预科15个月IELTS5.0(4.5)你达标;🆕2026起新增Standard Plus 12个月(IELTS5.5/5.0);标准预科分轨:理科/文科IELTS5.5(写作5.5/其他≥5.0)你总分差0.5;商科IELTS6.0(写作5.5/其他≥5.5)你差1.0;升学率91%;🆕2026-09-14复核(CRICOS登记数据):Standard Plus(47周)学费A$46,000+非学费A$1,000=A$47,000;⚠️待官网核实(中介口径):UNSW国际大一(Diploma)2027年入学取消5月批次、仅保留1月与8月;商科方向高考总分67%或高三均分94%、IELTS6.5(写作6.0);理科方向高三均分85%+数学90%、IELTS6.0(写作6.0)'},
-      cs:{gpa:'预科GPA7.5/9.0',label:'ok',ielts:'Extended:5.0(4.5)|Standard Plus:5.5(5.0)|Standard理科:5.5(写作5.5其他5.0)',dual:'yes',dual_type:'Extended(15月)/Standard Plus(12月)',dual_thr:'5.0(4.5)Extended / 5.5(5.0)Standard Plus',coop:'yes',coop_note:'',note:'你雅思5.0走Extended达标!',note_detail:'UNSW Extended预科15个月IELTS5.0(4.5)你达标;🆕2026起新增Standard Plus 12个月(IELTS5.5/5.0);标准预科理科IELTS5.5(写作5.5/其他≥5.0)你总分差0.5;🆕2026-09-14复核(CRICOS登记数据):Standard Plus(47周)学费A$46,000+非学费A$1,000合计A$47,000;⚠️待官网核实(中介口径):UNSW国际大一(Diploma)2027年入学取消5月批次、仅保留1月与8月;商科方向高考总分67%或高三均分94%、IELTS6.5(写作6.0);理科方向高三均分85%+数学90%、IELTS6.0(写作6.0)'},
+      eng:{gpa:'预科GPA7.5/9.0',label:'ok',ielts:'Extended:5.0(4.5)|Standard Plus:5.5(5.0)|Standard理科:5.5(写作5.5其他5.0)',dual:'yes',dual_type:'Extended(15月)/Standard Plus(12月)',dual_thr:'5.0(4.5)Extended / 5.5(5.0)Standard Plus',coop:'yes',coop_note:'',note:'你雅思5.0走Extended达标!',note_detail:'UNSW Extended预科15个月IELTS5.0(4.5)你达标;🆕2026起新增Standard Plus 12个月(IELTS5.5/5.0);标准预科分轨:理科/文科IELTS5.5(写作5.5/其他≥5.0)你总分差0.5;商科IELTS6.0(写作5.5/其他≥5.5)你差1.0;升学率91%;🆕2026-09-14复核(CRICOS登记数据):Standard Plus(47周)学费A$46,000+非学费A$1,000=A$47,000;🆕2026-09-16多来源一致:UNSW国际大一(Diploma)2027年入学取消5月批次、仅保留1月与8月;商科方向高考总分67%或高三均分94%、IELTS6.5(写作6.0);理科方向高三均分85%+数学90%、IELTS6.0(写作6.0)'},
+      cs:{gpa:'预科GPA7.5/9.0',label:'ok',ielts:'Extended:5.0(4.5)|Standard Plus:5.5(5.0)|Standard理科:5.5(写作5.5其他5.0)',dual:'yes',dual_type:'Extended(15月)/Standard Plus(12月)',dual_thr:'5.0(4.5)Extended / 5.5(5.0)Standard Plus',coop:'yes',coop_note:'',note:'你雅思5.0走Extended达标!',note_detail:'UNSW Extended预科15个月IELTS5.0(4.5)你达标;🆕2026起新增Standard Plus 12个月(IELTS5.5/5.0);标准预科理科IELTS5.5(写作5.5/其他≥5.0)你总分差0.5;🆕2026-09-14复核(CRICOS登记数据):Standard Plus(47周)学费A$46,000+非学费A$1,000合计A$47,000;🆕2026-09-16多来源一致:UNSW国际大一(Diploma)2027年入学取消5月批次、仅保留1月与8月;商科方向高考总分67%或高三均分94%、IELTS6.5(写作6.0);理科方向高三均分85%+数学90%、IELTS6.0(写作6.0)'},
       math:{gpa:'预科GPA7.0/9.0',label:'ok',ielts:'Extended:5.0(4.5)|Standard Plus:5.5(5.0)|Standard理科:5.5(写作5.5其他5.0)',dual:'yes',dual_type:'Extended(15月)/Standard Plus(12月)',dual_thr:'5.0(4.5)Extended / 5.5(5.0)Standard Plus',coop:'no',coop_note:'',note:'',note_detail:'🆕2026起新增Standard Plus 12个月(IELTS5.5/5.0);标准预科理科IELTS5.5(写作5.5/其他≥5.0)'},
       psych:{gpa:'预科GPA6.5/9.0',label:'ok',ielts:'Extended:5.0(4.5)|Standard Plus:5.5(5.0)|Standard理科:5.5(写作5.5其他5.0)',dual:'yes',dual_type:'Extended(15月)/Standard Plus(12月)',dual_thr:'5.0(4.5)Extended / 5.5(5.0)Standard Plus',coop:'no',coop_note:'',note:'',note_detail:'🆕2026起新增Standard Plus 12个月(IELTS5.5/5.0);标准预科理科IELTS5.5(写作5.5/其他≥5.0)'},
       biz:{gpa:'预科GPA7.0/9.0',label:'ok',ielts:'Extended:5.0(4.5)|Standard Plus:5.5(5.0)|Standard商科:6.0(写作5.5其他5.5)',dual:'yes',dual_type:'Extended(15月)/Standard Plus(12月)',dual_thr:'5.0(4.5)Extended / 5.5(5.0)Standard Plus',coop:'yes',coop_note:'',note:'标准商科IELTS6.0你差1.0;走Extended可行',note_detail:'🆕2026起新增Standard Plus 12个月(IELTS5.5/5.0);标准预科商科IELTS6.0(写作5.5/其他≥5.5)你差1.0;Extended预科IELTS5.0(4.5)你达标'},
@@ -311,20 +311,41 @@ const SCHOOLS = {
       social:{gpa:'预科GPA60%',label:'ok',ielts:'标准:5.5(5.0)|IE打包:5.0(5.0)',dual:'yes',dual_type:'标准预科(10月)/IE+预科打包',dual_thr:'5.5(5.0)标准 / 5.0(5.0)+IE打包',coop:'no',coop_note:'',note:'标准预科差0.5;IE打包你总分够但单项需5.0',note_detail:'🆕2026-27 UQ College官方:标准预科IELTS 5.5(单项≥5.0,10个月);打包Integrated English+预科IELTS 5.0(单项≥5.0);加速预科4个月IELTS 6.0(W6.0/其他≥5.5)。你听力/阅读4.5未达标标准预科，可走IE打包或先读语言'}
     }},
     {name:'阿德莱德',city:'阿德莱德',prov:'澳洲',deadline:'滚动',tuition:'36,200(2027)',tuitionRMB:'约17.5万',isFoundation:true,programs:{
-      eng:{gpa:'预科GPA60%',label:'ok',ielts:'标准:5.5(5.0)|延伸:5.0(5.0)',dual:'yes',dual_type:'标准/延伸预科',dual_thr:'5.5(5.0)标准 / 5.0(5.0)延伸',coop:'yes',coop_note:'',note:'标准预科差0.5;延伸你总分够但单项需5.0',note_detail:'🆕2026-27 Adelaide College官方:标准/强化预科IELTS 5.5(单项≥5.0,9-12个月);延伸预科IELTS 5.0(单项≥5.0);加速预科IELTS 6.0(5.5)。你听力/阅读4.5未达标，需先读语言或考出5.0单项'},
-      cs:{gpa:'预科GPA60%',label:'ok',ielts:'标准:5.5(5.0)|延伸:5.0(5.0)',dual:'yes',dual_type:'标准/延伸预科',dual_thr:'5.5(5.0)标准 / 5.0(5.0)延伸',coop:'no',coop_note:'',note:'标准预科差0.5;延伸你总分够但单项需5.0',note_detail:'🆕2026-27 Adelaide College官方:标准/强化预科IELTS 5.5(单项≥5.0,9-12个月);延伸预科IELTS 5.0(单项≥5.0);加速预科IELTS 6.0(5.5)。你听力/阅读4.5未达标，需先读语言或考出5.0单项'},
-      math:{gpa:'预科GPA60%',label:'ok',ielts:'标准:5.5(5.0)|延伸:5.0(5.0)',dual:'yes',dual_type:'标准/延伸预科',dual_thr:'5.5(5.0)标准 / 5.0(5.0)延伸',coop:'no',coop_note:'',note:'标准预科差0.5;延伸你总分够但单项需5.0',note_detail:'🆕2026-27 Adelaide College官方:标准/强化预科IELTS 5.5(单项≥5.0,9-12个月);延伸预科IELTS 5.0(单项≥5.0);加速预科IELTS 6.0(5.5)。你听力/阅读4.5未达标，需先读语言或考出5.0单项'},
-      psych:{gpa:'预科GPA60%',label:'ok',ielts:'标准:5.5(5.0)|延伸:5.0(5.0)',dual:'yes',dual_type:'标准/延伸预科',dual_thr:'5.5(5.0)标准 / 5.0(5.0)延伸',coop:'no',coop_note:'',note:'标准预科差0.5;延伸你总分够但单项需5.0',note_detail:'🆕2026-27 Adelaide College官方:标准/强化预科IELTS 5.5(单项≥5.0,9-12个月);延伸预科IELTS 5.0(单项≥5.0);加速预科IELTS 6.0(5.5)。你听力/阅读4.5未达标，需先读语言或考出5.0单项'},
-      biz:{gpa:'预科GPA60%',label:'ok',ielts:'标准:5.5(5.0)|延伸:5.0(5.0)',dual:'yes',dual_type:'标准/延伸预科',dual_thr:'5.5(5.0)标准 / 5.0(5.0)延伸',coop:'no',coop_note:'',note:'标准预科差0.5;延伸你总分够但单项需5.0',note_detail:'🆕2026-27 Adelaide College官方:标准/强化预科IELTS 5.5(单项≥5.0,9-12个月);延伸预科IELTS 5.0(单项≥5.0);加速预科IELTS 6.0(5.5)。你听力/阅读4.5未达标，需先读语言或考出5.0单项'},
-      health:{gpa:'预科GPA60%',label:'ok',ielts:'标准:5.5(5.0)|延伸:5.0(5.0)',dual:'yes',dual_type:'标准/延伸预科',dual_thr:'5.5(5.0)标准 / 5.0(5.0)延伸',coop:'no',coop_note:'',note:'标准预科差0.5;延伸你总分够但单项需5.0',note_detail:'🆕2026-27 Adelaide College官方:标准/强化预科IELTS 5.5(单项≥5.0,9-12个月);延伸预科IELTS 5.0(单项≥5.0);加速预科IELTS 6.0(5.5)。你听力/阅读4.5未达标，需先读语言或考出5.0单项'},
-      sci:{gpa:'预科GPA60%',label:'ok',ielts:'标准:5.5(5.0)|延伸:5.0(5.0)',dual:'yes',dual_type:'标准/延伸预科',dual_thr:'5.5(5.0)标准 / 5.0(5.0)延伸',coop:'no',coop_note:'',note:'标准预科差0.5;延伸你总分够但单项需5.0',note_detail:'🆕2026-27 Adelaide College官方:标准/强化预科IELTS 5.5(单项≥5.0,9-12个月);延伸预科IELTS 5.0(单项≥5.0);加速预科IELTS 6.0(5.5)。你听力/阅读4.5未达标，需先读语言或考出5.0单项'},
-      social:{gpa:'预科GPA60%',label:'ok',ielts:'标准:5.5(5.0)|延伸:5.0(5.0)',dual:'yes',dual_type:'标准/延伸预科',dual_thr:'5.5(5.0)标准 / 5.0(5.0)延伸',coop:'no',coop_note:'',note:'标准预科差0.5;延伸你总分够但单项需5.0',note_detail:'🆕2026-27 Adelaide College官方:标准/强化预科IELTS 5.5(单项≥5.0,9-12个月);延伸预科IELTS 5.0(单项≥5.0);加速预科IELTS 6.0(5.5)。你听力/阅读4.5未达标，需先读语言或考出5.0单项'}
+      eng:{gpa:'预科GPA60%',label:'ok',ielts:'标准:5.5(5.0)|延伸:5.0(5.0)',dual:'yes',dual_type:'标准/延伸预科',dual_thr:'5.5(5.0)标准 / 5.0(5.0)延伸',coop:'yes',coop_note:'',note:'标准预科差0.5;延伸你总分够但单项需5.0',note_detail:'🆕2026-27 Adelaide College官方:标准/强化预科IELTS 5.5(单项≥5.0,9-12个月);延伸预科IELTS 5.0(单项≥5.0);加速预科IELTS 6.0(5.5)。你听力/阅读4.5未达标，需先读语言或考出5.0单项;🆕2026-09-16 Eynesbury官网复核:2027学费A$36,200、IELTS 5.5(单项≥5.0)、须完成澳洲Year 11或等效'},
+      cs:{gpa:'预科GPA60%',label:'ok',ielts:'标准:5.5(5.0)|延伸:5.0(5.0)',dual:'yes',dual_type:'标准/延伸预科',dual_thr:'5.5(5.0)标准 / 5.0(5.0)延伸',coop:'no',coop_note:'',note:'标准预科差0.5;延伸你总分够但单项需5.0',note_detail:'🆕2026-27 Adelaide College官方:标准/强化预科IELTS 5.5(单项≥5.0,9-12个月);延伸预科IELTS 5.0(单项≥5.0);加速预科IELTS 6.0(5.5)。你听力/阅读4.5未达标，需先读语言或考出5.0单项;🆕2026-09-16 Eynesbury官网复核:2027学费A$36,200、IELTS 5.5(单项≥5.0)、须完成澳洲Year 11或等效'},
+      math:{gpa:'预科GPA60%',label:'ok',ielts:'标准:5.5(5.0)|延伸:5.0(5.0)',dual:'yes',dual_type:'标准/延伸预科',dual_thr:'5.5(5.0)标准 / 5.0(5.0)延伸',coop:'no',coop_note:'',note:'标准预科差0.5;延伸你总分够但单项需5.0',note_detail:'🆕2026-27 Adelaide College官方:标准/强化预科IELTS 5.5(单项≥5.0,9-12个月);延伸预科IELTS 5.0(单项≥5.0);加速预科IELTS 6.0(5.5)。你听力/阅读4.5未达标，需先读语言或考出5.0单项;🆕2026-09-16 Eynesbury官网复核:2027学费A$36,200、IELTS 5.5(单项≥5.0)、须完成澳洲Year 11或等效'},
+      psych:{gpa:'预科GPA60%',label:'ok',ielts:'标准:5.5(5.0)|延伸:5.0(5.0)',dual:'yes',dual_type:'标准/延伸预科',dual_thr:'5.5(5.0)标准 / 5.0(5.0)延伸',coop:'no',coop_note:'',note:'标准预科差0.5;延伸你总分够但单项需5.0',note_detail:'🆕2026-27 Adelaide College官方:标准/强化预科IELTS 5.5(单项≥5.0,9-12个月);延伸预科IELTS 5.0(单项≥5.0);加速预科IELTS 6.0(5.5)。你听力/阅读4.5未达标，需先读语言或考出5.0单项;🆕2026-09-16 Eynesbury官网复核:2027学费A$36,200、IELTS 5.5(单项≥5.0)、须完成澳洲Year 11或等效'},
+      biz:{gpa:'预科GPA60%',label:'ok',ielts:'标准:5.5(5.0)|延伸:5.0(5.0)',dual:'yes',dual_type:'标准/延伸预科',dual_thr:'5.5(5.0)标准 / 5.0(5.0)延伸',coop:'no',coop_note:'',note:'标准预科差0.5;延伸你总分够但单项需5.0',note_detail:'🆕2026-27 Adelaide College官方:标准/强化预科IELTS 5.5(单项≥5.0,9-12个月);延伸预科IELTS 5.0(单项≥5.0);加速预科IELTS 6.0(5.5)。你听力/阅读4.5未达标，需先读语言或考出5.0单项;🆕2026-09-16 Eynesbury官网复核:2027学费A$36,200、IELTS 5.5(单项≥5.0)、须完成澳洲Year 11或等效'},
+      health:{gpa:'预科GPA60%',label:'ok',ielts:'标准:5.5(5.0)|延伸:5.0(5.0)',dual:'yes',dual_type:'标准/延伸预科',dual_thr:'5.5(5.0)标准 / 5.0(5.0)延伸',coop:'no',coop_note:'',note:'标准预科差0.5;延伸你总分够但单项需5.0',note_detail:'🆕2026-27 Adelaide College官方:标准/强化预科IELTS 5.5(单项≥5.0,9-12个月);延伸预科IELTS 5.0(单项≥5.0);加速预科IELTS 6.0(5.5)。你听力/阅读4.5未达标，需先读语言或考出5.0单项;🆕2026-09-16 Eynesbury官网复核:2027学费A$36,200、IELTS 5.5(单项≥5.0)、须完成澳洲Year 11或等效'},
+      sci:{gpa:'预科GPA60%',label:'ok',ielts:'标准:5.5(5.0)|延伸:5.0(5.0)',dual:'yes',dual_type:'标准/延伸预科',dual_thr:'5.5(5.0)标准 / 5.0(5.0)延伸',coop:'no',coop_note:'',note:'标准预科差0.5;延伸你总分够但单项需5.0',note_detail:'🆕2026-27 Adelaide College官方:标准/强化预科IELTS 5.5(单项≥5.0,9-12个月);延伸预科IELTS 5.0(单项≥5.0);加速预科IELTS 6.0(5.5)。你听力/阅读4.5未达标，需先读语言或考出5.0单项;🆕2026-09-16 Eynesbury官网复核:2027学费A$36,200、IELTS 5.5(单项≥5.0)、须完成澳洲Year 11或等效'},
+      social:{gpa:'预科GPA60%',label:'ok',ielts:'标准:5.5(5.0)|延伸:5.0(5.0)',dual:'yes',dual_type:'标准/延伸预科',dual_thr:'5.5(5.0)标准 / 5.0(5.0)延伸',coop:'no',coop_note:'',note:'标准预科差0.5;延伸你总分够但单项需5.0',note_detail:'🆕2026-27 Adelaide College官方:标准/强化预科IELTS 5.5(单项≥5.0,9-12个月);延伸预科IELTS 5.0(单项≥5.0);加速预科IELTS 6.0(5.5)。你听力/阅读4.5未达标，需先读语言或考出5.0单项;🆕2026-09-16 Eynesbury官网复核:2027学费A$36,200、IELTS 5.5(单项≥5.0)、须完成澳洲Year 11或等效'}
     }}
   ]
 };
 
-// delpoy_rev_91915
-// 最后更新: 2026-09-15
+// delpoy_rev_91916
+// 最后更新: 2026-09-16
+// ▲本次更新(2026-09-16): 今日**无院校录取门槛变化**;实质新增 = IRCC 规则细节确认 + 3 项"多来源一致"升级 + 中外合办按地区增补
+//   ①✅IRCC 校外工作时长官方确认 **24 小时/周**(canada.ca "Work off campus" 页,2026-09-10 修订版):学期内上限 24h;学校排定的连续≥7天假期可无限制小时;
+//      即使学签旧条件印的是"may work 20 hours per week off campus",仍可按 24 小时执行(IRCC 明文)。两个上限:连续假期>150天只能工作前150天;全年假期无限制工时总天数≤180天。
+//      ⚠️关键约束:ESL/FSL 语言课在读期间**不得校外打工** → "先读语言班再进正课"的第一年为零打工收入。
+//   ②📊2026 学签配额结构展开:总目标 **408,000**(新入境 155,000 + 境内延期 253,000;较 2025 的 437,000 降 7%);PAL/TAL 类签发目标 **180,000**、配套申请席位 **309,670**。
+//      省份配额(签发目标/申请席位):安省 70,074/104,780(38.9%)、魁省 39,474/93,069(21.9%)、BC 24,786/32,596(13.8%)、阿省 21,582/32,271(12.0%)、
+//      曼省 6,534/11,196、萨省 5,436/11,349、新斯科舍 4,680/8,480、新不伦瑞克 3,726/8,004、纽芬兰 2,358/5,507、PEI 774/1,376。
+//      → 安省+魁省占约 2/3 席位;曼省/萨省/大西洋省份竞争面更窄 → 第三梯队保底校(曼尼托巴/萨省/戴尔豪斯/纽芬兰纪念)的 PAL 环节压力反而更小。
+//      📉规模背景:2025 年新入境国际学生较 2024 减少约 61%(-177,595);在加国际学生总数同比降 29%(约 72.5 万);2025 学签拒签率 59%(2024 为 52%)。
+//   ③🏠康考迪亚补充确认(2026-09-16 第二来源 Stellar Advisers):**Grey Nuns 宿舍 2027-28 不开放**(2027 住宿申请尚未公布,勿套用 Fall 2026 日期);
+//      自建系统不走 OUAC、最多 3 志愿(至多 1 个 BComm);秋 3/1(国际生建议 2/1)、冬 11/1(国际生建议 8/1)与现表一致;
+//      门槛参考(加拿大高中口径):BCompSc = 总体 B + 数学 B+;BEng = 总体 B+ + 数学 A− + 物理 A−;心理学 = CEGEP 27.5 / 高中 B。
+//   ④📅约克 Winter 2027 截止 **11/18** 升级为"多来源一致"(4S Study Abroad 独立复核);Fall 2027 国际生约 3/24 仍待官网核实。
+//   ⑤🇦🇺UNSW 国际大一(Diploma)2027 取消 5 月批次 → 多来源一致(仅保留 1 月与 8 月);方向门槛(未入结论字段):商科高考总分67%或高三均分94%、IELTS6.5(写作6.0);理科高三均分85%+数学90%、IELTS6.0(写作6.0)。
+//      Eynesbury College(阿德莱德通道)官网复核:2027 学费 A$36,200、IELTS 5.5(单项≥5.0)、须完成澳洲 Year 11 或等效 → 与现表一致,你 5.0(听力/阅读4.5)不达标。
+//   ⑥复核无变化(官方):UBC 2027 全量节点、多大 2027 三张表、UTM IFP 官网页(Sept 2027 首开;门槛与截止仍未公布)、OUAC Group A 本科截止 2027-01-15、
+//      麦马申请轮次与学术日历 2026-2027、IRCC 学签资金 23,448 —— 9 个专业方向 GPA/雅思门槛零变动,各校语言门槛与双录通道无放宽无收窄。
+//   ⑦⚠️持续不采纳(连续 6 日):新东方系"多大文理网申 2/2、材料 2/16"(官网汇总页 future.utoronto.ca 为 1/15+2/1;该说法源自 uoft.ca 官方子域 IFP 页,
+//      口径冲突已记录于 UTSG 字段);同一新文称"运动机能学、护理 1/15 截止"亦与官方(材料 2/1)不符。
+//   ⑧📚中外合办按地区增补(深圳/广州/上海/江苏/宁波):新增可确认门槛 = **南京理工 2+2 雅思≥5.0 免笔试**;
+//      **上海外国语、上海财经 1.5+2/2+2 要求雅思 5.0–5.5 + 面试**(你 5.0 处门槛下沿);累计对雅思 5.0 开放的国际本科项目已达 8 条线。
 // ▲本次更新(2026-09-15): ⚠️多大 Arts&Science 截止口径出现官方子域冲突 + 🎓Pearson 奖学金节点补全 + UTM 官方页面细化
 //   ①⚠️**多大 Arts&Science 截止口径冲突升级(今日最需要你决策的一条)**:多大国际项目官网 IFP 专页(internationalprograms.utoronto.ca)明确写
 //      "Application deadlines have been extended for the following programs in the Faculty of Arts and Science — New Deadline: **February 1, 2027**",
