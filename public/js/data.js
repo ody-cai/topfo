@@ -14,7 +14,7 @@ const TIERS = [
 
 const SCHOOLS = {
   t1:[
-    {name:'多大·圣乔治',city:'多伦多',prov:'安省',deadline:'2027季:申请1/15(推荐早申11/7);材料:工程/音乐1/15,其余2/1;补充:工程(OSP)/音乐1/15,其余2/1;⚠️口径冲突(9/15新增):多大国际项目官网IFP页称Arts&Sci的CS/人文/生命科学/社科/数理申请已延至2/1、材料延至2/16,但future.utoronto.ca官方汇总页仍为申请1/15/材料2/1→按1/15执行;🎓Lester B. Pearson国际奖学金2027:校提名10/9(noon EST)、OUAC入学申请10/16、奖学金材料11/6',tuition:'42,000-62,000',tuitionRMB:'21-34万',programs:{
+    {name:'多大·圣乔治',city:'多伦多',prov:'安省',deadline:'2027季:申请1/15(推荐早申11/7);材料:工程/音乐1/15,其余2/1;补充:工程(OSP)/音乐1/15,其余2/1;✅截止口径冲突已结案(9/20实抓 future.utoronto.ca/deadlines 2027 三张表):材料截止=工程1/15、音乐1/15,建筑/A&S–Rotman/A&S–其余/iSchool/运动机能/UTM/UTSC=2/1;补充申请=工程OSP1/15、音乐问卷1/15,建筑(One Idea)/Rotman/CS/运动机能/UTSC=2/1;该页已不再出现「2/16」(此前IFP子页表述判定为笔误/过期)→最终按申请1/15(推荐早申11/7)·材料2/1执行;🎓Lester B. Pearson国际奖学金2027:校提名10/9(noon EST)、OUAC入学申请10/16、奖学金材料11/6',tuition:'42,000-62,000',tuitionRMB:'21-34万',programs:{
       eng:{gpa:'92-95%',label:'hard',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'yes',coop_note:'PEY Co-op',note:'工程无IFP双录!须直录雅思6.5',note_detail:'⚠️2026-27/2027-28 IFP官网仅覆盖Arts&Science/建筑景观设计/音乐，不含工程(须直录6.5(6.0));OUInfo仍列示IFP-Engineering旧条目(TUH,区间mid-80s~low90s),2027-28是否实际招生需向工程学院确认'},
       cs:{gpa:'93%(comp)/97.2%(median)',label:'hard',ielts:'6.5(6.0)',dual:'yes',dual_type:'IFP(Arts&Sci/Arch/Music)',dual_thr:'5.0-6.5(写作5.5/单项≥5.0)',coop:'yes',coop_note:'PEY Co-op',note:'CS竞争均分93%但录取中位97.2%;IFP覆盖Arts&Sci含CS',note_detail:'🆕已确认(2026-09-11):多大已完成校内审批,自2027-09-01起推出新的四年制荣誉学位BCS(Bachelor of Computer Science),覆盖三校区CS相关项目——UTSG:CS专修/主修、数据科学专修、生物信息学与计算生物学专修;2026-27 IFP覆盖Arts&Science(含CS/数学/心理)、建筑景观设计、音乐；新门槛单项≥5.0你听力/阅读4.5未达标'},
       math:{gpa:'85-90%',label:'close',ielts:'6.5(6.0)',dual:'yes',dual_type:'IFP(Arts&Sci/Arch/Music)',dual_thr:'5.0-6.5(写作5.5/单项≥5.0)',coop:'yes',coop_note:'',note:'IFP含Arts&Sci数学;门槛单项≥5.0你不够',note_detail:'2026-27 IFP覆盖Arts&Science(含数学)、建筑景观设计、音乐；新门槛单项≥5.0你听力/阅读4.5未达标'},
@@ -24,7 +24,7 @@ const SCHOOLS = {
       sci:{gpa:'85-90%',label:'close',ielts:'6.5(6.0)',dual:'yes',dual_type:'IFP(Arts&Sci/Arch/Music)',dual_thr:'5.0-6.5(写作5.5/单项≥5.0)',coop:'no',coop_note:'',note:'IFP含Arts&Sci理科;门槛单项≥5.0你不够',note_detail:'2026-27 IFP覆盖Arts&Science、建筑景观设计、音乐；新门槛单项≥5.0你听力/阅读4.5未达标'},
       social:{gpa:'80-85%',label:'close',ielts:'6.5(6.0)',dual:'yes',dual_type:'IFP(Arts&Sci/Arch/Music)',dual_thr:'5.0-6.5(写作5.5/单项≥5.0)',coop:'no',coop_note:'',note:'IFP含Arts&Sci社科;门槛单项≥5.0你不够',note_detail:'2026-27 IFP覆盖Arts&Science、建筑景观设计、音乐；新门槛单项≥5.0你听力/阅读4.5未达标'}
     }},
-    {name:'UBC·温哥华',city:'温哥华',prov:'BC省',deadline:'2027季:10月初开放申请(2027冬季学期+2027夏季学期5-8月同期开放);申请1/15;ELAS语言材料2/15;国际生奖学金轮11/15',tuition:'40,000-48,000',tuitionRMB:'20-25万',programs:{
+    {name:'UBC·温哥华',city:'温哥华',prov:'BC省',deadline:'2027季(官网you.ubc.ca 9/18核实):10月初开放申请(2027冬季学期+2027夏季学期5-8月同期开放);申请截止1/15(PT23:59);ELAS语言材料2/15;国际生奖学金轮11/15(2026-11-15);🆕境外高中申请者材料截止2027-03-15(官网Dates&Deadlines新增节点);🆕2026-09-20(DET官方口径复核):本科直录接受 Duolingo(总分125/阅读115/听力115/写作120/口语120),温哥华与奥卡纳根两校区同口径;2027年5月/9月入学起研究生录取亦开始接受 DET(同分项口径,个别院系可更高)。⚠️不构成降门槛:Vantage 仍为 5.5(听说5.0/读写5.5)',tuition:'40,000-48,000',tuitionRMB:'20-25万',programs:{
       eng:{gpa:'90-94%',label:'hard',ielts:'6.5(6.0)',dual:'yes',dual_type:'Vantage(One Engineering)',dual_thr:'5.5(听说5.0/读写5.5)',coop:'yes',coop_note:'Engineering Co-op',note:'Vantage需5.5未达标;CAP 6.0',note_detail:'⚠️2026-27官方Vantage最低雅思5.5(听说≥5.0/读写≥5.5)，你5.0未达标;Vantage One现仅剩Engineering/Science两轨(Management无限期暂停);另有CAP条件录取需6.0(单项≥5.5)'},
       cs:{gpa:'92-95%',label:'hard',ielts:'6.5(6.0)',dual:'yes',dual_type:'Vantage(One Science可修CS)',dual_thr:'5.5(听说5.0/读写5.5)',coop:'yes',coop_note:'CS Co-op',note:'Vantage需5.5未达标',note_detail:'⚠️Vantage官方最低雅思5.5(听说≥5.0/读写≥5.5)，你5.0未达标;CS可经Vantage One Science衔接或直入Science后进CS;CAP需6.0(单项≥5.5)'},
       math:{gpa:'85-90%',label:'close',ielts:'6.5(6.0)',dual:'yes',dual_type:'Vantage(One Science)',dual_thr:'5.5(听说5.0/读写5.5)',coop:'yes',coop_note:'',note:'Vantage需5.5未达标',note_detail:'⚠️Vantage官方最低雅思5.5(听说≥5.0/读写≥5.5)，你5.0未达标;建议先冲雅思总分5.5且读写5.5'},
@@ -44,7 +44,7 @@ const SCHOOLS = {
       sci:{gpa:'85-90%',label:'close',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'no',coop_note:'',note:'须直录',note_detail:''},
       social:{gpa:'80-85%',label:'close',ielts:'6.5(6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'no',coop_note:'',note:'须直录',note_detail:''}
     }},
-    {name:'滑铁卢',city:'滑铁卢',prov:'安省',deadline:'2027季:工程申请1/15(材料2/1);其余专业申请2/1(材料2/15)',tuition:'40,000-48,000',tuitionRMB:'20-25万',programs:{
+    {name:'滑铁卢',city:'滑铁卢',prov:'安省',deadline:'2027季:工程申请1/15(材料2/1);其余专业申请2/1(材料2/15);🆕语言成绩有效期(官网9/18核实):仅接受2025-05-01及之后考出的成绩,更早的作废;另IELTS总分7.0且各项≥6.0亦可满足直录',tuition:'40,000-48,000',tuitionRMB:'20-25万',programs:{
       eng:{gpa:'90-95%',label:'hard',ielts:'6.5(写作口语6.5/其余6.0)',dual:'limit',dual_type:'BASE仅工程',dual_thr:'5.5(写作5.5)',coop:'yes',coop_note:'全球最强Co-op体系',note:'BASE仅工程方向',note_detail:'BASE不含建筑/生物医学/系统设计;🆕中介口径(待官网核实):2027季工程全部申请者须线上视频面试+AIF,重修课程取最高一次成绩不扣分,新增数据科学主修/生物医学科学可直接申请'},
       cs:{gpa:'97-98%',label:'hard',ielts:'6.5(写作口语6.5/其余6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'yes',coop_note:'全球最强Co-op体系',note:'CS几乎最难进',note_detail:''},
       math:{gpa:'85-90%',label:'close',ielts:'6.5(写作口语6.5/其余6.0)',dual:'no',dual_type:'—',dual_thr:'—',coop:'yes',coop_note:'',note:'须直录+高雅思',note_detail:'写作口语6.5是高门槛'},
@@ -106,7 +106,7 @@ const SCHOOLS = {
       sci:{gpa:'75-80%',label:'ok',ielts:'6.5(写作6.5/其余6.0)',dual:'yes',dual_type:'EIP',dual_thr:'4.0+',coop:'yes',coop_note:'',note:'你雅思5.0已达标!',note_detail:''},
       social:{gpa:'80-85%',label:'ok',ielts:'6.5(写作6.5/其余6.0)',dual:'yes',dual_type:'EIP',dual_thr:'4.0+',coop:'no',coop_note:'',note:'你雅思5.0已达标!',note_detail:''}
     }},
-    {name:'韦士敦',city:'伦敦',prov:'安省',deadline:'2027-01-15平等考虑(Ivey AEO同日)',tuition:'32,000-38,000',tuitionRMB:'16-19万',programs:{
+    {name:'韦士敦',city:'伦敦',prov:'安省',deadline:'2027-01-15平等考虑;🆕2026-09-20(Ivey官方×第三方交叉核实):Ivey AEO 补充申请与本科网申同日 2027-01-15 截止,含奖项栏+2篇500词活动文书+至多5项活动+Kira视频面试,申请费$200;AEO学术线:Top6均分 low 90s(含ENG4U)+1门12年级U数学(MHF4U/MCV4U/MDM4U,无偏好);⚠️OUAC勾选AEO仅表示意向、不等于完成申请,须另在Ivey官网建号提交;Western录取与Ivey AEO录取分两次发出、须分别接受(过期不可恢复)',tuition:'32,000-38,000',tuitionRMB:'16-19万',programs:{
       eng:{gpa:'91%',label:'hard',ielts:'6.5(6.0)',dual:'yes',dual_type:'Boost',dual_thr:'总分5.5(读写5.5/听说5.0)',coop:'yes',coop_note:'Engineering Co-op',note:'你听力阅读4.5不够Boost',note_detail:'Boost9周读完免雅思，但你听力4.5<门槛5.0'},
       cs:{gpa:'84%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'Boost',dual_thr:'总分5.5(读写5.5/听说5.0)',coop:'yes',coop_note:'',note:'GPA够但Boost门槛不够',note_detail:''},
       math:{gpa:'mid 70s',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'Boost',dual_thr:'总分5.5(读写5.5/听说5.0)',coop:'no',coop_note:'',note:'',note_detail:''},
@@ -116,7 +116,7 @@ const SCHOOLS = {
       sci:{gpa:'80-85%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'Boost',dual_thr:'总分5.5(读写5.5/听说5.0)',coop:'yes',coop_note:'',note:'',note_detail:''},
       social:{gpa:'80-85%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'Boost',dual_thr:'总分5.5(读写5.5/听说5.0)',coop:'no',coop_note:'',note:'',note_detail:''}
     }},
-    {name:'麦克马斯特',city:'哈密尔顿',prov:'安省',deadline:'2027季:推荐截止1/15;工程/CS/iBioMed/B.Tech须工程补充申请(3视频+1书面);入学奖(AwardSpring)截止2027-02-19 23:59 ET,卓越奖最高CAD 20万',tuition:'34,000-42,000',tuitionRMB:'17-21万',programs:{
+    {name:'麦克马斯特',city:'哈密尔顿',prov:'安省',deadline:'2027季(官方9/18核实):推荐截止1/15;🆕补充申请截止逐项:CS/工程/B.Tech/iBioMed=2027-01-28 23:59ET(Kira Talent,同院多专业只填一次)、Arts&Science/IBH/WCLCS=2/1、Integrated Science=2/2、Health Sciences≈2月中、Nursing以CASPer考期为准;入学奖(AwardSpring)截止2027-02-19 23:59 ET,卓越奖最高CAD 20万',tuition:'34,000-42,000',tuitionRMB:'17-21万',programs:{
       eng:{gpa:'92%',label:'hard',ielts:'6.5(6.0)',dual:'yes',dual_type:'MELD+STEP',dual_thr:'MELD:5.0/STEP:6.5(读写6.0听说5.5)',coop:'yes',coop_note:'全部工程Co-op',note:'工程GPA差2.4分;你雅思5.0已达标MELD!',note_detail:'麦马工程92%你差2.4分；MELD(1年)门槛5.0你达标!🆕2026Fall起完成MELD可获12本科学分(4门课不再白读);STEP(7周夏)门槛6.5你不够；⚠️中加学籍学生必须提交雅思成绩;🆕已确认(2026-09-11):2027Fall起工程/iBioMed改双路径——Discovery Track(大一通识后按志愿+GPA+名额选拔,保证大二工程席位但不保证第一志愿)/Direct Program Track(高中申请即锁定具体工程方向,大一保持成绩即提前锁定);申请时同一项目内可按顺序填最多2个路径、优先审第一选择;另新增本科核工程(2027年9月起:核工程学士/核工程与社会4年/核工程与管理5年,均含Co-op)'},
       cs:{gpa:'94%',label:'hard',ielts:'6.5(6.0)',dual:'yes',dual_type:'MELD+STEP',dual_thr:'MELD:5.0/STEP:6.5(读写6.0听说5.5)',coop:'yes',coop_note:'',note:'CS差5分;你雅思5.0已达标MELD!',note_detail:'🆕2026Fall起完成MELD可获12本科学分(4门课不再白读);⚠️中加学籍学生必须提交雅思成绩'},
       math:{gpa:'85%',label:'close',ielts:'6.5(6.0)',dual:'yes',dual_type:'MELD+STEP',dual_thr:'MELD:5.0/STEP:6.5(读写6.0听说5.5)',coop:'yes',coop_note:'',note:'你踩线!MELD门槛5.0你达标',note_detail:'麦马数学85%你刚好踩线；MELD(1年)门槛5.0你达标；🆕2026Fall起完成MELD可获12本科学分(4门课不再白读)；⚠️中加学籍学生必须提交雅思成绩'},
@@ -126,7 +126,7 @@ const SCHOOLS = {
       sci:{gpa:'80-85%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'MELD+STEP',dual_thr:'MELD:5.0/STEP:6.5(读写6.0听说5.5)',coop:'yes',coop_note:'',note:'MELD门槛5.0你达标',note_detail:'🆕2026Fall起完成MELD可获12本科学分(4门课不再白读);⚠️中加学籍学生必须提交雅思成绩'},
       social:{gpa:'80-85%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'MELD+STEP',dual_thr:'MELD:5.0/STEP:6.5(读写6.0听说5.5)',coop:'no',coop_note:'',note:'MELD门槛5.0你达标',note_detail:'🆕2026Fall起完成MELD可获12本科学分(4门课不再白读);⚠️中加学籍学生必须提交雅思成绩'}
     }},
-    {name:'皇后',city:'金斯顿',prov:'安省',deadline:'2月1日(国际生);⚠️待官网核实(中介口径):2027冬季入学面向国际生(BA/BSc/BCmp/HealthSci),网申约9/30、材料10/15',tuition:'34,000-42,000',tuitionRMB:'17-21万',programs:{
+    {name:'皇后',city:'金斯顿',prov:'安省',deadline:'2月1日(国际生);🆕2026-09-20升级为多来源一致:2027冬季(1月)入学面向国际生开放,专业含 BA/BSc/BCmp/HealthSci,网申约9/30、材料10/15——OUAC冬季入学官方页已确认「Queen’s 部分专业提供1月入学入口、仅限一年级申请者」,具体日期仍为中介口径',tuition:'34,000-42,000',tuitionRMB:'17-21万',programs:{
       eng:{gpa:'88%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'Q-Bridge',dual_thr:'5.5(EAP)/6.0(Accel)',coop:'yes',coop_note:'',note:'GPA够!超1.6分;EAP 5.5/Accel 6.0',note_detail:'2026 Q-Bridge分EAP(5.5)和Accelerated(6.0)两轨；你雅思5.0未达标；📊2026Fall录取实况(女王官网Gazette)：共64,400份申请(+8%创纪录)，录取新生平均高中均分92.3%——竞争度明显上移'},
       cs:{gpa:'85-90%',label:'close',ielts:'6.5(6.0)',dual:'yes',dual_type:'Q-Bridge',dual_thr:'5.5(EAP)/6.0(Accel)',coop:'no',coop_note:'',note:'EAP 5.5/Accel 6.0',note_detail:'2026 Q-Bridge分EAP(5.5)和Accelerated(6.0)两轨；你雅思5.0未达标；📊2026Fall录取实况(女王官网Gazette)：共64,400份申请(+8%创纪录)，录取新生平均高中均分92.3%——竞争度明显上移'},
       math:{gpa:'80-85%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'Q-Bridge',dual_thr:'5.5(EAP)/6.0(Accel)',coop:'no',coop_note:'',note:'EAP 5.5/Accel 6.0',note_detail:'2026 Q-Bridge分EAP(5.5)和Accelerated(6.0)两轨；你雅思5.0未达标；📊2026Fall录取实况(女王官网Gazette)：共64,400份申请(+8%创纪录)，录取新生平均高中均分92.3%——竞争度明显上移'},
@@ -168,7 +168,7 @@ const SCHOOLS = {
       sci:{gpa:'75-80%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:''},
       social:{gpa:'70-75%',label:'ok',ielts:'6.5(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:''}
     }},
-    {name:'SFU',city:'温哥华',prov:'BC省',deadline:'2月28日',tuition:'26,000-34,000',tuitionRMB:'13-17万',programs:{
+    {name:'SFU',city:'温哥华',prov:'BC省',deadline:'2月28日;🆕2026-09-20(官方参议院文件S.26-55,2026-03-06决议/Fall 2026起生效):本科英语要求认可考试更新——①新增认可 LanguageCert Academic(总分≥70、单项≥65);②Duolingo 由疫情期间「临时认可」改为「永久认可」(总分125);③TOEFL 更新为新制6分制(总分4.5、单项≥4.0);⚠️对新门槛无影响:Duolingo 125≈雅思6.5,5.0仍须走 FIC 桥梁(5.0+)。⚠️持续不采纳(中介口径):商科/CS「隐性语言门槛雅思7.0(单项6.5)」,与SFU官网明示6.5(单项6.0)不符',tuition:'26,000-34,000',tuitionRMB:'13-17万',programs:{
       eng:{gpa:'80-85%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'FIC桥梁',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'你雅思5.0已达标!',note_detail:'FIC桥梁课程→SFU，温哥华地理位置好'},
       cs:{gpa:'80-85%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'FIC桥梁',dual_thr:'5.0+',coop:'yes',coop_note:'CS Co-op',note:'你雅思5.0已达标!',note_detail:''},
       math:{gpa:'75-80%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'FIC桥梁',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'',note_detail:''},
@@ -188,7 +188,7 @@ const SCHOOLS = {
       sci:{gpa:'75-80%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'UAP:6.0(5.5)/桥梁:5.5(5.0)',coop:'yes',coop_note:'',note:'',note_detail:''},
       social:{gpa:'70-75%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'UAP:6.0(5.5)/桥梁:5.5(5.0)',coop:'no',coop_note:'',note:'',note_detail:''}
     }},
-    {name:'卡尔顿',city:'渥太华',prov:'安省',deadline:'常规3/31;冬季截止11/15;夏季截止3/1',tuition:'26,000-34,000',tuitionRMB:'13-17万',programs:{
+    {name:'卡尔顿',city:'渥太华',prov:'安省',deadline:'常规3/31;冬季截止11/15;夏季截止3/1;🆕2026-09-20(官网项目页英语要求核实):认可考试口径——IELTS 6.5(各项≥6.0)、TOEFL 新制4.5(各项≥4.0)、Duolingo 120(写/读/说110、听105)、CAEL 70(各项60)、PTE 55(沟通技能47)、Cambridge 176(各项169);亦可凭 AP英语(≥4) 或 IB英语A(HL/SL≥4) 满足',tuition:'26,000-34,000',tuitionRMB:'13-17万',programs:{
       eng:{gpa:'78-84%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'与渥太华同城',note_detail:''},
       cs:{gpa:'78-84%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'CS Co-op',note:'',note_detail:''},
       math:{gpa:'75-80%',label:'ok',ielts:'6.5(6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:''},
@@ -278,7 +278,7 @@ const SCHOOLS = {
       sci:{gpa:'70-75%',label:'ok',ielts:'6.5(读写6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'',note_detail:'2026起直录雅思要求读写单项≥6.0'},
       social:{gpa:'65-70%',label:'ok',ielts:'6.5(读写6.0)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:'2026起直录雅思要求读写单项≥6.0'}
     }},
-    {name:'康考迪亚',city:'蒙特利尔',prov:'魁省',deadline:'常设:秋季3/1(国际生建议2/1);冬季11/1(国际生建议8/1);自建系统(不走OUAC),最多填3个志愿(至多1个BComm);⚠️Grey Nuns宿舍2027-28不开放(9/16第二来源确认),2027住宿申请尚未公布',tuition:'22,000-28,000',tuitionRMB:'11-14万',programs:{
+    {name:'康考迪亚',city:'蒙特利尔',prov:'魁省',deadline:'常设:秋季3/1(美/国际生建议2/1);冬季11/1(美/国际生建议8/1);自建系统(不走OUAC),最多填3个志愿(至多1个BComm);🆕英语成绩须<2年有效且收到校方通知后3周内提交(9/18核实);申请类入学奖2026-10重新开放;⚠️Grey Nuns宿舍2027-28不开放,2027住宿申请尚未公布',tuition:'22,000-28,000',tuitionRMB:'11-14万',programs:{
       eng:{gpa:'75-80%',label:'ok',ielts:'6.0(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'',note:'蒙特利尔',note_detail:'🆕2026-27官网确认:本科直录IELTS 6.0(单项≥5.5)；未达标者可能被录取但需入学修ESL课程'},
       cs:{gpa:'75-80%',label:'ok',ielts:'6.0(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'yes',coop_note:'CS Co-op',note:'',note_detail:'🆕2026-27官网确认:本科直录IELTS 6.0(单项≥5.5)；未达标者可能被录取但需入学修ESL课程'},
       math:{gpa:'70-75%',label:'ok',ielts:'6.0(5.5)',dual:'yes',dual_type:'ESL',dual_thr:'5.0+',coop:'no',coop_note:'',note:'',note_detail:'🆕2026-27官网确认:本科直录IELTS 6.0(单项≥5.5)；未达标者可能被录取但需入学修ESL课程'},
@@ -323,8 +323,8 @@ const SCHOOLS = {
   ]
 };
 
-// delpoy_rev_91916
-// 最后更新: 2026-09-16
+// delpoy_rev_91920
+// 最后更新: 2026-09-18
 // ▲本次更新(2026-09-16): 今日**无院校录取门槛变化**;实质新增 = IRCC 规则细节确认 + 3 项"多来源一致"升级 + 中外合办按地区增补
 //   ①✅IRCC 校外工作时长官方确认 **24 小时/周**(canada.ca "Work off campus" 页,2026-09-10 修订版):学期内上限 24h;学校排定的连续≥7天假期可无限制小时;
 //      即使学签旧条件印的是"may work 20 hours per week off campus",仍可按 24 小时执行(IRCC 明文)。两个上限:连续假期>150天只能工作前150天;全年假期无限制工时总天数≤180天。
