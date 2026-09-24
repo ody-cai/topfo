@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>申请作战清单 · 10月行动日历 · 升学数据</title>
+<style>
+:root{
+  --c-bg:#F8F7F4;--c-surface:#FFFFFF;--c-text:#1A1A1A;--c-text-secondary:#7C7C75;--c-text-tertiary:#A8A8A0;
+  --c-border:#E5E3DD;--c-border-strong:#C4C1B6;--c-accent:#4F46E5;--c-accent-hover:#4338CA;--c-accent-light:#EEEDFE;
+  --c-success:#155E2E;--c-success-bg:#E1F5EE;--c-warning:#BA6124;--c-warning-bg:#FAEEDA;
+  --c-danger:#A32D2D;--c-danger-bg:#FCEBEB;
+  --c-tier1:#FCEBEB;--c-tier1-text:#791F1F;--c-tier2:#E6F1FB;--c-tier2-text:#0C447C;
+  --c-tier3:#EAF3DE;--c-tier3-text:#27500A;--c-au:#FAEEDA;--c-au-text:#633806;
+  --radius-sm:8px;--radius-md:12px;--radius-lg:16px;
+  --shadow-sm:0 1px 3px rgba(0,0,0,.06);--shadow-md:0 4px 16px rgba(0,0,0,.08);--shadow-lg:0 12px 40px rgba(0,0,0,.1);
+  --font-sans:-apple-system,"PingFang SC","Noto Sans SC","Microsoft YaHei",sans-serif;
+  --transition:.2s cubic-bezier(.4,0,.2,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-sans);background:var(--c-bg);color:var(--c-text);line-height:1.6;-webkit-font-smoothing:antialiased}
+
+.nav-bar{background:var(--c-surface);border-bottom:1px solid var(--c-border);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.nav-logo{font-size:16px;font-weight:600;color:var(--c-text);text-decoration:none;display:flex;align-items:center;gap:8px}
+.nav-logo .dot{display:inline-block;width:8px;height:8px;background:var(--c-accent);border-radius:50%}
+.nav-links{display:flex;gap:4px;align-items:center;flex-wrap:wrap}
+.nav-link{font-size:13px;color:var(--c-text-secondary);text-decoration:none;padding:6px 14px;border-radius:var(--radius-sm);transition:all var(--transition);font-weight:500}
+.nav-link:hover{background:var(--c-bg);color:var(--c-text)}
+.nav-link.active{background:var(--c-accent-light);color:var(--c-accent)}
+
+.page-container{max-width:1180px;margin:0 auto;padding:20px 24px 60px}
+.back-link{font-size:12px;color:var(--c-text-secondary);text-decoration:none;display:inline-block;margin-bottom:8px}
+.back-link:hover{color:var(--c-accent)}
+.page-header{padding:8px 0 16px}
+.page-header h1{font-size:22px;font-weight:600}
+.page-header .subtitle{font-size:13px;color:var(--c-text-secondary);margin-top:4px}
+
+.profile-bar{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.profile-item{padding:5px 12px;border-radius:6px;font-size:12px;font-weight:500}
+.profile-item.gpa{background:var(--c-success-bg);color:var(--c-success)}
+.profile-item.ielts{background:var(--c-danger-bg);color:var(--c-danger)}
+.profile-item.target{background:var(--c-accent-light);color:var(--c-accent)}
+
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin-bottom:20px}
+.summary-card{background:var(--c-surface);border:1px solid var(--c-border);border-radius:var(--radius-md);padding:14px 16px}
+.summary-card .label{font-size:11px;font-weight:600;color:var(--c-text-secondary);letter-spacing:.3px;margin-bottom:6px}
+.summary-card .value{font-size:15px;font-weight:600;color:var(--c-text);margin-bottom:4px}
+.summary-card .value.green{color:var(--c-success)}
+.summary-card .value.amber{color:var(--c-warning)}
+.summary-card .value.red{color:var(--c-danger)}
+.summary-card .hint{font-size:11px;color:var(--c-text-tertiary);line-height:1.5}
+.summary-card.accent{border-color:var(--c-accent);background:linear-gradient(180deg,var(--c-accent-light),var(--c-surface) 70%)}
+
+.tabs{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+.tab-btn{font-size:12.5px;padding:7px 14px;border-radius:8px;border:1px solid var(--c-border-strong);background:var(--c-surface);color:var(--c-text);cursor:pointer;transition:all var(--transition);font-weight:500}
+.tab-btn.active{background:var(--c-accent);color:#fff;border-color:var(--c-accent)}
+.tab-btn:hover:not(.active){border-color:var(--c-accent);color:var(--c-accent)}
+
+.filters{background:var(--c-surface);border:1px solid var(--c-border);border-radius:var(--radius-md);padding:10px 14px;display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-bottom:16px}
+.filters .lab{font-size:12px;color:var(--c-text-secondary);font-weight:500;margin-right:2px}
+.chip{font-size:11.5px;padding:4px 11px;border-radius:999px;border:1px solid var(--c-border-strong);background:var(--c-surface);color:var(--c-text-secondary);cursor:pointer;transition:all var(--transition)}
+.chip.active{background:var(--c-accent);color:#fff;border-color:var(--c-accent)}
+.chip:hover:not(.active){border-color:var(--c-accent);color:var(--c-accent)}
+
+.group{border-radius:var(--radius-md);border:1px solid var(--c-border);background:var(--c-surface);margin-bottom:18px;overflow:hidden}
+.group-head{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--c-border);flex-wrap:wrap}
+.group-badge{font-size:11px;padding:3px 10px;border-radius:6px;font-weight:600;white-space:nowrap}
+.group-badge.t1{background:var(--c-tier1);color:var(--c-tier1-text)}
+.group-badge.t2{background:var(--c-tier2);color:var(--c-tier2-text)}
+.group-badge.t3{background:var(--c-tier3);color:var(--c-tier3-text)}
+.group-badge.au{background:var(--c-au);color:var(--c-au-text)}
+.group-head .gtitle{font-size:14px;font-weight:600}
+.group-head .gdesc{font-size:11.5px;color:var(--c-text-secondary)}
+.group-body{padding:14px 16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:12px}
+
+.card{border:1px solid var(--c-border);border-radius:10px;padding:13px 15px;background:var(--c-surface);transition:all var(--transition)}
+.card:hover{border-color:var(--c-accent);box-shadow:var(--shadow-md)}
+.card.p1{border-left:3px solid var(--c-success)}
+.card.p2{border-left:3px solid var(--c-warning)}
+.card.p3{border-left:3px solid var(--c-danger)}
+.card-top{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:8px}
+.card-top .nm{font-size:14px;font-weight:600}
+.card-top .loc{font-size:10.5px;color:var(--c-text-tertiary);white-space:nowrap}
+.rowline{display:flex;gap:6px;font-size:11.5px;margin-bottom:5px;align-items:flex-start}
+.rowline .k{color:var(--c-text-secondary);flex:0 0 52px;font-weight:500}
+.rowline .v{color:var(--c-text);flex:1;line-height:1.5}
+.tag{display:inline-block;font-size:10px;padding:1.5px 7px;border-radius:4px;font-weight:600;margin-left:6px;white-space:nowrap}
+.tag.ok{background:var(--c-success-bg);color:var(--c-success)}
+.tag.mid{background:var(--c-warning-bg);color:var(--c-warning)}
+.tag.bad{background:var(--c-danger-bg);color:var(--c-danger)}
+.dl{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.dl span{font-size:10.5px;padding:2px 8px;border-radius:5px;background:var(--c-bg);border:1px solid var(--c-border);color:var(--c-text-secondary);white-space:nowrap}
+.dl span.hot{background:var(--c-danger-bg);border-color:var(--c-danger);color:var(--c-danger);font-weight:600}
+.dl span.soon{background:var(--c-warning-bg);border-color:var(--c-warning);color:var(--c-warning);font-weight:600}
+.cardnote{margin-top:9px;padding-top:9px;border-top:1px dashed var(--c-border);font-size:11px;color:var(--c-text-secondary);line-height:1.6}
+.cardnote b{color:var(--c-text)}
+
+.tl{position:relative;padding-left:22px}
+.tl:before{content:"";position:absolute;left:6px;top:6px;bottom:6px;width:2px;background:var(--c-border)}
+.tl-item{position:relative;margin-bottom:12px}
+.tl-item:before{content:"";position:absolute;left:-20px;top:8px;width:10px;height:10px;border-radius:50%;background:var(--c-surface);border:2px solid var(--c-border-strong)}
+.tl-item.hot:before{border-color:var(--c-danger);background:var(--c-danger)}
+.tl-item.warn:before{border-color:var(--c-warning);background:var(--c-warning)}
+.tl-item.info:before{border-color:var(--c-accent);background:var(--c-accent)}
+.tl-date{font-size:11px;font-weight:700;color:var(--c-text-secondary);letter-spacing:.2px}
+.tl-card{background:var(--c-surface);border:1px solid var(--c-border);border-radius:10px;padding:11px 14px;margin-top:4px}
+.tl-card .t{font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tl-card .d{font-size:11.5px;color:var(--c-text-secondary);margin-top:4px;line-height:1.6}
+.count{font-size:10px;padding:1.5px 7px;border-radius:999px;font-weight:700;white-space:nowrap}
+.count.hot{background:var(--c-danger);color:#fff}
+.count.warn{background:var(--c-warning);color:#fff}
+.count.info{background:var(--c-accent-light);color:var(--c-accent)}
+.count.past{background:var(--c-bg);color:var(--c-text-tertiary)}
+
+table.dt{width:100%;border-collapse:collapse;font-size:11.5px;background:var(--c-surface);border-radius:var(--radius-md);overflow:hidden;border:1px solid var(--c-border)}
+table.dt thead th{background:var(--c-bg);font-size:10.5px;font-weight:600;color:var(--c-text-secondary);padding:8px 10px;text-align:left;border-bottom:1px solid var(--c-border);white-space:nowrap}
+table.dt tbody td{padding:8px 10px;border-bottom:1px solid var(--c-border);vertical-align:top}
+table.dt tbody tr:hover{background:var(--c-bg)}
+table.dt td.d{font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums}
+table.dt tr.hot td.d{color:var(--c-danger)}
+table.dt tr.warn td.d{color:var(--c-warning)}
+.mono{font-size:10.5px;color:var(--c-text-tertiary)}
+
+.warnbox{background:var(--c-danger-bg);border:1px solid var(--c-danger);border-radius:var(--radius-md);padding:13px 16px;margin-bottom:18px;font-size:12px;line-height:1.7;color:var(--c-text)}
+.warnbox b{color:var(--c-danger)}
+.infobox{background:var(--c-warning-bg);border:1px solid var(--c-warning);border-radius:var(--radius-md);padding:13px 16px;margin-bottom:18px;font-size:12px;line-height:1.7;color:var(--c-text)}
+.infobox b{color:var(--c-warning)}
+.sect-title{font-size:15px;font-weight:600;margin:22px 0 10px;display:flex;align-items:center;gap:8px}
+.sect-title .bar{width:3px;height:15px;background:var(--c-accent);border-radius:2px}
+.footnote{font-size:11px;color:var(--c-text-tertiary);line-height:1.7;margin-top:24px;padding-top:14px;border-top:1px solid var(--c-border)}
+.hide{display:none!important}
+@media(max-width:640px){.nav-links{display:none}.page-container{padding:14px 14px 50px}}
+</style>
+</head>
+<body>
+
+<nav class="nav-bar">
+  <a href="../index.html" class="nav-logo"><span class="dot"></span> 升学数据</a>
+  <div class="nav-links">
+    <a href="../index.html" class="nav-link">首页</a>
+    <a href="admission.html" class="nav-link">录取对照表</a>
+    <a href="plan.html" class="nav-link active">作战清单</a>
+    <a href="timeline.html" class="nav-link">申请时间线</a>
+    <a href="rankings.html" class="nav-link">排名参考</a>
+    <a href="insights.html" class="nav-link">关键发现</a>
+  </div>
+</nav>
+
+<div class="page-container">
+  <a href="../index.html" class="back-link">← 返回首页</a>
+
+  <div class="page-header">
+    <h1>🎯 申请作战清单 · 10 月行动日历</h1>
+    <p class="subtitle">按 GPA 89.6 重排的梯队 · 每校死线与材料清单 · 以 2026-09-24 为基准日生成</p>
+  </div>
+
+  <div class="profile-bar">
+    <div class="profile-item gpa">GPA 89.6 ✅ 已确认</div>
+    <div class="profile-item ielts">雅思 5.0（写作 5.5 / 阅读 4.5 / 听力 4.5 / 口语 5.0）</div>
+    <div class="profile-item target">意向：CS / 理科综合 · 中加学籍</div>
+  </div>
+
+  <div class="warnbox">
+    <b>⚡ 一句话结论</b>：GPA 89.6 让「第一梯队全放弃」这个前提作废 —— <b>麦吉尔工程（88-92%）是真实可冲项</b>。
+    真正的瓶颈已经从 GPA 变成<b>语言</b>：你能达标的双录通道全部卡在 <b>5.5</b>，而你现在是 5.0。
+    <b>把雅思从 5.0 提到 5.5（且读写 5.5），是本月性价比最高的单一动作。</b>
+  </div>
+
+  <div class="summary-grid">
+    <div class="summary-card">
+      <div class="label">冲刺档</div>
+      <div class="value amber">4 所</div>
+      <div class="hint">麦吉尔工程 ✅ · UBC 温哥华（理科✅/工程差0.4）· 滑铁卢数学 ✅ · UTSC CS 踩线<br>语言无兜底，多数须直录</div>
+    </div>
+    <div class="summary-card accent">
+      <div class="label">现实目标</div>
+      <div class="value green">8 所</div>
+      <div class="hint">渥太华 · 阿尔伯塔 · 皇后 · 卡尔加里 · Guelph · TMU · 韦士敦CS · <b>UTM（IFP 2027 首开）</b></div>
+    </div>
+    <div class="summary-card">
+      <div class="label">保底档</div>
+      <div class="value green">13 所</div>
+      <div class="hint">曼尼托巴 · SFU · 卡尔顿 · 温莎 · 萨省 · 纽芬兰纪念 · 戴尔豪斯 · 维多利亚 · 约克理学院 · UBC Okanagan · Laurier · Brock · 康考迪亚</div>
+    </div>
+    <div class="summary-card">
+      <div class="label">💰 最值钱的一条</div>
+      <div class="value green">渥太华</div>
+      <div class="hint">奖学金门槛是入学均分 ≥80%（你稳过），<b>自动评审、不用申请</b>，4 年最高 <b>C$60,000</b>，叠加最高 C$70,000</div>
+    </div>
+  </div>
+
+  <div class="warnbox" style="background:var(--c-bg);border-color:var(--c-border)">
+    <b>🚫 明确不建议申（共 7 项，见清单末尾「不建议申」组）</b>：多大 UTSG 工程 92-95% / CS 93%（中位 97.2%）、
+    滑铁卢 CS 97-98%、麦马 工程 92% / CS 94% / 健康 96%、皇后商科与健康 94%、麦吉尔 CS 93-95%、
+    韦士敦工程 91%、TMU Nursing 92%、约克工程（雅思 7.5 且不接受双录）。
+    <b>理由不是语言，是 GPA —— 差 1.4 到 8.2 分，且加拿大按分数择优，85 分线以上申请人远超名额。</b>
+    把这些志愿换成同校你够得着的专业（皇后→工程/CS、麦吉尔→工程、约克→理学院），回报高得多。
+  </div>
+
+  <div class="infobox">
+    <b>⚠️ 三步走的时间账</b>：① <b>语言先于一切</b> —— QBridge 窗口 10 月开、UBC ISP 要求次年 1/31 前达标；② <b>签证早于 offer</b> —— IRCC 2026-07-24 新规要求
+    <b>6 个月银行流水 + 逐笔说明来源</b>，递交日往前推 6 个月，也就是<b>现在（10 月）就该把钱养在账上</b>；③ <b>截止日不是开始日</b> —— 加拿大是滚动录取，
+    PAL 名额先到先得，建议比死线提前一个月递交。
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="list">🎯 申请清单（梯队重排）</button>
+    <button class="tab-btn" data-tab="cal">📅 10 月行动日历</button>
+    <button class="tab-btn" data-tab="dl">⏰ 全量死线总表</button>
+  </div>
+
+  <!-- ============ 申请清单 ============ -->
+  <section id="tab-list">
+    <div class="filters">
+      <span class="lab">按方向筛选：</span>
+      <button class="chip active" data-prog="all">全部</button>
+      <button class="chip" data-prog="cs">计算机 CS</button>
+      <button class="chip" data-prog="eng">工程</button>
+      <button class="chip" data-prog="math">数学</button>
+      <button class="chip" data-prog="sci">理科综合</button>
+    </div>
+    <div id="groups"></div>
+  </section>
+
+  <!-- ============ 10月日历 ============ -->
+  <section id="tab-cal" class="hide">
+    <div class="sect-title"><span class="bar"></span>倒计时（基准日 2026-09-24）</div>
+    <div class="tl" id="tl"></div>
+    <div class="footnote">
+      说明：倒计时以 <b>2026-09-24</b> 为固定基准日计算，便于离线查看；实际剩余天数请以你打开页面的日期为准。
+      标红的为 30 天内、错过即无法补救的硬死线。
+    </div>
+  </section>
+
+  <!-- ============ 死线总表 ============ -->
+  <section id="tab-dl" class="hide">
+    <div class="sect-title"><span class="bar"></span>2027 入学 · 全量死线（按时间排序）</div>
+    <table class="dt">
+      <thead><tr><th style="width:110px">日期</th><th style="width:150px">院校 / 事项</th><th>内容</th><th style="width:80px">紧急度</th></tr></thead>
+      <tbody id="dlbody"></tbody>
+    </table>
+  </section>
+
+  <div class="footnote">
+    <b>数据来源</b>：本页所有死线均取自各校官网与 OUAC / QTAC 官方页（截至 2026-09-24），
+    与《加拿大大学录取要求完整对照表_2026》同源。GPA 门槛为<b>高中均分口径的直接对比</b> ——
+    各校对中加学籍 / 国际课程的换算规则不同（Top6 / 五门高三课 / 课程特定要求），
+    <b>89.6 是均分，不等于每所学校算出来的分数</b>，申请时须用各校 curriculum tool 逐校核对。<br>
+    <b>生成时间</b>：2026-09-24 · 下次日更自动同步。
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   个人档案（固定值，来自用户 2026-09-24 确认）
+   ============================================================ */
+const TODAY = '2026-09-24';
+const GPS = 89.6;
+
+/* ============================================================
+   梯队分组
+   ============================================================ */
+const GROUPS = [
+  {key:'reach', cls:'t1', title:'冲刺档', desc:'GPA 够或踩线，但语言门槛硬、几乎没有双录兜底'},
+  {key:'real',  cls:'t2', title:'现实目标', desc:'GPA 稳达标 + 有语言通道 / 双录可及 —— 主战场'},
+  {key:'safe',  cls:'t3', title:'保底档', desc:'GPA 大幅超出 + 双录门槛低 —— 兜底用'},
+  {key:'au',    cls:'au', title:'澳洲预科', desc:'门槛最低、时间可压缩，作为最后一条退路'},
+  {key:'nogo',  cls:'t1', title:'不建议申', desc:'GPA 或语言硬性不可及 —— 列出来是为了让你别浪费志愿和精力'}
+];
+
+/* ============================================================
+   院校清单
+   verdict: ok=明确达标 / mid=踩线 / bad=不可及
+   ============================================================ */
+const SC = [
+  /* ---------- 冲刺 ---------- */
+  {g:'reach', p:1, name:'麦吉尔', loc:'蒙特利尔 · 魁省', progs:['eng','math','sci','psych'],
+   gpa:'工程 88-92% · 数学/理科 85-90%', verdict:'ok', gpaNote:'89.6 落在工程区间内',
+   ielts:'6.5（单项 6.0）', langV:'bad', langPath:'几乎无双录 —— 必须直录',
+   dls:[['2026-10-01','官网开放'],['2027-01-15','申请截止'],['2027-03-01','材料截止']],
+   docs:['高中成绩单（中英对照 + 学校盖章）','雅思 6.5（单项 6.0）','申请费 C$140.16','部分专业补充材料'],
+   note:'★ <b>GPA 唯一够得着的第一梯队</b>。费用按专业定（国际本科 C$35,561–65,168/年），录取后学制内不涨。走 Minerva 系统，不走 OUAC。',
+   risk:'无兜底路径 —— 雅思不到 6.5 则全盘不成立'},
+
+  {g:'reach', p:3, name:'UBC · 温哥华', loc:'温哥华 · BC省', progs:['eng','cs','math','sci'],
+   gpa:'工程 90-94% · CS 92-95% · 理科 85-90%', verdict:'mid', gpaNote:'工程差 0.4 · 理科达标',
+   ielts:'6.5（单项 6.0）', langV:'mid', langPath:'Vantage 5.5（听说 5.0 / 读写 5.5）· CAP 6.0',
+   dls:[['2026-10-01','官网开放'],['2026-11-15','国际生奖学金轮'],['2027-01-15','申请截止'],['2027-01-31','ISP 须满足 ELAS/Vantage'],['2027-02-15','ELAS 材料截止']],
+   docs:['Personal Profile（必填）','高中成绩单','语言成绩','国际生奖学金申请（11/15）'],
+   note:'理科（85-90%）GPA 达标，工程差 0.4。<b>Vantage 门槛是 5.5 且读写须 5.5</b>，你读写 4.5 差 1.0 —— 这是最硬的卡点。Vantage 现仅剩 Engineering / Science 两轨（Management 无限期暂停）。',
+   risk:'读写 4.5 → 5.5 需整体提分，非单科突击可解'},
+
+  /* ---------- 现实目标 ---------- */
+  {g:'real', p:1, name:'渥太华', loc:'渥太华 · 安省', progs:['eng','cs','math','sci','psych','social'],
+   gpa:'软件工程 87% · 机械工程 84% · CS 80-87%', verdict:'ok', gpaNote:'全部达标',
+   ielts:'6.5（写作 6.5 / 其余 6.0）', langV:'ok', langPath:'EIP 语言班 4.0+ —— ✅ 你已达标',
+   dls:[['2026-09-17','申请开放'],['2027-01-15','推荐截止'],['2027-02-15','材料截止'],['2026-10-17','2027 冬季入学截止']],
+   docs:['高中成绩单','雅思（或走 EIP）','OUAC 申请','自动奖学金无需单独申请'],
+   note:'🎓 <b>本清单优先度第一</b>。唯一「GPA 够 + 雅思已达标 + 自动给钱」的完整闭环：International English Admission Scholarship 门槛为入学均分 ≥80%（你 89.6 稳过），' +
+        '<b>自动评审、不用单独申请</b>，C$7,500/学期、4 年最高 <b>C$60,000</b>，叠加 Academic Excellence C$10,000 可达 <b>C$70,000</b>。',
+   risk:'⚠️ 限额专业（多数工程、健康科学）用 1/15，别按 2/15 拖'},
+
+  {g:'real', p:1, name:'阿尔伯塔', loc:'埃德蒙顿 · 阿省', progs:['eng','cs','math','sci'],
+   gpa:'工程 85-88% · CS 82-88% · 数学 85-90%', verdict:'ok', gpaNote:'高出门槛 1.6 以上',
+   ielts:'6.5（单项 5.5）', langV:'mid', langPath:'EAP 5.0（单项 4.5）· 或 CCEL 双录',
+   dls:[['2026-10-01','Launchpad 开放'],['2027-01-10','入学奖截止'],['2027-03-01','申请截止'],['2027-08-01','材料截止（高中申请者）']],
+   docs:['中英对照高中成绩单','毕业证明 / 在读证明','会考成绩','语言成绩','申请费 C$150'],
+   note:'GPA 明显超出。<b>Year One Foundation 平行大一（2026 起开放工程方向，均分 70-75%）读完直升大二</b> —— 这是语言没到 6.0 时的弹性入口。' +
+        '🏆 每年约 C$5,200 万本科奖，<b>国际生自动参与评审、无需单独申请</b>。',
+   risk:'EAP 单项 4.5 —— 你听力/阅读 4.5 正好卡在下沿，没有余量'},
+
+  {g:'real', p:2, name:'皇后', loc:'金斯顿 · 安省', progs:['eng','cs','math','sci','psych','social'],
+   gpa:'工程 88% · CS 85-90% · 数学 80-85%', verdict:'ok', gpaNote:'工程 / CS 均达标',
+   ielts:'6.5（单项 6.0）', langV:'mid', langPath:'QBridge：EAP 5.5 / Accelerated 6.0',
+   dls:[['2026-10','QBridge 下一轮申请开放'],['2026-11-20','MAA 建议递 OUAC'],['2026-12-08','MAA SOLUS 截止'],['2027-02-01','商科/健康/护理截止'],['2027-03-01','其余专业申请截止'],['2027-03-31','全部材料截止']],
+   docs:['OUAC 申请','高中成绩单','英语成绩','商科/健康/护理需强制补充申请（2/15）'],
+   note:'⏰ <b>QBridge 申请窗口 10 月就开</b>（不是 2 月），两轨最低要 <b>5.5</b> —— 你差 0.5。这是「现在就要动」的最强理由。' +
+        '📊 2026Fall 实况：64,400 份申请（+8% 创校史），录取新生平均均分 92.3%。',
+   risk:'商科 / 健康科学门槛 94% —— 不可及，别浪费志愿'},
+
+  {g:'real', p:2, name:'卡尔加里', loc:'卡尔加里 · 阿省', progs:['eng','cs','math','sci','psych'],
+   gpa:'工程 85-90% · CS 80-85%', verdict:'ok', gpaNote:'达标',
+   ielts:'6.5（单项 5.5）', langV:'ok', langPath:'双录 5.0+ —— ✅ 你已达标',
+   dls:[['2026-08-15','国际生开放'],['2027-03-01','申请截止'],['2027-03-15','材料截止'],['2027-05-01','4/1 前 offer 须接受']],
+   docs:['高中成绩单','申请费 C$125（加方学历）/ C$145（国际学历）','语言成绩或走双录'],
+   note:'走自建系统、不走 OUAC，可填 <b>2 个专业志愿</b>；若先录第二志愿，新成绩到达后<b>自动重新考虑第一志愿、无需重新申请</b>。' +
+        '🆕 2026-09-24：高中课程须 <b>2027-06-30</b> 前完成、最终材料 <b>2027-08-01</b>。',
+   risk:'BScN 护理自 2026Fall 起改为 82% + 抽签，与通用健康科学口径不同'},
+
+  {g:'real', p:2, name:'Guelph', loc:'圭尔夫 · 安省', progs:['eng','cs','sci'],
+   gpa:'工程 88% · CS 89%', verdict:'ok', gpaNote:'CS 仅高 0.6，微踩线',
+   ielts:'6.5（单项 6.0）', langV:'ok', langPath:'ESL 双录 5.0+ —— ✅ 你已达标',
+   dls:[['2027-03-31','常规截止']],
+   docs:['OUAC 申请','高中成绩单','语言成绩或走 ESL'],
+   note:'理科强（农业 / 环境 / 生物）。工程 89.6 稳过；CS 门槛 89%，你只高 0.6，属于要拼一下的踩线项。',
+   risk:'CS 踩线，建议同校工程/理科做第二志愿'},
+
+  {g:'real', p:2, name:'TMU（原 Ryerson）', loc:'多伦多 · 安省', progs:['eng','cs','math','sci','psych'],
+   gpa:'工程 88% · CS 82%', verdict:'ok', gpaNote:'CS 高 7.6，稳妥',
+   ielts:'6.5（单项 6.0）', langV:'ok', langPath:'ESL 双录 5.0+ —— ✅ 你已达标',
+   dls:[['2027-03-31','常规截止']],
+   docs:['OUAC 申请','高中成绩单','语言成绩或走 ESL'],
+   note:'地理位置极佳（多伦多市中心），<b>CS 门槛 82% 你高出 7.6 分</b>，是现实档里最稳的一个；工程 88% 也达标。',
+   risk:'Nursing 92% 不可及'},
+
+  /* ---------- 保底 ---------- */
+  {g:'safe', p:1, name:'曼尼托巴', loc:'温尼伯 · 曼省', progs:['eng','cs','math','sci','psych'],
+   gpa:'工程 / CS 80-85%', verdict:'ok', gpaNote:'高出 4.6 以上',
+   ielts:'6.5（听力/阅读/写作/口语 每项 ≥6.0）', langV:'ok', langPath:'ELC IAEP 读至 Level 5 即有条件录取 · 或 ICM',
+   dls:[['2026-12-01','新奖申请截止'],['2027-03-01','秋季直入申请截止']],
+   docs:['高中成绩单（5 门高三课）','语言成绩','新奖需单独申请 + 推荐人（不得为家庭成员）'],
+   note:'💰 全国学费最低（本科约 1.8–2.4 万加元/年）+ <b>明确不要求会考或高考成绩</b>。' +
+        '🎓 新设 International Excellence Entrance Scholarship：1 名 <b>C$25,000</b> + 2 名 C$10,000，<b>需单独申请、截止 2026-12-01</b>；' +
+        '自动入学奖 95%+→C$3,000 / 90%+→C$2,000 / 85%+→C$1,000。',
+   risk:'⚠️ 奖学金那两档要 <b>90%</b> —— 你 89.6 差 0.4 分；⚠️ 英语四项每项 ≥6.0（不是 5.5）'},
+
+  {g:'safe', p:1, name:'SFU', loc:'温哥华 · BC省', progs:['eng','cs','math','sci'],
+   gpa:'工程 / CS 80-85%', verdict:'ok', gpaNote:'高出 4.6 以上',
+   ielts:'6.5（单项 6.0）', langV:'ok', langPath:'FIC 桥梁 5.0+ · 校内 ESL 8 级 × 8 周，Level 8 总评 ≥B+ 直升',
+   dls:[['2027-02-28','常规截止']],
+   docs:['高中成绩单','语言成绩或走 FIC / 校内 ESL'],
+   note:'两条官方双录通道：① 校内 ESL 语言中心（8 级 × 8 周、滚动开班，完成 <b>Level 8 且总评 ≥B+</b> 直接升本科正课，无需重考雅思）；' +
+        '② FIC 菲莎国际学院（本拿比主校区内，共享图书馆/实验室/学生卡）。',
+   risk:'🆕 认可考试清单更新（新增 LanguageCert、Duolingo 永久认可、TOEFL 新制 4.5），但不构成降门槛'},
+
+  {g:'safe', p:2, name:'卡尔顿', loc:'渥太华 · 安省', progs:['eng','cs','math','sci','psych','biz'],
+   gpa:'工程 / CS 78-84%', verdict:'ok', gpaNote:'高出 5.6 以上',
+   ielts:'6.5（各项 6.0）', langV:'ok', langPath:'Academic ESL 5.0+（与专业课同期修，无需先读独立语言班）',
+   dls:[['2026-10-15','2027 冬季 · 国际生截止'],['2027-01-15','安省高中生 OUAC'],['2027-03-01','专业单独截止'],['2027-03-05','补充材料截止'],['2027-04-01','秋季 · 国际生主截止'],['2027-06-01','加/美成绩单者截止']],
+   docs:['高中成绩单','语言成绩或走 ESL','申请费（直申 C$100 / OUAC 另有 $86.75 文件评估费）','部分专业作品集（建筑研究/工业设计/音乐）'],
+   note:'⚠️ <b>2026-09-24 更正</b>：国际生（成绩单来自加/美以外）<b>秋季主截止是 2027-04-01</b>，不是 3/31；' +
+        '建筑研究 / 工业设计 / 音乐 / 护理 / 社会工作有 <b>3/1 专业截止 + 3/5 补充材料</b>。与渥太华同城，性价比高。',
+   risk:'专业单独截止比主截止早一个月，别只看 4/1'},
+
+  {g:'safe', p:1, name:'温莎', loc:'温莎 · 安省', progs:['eng','cs','math','sci','psych','biz'],
+   gpa:'工程 / CS 75-80%', verdict:'ok', gpaNote:'高出近 10 分',
+   ielts:'6.5（单项 5.5）', langV:'ok', langPath:'ELIP 双录 <b>4.5+</b> —— 全清单最低门槛 ✅',
+   dls:[['2026-12-01','2027 冬季 · 需 PAL 的国际生'],['2027-01-04','2027 冬季截止'],['2027-04-01','2027 春季 · 国际生'],['2027-05-03','2027 春季截止']],
+   docs:['高中成绩单','语言成绩或走 ELIP'],
+   note:'<b>最稳保底</b>：GPA 高出近 10 分，双录门槛 4.5 是全清单最低。且提供冬季 / 春季两季入学，时间灵活。',
+   risk:'滚动录取，但需学签+PAL 的国际生有专门更早的死线'},
+
+  {g:'safe', p:2, name:'萨省 / 纽芬兰纪念', loc:'萨斯卡通 · 圣约翰斯', progs:['eng','cs','math','sci','psych'],
+   gpa:'萨省 70-78% · 纽芬兰 70-75%', verdict:'ok', gpaNote:'大幅超出',
+   ielts:'萨省 6.5(5.5) · 纽芬兰 6.5(读写 6.0)', langV:'ok', langPath:'两校均有 ESL 双录 5.0+ ✅',
+   dls:[['2027-03-01','萨省秋季截止'],['2027-03-01','纽芬兰秋季截止（滚动）'],['2026-10-01','纽芬兰冬季截止'],['2027-02-01','纽芬兰春季截止']],
+   docs:['高中成绩单','语言成绩或走 ESL'],
+   note:'两所都是学费低、门槛友好的保底。纽芬兰纪念学费全国最低；⚠️ 注意纽芬兰<b>读写单项要求 6.0</b>（比其他校严）。',
+   risk:'纽芬兰读写 6.0 是全清单里对单项要求最严的一所'},
+
+  {g:'safe', p:3, name:'戴尔豪斯 / 维多利亚 / 约克（理学院）', loc:'哈利法克斯 · 维多利亚 · 多伦多', progs:['eng','cs','math','sci','psych','social'],
+   gpa:'戴尔豪斯 80-85% · 维多利亚 80-85% · 约克 65-80%', verdict:'ok', gpaNote:'全部达标',
+   ielts:'戴尔豪斯 6.5(6.0) · 维多利亚 6.5(6.0) · 约克 6.5(6.0)', langV:'ok',
+   langPath:'戴尔豪斯 5.5+ · 维多利亚 UAP 6.0(5.5) / 桥梁 5.5(5.0) · 约克理学院 YUELI 5.0+ ✅',
+   dls:[['2026-11-18','约克 Winter 2027 截止'],['2027-01-31','维多利亚 9 月入学截止'],['2027-03-24','约克 Fall 2027 国际生'],['2027-04-01','戴尔豪斯（待官网终核）']],
+   docs:['高中成绩单','语言成绩或走双录','约克入学奖（11/1–1/27，90%+→C$37,500）'],
+   note:'约克理学院可双录且<b>入学奖窗口 11/1–1/27</b>（90%+ 档 C$37,500，89.6 差 0.4 落入 80-89.9% 的 C$25,000 档）。' +
+        '⚠️ <b>约克 Lassonde 工程要雅思 7.5 且不接受双录</b>，工程/CS 方向不要填约克。',
+   risk:'⚠️ 戴尔豪斯 2027 截止目前有三个来源口径冲突（3/15+材料3/29 / 2/15+6/1 / 4/1），待官网终核'},
+
+  /* ---------- 冲刺档补充 ---------- */
+  {g:'reach', p:2, name:'滑铁卢 · 数学/理科', loc:'滑铁卢 · 安省', progs:['math','sci'],
+   gpa:'数学 85-90% · 理科 80-85%', verdict:'ok', gpaNote:'数学达标、理科富余',
+   ielts:'6.5（写作 6.5 / 口语 6.5 / 阅读 6.0 / 听力 6.0）', langV:'bad',
+   langPath:'BASE 语言班<b>仅工程方向</b>；数学/理科须直录',
+   dls:[['2027-01-15','工程申请截止（材料 2/1）'],['2027-02-01','其余专业申请截止（材料 2/15）'],['2026-10-30','2027 冬季学期截止']],
+   docs:['OUAC 申请','Admission Information Form（AIF）','高中成绩单','语言成绩（仅接受 2025-05-01 后考出）'],
+   note:'GPA 达标（数学 85-90% 你 89.6 落在区间内）。🎓 <b>2027 年 9 月入学的全日制一年级国际自费生自动获 CAD 10,000 首年学费奖学金、无需申请</b>。' +
+        '🆕 2027 新增双学位「社会发展研究 + 社会工作学士」；Honours Arts 均分调整为 high 70s。',
+   risk:'⚠️ 语言是硬卡点：写作/口语要 6.5（你 5.5 / 5.0），且数学/理科<b>没有 BASE 语言班</b>；CS 97-98% 不可及'},
+
+  {g:'reach', p:2, name:'多大 · 士嘉堡（UTSC）', loc:'多伦多（东）· 安省', progs:['cs','math','sci','psych'],
+   gpa:'CS Low 90s（非 Co-op）/ High 90s（Co-op）· 数学 85-90%', verdict:'mid', gpaNote:'数学达标 · CS 踩线下沿',
+   ielts:'6.5（单项 6.0）', langV:'bad', langPath:'❌ <b>UTSC 无任何语言班 / 双录通道</b>',
+   dls:[['2027-01-15','网申截止（推荐早申 11/7）'],['2027-02-01','材料 + 部分专业补充申请']],
+   docs:['OUAC 105','高中成绩单','语言成绩（必须直录达标）','部分专业补充申请'],
+   note:'数学 / 理科 / 心理 GPA 都达标，<b>CS 踩在 Low 90s 的下沿</b>。2026-09 起 CS 分流扩为 5 方向，新增「人工智能与机器学习」（含 Co-op）。' +
+        '⚠️ 但 UTSC 是多大三校区里唯一<b>完全没有语言通道</b>的 —— 语言不达标连门都进不去。',
+   risk:'无语言兜底 + CS 踩线，双重风险；如要多大，优先看 UTM（有 IFP）'},
+
+  /* ---------- 现实目标补充 ---------- */
+  {g:'real', p:2, name:'韦士敦（Western）· CS', loc:'伦敦市 · 安省', progs:['cs','math','sci','psych'],
+   gpa:'CS 84% · 数学 mid 70s · 理科 80-85%', verdict:'ok', gpaNote:'CS 高 5.6，稳',
+   ielts:'6.5（单项 6.0）', langV:'mid', langPath:'Boost 语言班：总分 <b>5.5</b>（读写 5.5 / 听说 5.0）',
+   dls:[['2027-01-15','平等考虑截止（含 Ivey AEO 补充申请同日）']],
+   docs:['OUAC 申请','高中成绩单','语言成绩或走 Boost','Ivey AEO 需 2 篇 500 词文书 + Kira 视频（$200）'],
+   note:'<b>CS 门槛 84%，你高 5.6 分</b>，是现实档里偏稳的一个。9 周 Boost 语言班读完免雅思。⚠️ 你听力/阅读 4.5 不够 Boost 门槛（需 5.0）。' +
+        'Ivey AEO 走商科路径，Top6 low 90s + 1 门 12U 数学。',
+   risk:'⚠️ 工程 91% / 健康科学 91% 不可及；Boost 需单项 5.0，你两项 4.5 差 0.5'},
+
+  {g:'real', p:1, name:'多大 · 密西沙加（UTM）', loc:'密西沙加 · 安省', progs:['cs','math','sci','psych','biz'],
+   gpa:'CS Mid-high 80s（85-88%）· 数学 85-88% · 心理 Mid 70s', verdict:'ok', gpaNote:'CS 达标',
+   ielts:'6.5（单项 6.0）', langV:'mid', langPath:'🆕 <b>IFP@UTM（2027 年 9 月首开）</b>门槛待公布',
+   dls:[['2027-01-15','网申截止'],['2027-02-01','材料 + CS 补充申请']],
+   docs:['OUAC 105','高中成绩单','CS 需补充申请','语言成绩或走 IFP@UTM'],
+   note:'★ <b>这是「低门槛进多大」的最优解</b>：CS 门槛 85-88% 你达标；且 IFP 将于 2027 年 9 月首开于 UTM —— ' +
+        '入学即拿 U of T 有条件录取、语言课<b>计入毕业学分</b>、覆盖 180+ 专业 / 90 学科领域、小班 8-15 人、完成率 90%。' +
+        '⚠️ 这是 UTM <b>首次</b>从「不可双录」转为「可双录」。',
+   risk:'⚠️ IFP@UTM 的雅思门槛与截止<b>官方尚未公布</b>（参照 UTSG IFP 为 5.0-6.5/写作 5.5/单项 ≥5.0）—— 你单项 4.5 可能仍不够'},
+
+  /* ---------- 保底档补充 ---------- */
+  {g:'safe', p:2, name:'UBC Okanagan / Laurier / Brock / 康考迪亚', loc:'基洛纳 · 滑铁卢 · 圣凯瑟琳斯 · 蒙特利尔', progs:['eng','cs','math','sci','psych','biz'],
+   gpa:'UBC Okanagan 工程 80-85% · Laurier 工程 80-85% · Brock CS 75-80% · 康考迪亚 75-80%',
+   verdict:'ok', gpaNote:'全部大幅达标',
+   ielts:'Okanagan 6.5(6.0) · Laurier 6.5(6.0) · Brock 6.5(6.0) · 康考迪亚 <b>6.0(5.5)</b>',
+   langV:'ok',
+   langPath:'Okanagan EFP 未达标即可申 · Laurier/Brock ESL 5.0+ · 康考迪亚 ESL 5.0+',
+   dls:[['2027-01-15','UBC Okanagan 申请截止'],['2027-03-01','康考迪亚秋季截止（国际生建议 2/1）'],['2027-03-15','Laurier 春季截止'],['2027-03-31','Laurier / Brock 常规截止'],['2026-11-22','Laurier 冬季截止']],
+   docs:['高中成绩单','语言成绩或走 ESL','康考迪亚走自建系统、最多填 3 个志愿（至多 1 个 BComm）'],
+   note:'<b>UBC Okanagan 比温哥华校区低约 10 分</b>（工程 80-85%），且有 English Foundation Program 双录（未达标即可申）—— ' +
+        '想要 UBC 牌子这是最现实的入口。<b>康考迪亚直录仅 6.0(单项 5.5)</b>，是加拿大第四梯队里门槛最低的名校之一。',
+   risk:'⚠️ 约克 Lassonde 工程要雅思 7.5 且不接受双录，别填约克工程；康考迪亚英语成绩须 &lt;2 年有效'},
+
+  /* ---------- 不建议申 ---------- */
+  {g:'nogo', p:3, name:'多大 UTSG / 麦马 / 滑铁卢 CS', loc:'—— 原因：GPA 或语言硬性不可及', progs:['eng','cs','health','biz'],
+   gpa:'多大 UTSG 工程 92-95% / CS 93%（中位 97.2%）· 麦马 工程 92% / CS 94% / 健康 96% · 滑铁卢 CS 97-98%',
+   verdict:'bad', gpaNote:'你 89.6 差 2.4 ~ 8.2 分',
+   ielts:'均为 6.5(6.0) 起', langV:'bad', langPath:'麦克马斯特有 MELD 5.0 / STEP 6.5，但门槛够 ≠ 录取',
+   dls:[['2027-01-15','三家均为同日截止'],['2027-01-28','麦马 CS/工程补充申请截止']],
+   docs:['——'],
+   note:'这三所的问题<b>不是语言、是 GPA</b>：即使把雅思冲到 6.5，工程/CS 门槛仍差 2.4–8.2 分，且加拿大是<b>按分数排序择优</b>，' +
+        '85 分线以上的申请人数量远超名额。<b>把志愿和精力花在麦吉尔工程、皇后工程/CS、UTM CS 上，回报高得多。</b>',
+   risk:'⚠️ 唯一例外：麦克马斯特的<b>数学（85%）</b>你达标，可以单独考虑 —— 但麦马数学雅思仍要 6.5(6.0) 且无双录'},
+
+  /* ---------- 不建议申（第二张） ---------- */
+  {g:'nogo', p:3, name:'皇后商科/健康科学 · 麦吉尔 CS · 韦士敦工程 · 约克工程 · TMU Nursing', loc:'—— 原因：单专业门槛超线 1.4~4.4 分',
+   progs:['biz','health','eng','cs'],
+   gpa:'皇后商科 94% / 健康 94% · 麦吉尔 CS 93-95% · 韦士敦工程 91% · TMU Nursing 92%',
+   verdict:'bad', gpaNote:'差 1.4 ~ 4.4 分',
+   ielts:'6.5(6.0) 起 · 约克工程 <b>7.5 且不接受双录</b>', langV:'bad', langPath:'约克 Lassonde 工程不接受任何双录',
+   dls:[['2027-02-01','皇后商科/健康/护理截止'],['2027-02-15','皇后补充申请'],['2027-01-15','其余同日']],
+   docs:['——'],
+   note:'这些都是<b>同校内的「热专业」</b>，门槛比该校其他专业高一截。策略上应该<b>用同一所学校里你够得着的专业做志愿</b>：' +
+        '皇后改填<b>工程（88%）或 CS（85-90%）</b>；麦吉尔改填<b>工程（88-92%）</b>；约克改填<b>理学院</b>（工程要 7.5 且不双录）。',
+   risk:'⚠️ 韦士敦工程 91% 只差 1.4 —— 如果下学期均分能上 91 就重新评估'},
+
+  /* ---------- 澳洲 ---------- */
+  {g:'au', p:1, name:'UNSW（新南威尔士）', loc:'悉尼 · 澳洲', progs:['eng','cs','math','sci'],
+   gpa:'预科升学看预科 GPA（6.5–7.5 / 9.0）', verdict:'ok', gpaNote:'高中均分非唯一口径',
+   ielts:'Extended 预科 <b>5.0（单项 4.5）</b> ✅', langV:'ok', langPath:'Extended 15 个月 —— ✅ 你已达标',
+   dls:[['2027-01','国际大一 1 月批次'],['2027-08','国际大一 8 月批次'],['2027-04 / 2027-10','Standard 预科两批'],['2027-01 / 2027-07','Standard Plus 两批']],
+   docs:['高二/高三成绩单（均分 ≥75%）','雅思成绩','护照'],
+   note:'✅ <b>Extended 预科雅思 5.0（单项 4.5）你已达标</b>，是澳洲三校里唯一「零提分即可入读」的。' +
+        '⚠️ 国际大一（Diploma）2027 年取消 5 月批次，仅剩 1 月与 8 月。',
+   risk:'⚠️ Standard Plus 2027 学费口径存疑（中介 A$48,750 vs CRICOS 约 A$47,000），待官网终核'},
+
+  {g:'au', p:2, name:'昆士兰 UQ', loc:'布里斯班 · 澳洲', progs:['eng','cs','math','sci'],
+   gpa:'预科升学看预科 GPA（60%）', verdict:'ok', gpaNote:'高二/高三均分 ≥70% 即可入预科',
+   ielts:'标准预科 5.5(5.0) · IE 打包 5.0(5.0)', langV:'mid', langPath:'Integrated English + 预科打包 5.0（单项 5.0）',
+   dls:[['2026-08-04','QTAC 通道开放'],['2026-10-底','完整材料建议截止'],['2026-11-底','补交语言成绩最晚'],['2026-12-07','主要录取轮次截止'],['2027-01-中','确认录取 + 押金'],['2027-02-22','S1 开学']],
+   docs:['高二/高三成绩单','雅思成绩','可先无语言申请有条件录取'],
+   note:'标准预科要 5.5(5.0)，你差 0.5；<b>走 IE 打包 5.0(5.0) 你总分够、但单项需 5.0</b>（你听力/阅读 4.5）。' +
+        '💡 现在仍接受无语言成绩的有条件录取申请。',
+   risk:'单项 4.5 → 5.0 是能否入读的分水岭'},
+
+  {g:'au', p:2, name:'阿德莱德（Eynesbury）', loc:'阿德莱德 · 澳洲', progs:['eng','cs','math','sci'],
+   gpa:'预科升学看预科 GPA（60%）', verdict:'ok', gpaNote:'完成澳洲 Year 11 或等效即可',
+   ielts:'预科 5.5（无单项 <5.0）· 延伸预科 5.0(5.0)', langV:'mid', langPath:'延伸预科 5.0（单项 5.0）',
+   dls:[['2027-02 / 06 / 10','预科三批入学']],
+   docs:['高二/高三成绩单','雅思成绩','护照'],
+   note:'预科 2027 学费 <b>A$36,200</b>（8 或 12 个月，Feb/June/Oct 三批）。延伸预科 5.0(5.0) 你总分够、单项需 5.0。' +
+        '🆕 另有文凭路径（Diploma）2027：Stage 1 各专业 A$34,000；Stage 2 工程 A$45,000 / 计算机 A$42,400 / 商科 A$41,400。',
+   risk:'⚠️ 部分学位（如 Law）预科入学要 IELTS 6.5(6.5)，个别要 7.0，选学位时须逐个核'}
+];
+
+/* ============================================================
+   10 月日历 + 全量死线
+   cat: hot=硬死线(30天内) / warn=重要 / info=常规
+   ============================================================ */
+const CAL = [
+  {d:'2026-09-30', s:'国内路径', t:'东华大学 2+2 报名截止（额满即止）', c:'hot',
+   x:'计划 150 人。免笔试条件满足其一即可直进面试：高考达当地本科线 / 高考英语 ≥100 / <b>雅思 ≥5.0</b> / 托福 ≥60。上海本地、对接澳新 —— 是当前唯一「既达标又还赶得上」的秋季批次。'},
+  {d:'2026-10-01', s:'阿尔伯塔', t:'2027 秋季申请开放（Launchpad）', c:'warn',
+   x:'多数专业 2027-03-01 截止，但入学奖 <b>2027-01-10</b> 截止 —— 想拿奖就不能等到 3 月。国际生自动参与奖学金评审。'},
+  {d:'2026-10-01', s:'UBC', t:'2027 冬季 + 夏季学期申请开放', c:'warn',
+   x:'申请截止 2027-01-15（PT 23:59）；国际生奖学金轮 <b>2026-11-15</b>；ISP 申请者须 2027-01-31 前满足 ELAS/Vantage 语言要求。'},
+  {d:'2026-10-09', s:'多大', t:'Lester B. Pearson 国际奖学金 · 校提名截止（12:00 EST）', c:'hot',
+   x:'⚠️ <b>每所中学每年仅提名 1 人</b>。约 37 人/年，四年全额学费 + 住宿 + 书本 + 杂费（单份价值 >CAD 20 万）。想争就必须现在就找中学升学指导报名内推。'},
+  {d:'2026-10-15', s:'卡尔顿', t:'2027 冬季（1月）入学 · 国际生截止', c:'warn',
+   x:'成绩单来自加拿大/美国以外者适用（你适用）。仅部分专业开放冬季入学。'},
+  {d:'2026-10-16', s:'多大', t:'Pearson 奖学金须已完成 OUAC 入学申请', c:'info',
+   x:'没在 10/16 前递 OUAC，奖学金申请作废。'},
+  {d:'2026-10-17', s:'渥太华', t:'2027 冬季（1月）入学申请截止', c:'warn',
+   x:'材料与语言成绩 <b>2026-11-01</b> 截止。冬季可选专业有限。'},
+  {d:'2026-10-22', s:'滑铁卢', t:'CSMC 加拿大高级数学竞赛报名截止', c:'info',
+   x:'竞赛不是录取必需，但<b>影响数学院的奖学金决定</b>。数学院方向建议报。'},
+  {d:'2026-10-30', s:'滑铁卢', t:'2027 冬季学期申请截止', c:'info',
+   x:'材料 2026-11-27；post-degree 2026-11-13 / 材料 12-04。'},
+  {d:'2026-10', s:'皇后', t:'QBridge 下一轮申请开放', c:'hot',
+   x:'⚠️ <b>QBridge 不是 2 月才开，10 月就开</b>。两轨最低要求：EAP 5.5 / Accelerated 6.0 —— 你 5.0 差 0.5。<b>这是本月最该盯的一条。</b>'},
+  {d:'2026-10', s:'IRCC', t:'开始养 6 个月银行流水（签证资金）', c:'hot',
+   x:'⚠️ IRCC 2026-07-24 新规：<b>资金来源须在所有案件中评估</b>，银行流水由 4 个月改为 <b>6 个月</b>，须覆盖递交当月或前一个月。' +
+     '按 2027 年 5 月递交签证倒推，<b>10 月就该把钱放进账户并开始走流水</b>，别在递交前一两周转大额。'},
+
+  {d:'2026-11-01', s:'约克', t:'2027 国际生入学奖窗口开放（至 1/27）', c:'warn',
+   x:'90%+ →C$37,500 / 80-89.9% →<b>C$25,000</b> / 75-79.9% →C$5,000。你 89.6 落入 C$25,000 档。'},
+  {d:'2026-11-06', s:'多大', t:'Pearson 奖学金材料截止', c:'info', x:'校提名后须在此时前交齐奖学金材料。'},
+  {d:'2026-11-07', s:'多大', t:'推荐早申递交 OUAC', c:'warn',
+   x:'进入优先审理池、奖学金同步审核。正式截止 2027-01-15（工程/音乐）/ 2027-02-01（其余）。'},
+  {d:'2026-11-12', s:'滑铁卢', t:'视光学（Optometry）申请截止', c:'info', x:'非你方向，仅存档。'},
+  {d:'2026-11-15', s:'UBC', t:'国际生奖学金轮截止', c:'warn',
+   x:'要拿 UBC International Scholars Program 奖，必须在此前完成申请 + 提交奖学金申请。'},
+  {d:'2026-11-15', s:'卡尔顿', t:'2027 冬季 · 加/美成绩单者截止', c:'info', x:'你适用的是 10/15 那条。'},
+  {d:'2026-11-18', s:'约克', t:'2027 冬季入学申请截止', c:'info', x:''},
+  {d:'2026-11-20', s:'皇后', t:'建议在此前递 OUAC（为 MAA 奖学金留取号时间）', c:'warn',
+   x:'递 OUAC 后约需 1 周才能在 SOLUS 看到 MAA 申请入口。'},
+  {d:'2026-11-22', s:'Laurier', t:'2027 冬季入学截止', c:'info', x:''},
+  {d:'2026-11-27', s:'滑铁卢', t:'2027 冬季学期材料截止', c:'info', x:''},
+
+  {d:'2026-12-01', s:'曼尼托巴', t:'International Excellence 奖学金申请截止', c:'hot',
+   x:'⚠️ 1 名 <b>C$25,000</b> + 2 名 C$10,000。<b>需单独申请</b>，且申请/材料/推荐人<b>同日截止</b>，推荐人不得为家庭成员。门槛：五门高三课均分 ≥90% —— 你 89.6 差 0.4。'},
+  {d:'2026-12-01', s:'温莎', t:'2027 冬季 · 需 PAL 的国际生截止', c:'info', x:''},
+  {d:'2026-12-07', s:'昆士兰 UQ', t:'2027 S1 主要录取轮次截止（QTAC）', c:'warn',
+   x:'2026-10~2027-02 发 offer，2027-02-22 开学。补交语言成绩最晚 2026-11 底。'},
+  {d:'2026-12-08', s:'皇后', t:'MAA 奖学金 SOLUS 截止', c:'warn', x:'Major Admission Award 申请在此截止。'},
+
+  {d:'2027-01-10', s:'阿尔伯塔', t:'入学奖申请截止', c:'warn', x:'国际生自动参与评审，但此项为独立入学奖节点，勿错过。'},
+  {d:'2027-01-15', s:'多大 / UBC / 滑铁卢 / 麦马 / 韦士敦', t:'申请截止（集中日）', c:'hot',
+   x:'多大工程/音乐 + UBC 全部本科 + 滑铁卢工程 + 麦马全部本科 + 韦士敦（含 Ivey AEO）。<b>本季最密集的一天。</b>'},
+  {d:'2027-01-15', s:'渥太华', t:'推荐截止（限额专业同用）', c:'warn', x:'限额专业含多数工程与健康科学，别按 2/15 拖。'},
+  {d:'2027-01-15', s:'卡尔顿', t:'安省高中生 OUAC 网申截止', c:'info', x:''},
+  {d:'2027-01-15', s:'麦吉尔', t:'海外 / 美国学制申请者截止', c:'hot', x:'材料截止 2027-03-01。走 Minerva 系统。'},
+  {d:'2027-01-27', s:'约克', t:'2027 国际生入学奖窗口关闭', c:'info', x:''},
+  {d:'2027-01-28', s:'麦克马斯特', t:'CS / 工程 / B.Tech / iBioMed 补充申请截止（23:59 ET）', c:'warn', x:'Kira Talent，同院多专业只填一次。'},
+  {d:'2027-01-31', s:'UBC', t:'ISP 申请者须满足 ELAS / Vantage 语言要求 + 交齐材料', c:'hot',
+   x:'⚠️ 这是语言达标的硬节点 —— 雅思必须在此时前到 5.5（读写 5.5）或 6.5。'},
+
+  {d:'2027-02-01', s:'皇后', t:'商科 / 健康科学 / 护理 申请截止', c:'hot',
+   x:'强制补充申请 <b>2027-02-15</b> 截止，逾期不受理。⚠️ 这三个专业门槛均为 94%，你 89.6 不可及 —— 只作存档。'},
+  {d:'2027-02-01', s:'多大 / 滑铁卢', t:'多大文理/建筑等 + 滑铁卢其余专业申请截止', c:'hot',
+   x:'滑铁卢材料 2027-02-15；多大材料 2027-02-01。'},
+  {d:'2027-02-15', s:'UBC / 渥太华 / 皇后', t:'材料与补充申请截止', c:'warn',
+   x:'UBC ELAS 材料 2/15；渥太华材料 2/15；皇后商科/健康/护理补充申请 2/15。'},
+  {d:'2027-02-19', s:'麦克马斯特', t:'入学奖（AwardSpring）截止 23:59 ET', c:'warn', x:'卓越奖最高 CAD 20 万。'},
+  {d:'2027-02-26', s:'滑铁卢', t:'2027 春季学期申请截止', c:'info', x:'材料 2027-03-26。'},
+
+  {d:'2027-03-01', s:'阿尔伯塔 / 卡尔加里 / 曼尼托巴 / 萨省 / 纽芬兰纪念', t:'申请截止（集中日）', c:'hot',
+   x:'<b>保底档的集中死线</b>。阿尔伯塔材料 8/1；卡尔加里材料 3/15；曼尼托巴直入截止。'},
+  {d:'2027-03-01', s:'皇后', t:'其余全部一年级专业申请截止', c:'hot', x:'材料 2027-03-31。'},
+  {d:'2027-03-01', s:'卡尔顿', t:'专业单独截止（建筑研究/工业设计/音乐/护理/社工）+ Prestige 奖学金', c:'warn',
+   x:'补充材料 2027-03-05 截止。'},
+  {d:'2027-03-05', s:'卡尔顿', t:'补充材料截止', c:'info', x:''},
+  {d:'2027-03-05', s:'滑铁卢', t:'Olympiad / Global / National 奖学金申请截止', c:'info', x:'数学院方向。'},
+  {d:'2027-03-11', s:'滑铁卢', t:'Euclid 数学竞赛报名截止', c:'info', x:'数学院奖学金参考。'},
+  {d:'2027-03-15', s:'卡尔加里', t:'材料截止', c:'warn', x:'高中课程须 2027-06-30 前完成。'},
+  {d:'2027-03-24', s:'约克', t:'Fall 2027 国际生截止', c:'warn', x:'以各专业实际截止为准，建议提前一个月递交。'},
+  {d:'2027-03-31', s:'皇后 / Guelph / TMU / 卡尔顿(加美)', t:'材料截止 / 常规截止', c:'hot',
+   x:'皇后<b>全部材料</b>（含成绩单与英语成绩）3/31 截止 —— 语言成绩也必须在这之前到位。'},
+  {d:'2027-04-01', s:'卡尔顿', t:'秋季 · 国际生主截止（成绩单来自加/美以外）', c:'hot',
+   x:'⚠️ <b>2026-09-24 更正</b>：此前记 3/31，实际为 4/1。'},
+  {d:'2027-04-01', s:'戴尔豪斯', t:'申请截止（口径待官网终核）', c:'info',
+   x:'⚠️ 三个来源口径冲突：3/15+材料3/29 / 2/15奖学+6/1常规 / 4/1。递交前务必官网确认。'},
+  {d:'2027-05-01', s:'UBC / 卡尔加里 / 皇后', t:'接受 offer / 早期 offer 回复截止', c:'warn',
+   x:'UBC 接受 offer 为 5/1 或 6/1（以录取信为准）；卡尔加里 4/1 前发出的 offer 须 5/1 接受。'},
+  {d:'2027-05-31', s:'UBC', t:'境外大学申请者材料截止（美国 3/15）', c:'info', x:''},
+  {d:'2027-06-01', s:'卡尔顿 / 皇后', t:'加/美成绩单者截止 / Group A offer 回复 + 住宿押金', c:'info', x:''},
+  {d:'2027-06-30', s:'卡尔加里 / UBC', t:'高中课程须全部完成', c:'info', x:''},
+  {d:'2027-08-01', s:'卡尔加里 / 阿尔伯塔(高中申请者)', t:'最终材料截止', c:'info', x:''}
+];
+
+/* ============================================================
+   渲染
+   ============================================================ */
+const PROG_LABEL = {cs:'CS', eng:'工程', math:'数学', sci:'理科'};
+const V_LABEL = {ok:'GPA 达标', mid:'踩线', bad:'差远'};
+
+function daysTo(d){
+  const a = new Date(TODAY + 'T00:00:00').getTime();
+  const b = new Date(d + 'T00:00:00').getTime();
+  return Math.round((b - a) / 86400000);
+}
+function countTag(d){
+  const n = daysTo(d);
+  if (n < 0) return '<span class="count past">已过期</span>';
+  if (n <= 30) return '<span class="count hot">剩 ' + n + ' 天</span>';
+  if (n <= 90) return '<span class="count warn">剩 ' + n + ' 天</span>';
+  return '<span class="count info">剩 ' + n + ' 天</span>';
+}
+
+function renderGroups(){
+  const host = document.getElementById('groups');
+  host.innerHTML = GROUPS.map(function(G){
+    const list = SC.filter(function(s){ return s.g === G.key; });
+    if (!list.length) return '';
+    const cards = list.map(function(s){
+      const pcls = s.p === 1 ? 'p1' : (s.p === 2 ? 'p2' : 'p3');
+      const dls = s.dls.map(function(d){
+        const n = daysTo(d[0]);
+        const cls = n >= 0 && n <= 30 ? ' hot' : (n >= 0 && n <= 90 ? ' soon' : '');
+        return '<span class="' + cls.trim() + '">' + d[0] + ' · ' + d[1] + '</span>';
+      }).join('');
+      const progs = s.progs.map(function(p){ return '<span class="tag ok">' + PROG_LABEL[p] + '</span>'; }).join('');
+      const vcls = s.verdict === 'ok' ? 'ok' : (s.verdict === 'mid' ? 'mid' : 'bad');
+      return '<div class="card ' + pcls + '" data-progs="' + s.progs.join(',') + '">'
+        + '<div class="card-top"><div class="nm">' + s.name + '</div><div class="loc">' + s.loc + '</div></div>'
+        + '<div class="rowline"><div class="k">方向</div><div class="v">' + progs + '</div></div>'
+        + '<div class="rowline"><div class="k">GPA</div><div class="v">' + s.gpa
+        + '<span class="tag ' + vcls + '">' + V_LABEL[s.verdict] + '｜' + s.gpaNote + '</span></div></div>'
+        + '<div class="rowline"><div class="k">雅思</div><div class="v">' + s.ielts
+        + '<span class="tag ' + (s.langV === 'ok' ? 'ok' : (s.langV === 'mid' ? 'mid' : 'bad')) + '">'
+        + (s.langV === 'ok' ? '有达标通道' : (s.langV === 'mid' ? '差半步' : '必须直录')) + '</span></div></div>'
+        + '<div class="rowline"><div class="k">语言路径</div><div class="v">' + s.langPath + '</div></div>'
+        + '<div class="dl">' + dls + '</div>'
+        + '<div class="cardnote">' + s.note + '</div>'
+        + '<div class="cardnote" style="border-top:none;padding-top:4px"><b style="color:var(--c-danger)">⚠️ 风险</b>：' + s.risk + '</div>'
+        + '</div>';
+    }).join('');
+    return '<div class="group">'
+      + '<div class="group-head"><span class="group-badge ' + G.cls + '">' + G.title + '</span>'
+      + '<span class="gtitle">' + list.length + ' 所</span>'
+      + '<span class="gdesc">' + G.desc + '</span></div>'
+      + '<div class="group-body">' + cards + '</div></div>';
+  }).join('');
+}
+
+function renderTimeline(){
+  const host = document.getElementById('tl');
+  const sorted = CAL.slice().sort(function(a,b){ return a.d < b.d ? -1 : 1; });
+  const oct = sorted.filter(function(x){ return x.d.indexOf('2026-10') === 0; });
+  const rest = sorted.filter(function(x){ return x.d.indexOf('2026-10') !== 0 && x.c !== 'info'; });
+  const boxes = oct.concat(rest);
+  host.innerHTML = boxes.map(function(x){
+    const label = x.d.length === 7 ? x.d + '（整月）' : x.d;
+    return '<div class="tl-item ' + (x.c === 'hot' ? 'hot' : (x.c === 'warn' ? 'warn' : 'info')) + '">'
+      + '<div class="tl-date">' + label + ' &nbsp;·&nbsp; ' + x.s + '</div>'
+      + '<div class="tl-card"><div class="t">' + x.t + countTag(x.d) + '</div>'
+      + (x.x ? '<div class="d">' + x.x + '</div>' : '')
+      + '</div></div>';
+  }).join('');
+}
+
+function renderDeadlines(){
+  const host = document.getElementById('dlbody');
+  const sorted = CAL.slice().sort(function(a,b){ return a.d < b.d ? -1 : 1; });
+  host.innerHTML = sorted.map(function(x){
+    const cls = x.c === 'hot' ? 'hot' : (x.c === 'warn' ? 'warn' : '');
+    const badge = x.c === 'hot' ? '<span class="tag bad">硬死线</span>'
+                : (x.c === 'warn' ? '<span class="tag mid">重要</span>' : '<span class="tag ok">常规</span>');
+    return '<tr class="' + cls + '"><td class="d">' + x.d + '</td><td>' + x.s + '</td>'
+      + '<td>' + x.t + (x.x ? '<div class="mono" style="margin-top:3px">' + x.x.replace(/<[^>]+>/g,'') + '</div>' : '') + '</td>'
+      + '<td>' + badge + '</td></tr>';
+  }).join('');
+}
+
+/* tabs */
+document.querySelectorAll('.tab-btn[data-tab]').forEach(function(b){
+  b.addEventListener('click', function(){
+    document.querySelectorAll('.tab-btn[data-tab]').forEach(function(x){ x.classList.remove('active'); });
+    b.classList.add('active');
+    ['list','cal','dl'].forEach(function(k){
+      document.getElementById('tab-' + k).classList.toggle('hide', k !== b.dataset.tab);
+    });
+  });
+});
+
+/* 专业筛选 */
+document.querySelectorAll('.chip[data-prog]').forEach(function(c){
+  c.addEventListener('click', function(){
+    document.querySelectorAll('.chip[data-prog]').forEach(function(x){ x.classList.remove('active'); });
+    c.classList.add('active');
+    const p = c.dataset.prog;
+    document.querySelectorAll('.card').forEach(function(card){
+      const ok = p === 'all' || card.dataset.progs.split(',').indexOf(p) >= 0;
+      card.classList.toggle('hide', !ok);
+    });
+    document.querySelectorAll('.group').forEach(function(g){
+      const any = g.querySelectorAll('.card:not(.hide)').length > 0;
+      g.classList.toggle('hide', !any);
+    });
+  });
+});
+
+renderGroups();
+renderTimeline();
+renderDeadlines();
+</script>
+</body>
+</html>
