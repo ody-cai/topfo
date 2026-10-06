@@ -112,11 +112,11 @@
 
   <div class="tl-update">
     <span data-i18n="tl.dataSource">数据：各校官网 + OUAC/EPBC + IRCC | ✔已核实(2026-09) / ◐参考上一季(以当年官网为准)</span>
-    <span class="fresh" id="updateDate" data-i18n="tl.lastUpdate">最后更新：2026-09-08</span>
+    <span class="fresh" id="updateDate" data-i18n="tl.lastUpdate">最后更新：2026-10-06</span>
   </div>
 
   <div class="phase-note">
-    <b>📌 2026-09-08 核实要点：</b>OUAC（安省）2027 Fall 申请已于 2026 年 9 月下旬前后开放，安省普遍<b>平等考虑截止 2027-01-15</b>（多大 UTSG/UTM/UTSC、麦马、皇后、韦士敦含 Ivey AEO 均为同日参考）；UBC 走 EducationPlannerBC，约 <b>2026-10-01 开放</b>；麦吉尔国际生截止 2027-01-15。<b>你的个人节奏：2026-11 前完成雅思重考出分</b>（多数校 2 月前送分），双录/直录同轮申请，语言成绩最晚可后补至 4 月中旬（各校不同）。
+    <b>📌 2026-10-06 核实要点：</b>本轮复核：多大官方 2027 三张表与现表一致（材料 工程/音乐 1/15、其余 2/1；补充 工程 OSP 1/15、其余 2/1；早申推荐 <b>11/7</b> + 材料 <b>12/1</b>）；<b>⚠️SFU 申请截止更正为 2027-01-31</b>（2/28 为材料截止）、<b>⚠️TMU 2027 Fall 平等考虑 2027-02-01</b>、语言成绩 2027-04-01；阿尔伯塔 Bridging <b>Stage 1 = IELTS 5.0(单项≥4.5)</b>；<b>⏰最近死线：10/9 12:00 EST 多大 Pearson 校提名 → 10/15 Loran Scholars + 卡尔顿冬季国际生 → 11/7 多大早申推荐日</b>。<br><b>📌 2026-09-08 核实要点（存档）：</b>OUAC（安省）2027 Fall 申请已于 2026 年 9 月下旬前后开放，安省普遍<b>平等考虑截止 2027-01-15</b>（多大 UTSG/UTM/UTSC、麦马、皇后、韦士敦含 Ivey AEO 均为同日参考）；UBC 走 EducationPlannerBC，约 <b>2026-10-01 开放</b>；麦吉尔国际生截止 2027-01-15。<b>你的个人节奏：2026-11 前完成雅思重考出分</b>（多数校 2 月前送分），双录/直录同轮申请，语言成绩最晚可后补至 4 月中旬（各校不同）。
   </div>
 
   <!-- 倒计时 -->
@@ -332,7 +332,7 @@ function updateProg(done){
   renderTimeline();
   renderChecks();
   // 取数据实际更新日期（固定常量），不再用 new Date()（UTC 00:00-08:00 会跨日造成虚报"今日已更新"）
-  const d = '2026-09-08';
+  const d = '2026-10-06';
   const el = $('updateDate');
   if(el){
     const _fb = '最后更新：' + d;
