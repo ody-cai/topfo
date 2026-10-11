@@ -1,3 +1,6 @@
+// 数据版本日期（唯一来源）：页面「最后更新」一律读此常量，禁止在各页写死字面量
+const DATA_REV_DATE = '2026-10-11';
+
 // 个人 GPA/IELTS 数据存储于服务端，登录后通过 POST /api/login + GET /api/me/data 获取
 // 前端不含任何个人敏感数据
 const PROGRAMS = {

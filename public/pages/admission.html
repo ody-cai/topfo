@@ -505,8 +505,9 @@ if(isLoggedIn) {
   renderTables();
 }
 (function(){
-  // 取数据的实际更新日期（固定常量），不再用 new Date()（UTC 00:00-08:00 会跨日）
-  const _d = '2026-09-24';
+  // 取数据的实际更新日期：优先读 data.js 的 DATA_REV_DATE（唯一来源），缺失时才用兜底值
+  // 不再用 new Date()（UTC 00:00-08:00 会跨日），也不在本页写死真实日期
+  const _d = (typeof DATA_REV_DATE !== 'undefined' && DATA_REV_DATE) || '2026-10-11';
   const _fb = '最后更新：' + _d;
   document.getElementById('updateDate').textContent = typeof I18N !== 'undefined' ? I18N.tOr('admission.lastUpdate', _fb, {date: _d}) : _fb;
 })();
