@@ -112,7 +112,7 @@
 
   <div class="tl-update">
     <span data-i18n="tl.dataSource">数据：各校官网 + OUAC/EPBC + IRCC | ✔已核实(2026-09) / ◐参考上一季(以当年官网为准)</span>
-    <span class="fresh" id="updateDate" data-i18n="tl.lastUpdate">最后更新：2026-10-12</span>
+    <span class="fresh" id="updateDate" data-i18n="tl.lastUpdate">最后更新：2026-10-13</span>
   </div>
 
   <div class="phase-note">
@@ -332,7 +332,7 @@ function updateProg(done){
   renderTimeline();
   renderChecks();
   // 取数据实际更新日期（固定常量），不再用 new Date()（UTC 00:00-08:00 会跨日造成虚报"今日已更新"）
-  const d = '2026-10-12';  // 本页不加载 data.js，须手动与 DATA_REV_DATE 保持一致
+  const d = '2026-10-13';  // 本页不加载 data.js，须手动与 DATA_REV_DATE 保持一致
   const el = $('updateDate');
   if(el){
     const _fb = '最后更新：' + d;
@@ -380,5 +380,5 @@ function updateProg(done){
 </div>
 
 </body>
-<!-- delpoy_rev_10121 -->
+<!-- delpoy_rev_10131 -->
 </html>
