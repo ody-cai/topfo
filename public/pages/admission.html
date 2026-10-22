@@ -197,7 +197,7 @@ tbody tr:hover{background:var(--c-bg)}
 
   <div class="update-bar">
     <span data-i18n="admission.dataSource">数据：各校官网 + uniscope.ca + eic.org.cn | 雅思/GPA/双录/Co-op/学费/截止日期</span>
-    <span class="fresh" id="updateDate" data-i18n="admission.lastUpdate">最后更新：2026-10-21</span>
+    <span class="fresh" id="updateDate" data-i18n="admission.lastUpdate">最后更新：2026-10-22</span>
   </div>
 
   <!-- 匹配速览：登录后显示 -->
@@ -507,7 +507,7 @@ if(isLoggedIn) {
 (function(){
   // 取数据的实际更新日期：优先读 data.js 的 DATA_REV_DATE（唯一来源），缺失时才用兜底值
   // 不再用 new Date()（UTC 00:00-08:00 会跨日），也不在本页写死真实日期
-  const _d = (typeof DATA_REV_DATE !== 'undefined' && DATA_REV_DATE) || '2026-10-21';
+  const _d = (typeof DATA_REV_DATE !== 'undefined' && DATA_REV_DATE) || '2026-10-22';
   const _fb = '最后更新：' + _d;
   document.getElementById('updateDate').textContent = typeof I18N !== 'undefined' ? I18N.tOr('admission.lastUpdate', _fb, {date: _d}) : _fb;
 })();
